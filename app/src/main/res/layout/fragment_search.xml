@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.example.renhao.wevolunteer.view.FractionTranslateLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="3dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="30dp"
+                android:background="#05b0ad"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:text="搜索选项"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_search_activity"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_border_gray_oval_select"
+                android:gravity="center"
+                android:padding="2dp"
+                android:text="活动"/>
+
+            <TextView
+                android:id="@+id/tv_search_job"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_border_gray_oval"
+                android:gravity="center"
+                android:padding="2dp"
+                android:text="岗位"/>
+
+            <TextView
+                android:id="@+id/tv_search_organization"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_border_gray_oval"
+                android:gravity="center"
+                android:padding="2dp"
+                android:text="组织"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="3dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="30dp"
+                android:background="#05b0ad"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:text="历史记录"/>
+        </LinearLayout>
+
+        <GridView
+            android:id="@+id/gridview_search_history"
+            android:layout_margin="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:numColumns="4"
+            android:verticalSpacing="16dp">
+
+        </GridView>
+
+        <Button
+            android:id="@+id/btn_search_clearHistory"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="清空历史记录"/>
+    </LinearLayout>
+</com.example.renhao.wevolunteer.view.FractionTranslateLayout>

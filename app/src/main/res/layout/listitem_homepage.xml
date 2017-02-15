@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@color/white"/>
+
+    <RelativeLayout
+        android:id="@+id/relative_listitem_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorShadllowCyan">
+
+        <ImageView
+            android:id="@+id/imageview_homepage_itemImage"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/listitem_homepage_height"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="@dimen/listitem_homepage_margin"
+            android:scaleType="fitXY"/>
+
+        <RelativeLayout
+            android:id="@+id/relative_listitem"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/textview_listview_size"
+            android:layout_alignBottom="@id/imageview_homepage_itemImage"
+            android:layout_alignEnd="@id/imageview_homepage_itemImage"
+            android:layout_alignLeft="@id/imageview_homepage_itemImage"
+            android:layout_alignRight="@id/imageview_homepage_itemImage"
+            android:layout_alignStart="@id/imageview_homepage_itemImage"
+            android:background="@color/colorTransparentDark">
+
+            <TextView
+                android:id="@+id/textview_listitem_type"
+                android:layout_width="@dimen/textview_listview_size"
+                android:layout_height="@dimen/textview_listview_size"
+                android:background="@color/colorCyan"
+                android:gravity="center"
+                android:padding="@dimen/textview_listview_paddingBig"
+                android:text="活动"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/textview_listview_textsizeBig"/>
+
+            <TextView
+                android:id="@+id/textview_listitem_tilte"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/textview_listview_margin"
+                android:layout_marginStart="@dimen/textview_listview_margin"
+                android:layout_marginTop="@dimen/textview_listview_margin"
+                android:layout_toEndOf="@id/textview_listitem_type"
+                android:layout_toRightOf="@id/textview_listitem_type"
+                android:gravity="center"
+                android:singleLine="true"
+                android:text="托起心中的太阳 慈溪市自信心困境教育帮助"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/textview_listview_textsize"/>
+
+            <TextView
+                android:id="@+id/tv_listitem_numName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="@dimen/textview_listview_margin"
+                android:layout_marginLeft="@dimen/textview_listview_margin"
+                android:layout_marginStart="@dimen/textview_listview_margin"
+                android:layout_toEndOf="@id/textview_listitem_type"
+                android:layout_toRightOf="@id/textview_listitem_type"
+                android:background="@color/colorCyan"
+                android:paddingBottom="@dimen/textview_listview_paddingSmall"
+                android:paddingLeft="@dimen/textview_listview_paddingBig"
+                android:paddingRight="@dimen/textview_listview_paddingBig"
+                android:paddingTop="@dimen/textview_listview_paddingSmall"
+                android:text="活动招募人数"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/textview_listview_textsizeSmall"/>
+
+            <TextView
+                android:id="@+id/tv_listitem_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="@dimen/textview_listview_margin"
+                android:layout_toEndOf="@id/tv_listitem_numName"
+                android:layout_toRightOf="@id/tv_listitem_numName"
+                android:background="@drawable/tv_border_cyan"
+                android:paddingBottom="@dimen/textview_listview_paddingSmall"
+                android:paddingLeft="@dimen/textview_listview_paddingBig"
+                android:paddingRight="@dimen/textview_listview_paddingBig"
+                android:paddingTop="@dimen/textview_listview_paddingSmall"
+                android:text="64/100人"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/textview_listview_textsizeSmall"/>
+
+            <TextView
+                android:id="@+id/tv_listitem_timeName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="@dimen/textview_listview_margin"
+                android:layout_marginLeft="@dimen/textview_listview_margin"
+                android:layout_marginStart="@dimen/textview_listview_margin"
+                android:layout_toEndOf="@id/tv_listitem_num"
+                android:layout_toRightOf="@id/tv_listitem_num"
+                android:background="@color/colorCyan"
+                android:paddingBottom="@dimen/textview_listview_paddingSmall"
+                android:paddingLeft="@dimen/textview_listview_paddingBig"
+                android:paddingRight="@dimen/textview_listview_paddingBig"
+                android:paddingTop="@dimen/textview_listview_paddingSmall"
+                android:text="活动服时长"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/textview_listview_textsizeSmall"/>
+
+            <TextView
+                android:id="@+id/tv_listitem_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="@dimen/textview_listview_margin"
+                android:layout_toEndOf="@id/tv_listitem_timeName"
+                android:layout_toRightOf="@id/tv_listitem_timeName"
+                android:background="@drawable/tv_border_cyan"
+                android:paddingBottom="@dimen/textview_listview_paddingSmall"
+                android:paddingLeft="@dimen/textview_listview_paddingBig"
+                android:paddingRight="@dimen/textview_listview_paddingBig"
+                android:paddingTop="@dimen/textview_listview_paddingSmall"
+                android:text="11小时"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/textview_listview_textsizeSmall"/>
+
+            <TextView
+                android:id="@+id/tv_listitem_state"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="@dimen/textview_listview_margin"
+                android:layout_marginRight="@dimen/textview_listview_margin"
+                android:background="@color/colorCyan"
+                android:paddingBottom="@dimen/textview_listview_paddingSmall"
+                android:paddingLeft="@dimen/textview_listview_paddingBig"
+                android:paddingRight="@dimen/textview_listview_paddingBig"
+                android:paddingTop="@dimen/textview_listview_paddingSmall"
+                android:text="招募中"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/textview_listview_textsizeSmall"/>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+
+
+</LinearLayout>

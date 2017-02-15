@@ -1,0 +1,1 @@
+include ':app', ':api', ':model', ':core', ':PullToRefresh', ':dropdownmenu', ':dialogplus', ':calendar', ':qrcodescan', ':htmlDialog'

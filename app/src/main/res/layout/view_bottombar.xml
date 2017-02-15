@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:lrh="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/linaerlayout_view_bottombar"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/bottombar_indexactivity_height"
+    android:layout_alignParentBottom="true"
+    android:background="@drawable/bottombar_bg"
+    android:orientation="horizontal">
+
+    <com.example.renhao.wevolunteer.view.ChangeColorIconWithTextView
+        android:id="@+id/changrTv_view_homepage"
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:padding="5dp"
+        lrh:myicon="@drawable/homepage"
+        lrh:mytext="@string/changeTv_homepage"
+        lrh:mytext_size="@dimen/changeTv_indexactivity_size"/>
+
+    <com.example.renhao.wevolunteer.view.ChangeColorIconWithTextView
+        android:id="@+id/changrTv_view_find"
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:padding="5dp"
+        lrh:myicon="@drawable/find"
+        lrh:mytext="@string/changeTv_find"
+        lrh:mytext_size="@dimen/changeTv_indexactivity_size"/>
+
+    <com.example.renhao.wevolunteer.view.ChangeColorIconWithTextView
+        android:id="@+id/changrTv_view_signin"
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:padding="5dp"
+        lrh:myicon="@drawable/signin"
+        lrh:mytext="@string/changeTv_signin"
+        lrh:mytext_size="@dimen/changeTv_indexactivity_size"/>
+
+    <com.example.renhao.wevolunteer.view.ChangeColorIconWithTextView
+        android:id="@+id/changrTv_view_myself"
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:padding="5dp"
+        lrh:myicon="@drawable/myself"
+        lrh:mytext="@string/changeTv_myself"
+        lrh:mytext_size="@dimen/changeTv_indexactivity_size"/>
+
+</LinearLayout>

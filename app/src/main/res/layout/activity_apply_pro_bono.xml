@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.renhao.wevolunteer.activity.RegisterProBonoActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/actionbar_homepage_height"
+        android:background="@color/colorCyan"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
+
+        <ImageView
+            android:id="@+id/imageView_btn_back"
+            android:layout_width="@dimen/imageview_homepage_magnifierSize"
+            android:layout_height="@dimen/imageview_homepage_magnifierSize"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/actionbar_homepage_margin"
+            android:layout_marginStart="@dimen/actionbar_homepage_margin"
+            android:padding="@dimen/imageview_backBTN_padding"
+            android:src="@drawable/icon_indicator" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center_vertical"
+            android:text="@string/title_apply_pro_bono"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/textview_homepage_titlesize" />
+
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_pro_bono_apply_tip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="您的申请正在审核中，请耐心等待…"
+        android:textColor="#000"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/btn_pro_bono_apply_again"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        android:background="@drawable/rounded_rectangle_btn"
+        android:text="点击此处重新申请"
+        android:textSize="18sp"
+        android:visibility="gone" />
+
+    <ScrollView
+        android:id="@+id/Scroll_pro_bono_ALL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:divider="@drawable/underline"
+                android:orientation="vertical"
+                android:showDividers="middle"
+                >
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/linearlayout_select"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="15dp"
+                        android:text="@string/tv_work_unit"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/edit_apply_Workunit"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/colorWhite"
+                        android:hint="在此输入您的现工作单位"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/linearlayout_select"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="15dp"
+                        android:text="@string/tv_family_address"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/edit_apply_Addr"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/colorWhite"
+                        android:hint="在此输入您的家庭住址"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/LL_apply_Polity"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/linearlayout_select"
+                    android:clickable="true"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="15dp"
+                        android:text="@string/tv_politics_status"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_apply_pro_bono_polity"
+                        android:layout_width="230dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:padding="15dp"
+                        android:textSize="16sp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.2"
+                        android:src="@drawable/icon_right_indicator" />
+                </LinearLayout>
+
+                <!--<LinearLayout
+                    android:id="@+id/LL_apply_Major"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/linearlayout_select"
+                    android:clickable="true"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="15dp"
+                        android:text="@string/tv_speciality_advantages"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_apply_pro_bono_specialty"
+                        android:layout_width="230dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:padding="15dp"
+                        android:textSize="16sp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.2"
+                        android:src="@drawable/icon_right_indicator" />
+                </LinearLayout>-->
+
+                <LinearLayout
+                    android:id="@+id/LL_apply_intentionTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/linearlayout_select"
+                    android:clickable="true"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="15dp"
+                        android:text="@string/tv_intention_time"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_apply_pro_bono_serviceTime"
+                        android:layout_width="230dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:padding="15dp"
+                        android:textSize="16sp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.2"
+                        android:src="@drawable/icon_right_indicator" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/LL_apply_intentionType"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/linearlayout_select"
+                    android:clickable="true"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="15dp"
+                        android:text="@string/tv_intention_type"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_apply_pro_bono_serviceType"
+                        android:layout_width="230dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:padding="15dp"
+                        android:textSize="16sp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.2"
+                        android:src="@drawable/icon_right_indicator" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/LL_apply_specialty"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/linearlayout_select"
+                    android:clickable="true"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="15dp"
+                        android:text="@string/tv_professional_ability"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_apply_pro_bono_major"
+                        android:layout_width="230dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:padding="15dp"
+                        android:textSize="16sp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.2"
+                        android:src="@drawable/icon_right_indicator" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/bg_single_input"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="15dp"
+                        android:text="@string/tv_mobile_phone"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/edit_myphone"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_weight="1"
+                        android:background="@color/colorWhite"
+                        android:hint="@string/hint_mobile_phone"
+                        android:inputType="phone"
+                        android:textSize="15sp" />
+
+                    <Button
+                        android:id="@+id/btn_phone_getVerify"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginRight="15dp"
+                        android:background="@drawable/verify_common_btn"
+                        android:text="@string/btn_verification_code"
+                        android:textColor="@color/colorCyan" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/bg_single_input"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="15dp"
+                        android:text="@string/tv_register_verification_code"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/edit_Verification"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginStart="12dp"
+                        android:background="@color/colorWhite"
+                        android:hint="@string/hint_verification_code"
+                        android:inputType="number"
+                        android:textSize="15sp" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/box_pro_bono_isAgree"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tv_register_agree"
+                    android:textColor="@color/colorCyan"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_clause"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:text="《宁波市注册志愿者管理办法》"
+                    android:textColor="@color/colorDarkBlue"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+
+            <Button
+                android:id="@+id/btn_pro_bono_apply"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_margin="15dp"
+                android:background="@drawable/btn_login"
+                android:text="@string/btn_apply"
+                android:textColor="@color/colorWhite"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</LinearLayout>

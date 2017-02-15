@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+    <com.prolificinteractive.materialcalendarview.DirectionButton
+        android:id="@+id/mcv_action_previous_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_margin="16dp"/>
+
+    <TextView
+        android:id="@+id/mcv_action_topbar_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_margin="16dp"
+        android:layout_toEndOf="@id/mcv_action_previous_btn"
+        android:layout_toRightOf="@id/mcv_action_previous_btn"
+        android:gravity="center"/>
+
+    <com.prolificinteractive.materialcalendarview.DirectionButton
+        android:id="@+id/mcv_action_next_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_margin="16dp"
+        android:layout_toEndOf="@id/mcv_action_topbar_title"
+        android:layout_toRightOf="@id/mcv_action_topbar_title"/>
+
+    <ImageView
+        android:id="@+id/mcv_action_topbar_close"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="16dp"
+        android:background="#ff0000"
+        android:src="@drawable/mcv_action_next"/>
+
+
+</RelativeLayout>

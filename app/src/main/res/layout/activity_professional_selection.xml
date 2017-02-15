@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorDarkWhite"
+    tools:context="com.example.renhao.wevolunteer.activity.ProfessionalSelectionActivity">
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/actionbar_homepage_height"
+        android:background="@color/colorCyan">
+
+        <ImageView
+            android:id="@+id/imageView_btn_back"
+            android:layout_width="@dimen/imageview_homepage_magnifierSize"
+            android:layout_height="@dimen/imageview_homepage_magnifierSize"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/actionbar_homepage_margin"
+            android:layout_marginStart="@dimen/actionbar_homepage_margin"
+            android:padding="@dimen/imageview_backBTN_padding"
+            android:src="@drawable/icon_indicator" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center_vertical"
+            android:text="@string/title_professional_selection"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/textview_homepage_titlesize" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/textview_homepage_titlesize"
+            android:layout_marginRight="@dimen/textview_homepage_titlesize"
+            android:gravity="center_vertical"
+            android:text="@string/tv_submit"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/textview_submit_titlesize" />
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/listView_professional_selection"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/relativeLayout"
+        android:layout_centerHorizontal="true"
+        android:background="@color/colorWhite" />
+</RelativeLayout>

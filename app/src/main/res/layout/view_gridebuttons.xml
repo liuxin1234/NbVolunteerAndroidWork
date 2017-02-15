@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/listitem_homepage_margin"
+            android:columnCount="3"
+            android:stretchMode="columnWidth"
+            android:orientation="horizontal">
+
+
+    <RelativeLayout
+        android:layout_height="@dimen/relative_gridebutton_height"
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1">
+
+        <ImageView
+            android:id="@+id/iamgeview_gridebutton_register"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/imageview_gridebutton_size"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/imageview_gridebutton_margintop"
+            android:src="@drawable/regist"/>
+
+        <TextView
+            android:id="@+id/textview_gridebutton_register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/iamgeview_gridebutton_register"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/textview_gridebutton_margintop"
+            android:text="注册"
+            android:textColor="@color/colorCyan"
+            android:textSize="@dimen/tevtview_gridebutton_textsize"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textview_gridebutton_register"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/textview_gridebutton_margintop"
+            android:text="志愿者"
+            android:textColor="@color/colorCyan"
+            android:textSize="@dimen/tevtview_gridebutton_textsizeSmall"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_height="@dimen/relative_gridebutton_height"
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1">
+
+        <ImageView
+            android:id="@+id/iamgeview_gridebutton_professionalregister"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/imageview_gridebutton_size"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/imageview_gridebutton_margintop"
+            android:src="@drawable/professionalregist"/>
+
+        <TextView
+            android:id="@+id/textview_gridebutton_professionalregister"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/iamgeview_gridebutton_professionalregister"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/textview_gridebutton_margintop"
+            android:text="注册"
+            android:textColor="@color/colorCyan"
+            android:textSize="@dimen/tevtview_gridebutton_textsize"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textview_gridebutton_professionalregister"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/textview_gridebutton_margintop"
+            android:text="专业志愿者"
+            android:textColor="@color/colorCyan"
+            android:textSize="@dimen/tevtview_gridebutton_textsizeSmall"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_height="@dimen/relative_gridebutton_height"
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1">
+
+        <ImageView
+            android:id="@+id/iamgeview_gridebutton_organization"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/imageview_gridebutton_size"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/imageview_gridebutton_margintop"
+            android:src="@drawable/organization"/>
+
+        <TextView
+            android:id="@+id/textview_gridebutton_organization"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/iamgeview_gridebutton_organization"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/textview_gridebutton_margintop"
+            android:text="组织"
+            android:textColor="@color/colorCyan"
+            android:textSize="@dimen/tevtview_gridebutton_textsize"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_height="@dimen/relative_gridebutton_height"
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1">
+
+        <ImageView
+            android:id="@+id/iamgeview_gridebutton_jobs"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/imageview_gridebutton_size"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/imageview_gridebutton_margintop"
+            android:src="@drawable/jobs"/>
+
+        <TextView
+            android:id="@+id/textview_gridebutton_jobs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/iamgeview_gridebutton_jobs"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/textview_gridebutton_margintop"
+            android:text="岗位"
+            android:textColor="@color/colorCyan"
+            android:textSize="@dimen/tevtview_gridebutton_textsize"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_height="@dimen/relative_gridebutton_height"
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1">
+
+        <ImageView
+            android:id="@+id/iamgeview_gridebutton_activity"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/imageview_gridebutton_size"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/imageview_gridebutton_margintop"
+            android:src="@drawable/activity"/>
+
+        <TextView
+            android:id="@+id/textview_gridebutton_activity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/iamgeview_gridebutton_activity"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/textview_gridebutton_margintop"
+            android:text="活动"
+            android:textColor="@color/colorCyan"
+            android:textSize="@dimen/tevtview_gridebutton_textsize"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_height="@dimen/relative_gridebutton_height"
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1">
+
+        <ImageView
+            android:id="@+id/iamgeview_gridebutton_shop"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/imageview_gridebutton_size"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/imageview_gridebutton_margintop"
+            android:src="@drawable/shop"/>
+
+        <TextView
+            android:id="@+id/textview_gridebutton_shop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/iamgeview_gridebutton_shop"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/textview_gridebutton_margintop"
+            android:text="积分商城"
+            android:textColor="@color/colorCyan"
+            android:textSize="@dimen/tevtview_gridebutton_textsize"/>
+    </RelativeLayout>
+
+
+</GridLayout>

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.example.renhao.wevolunteer.view.FractionTranslateLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/personal_bg"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/top_height"
+                android:background="@drawable/personal_top_bg">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/image_personal_portrait"
+                    android:layout_width="@dimen/circleImageView_portrait_width"
+                    android:layout_height="@dimen/circleImageView_portrait_height"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/top_item_margeintop"
+                    android:src="@drawable/personal_no_portrait" />
+
+                <LinearLayout
+                    android:id="@+id/linearLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/image_personal_portrait"
+                    android:layout_centerHorizontal="true"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_LL_true_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/image_personal_portrait"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/top_item_margeintop"
+                        android:gravity="center"
+                        android:text="加载中…"
+                        android:textColor="#fff"
+                        android:textSize="@dimen/textview_personal_name_size" />
+
+                    <TextView
+                        android:id="@+id/tv_LL_specialty"
+                        android:layout_width="match_parent"
+                        android:layout_height="28dp"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="@dimen/top_item_margeintop"
+                        android:layout_marginRight="@dimen/top_item_margeintop"
+                        android:layout_marginTop="@dimen/top_item_margeintop"
+                        android:gravity="center"
+                        android:text="加载中"
+                        android:textColor="#fff"
+                        android:textSize="@dimen/textview_personal_specialty_size" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/top_item_margeintop"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@string/personal_integral"
+                            android:textColor="#fff"
+                            android:textSize="@dimen/textview_personal_integral_size" />
+
+                        <TextView
+                            android:id="@+id/tv_LL_integral"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:textColor="#fff"
+                            android:textSize="@dimen/textview_personal_integral_size" />
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/LL_personal_StarsGroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="@dimen/top_item_margeintop"
+                    android:orientation="horizontal"></LinearLayout>
+            </RelativeLayout>
+            <!--middle item-->
+            <include
+                android:id="@+id/middle_part"
+                layout="@layout/personal_middle_part" />
+            <!--bottom item-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp">
+
+                <include
+                    android:id="@+id/bottom_part"
+                    layout="@layout/personal_bottom_part" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_personalData_quit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/btn_personalData_quitLogin_margin"
+                android:layout_marginLeft="@dimen/btn_personalData_quitLogin_margin"
+                android:layout_marginRight="@dimen/btn_personalData_quitLogin_margin"
+                android:layout_marginTop="@dimen/btn_personalData_quitLogin_marginTop"
+                android:background="@drawable/rounded_rectangle_btn"
+                android:text="@string/btn_quit_text"
+                android:textColor="@color/colorWhite" />
+        </LinearLayout>
+    </ScrollView>
+</com.example.renhao.wevolunteer.view.FractionTranslateLayout>

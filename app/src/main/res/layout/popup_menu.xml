@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center"
+              android:background="@drawable/img_popupmenu_bg"
+              android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/ly_item1"
+        android:layout_width="match_parent"
+        android:layout_height="45dip"
+        android:background="@drawable/bg_default_button_selector"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:src="@drawable/icon_menu_all"
+            />
+
+        <TextView
+            android:id="@+id/tv_menu_all"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:paddingLeft="10dip"
+            android:paddingRight="20dp"
+            android:text="全部"
+            android:textColor="#595d5f"
+            android:textSize="15sp"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dip"
+        android:background="#eeeeee"/>
+
+    <LinearLayout
+        android:id="@+id/ly_item2"
+        android:layout_width="match_parent"
+        android:layout_height="45dip"
+
+        android:background="@drawable/bg_default_button_selector"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/icon_job_activity"
+            />
+
+        <TextView
+            android:id="@+id/tv_menu_job"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:paddingLeft="10dip"
+            android:paddingRight="20dp"
+            android:text="岗位"
+            android:textColor="#595d5f"
+            android:textSize="15sp"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dip"
+        android:background="#eeeeee"/>
+
+    <LinearLayout
+        android:id="@+id/ly_item3"
+        android:layout_width="match_parent"
+        android:layout_height="45dip"
+        android:background="@drawable/bg_default_button_selector"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/icon_activity"
+            />
+
+        <TextView
+            android:id="@+id/tv_menu_activity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:paddingLeft="10dip"
+            android:paddingRight="20dp"
+            android:text="活动"
+            android:textColor="#595d5f"
+            android:textSize="15sp"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dip"
+        android:background="#eeeeee"/>
+
+    <LinearLayout
+        android:id="@+id/ly_item4"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@drawable/bg_default_button_selector"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/icon_guidance_center"
+            />
+
+        <TextView
+            android:id="@+id/tv_menu_center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:paddingLeft="10dip"
+            android:paddingRight="20dp"
+            android:text="志愿者指导中心"
+            android:textColor="#595d5f"
+            android:textSize="15sp"/>
+    </LinearLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dip"
+        android:background="#eeeeee"/>
+
+    <LinearLayout
+        android:id="@+id/ly_item5"
+        android:layout_width="match_parent"
+        android:layout_height="45dip"
+        android:background="@drawable/bg_default_button_selector"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/icon_service_station"
+            />
+
+        <TextView
+            android:id="@+id/tv_menu_station"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:paddingLeft="10dip"
+            android:paddingRight="20dp"
+            android:text="志愿服务站"
+            android:textColor="#595d5f"
+            android:textSize="15sp"/>
+    </LinearLayout>
+</LinearLayout>

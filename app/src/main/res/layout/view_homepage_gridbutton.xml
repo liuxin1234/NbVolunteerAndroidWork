@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorShallowDark">
+
+    <RelativeLayout
+        android:background="@drawable/divider_bg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="1dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <ImageView
+            android:id="@+id/iamgeview_gridebutton_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/imageview_gridebutton_size"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/imageview_gridebutton_margintop"
+            android:src="@drawable/regist"/>
+
+        <TextView
+            android:id="@+id/textview_gridebutton_titleBig"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/iamgeview_gridebutton_logo"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/textview_gridebutton_margintop"
+            android:text="注册"
+            android:textColor="@color/colorCyan"
+            android:textSize="@dimen/tevtview_gridebutton_textsize"/>
+
+        <TextView
+            android:id="@+id/textview_gridebutton_titleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textview_gridebutton_titleBig"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/textview_gridebutton_margintop"
+            android:text="志愿者"
+            android:layout_marginBottom="@dimen/textview_gridbutton_marginbottom"
+            android:textColor="@color/colorCyan"
+            android:textSize="@dimen/tevtview_gridebutton_textsizeSmall"/>
+    </RelativeLayout>
+</RelativeLayout>

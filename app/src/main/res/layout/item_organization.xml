@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/relative_organizationitem_height"
+    android:background="@color/white">
+
+    <ImageView
+        android:id="@+id/imageview_organizationitem_icon"
+        android:layout_width="@dimen/imageview_organizationitem_width"
+        android:layout_height="@dimen/relative_organizationitem_height"
+        android:layout_centerVertical="true"
+        android:layout_marginBottom="@dimen/imageview_organizationitem_marginTB"
+        android:layout_marginEnd="@dimen/imageview_organizationitem_marginLR"
+        android:layout_marginLeft="@dimen/imageview_organizationitem_marginLR"
+        android:layout_marginRight="@dimen/imageview_organizationitem_marginLR"
+        android:layout_marginStart="@dimen/imageview_organizationitem_marginLR"
+        android:layout_marginTop="@dimen/imageview_organizationitem_marginTB"
+        />
+
+    <TextView
+        android:id="@+id/tv_organizationitem_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/imageview_organizationitem_icon"
+        android:layout_marginTop="10dp"
+        android:layout_toEndOf="@id/imageview_organizationitem_icon"
+        android:layout_toRightOf="@id/imageview_organizationitem_icon"
+        android:singleLine="true"
+        android:textColor="@color/colorCyan"
+        android:textSize="@dimen/tv_organizationitem_BigSize"/>
+
+    <TextView
+        android:id="@+id/tv_organization_contact"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@id/imageview_organizationitem_icon"
+        android:layout_toRightOf="@id/imageview_organizationitem_icon"
+        android:textColor="@color/colorTransparentDark"
+        android:textSize="@dimen/tv_organizationitem_SmallSize"/>
+
+    <TextView
+        android:id="@+id/tv_organizationitem_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/imageview_organizationitem_icon"
+        android:layout_marginBottom="16dp"
+        android:layout_toEndOf="@id/imageview_organizationitem_icon"
+        android:layout_toRightOf="@id/imageview_organizationitem_icon"
+        android:singleLine="true"
+        android:textColor="@color/colorTransparentDark"
+        android:textSize="@dimen/tv_organizationitem_SmallSize"/>
+
+</RelativeLayout>

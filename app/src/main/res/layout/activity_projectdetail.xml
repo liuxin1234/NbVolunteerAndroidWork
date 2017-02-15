@@ -1,0 +1,772 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/projectdetail_parent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorDarkDarkWhite">
+
+
+
+    <LinearLayout
+        android:id="@+id/bottombar_projectdetail"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true">
+
+        <Button
+            android:id="@+id/btn_projectdetail_share"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/colorWhite"
+            android:text="分享"
+            android:textColor="@color/colorBlack"
+            android:textSize="16sp"/>
+
+        <Button
+            android:id="@+id/btn_projectdetail_apply"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/colorBlue"
+            android:text="我要报名"
+            android:textColor="@color/colorWhite"
+            android:textSize="16sp"/>
+
+        <Button
+            android:id="@+id/btn_projectdetail_focuson"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/colorWhite"
+            android:text="关注"
+            android:textColor="@color/colorBlack"
+            android:textSize="16sp"/>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/projectdetail_border"
+        android:layout_above="@id/bottombar_projectdetail"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#33000000"/>
+
+    <ScrollView
+        android:id="@+id/scrollview_projectdetail"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@id/projectdetail_border"
+        android:scrollbars="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <!--标题图片-->
+            <RelativeLayout
+                android:id="@+id/relative_projectdetail_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorShadllowCyan">
+
+                <ImageView
+                    android:id="@+id/imageview_projectdetail_itemImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/listitem_homepage_height"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="@dimen/listitem_homepage_margin"
+                    android:scaleType="fitXY"/>
+
+                <RelativeLayout
+                    android:id="@+id/relative_projectdetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/textview_listview_size"
+                    android:layout_alignBottom="@id/imageview_projectdetail_itemImage"
+                    android:layout_alignEnd="@id/imageview_projectdetail_itemImage"
+                    android:layout_alignLeft="@id/imageview_projectdetail_itemImage"
+                    android:layout_alignRight="@id/imageview_projectdetail_itemImage"
+                    android:layout_alignStart="@id/imageview_projectdetail_itemImage"
+                    android:background="@color/colorTransparentDark">
+
+                    <TextView
+                        android:id="@+id/textview_projectdetail_tilte"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/textview_listview_margin"
+                        android:layout_marginStart="@dimen/textview_listview_margin"
+                        android:layout_marginTop="@dimen/textview_listview_margin"
+                        android:gravity="center_vertical"
+                        android:singleLine="true"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="@dimen/textview_listview_textsize"/>
+
+                    <TextView
+                        android:id="@+id/tv_projectdetail_numName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginBottom="@dimen/textview_listview_margin"
+                        android:layout_marginLeft="@dimen/textview_listview_margin"
+                        android:layout_marginStart="@dimen/textview_listview_margin"
+                        android:background="@color/colorCyan"
+                        android:paddingBottom="@dimen/textview_listview_paddingSmall"
+                        android:paddingLeft="@dimen/textview_listview_paddingBig"
+                        android:paddingRight="@dimen/textview_listview_paddingBig"
+                        android:paddingTop="@dimen/textview_listview_paddingSmall"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="@dimen/textview_listview_textsizeSmall"/>
+
+                    <TextView
+                        android:id="@+id/tv_projectdetail_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginBottom="@dimen/textview_listview_margin"
+                        android:layout_toEndOf="@id/tv_projectdetail_numName"
+                        android:layout_toRightOf="@id/tv_projectdetail_numName"
+                        android:background="@drawable/tv_border_cyan"
+                        android:paddingBottom="@dimen/textview_listview_paddingSmall"
+                        android:paddingLeft="@dimen/textview_listview_paddingBig"
+                        android:paddingRight="@dimen/textview_listview_paddingBig"
+                        android:paddingTop="@dimen/textview_listview_paddingSmall"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="@dimen/textview_listview_textsizeSmall"/>
+
+                    <TextView
+                        android:id="@+id/tv_projectdetail_timeName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginBottom="@dimen/textview_listview_margin"
+                        android:layout_marginLeft="@dimen/textview_listview_margin"
+                        android:layout_marginStart="@dimen/textview_listview_margin"
+                        android:layout_toEndOf="@id/tv_projectdetail_num"
+                        android:layout_toRightOf="@id/tv_projectdetail_num"
+                        android:background="@color/colorCyan"
+                        android:paddingBottom="@dimen/textview_listview_paddingSmall"
+                        android:paddingLeft="@dimen/textview_listview_paddingBig"
+                        android:paddingRight="@dimen/textview_listview_paddingBig"
+                        android:paddingTop="@dimen/textview_listview_paddingSmall"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="@dimen/textview_listview_textsizeSmall"/>
+
+                    <TextView
+                        android:id="@+id/tv_projectdetail_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginBottom="@dimen/textview_listview_margin"
+                        android:layout_toEndOf="@id/tv_projectdetail_timeName"
+                        android:layout_toRightOf="@id/tv_projectdetail_timeName"
+                        android:background="@drawable/tv_border_cyan"
+                        android:paddingBottom="@dimen/textview_listview_paddingSmall"
+                        android:paddingLeft="@dimen/textview_listview_paddingBig"
+                        android:paddingRight="@dimen/textview_listview_paddingBig"
+                        android:paddingTop="@dimen/textview_listview_paddingSmall"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="@dimen/textview_listview_textsizeSmall"/>
+
+                    <TextView
+                        android:id="@+id/tv_projectdetail_state"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginBottom="@dimen/textview_listview_margin"
+                        android:layout_marginRight="@dimen/textview_listview_margin"
+                        android:background="@color/colorCyan"
+                        android:paddingBottom="@dimen/textview_listview_paddingSmall"
+                        android:paddingLeft="@dimen/textview_listview_paddingBig"
+                        android:paddingRight="@dimen/textview_listview_paddingBig"
+                        android:paddingTop="@dimen/textview_listview_paddingSmall"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="@dimen/textview_listview_textsizeSmall"/>
+
+                </RelativeLayout>
+            </RelativeLayout>
+              <!--类型-->
+              <LinearLayout
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:background="#fdfdfe"
+                  android:orientation="horizontal">
+
+                  <TextView
+                      android:id="@+id/tv_projectDetail_typeName"
+                      android:layout_width="0dp"
+                      android:layout_height="wrap_content"
+                      android:layout_marginBottom="@dimen/project_detail_marginTB"
+                      android:layout_marginEnd="@dimen/project_detail_marginLR"
+                      android:layout_marginLeft="@dimen/project_detail_marginLR"
+                      android:layout_marginRight="@dimen/project_detail_marginLR"
+                      android:layout_marginStart="@dimen/project_detail_marginLR"
+                      android:layout_marginTop="@dimen/project_detail_marginTB"
+                      android:layout_weight="3"
+                      android:gravity="center_vertical"
+                      android:singleLine="true"
+                      android:textColor="@color/colorDarkCyan"
+                      android:textSize="16sp"/>
+
+                  <TextView
+                      android:id="@+id/tv_projectDetail_type"
+                      android:layout_width="0dp"
+                      android:layout_height="wrap_content"
+                      android:layout_marginBottom="@dimen/project_detail_marginTB"
+                      android:layout_marginEnd="@dimen/project_detail_marginLR"
+                      android:layout_marginLeft="@dimen/project_detail_marginLR"
+                      android:layout_marginRight="@dimen/project_detail_marginLR"
+                      android:layout_marginStart="@dimen/project_detail_marginLR"
+                      android:layout_marginTop="@dimen/project_detail_marginTB"
+                      android:layout_weight="5"
+                      android:gravity="center_vertical"
+                      android:textSize="16sp"/>
+              </LinearLayout>
+
+              <View
+                  android:layout_width="match_parent"
+                  android:layout_height="0.5dp"
+                  android:background="#33000000"/>
+              <!--报名时间-->
+              <LinearLayout
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:background="#fdfdfe"
+                  android:orientation="horizontal">
+
+                  <TextView
+                      android:id="@+id/tv_projectDetail_registerTimeName"
+                      android:layout_width="0dp"
+                      android:layout_height="wrap_content"
+                      android:layout_marginBottom="@dimen/project_detail_marginTB"
+                      android:layout_marginEnd="@dimen/project_detail_marginLR"
+                      android:layout_marginLeft="@dimen/project_detail_marginLR"
+                      android:layout_marginRight="@dimen/project_detail_marginLR"
+                      android:layout_marginStart="@dimen/project_detail_marginLR"
+                      android:layout_marginTop="@dimen/project_detail_marginTB"
+                      android:layout_weight="3"
+                      android:gravity="center_vertical"
+                      android:singleLine="true"
+                      android:textColor="@color/colorDarkCyan"
+                      android:textSize="16sp"/>
+
+                  <TextView
+                      android:id="@+id/tv_projectDetail_registerTime"
+                      android:layout_width="0dp"
+                      android:layout_height="wrap_content"
+                      android:layout_marginBottom="@dimen/project_detail_marginTB"
+                      android:layout_marginEnd="@dimen/project_detail_marginLR"
+                      android:layout_marginLeft="@dimen/project_detail_marginLR"
+                      android:layout_marginRight="@dimen/project_detail_marginLR"
+                      android:layout_marginStart="@dimen/project_detail_marginLR"
+                      android:layout_marginTop="@dimen/project_detail_marginTB"
+                      android:layout_weight="5"
+                      android:gravity="center_vertical"
+                      android:textSize="16sp"/>
+              </LinearLayout>
+
+              <View
+                  android:layout_width="match_parent"
+                  android:layout_height="0.5dp"
+                  android:background="#33000000"/>
+              <!--有效时间-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#fdfdfe"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_projectDetail_effectiveTimeName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/project_detail_marginTB"
+                    android:layout_marginEnd="@dimen/project_detail_marginLR"
+                    android:layout_marginLeft="@dimen/project_detail_marginLR"
+                    android:layout_marginRight="@dimen/project_detail_marginLR"
+                    android:layout_marginStart="@dimen/project_detail_marginLR"
+                    android:layout_marginTop="@dimen/project_detail_marginTB"
+                    android:layout_weight="3"
+                    android:gravity="center_vertical"
+                    android:singleLine="true"
+                    android:textColor="@color/colorDarkCyan"
+                    android:textSize="16sp"/>
+
+                <TextView
+                    android:id="@+id/tv_projectDetail_effectiveTime"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/project_detail_marginTB"
+                    android:layout_marginEnd="@dimen/project_detail_marginLR"
+                    android:layout_marginLeft="@dimen/project_detail_marginLR"
+                    android:layout_marginRight="@dimen/project_detail_marginLR"
+                    android:layout_marginStart="@dimen/project_detail_marginLR"
+                    android:layout_marginTop="@dimen/project_detail_marginTB"
+                    android:layout_weight="5"
+                    android:gravity="center_vertical"
+                    android:textSize="16sp"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="#33000000"/>
+            <!--服务时间-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#fdfdfe"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_projectDetail_serviceTimeName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/project_detail_marginTB"
+                    android:layout_marginEnd="@dimen/project_detail_marginLR"
+                    android:layout_marginLeft="@dimen/project_detail_marginLR"
+                    android:layout_marginRight="@dimen/project_detail_marginLR"
+                    android:layout_marginStart="@dimen/project_detail_marginLR"
+                    android:layout_marginTop="@dimen/project_detail_marginTB"
+                    android:layout_weight="3"
+                    android:gravity="center_vertical"
+                    android:singleLine="true"
+                    android:textColor="@color/colorDarkCyan"
+                    android:textSize="16sp"/>
+
+                <TextView
+                    android:id="@+id/tv_projectDetail_serviceTime"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/project_detail_marginTB"
+                    android:layout_marginEnd="@dimen/project_detail_marginLR"
+                    android:layout_marginLeft="@dimen/project_detail_marginLR"
+                    android:layout_marginRight="@dimen/project_detail_marginLR"
+                    android:layout_marginStart="@dimen/project_detail_marginLR"
+                    android:layout_marginTop="@dimen/project_detail_marginTB"
+                    android:layout_weight="5"
+                    android:gravity="center_vertical"
+                    android:textSize="16sp"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="#33000000"/>
+              <!--服务地址-->
+              <LinearLayout
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:background="#fdfdfe"
+                  android:orientation="horizontal">
+
+                  <TextView
+                      android:id="@+id/tv_projectDetail_locationName"
+                      android:layout_width="0dp"
+                      android:layout_height="wrap_content"
+                      android:layout_marginBottom="@dimen/project_detail_marginTB"
+                      android:layout_marginEnd="@dimen/project_detail_marginLR"
+                      android:layout_marginLeft="@dimen/project_detail_marginLR"
+                      android:layout_marginRight="@dimen/project_detail_marginLR"
+                      android:layout_marginStart="@dimen/project_detail_marginLR"
+                      android:layout_marginTop="@dimen/project_detail_marginTB"
+                      android:layout_weight="3"
+                      android:gravity="center_vertical"
+                      android:singleLine="true"
+                      android:textColor="@color/colorDarkCyan"
+                      android:textSize="16sp"/>
+
+                  <TextView
+                      android:id="@+id/tv_projectDetail_location"
+                      android:layout_width="0dp"
+                      android:layout_height="wrap_content"
+                      android:layout_marginBottom="@dimen/project_detail_marginTB"
+                      android:layout_marginEnd="@dimen/project_detail_marginLR"
+                      android:layout_marginLeft="@dimen/project_detail_marginLR"
+                      android:layout_marginRight="@dimen/project_detail_marginLR"
+                      android:layout_marginStart="@dimen/project_detail_marginLR"
+                      android:layout_marginTop="@dimen/project_detail_marginTB"
+                      android:layout_weight="5"
+                      android:gravity="center_vertical"
+                      android:textSize="16sp"/>
+              </LinearLayout>
+
+              <View
+                  android:layout_width="match_parent"
+                  android:layout_height="0.5dp"
+                  android:background="#33000000"/>
+              <!--发起单位-->
+              <LinearLayout
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:background="#fdfdfe"
+                  android:orientation="horizontal">
+
+                  <TextView
+                      android:id="@+id/tv_projectDetail_foundersName"
+                      android:layout_width="0dp"
+                      android:layout_height="wrap_content"
+                      android:layout_marginBottom="@dimen/project_detail_marginTB"
+                      android:layout_marginEnd="@dimen/project_detail_marginLR"
+                      android:layout_marginLeft="@dimen/project_detail_marginLR"
+                      android:layout_marginRight="@dimen/project_detail_marginLR"
+                      android:layout_marginStart="@dimen/project_detail_marginLR"
+                      android:layout_marginTop="@dimen/project_detail_marginTB"
+                      android:layout_weight="3"
+                      android:gravity="center_vertical"
+                      android:singleLine="true"
+                      android:textColor="@color/colorDarkCyan"
+                      android:textSize="16sp"/>
+
+                  <TextView
+                      android:id="@+id/tv_projectDetail_founders"
+                      android:layout_width="0dp"
+                      android:layout_height="wrap_content"
+                      android:layout_marginBottom="@dimen/project_detail_marginTB"
+                      android:layout_marginEnd="@dimen/project_detail_marginLR"
+                      android:layout_marginLeft="@dimen/project_detail_marginLR"
+                      android:layout_marginRight="@dimen/project_detail_marginLR"
+                      android:layout_marginStart="@dimen/project_detail_marginLR"
+                      android:layout_marginTop="@dimen/project_detail_marginTB"
+                      android:layout_weight="5"
+                      android:gravity="center_vertical"
+                      android:textSize="16sp"/>
+              </LinearLayout>
+
+              <View
+                  android:layout_width="match_parent"
+                  android:layout_height="0.5dp"
+                  android:background="#33000000"/>
+              <!--联系方式-->
+              <LinearLayout
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:background="#fdfdfe"
+                  android:orientation="horizontal">
+
+                  <TextView
+                      android:id="@+id/tv_projectDetail_contactName"
+                      android:layout_width="0dp"
+                      android:layout_height="wrap_content"
+                      android:layout_marginBottom="@dimen/project_detail_marginTB"
+                      android:layout_marginEnd="@dimen/project_detail_marginLR"
+                      android:layout_marginLeft="@dimen/project_detail_marginLR"
+                      android:layout_marginRight="@dimen/project_detail_marginLR"
+                      android:layout_marginStart="@dimen/project_detail_marginLR"
+                      android:layout_marginTop="@dimen/project_detail_marginTB"
+                      android:layout_weight="3"
+                      android:gravity="center_vertical"
+                      android:singleLine="true"
+                      android:text="联系方式："
+                      android:textColor="@color/colorDarkCyan"
+                      android:textSize="16sp"/>
+
+                  <TextView
+                      android:id="@+id/tv_projectDetail_contact"
+                      android:layout_width="0dp"
+                      android:layout_height="wrap_content"
+                      android:layout_marginBottom="@dimen/project_detail_marginTB"
+                      android:layout_marginEnd="@dimen/project_detail_marginLR"
+                      android:layout_marginLeft="@dimen/project_detail_marginLR"
+                      android:layout_marginRight="@dimen/project_detail_marginLR"
+                      android:layout_marginStart="@dimen/project_detail_marginLR"
+                      android:layout_marginTop="@dimen/project_detail_marginTB"
+                      android:layout_weight="5"
+                      android:gravity="center_vertical"
+                      android:textSize="16sp"/>
+              </LinearLayout>
+
+              <View
+                  android:layout_width="match_parent"
+                  android:layout_height="0.5dp"
+                  android:background="#33000000"/>
+
+
+             <!--服务专业技能-->
+             <LinearLayout
+                 android:id="@+id/relative_projectDetail_skill"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:background="#fdfdfe"
+                 android:orientation="horizontal">
+
+                 <TextView
+                     android:id="@+id/tv_projectDetail_skillName"
+                     android:layout_width="0dp"
+                     android:layout_height="wrap_content"
+                     android:layout_marginBottom="@dimen/project_detail_marginTB"
+                     android:layout_marginEnd="@dimen/project_detail_marginLR"
+                     android:layout_marginLeft="@dimen/project_detail_marginLR"
+                     android:layout_marginRight="@dimen/project_detail_marginLR"
+                     android:layout_marginStart="@dimen/project_detail_marginLR"
+                     android:layout_marginTop="@dimen/project_detail_marginTB"
+                     android:layout_weight="3"
+                     android:gravity="center_vertical"
+                     android:singleLine="true"
+                     android:text="服务专业技能："
+                     android:textColor="@color/colorDarkCyan"
+                     android:textSize="16sp"/>
+
+                 <TextView
+                     android:id="@+id/tv_projectDetail_skill"
+                     android:layout_width="0dp"
+                     android:layout_height="wrap_content"
+                     android:layout_marginBottom="@dimen/project_detail_marginTB"
+                     android:layout_marginEnd="@dimen/project_detail_marginLR"
+                     android:layout_marginLeft="@dimen/project_detail_marginLR"
+                     android:layout_marginRight="@dimen/project_detail_marginLR"
+                     android:layout_marginStart="@dimen/project_detail_marginLR"
+                     android:layout_marginTop="@dimen/project_detail_marginTB"
+                     android:layout_weight="5"
+                     android:gravity="center_vertical"
+                     android:textSize="16sp"/>
+             </LinearLayout>
+
+             <View
+                 android:id="@+id/relative_projectDetail_skill_border"
+                 android:layout_width="match_parent"
+                 android:layout_height="0.5dp"
+                 android:background="#33000000"/>
+
+             <TextView
+                 android:id="@+id/tv_projectDetail_infuse"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:paddingBottom="@dimen/project_detail_marginTB"
+                 android:paddingEnd="@dimen/project_detail_marginLR"
+                 android:paddingLeft="@dimen/project_detail_marginLR"
+                 android:paddingRight="@dimen/project_detail_marginLR"
+                 android:paddingStart="@dimen/project_detail_marginLR"
+                 android:paddingTop="@dimen/project_detail_marginTB"
+                 android:background="#fdfdfe"
+                 android:text="注：掌握专业技能的优先考虑，所有用户都可以报名"
+                 android:textColor="@color/colorDarkCyan"
+                 android:textSize="16sp"/>
+
+             <View
+                 android:id="@+id/tv_projectDetail_infuse_border"
+                 android:layout_width="match_parent"
+                 android:layout_height="0.5dp"
+                 android:background="#33000000"/>
+
+             <View
+                 android:layout_width="match_parent"
+                 android:layout_height="0.5dp"
+                 android:layout_marginTop="16dp"
+                 android:background="#33000000"/>
+            <!--岗位/活动要求-->
+             <RelativeLayout
+                 android:id="@+id/relative_projectClain_detailName"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:paddingBottom="@dimen/project_detail_marginTB"
+                 android:paddingEnd="@dimen/project_detail_marginLR"
+                 android:paddingLeft="@dimen/project_detail_marginLR"
+                 android:paddingRight="@dimen/project_detail_marginLR"
+                 android:paddingStart="@dimen/project_detail_marginLR"
+                 android:paddingTop="@dimen/project_detail_marginTB"
+                 android:background="#fdfdfe">
+
+                 <TextView
+                     android:id="@+id/tv_projectClaim_detailName"
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:layout_centerVertical="true"
+                     android:textColor="@color/colorRed"
+                     android:textSize="18sp"/>
+
+             </RelativeLayout>
+
+             <View
+                 android:layout_width="match_parent"
+                 android:layout_height="0.5dp"
+                 android:background="#33000000"/>
+
+             <TextView
+                 android:id="@+id/tv_projectClaim_detail"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:paddingBottom="@dimen/project_detail_marginTB"
+                 android:paddingEnd="@dimen/project_detail_marginLR"
+                 android:paddingLeft="@dimen/project_detail_marginLR"
+                 android:paddingRight="@dimen/project_detail_marginLR"
+                 android:paddingStart="@dimen/project_detail_marginLR"
+                 android:paddingTop="@dimen/project_detail_marginTB"
+                 android:background="#fdfdfe"
+                 android:textSize="16sp"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="#33000000"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginTop="16dp"
+                android:background="#33000000"/>
+            <!--岗位/活动详情-->
+            <RelativeLayout
+                android:id="@+id/relative_projectDetail_detailName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/project_detail_marginTB"
+                android:paddingEnd="@dimen/project_detail_marginLR"
+                android:paddingLeft="@dimen/project_detail_marginLR"
+                android:paddingRight="@dimen/project_detail_marginLR"
+                android:paddingStart="@dimen/project_detail_marginLR"
+                android:paddingTop="@dimen/project_detail_marginTB"
+                android:background="#fdfdfe">
+
+                <TextView
+                    android:id="@+id/tv_projectDetail_detailName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/colorRed"
+                    android:textSize="18sp"/>
+
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="#33000000"/>
+
+            <TextView
+                android:id="@+id/tv_projectDetail_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/project_detail_marginTB"
+                android:paddingEnd="@dimen/project_detail_marginLR"
+                android:paddingLeft="@dimen/project_detail_marginLR"
+                android:paddingRight="@dimen/project_detail_marginLR"
+                android:paddingStart="@dimen/project_detail_marginLR"
+                android:paddingTop="@dimen/project_detail_marginTB"
+                android:background="#fdfdfe"
+                android:textSize="16sp"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="#33000000"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginTop="16dp"
+                android:background="#33000000"/>
+
+            <RelativeLayout
+                android:id="@+id/relative_projectDetail_signed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#fdfdfe">
+
+                <TextView
+                    android:id="@+id/tv_projectDetail_signedName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginBottom="@dimen/project_detail_marginTB"
+                    android:layout_marginEnd="@dimen/project_detail_marginLR"
+                    android:layout_marginLeft="@dimen/project_detail_marginLR"
+                    android:layout_marginRight="@dimen/project_detail_marginLR"
+                    android:layout_marginStart="@dimen/project_detail_marginLR"
+                    android:layout_marginTop="@dimen/project_detail_marginTB"
+                    android:textColor="@color/colorRed"
+                    android:textSize="18sp"/>
+
+                <ImageView
+                    android:id="@+id/imageview_projectDetail_more"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/icon_more"/>
+
+                <TextView
+                    android:id="@+id/tv_projectDetail_maxNum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_toLeftOf="@id/imageview_projectDetail_more"
+                    android:layout_toStartOf="@id/imageview_projectDetail_more"
+                    android:textSize="18sp"/>
+
+                <TextView
+                    android:id="@+id/tv_projectDetail_haveSignedNum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@id/tv_projectDetail_maxNum"
+                    android:layout_toStartOf="@id/tv_projectDetail_maxNum"
+                    android:textColor="@color/colorRed"
+                    android:textSize="18sp"/>
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="#33000000"/>
+
+            <LinearLayout
+                android:id="@+id/relative_projectDetail_signedPeople"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:background="#fdfdfe"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imageview_projectDetail_signedPeople_1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="16dp"
+                    android:visibility="invisible"
+                    android:layout_weight="1"
+                    android:src="@drawable/fimg"/>
+
+                <ImageView
+                    android:id="@+id/imageview_projectDetail_signedPeople_2"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="16dp"
+                    android:layout_weight="1"
+                    android:visibility="invisible"
+                    android:src="@drawable/fimg"/>
+
+                <ImageView
+                    android:id="@+id/imageview_projectDetail_signedPeople_3"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="16dp"
+                    android:visibility="invisible"
+                    android:layout_weight="1"
+                    android:src="@drawable/fimg"/>
+
+                <ImageView
+                    android:id="@+id/imageview_projectDetail_signedPeople_4"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="16dp"
+                    android:layout_weight="1"
+                    android:visibility="invisible"
+                    android:src="@drawable/fimg"/>
+
+                <ImageView
+                    android:id="@+id/imageview_projectDetail_signedPeople_5"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="16dp"
+                    android:visibility="invisible"
+                    android:layout_weight="1"
+                    android:src="@drawable/fimg"/>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

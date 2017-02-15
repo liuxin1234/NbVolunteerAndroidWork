@@ -1,0 +1,108 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <!--index activity-->
+    <dimen name="actionbar_homepage_height">60dp</dimen>
+    <dimen name="textview_homepage_titlesize">18sp</dimen>
+    <dimen name="textview_right_titlesize">16sp</dimen>
+    <dimen name="imageview_backBTN_padding">10dp</dimen>
+    <dimen name="imageview_homepage_scanSize">18dp</dimen>
+    <dimen name="textview_homepage_scanSize">10sp</dimen>
+    <dimen name="imageview_homepage_magnifierSize">40dp</dimen>
+    <dimen name="actionbar_homepage_margin">16dp</dimen>
+    <dimen name="bottombar_indexactivity_height">50dp</dimen>
+    <dimen name="changeTv_indexactivity_size">12sp</dimen>
+
+    <!--homepage fragment-->
+    <dimen name="imageslider_homepage_height">160dp</dimen>
+    <dimen name="listitem_homepage_height">200dp</dimen>
+    <dimen name="listitem_homepage_margin">8dp</dimen>
+    <dimen name="textview_listview_textsizeBig">22sp</dimen>
+    <dimen name="textview_listview_margin">8dp</dimen>
+    <dimen name="textview_listview_textsize">14sp</dimen>
+    <dimen name="textview_listview_textsizeSmall">10sp</dimen>
+    <dimen name="textview_listview_paddingBig">5dp</dimen>
+    <dimen name="textview_listview_paddingSmall">3dp</dimen>
+    <dimen name="textview_listview_size">58dp</dimen>
+    <dimen name="relative_gridebutton_height">140dp</dimen>
+    <dimen name="imageview_gridebutton_size">40dp</dimen>
+    <dimen name="imageview_gridebutton_margintop">16dp</dimen>
+    <dimen name="textview_gridebutton_margintop">5dp</dimen>
+    <dimen name="tevtview_gridebutton_textsize">16sp</dimen>
+    <dimen name="tevtview_gridebutton_textsizeSmall">13sp</dimen>
+    <dimen name="textview_gridbutton_marginbottom">10dp</dimen>
+
+    <dimen name="imageview_organizationitem_width">130dp</dimen>
+    <dimen name="imageview_organizationitem_marginTB">10dp</dimen>
+    <dimen name="imageview_organizationitem_marginLR">10dp</dimen>
+    <dimen name="relative_organizationitem_height">100dp</dimen>
+    <dimen name="tv_organizationitem_BigSize">17sp</dimen>
+    <dimen name="tv_organizationitem_SmallSize">14sp</dimen>
+
+    <!--project detail-->
+    <dimen name="project_detail_marginLR">10dp</dimen>
+    <dimen name="project_detail_marginTB">16dp</dimen>
+
+    <!--activity for personal-->
+    <dimen name="textview_submit_titlesize">16sp</dimen>
+    <dimen name="imageview_item_Portrait_size">56dp</dimen>
+    <dimen name="item_myPortrait_margintop">10dp</dimen>
+    <dimen name="item_myUser_margintop">20dp</dimen>
+    <dimen name="btn_personalData_quitLogin_margin">20dp</dimen>
+    <dimen name="btn_personalData_quitLogin_marginTop">10dp</dimen>
+    <dimen name="imageview_myproject_magnifierSize">20dp</dimen>
+
+    <!--myProject-->
+    <dimen name="myProject_item_height">100dp</dimen>
+    <dimen name="imageview_myproject_margin">8dp</dimen>
+    <dimen name="imageview_myproject_item_width">100dp</dimen>
+    <dimen name="imageview_myproject_item_height">70dp</dimen>
+    <dimen name="myproject_item_marginTop">10dp</dimen>
+    <dimen name="textview_myproject_textsize">14sp</dimen>
+    <dimen name="textview_myproject_time_textsize">12sp</dimen>
+    <dimen name="textview_myproject_state_heigth">50dp</dimen>
+    <dimen name="textview_myproject_state_width">30dp</dimen>
+    <dimen name="textview_myproject_width">180dp</dimen>
+
+    <!--pop for personalData-->
+    <dimen name="btn_PD_POP_margin">10dp</dimen>
+    <dimen name="btn_PD_POP_margintop">4dp</dimen>
+    <dimen name="btn_PD_POP_marginbottom">6dp</dimen>
+    <dimen name="btn_PD_POP_textsize">16sp</dimen>
+
+    <!--PersonalFragment 一些margin在我的资料中有共用-->
+    <dimen name="top_height">192dp</dimen>
+    <dimen name="textview_personal_name_size">20sp</dimen>
+    <dimen name="textview_personal_specialty_size">12sp</dimen>
+    <dimen name="textview_personal_integral_size">12sp</dimen>
+    <dimen name="top_textview_margeintop">6dp</dimen>
+    <dimen name="top_portrait_margeintop">15dp</dimen>
+    <dimen name="circleImageView_portrait_height">64dp</dimen>
+    <dimen name="circleImageView_portrait_width">64dp</dimen>
+    <dimen name="circleImageView_portrait_margintop">15dp</dimen>
+    <dimen name="imageview_stars_height">12dp</dimen>
+    <dimen name="imageview_stars_width">12dp</dimen>
+    <dimen name="textview_personal_middle_main_size">13sp</dimen>
+    <dimen name="textview_personal_middle_hint_size">9sp</dimen>
+    <dimen name="textview_middle_main_margintop">20dp</dimen>
+    <dimen name="textview_middle_hint_margintop">3dp</dimen>
+    <dimen name="middle_circle_width">80dp</dimen>
+    <dimen name="middle_circle_height">80dp</dimen>
+    <dimen name="middle_circle_marginleft">8dp</dimen>
+    <dimen name="middle_circle_margintop">12dp</dimen>
+    <dimen name="middle_circle_marginbottom">12dp</dimen>
+    <dimen name="bottom_item_height">50dp</dimen>
+    <dimen name="bottom_portrait_item_height">64dp</dimen>
+    <dimen name="textview_bottom_left_size">14sp</dimen>
+    <dimen name="textview_bottom_left_marginleft">4dp</dimen>
+    <dimen name="text_left_padding">10dp</dimen>
+    <dimen name="textview_bottom_right_size">16sp</dimen>
+    <dimen name="textview_bottom_right_marginright">4dp</dimen>
+    <dimen name="layout_bottom_aboutUS_margintop">20dp</dimen>
+    <dimen name="layout_bottom_bottom_marginbottom">10dp</dimen>
+    <dimen name="imageview_bottom_mark_marginright">5dp</dimen>
+    <dimen name="imageview_bottom_mark_size">25dp</dimen>
+    <dimen name="top_item_margeintop">7dp</dimen>
+</resources>

@@ -1,0 +1,76 @@
+<resources>
+    <string name="app_name">We志愿</string>
+    <string name="url">http://www.nbzyz.org/</string>
+
+    <string name="tv_scan">扫一扫</string>
+    <string name="tv_appName">宁波We志愿服务平台</string>
+    <string name="changeTv_homepage">主页</string>
+    <string name="changeTv_find">发现</string>
+    <string name="changeTv_signin">签到</string>
+    <string name="changeTv_myself">我的</string>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!--activity login and register-->
+    <string name="hint_login_username">用户名/手机号码/身份证号</string>
+    <string name="hint_login_password">密码</string>
+    <string name="tv_login_forgot_password">忘记密码</string>
+    <string name="btn_login">登 录</string>
+    <string name="btn_register">注 册</string>
+    <string name="title_register">注册志愿者</string>
+    <string name="tv_next">下一步</string>
+    <string name="tv_register_nickname">昵　称:</string>
+    <string name="tv_register_name">姓　名:</string>
+    <string name="tv_id_number">证件号码:</string>
+    <string name="tv_Email">电子邮箱:</string>
+    <string name="tv_id_number_type">证件类型:</string>
+    <string name="tv_mobile_phone">手机号码:</string>
+    <string name="tv_personal_attribute">个人属性:</string>
+    <string name="tv_register_verification_code">验 证 码:</string>
+    <string name="hint_register_name">请输入姓名</string>
+    <string name="hint_id_number_type">==请选择==</string>
+    <string name="hint_id_number">请输入证件号码</string>
+    <string name="hint_Email">请输入电子邮箱</string>
+    <string name="hint_school">在校</string>
+    <string name="hint_job">在职</string>
+    <string name="hint_retire">退休</string>
+    <string name="hint_register_password">请输入登录密码</string>
+    <string name="hint_register_Repassword">请再次确认密码</string>
+    <string name="hint_register_nickname">请输入昵称</string>
+    <string name="tv_register_password">登录密码:</string>
+    <string name="tv_register_Repassword">确认密码:</string>
+    <string name="btn_existing_login">已有账号　点击登录</string>
+    <string name="tv_register_agree">注册表示您同意</string>
+
+    <!--activity register pro bono-->
+    <string name="title_register_pro_bono">注册专业志愿者</string>
+    <string name="tv_area">所在区域:</string>
+    <string name="tv_organization">所属机构:</string>
+    <string name="tv_politics_status">政治面貌:</string>
+    <string name="tv_speciality_advantages">专业特长:</string>
+    <string name="tv_work_unit">现工作单位:</string>
+    <string name="tv_family_address">现家庭住址:</string>
+    <string name="tv_intention_time">意向时间:</string>
+    <string name="tv_intention_type">意向类别:</string>
+    <string name="tv_professional_ability">专业能力:</string>
+    <!--activity apply pro bono-->
+    <string name="title_apply_pro_bono">申请专业志愿者</string>
+    <string name="btn_apply">申 请</string>
+
+    <!--fragment map Sign in -->
+    <string name="btn_sign_in">签 到</string>
+    <string name="btn_sign_out">签 退</string>
+
+    <!--personalData-->
+    <string name="myArea_item_text">所在区域</string>
+    <string name="myORG_item_text">所属机构</string>
+
+    <string name="title_card_tpye">证件类型</string>
+    <string name="btn_major_delete">删除</string>
+    <string name="btn_CPC_string">1</string>
+    <string name="btn_CYL_string">2</string>
+    <string name="btn_democratic_string">3</string>
+    <string name="btn_masses_string">4</string>
+
+</resources>

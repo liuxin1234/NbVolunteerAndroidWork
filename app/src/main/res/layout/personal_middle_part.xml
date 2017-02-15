@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#fff"
+    android:orientation="horizontal">
+
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="@dimen/middle_circle_height"
+        android:layout_marginBottom="@dimen/middle_circle_marginbottom"
+        android:layout_marginLeft="@dimen/middle_circle_marginleft"
+        android:layout_marginTop="@dimen/middle_circle_margintop"
+        android:layout_weight="1"
+        android:background="@drawable/personal_middle_circle"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_personal_ServiceAllTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/textview_middle_main_margintop"
+            android:gravity="right"
+            android:text="加载中…"
+            android:textColor="@color/personal_middle_main_text"
+            android:textSize="@dimen/textview_personal_middle_main_size" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/textview_middle_hint_margintop"
+            android:gravity="center"
+            android:text="@string/service_time_all_hint"
+            android:textSize="@dimen/textview_personal_middle_hint_size" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="@dimen/middle_circle_height"
+        android:layout_marginBottom="@dimen/middle_circle_marginbottom"
+        android:layout_marginLeft="@dimen/middle_circle_marginleft"
+        android:layout_marginTop="@dimen/middle_circle_margintop"
+        android:layout_weight="1"
+        android:background="@drawable/personal_middle_circle"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_personal_ServiceSchoolTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/textview_middle_main_margintop"
+            android:gravity="right"
+            android:text="加载中…"
+            android:textColor="@color/personal_middle_main_text"
+            android:textSize="@dimen/textview_personal_middle_main_size" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/textview_middle_hint_margintop"
+            android:gravity="center"
+            android:text="@string/service_time_school_hint"
+            android:textSize="@dimen/textview_personal_middle_hint_size" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="@dimen/middle_circle_height"
+        android:layout_marginBottom="@dimen/middle_circle_marginbottom"
+        android:layout_marginLeft="@dimen/middle_circle_marginleft"
+        android:layout_marginTop="@dimen/middle_circle_margintop"
+        android:layout_weight="1"
+        android:background="@drawable/personal_middle_circle"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_personal_ServiceWorkTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/textview_middle_main_margintop"
+            android:gravity="right"
+            android:text="加载中…"
+            android:textColor="@color/personal_middle_main_text"
+            android:textSize="@dimen/textview_personal_middle_main_size" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/textview_middle_hint_margintop"
+            android:gravity="center"
+            android:text="@string/service_time_InJob_hint"
+            android:textSize="@dimen/textview_personal_middle_hint_size" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="@dimen/middle_circle_height"
+        android:layout_marginBottom="@dimen/middle_circle_marginbottom"
+        android:layout_marginLeft="@dimen/middle_circle_marginleft"
+        android:layout_marginRight="@dimen/middle_circle_marginleft"
+        android:layout_marginTop="@dimen/middle_circle_margintop"
+        android:layout_weight="1"
+        android:background="@drawable/personal_middle_circle"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_personal_ServiceRetireTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/textview_middle_main_margintop"
+            android:gravity="right"
+            android:text="加载中…"
+            android:textColor="@color/personal_middle_main_text"
+            android:textSize="@dimen/textview_personal_middle_main_size" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/textview_middle_hint_margintop"
+            android:gravity="center"
+            android:text="@string/service_time_retire_hint"
+            android:textSize="@dimen/textview_personal_middle_hint_size" />
+
+    </LinearLayout>
+
+</LinearLayout>

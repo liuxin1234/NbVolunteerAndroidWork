@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/pop_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+
+        <Button
+            android:id="@+id/btn_take_photo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/btn_PD_POP_margin"
+            android:layout_marginRight="@dimen/btn_PD_POP_margin"
+            android:layout_marginTop="@dimen/btn_PD_POP_margin"
+            android:background="@drawable/portrait_rounded_rectangle_btn"
+            android:text="@string/btn_takePIC"
+            android:textColor="#00b3b3"
+            android:textSize="@dimen/btn_PD_POP_textsize" />
+
+        <Button
+            android:id="@+id/btn_pick_photo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/btn_PD_POP_margin"
+            android:layout_marginRight="@dimen/btn_PD_POP_margin"
+            android:layout_marginTop="@dimen/btn_PD_POP_margintop"
+            android:background="@drawable/portrait_rounded_rectangle_btn"
+            android:text="@string/btn_pickPIC"
+            android:textColor="#00b3b3"
+            android:textSize="@dimen/btn_PD_POP_textsize" />
+
+        <Button
+            android:id="@+id/btn_cancel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/btn_PD_POP_marginbottom"
+            android:layout_marginLeft="@dimen/btn_PD_POP_margin"
+            android:layout_marginRight="@dimen/btn_PD_POP_margin"
+            android:layout_marginTop="@dimen/btn_PD_POP_margintop"
+            android:background="@drawable/portrait_rounded_rectangle_btn"
+            android:text="@string/btn_cancel"
+            android:textColor="#00b3b3"
+            android:textSize="@dimen/btn_PD_POP_textsize" />
+    </LinearLayout>
+</RelativeLayout>

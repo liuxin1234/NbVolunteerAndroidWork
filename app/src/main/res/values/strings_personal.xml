@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="personal_integral">积分:</string>
+    <string name="service_time_all_hint">总时长</string>
+    <string name="service_time_school_hint">在校服务时长</string>
+    <string name="service_time_InJob_hint">在职服务时长</string>
+    <string name="service_time_retire_hint">退休服务时长</string>
+    <string name="personal_ifProfessional_TRUE">专业能力修改</string>
+    <string name="personal_ifProfessional_FALSE">申请专业志愿者</string>
+    <string name="personal_myJob">我的活动/岗位</string>
+    <string name="personal_myAttention">我的关注</string>
+    <string name="personal_removeMyJob">我的报名记录</string>
+    <string name="personal_myORG">所属机构</string>
+    <string name="personal_myRank">我的排名</string>
+    <string name="personal_myInformation">个人资料</string>
+    <string name="personal_aboutUS">关于我们</string>
+    <string name="personal_WIPE_CACHE">清空缓存</string>
+    <string name="personal_REPORT_PROBLEM">问题反馈</string>
+    <string name="personal_FAQ">常见问题</string>
+
+    <!--activity for personal-->
+    <string name="title_nickname">昵称</string>
+    <string name="tv_submit">提交</string>
+    <string name="tv_show_nickname">显示昵称</string>
+    <string name="check_show_real_name">显示真实姓名</string>
+    <string name="tv_original_password">原密码 </string>
+    <string name="tv_new_password">新密码</string>
+    <string name="tv_confirm_password">确认密码</string>
+    <string name="hint_original_password">请输入原密码</string>
+    <string name="hint_new_password">请输入新密码</string>
+    <string name="hint_confirm_password">再次输入密码</string>
+    <string name="title_set_password">修改密码</string>
+    <string name="title_mobile_phone">手机号码</string>
+    <string name="tv_verification_code">验证码</string>
+    <string name="btn_verification_code">获取验证码</string>
+    <string name="hint_mobile_phone">请输入手机号码</string>
+    <string name="hint_verification_code">请输入验证码</string>
+    <string name="title_about_us">关于我们</string>
+    <string name="tv_version_number">版本号 : 2.0.1</string>
+    <string name="tv_Organizer">主办方 : 宁波团市委</string>
+    <string name="tv_official_website">官方网站 : www.nbzyz.org</string>
+    <string name="hint_report_problem">请输入反馈问题</string>
+    <string name="title_report_problem">反馈问题</string>
+    <string name="title_common_problem">常见问题</string>
+    <string name="title_professional_selection">专业选择</string>
+    <string name="title_residence">现居住地址</string>
+    <string name="title_company">现工作单位</string>
+    <string name="title_email">我的邮箱</string>
+    <string name="title_complete_information">信息补填</string>
+    <string name="title_politicsstatus">政治面貌</string>
+    <string name="hint_residence">请输入现居住地址</string>
+    <string name="hint_company">请输入现工作单位</string>
+    <string name="hint_email">请输入您现在常用的邮箱地址</string>
+    <string name="hint_IDNumber">请输入您的身份证号码</string>
+    <string name="hint_TrueName">请输入您的真实姓名</string>
+    <string name="hint_politicsstatus">请输入您的政治面貌</string>
+    <string name="tv_certificate_uoload">证书上传</string>
+    <string name="title_major_ability">专业能力</string>
+    <string name="hint_major_ability">请输入专业能力</string>
+    <string name="title_service_category">意向志愿服务类别</string>
+    <string name="title_area_selection">区域选择</string>
+    <string name="title_personal_attribute">个人属性</string>
+    <string name="title_forgot_password">找回密码</string>
+    <string name="tv_account">手机号码</string>
+    <string name="hint_account">请输入用户名或证件号</string>
+    <string name="tv_morning">上午</string>
+    <string name="tv_afternoon">下午</string>
+    <string name="tv_night">晚上</string>
+    <string name="title_affiliated_institution">所属机构</string>
+    <string name="title_myproject">我的项目</string>
+    <string name="title_myattention">我的关注</string>
+    <string name="title_service_time">意向志愿服务时间</string>
+
+    <!--personalData-->
+    <string name="title_personal_data">个人资料</string>
+    <string name="myPortrait_item_text">我的头像</string>
+    <string name="myNickName_item_text">我的昵称</string>
+    <string name="changePassword_item_text">修改密码</string>
+    <string name="myPhone_item_text">我的手机</string>
+    <string name="myEMail_item_text">我的邮箱</string>
+    <string name="myUserName_item_text">用 户 名</string>
+    <string name="myTrueName_item_text">姓    名</string>
+    <string name="myIDNumber_item_text">身份证号</string>
+    <string name="myAttribute_item_text">个人属性</string>
+    <string name="myPoliticsStatus_item_text">政治面貌</string>
+    <string name="myMajor_item_text">专业特长</string>
+    <string name="myNowCompany_item_text">现工作单位</string>
+    <string name="myHomeAddress_item_text">现家庭住址</string>
+    <string name="myImageTime_item_text">意向时间</string>
+    <string name="myImageType_item_text">意向类别</string>
+    <string name="btn_quit_text">退出登陆</string>
+
+
+    <!--POP for PersonalData-->
+    <string name="btn_pickPIC">从相册选择</string>
+    <string name="btn_takePIC">拍照</string>
+    <string name="btn_cancel">取消</string>
+    <!--POP for PersonalData-->
+    <string name="btn_student">在校</string>
+    <string name="btn_on_job">在职</string>
+    <string name="btn_retire">退休</string>
+
+</resources>

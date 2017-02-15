@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="dialogplus_black_overlay">#60000000</color>
+    <color name="dialogplus_card_shadow">#D4D4D4</color>
+    <dimen name="dialogplus_default_center_margin">16dp</dimen>
+    <integer name="dialogplus_animation_default_duration">300</integer>
+</resources>

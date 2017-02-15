@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/actionbar_homepage_height"
+    android:background="@color/colorCyan">
+
+    <ImageView
+        android:id="@+id/iv_ab_sp1_back"
+        android:layout_width="@dimen/imageview_homepage_magnifierSize"
+        android:layout_height="@dimen/imageview_homepage_magnifierSize"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/actionbar_homepage_margin"
+        android:layout_marginStart="@dimen/actionbar_homepage_margin"
+        android:padding="@dimen/imageview_backBTN_padding"
+        android:src="@drawable/icon_indicator" />
+
+    <TextView
+        android:id="@+id/tv_ab_sp1_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center_vertical"
+        android:textColor="@color/colorWhite"
+        android:textSize="@dimen/textview_homepage_titlesize" />
+
+    <TextView
+        android:id="@+id/tv_ab_sp1_submit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="@dimen/textview_homepage_titlesize"
+        android:layout_marginRight="@dimen/textview_homepage_titlesize"
+        android:gravity="center_vertical"
+        android:text="@string/tv_submit"
+        android:textColor="@color/colorWhite"
+        android:textSize="@dimen/textview_submit_titlesize" />
+</RelativeLayout>

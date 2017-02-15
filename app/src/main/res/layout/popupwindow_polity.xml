@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/polity_pop_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+
+        <Button
+            android:id="@+id/btn_CPC"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/btn_PD_POP_margin"
+            android:layout_marginRight="@dimen/btn_PD_POP_margin"
+            android:layout_marginTop="@dimen/btn_PD_POP_margin"
+            android:background="@drawable/portrait_rounded_rectangle_btn"
+            android:text="@string/btn_CPC_string"
+            android:textColor="#00b3b3"
+            android:textSize="@dimen/btn_PD_POP_textsize" />
+
+        <Button
+            android:id="@+id/btn_CYL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/btn_PD_POP_margin"
+            android:layout_marginRight="@dimen/btn_PD_POP_margin"
+            android:layout_marginTop="@dimen/btn_PD_POP_margintop"
+            android:background="@drawable/portrait_rounded_rectangle_btn"
+            android:text="@string/btn_CYL_string"
+            android:textColor="#00b3b3"
+            android:textSize="@dimen/btn_PD_POP_textsize" />
+
+        <Button
+            android:id="@+id/btn_democratic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/btn_PD_POP_margin"
+            android:layout_marginRight="@dimen/btn_PD_POP_margin"
+            android:layout_marginTop="@dimen/btn_PD_POP_margintop"
+            android:background="@drawable/portrait_rounded_rectangle_btn"
+            android:text="@string/btn_democratic_string"
+            android:textColor="#00b3b3"
+            android:textSize="@dimen/btn_PD_POP_textsize" />
+
+        <Button
+            android:id="@+id/btn_masses"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/btn_PD_POP_margin"
+            android:layout_marginRight="@dimen/btn_PD_POP_margin"
+            android:layout_marginTop="@dimen/btn_PD_POP_margintop"
+            android:background="@drawable/portrait_rounded_rectangle_btn"
+            android:text="@string/btn_masses_string"
+            android:textColor="#00b3b3"
+            android:textSize="@dimen/btn_PD_POP_textsize" />
+    </LinearLayout>
+</RelativeLayout>

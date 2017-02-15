@@ -1,0 +1,66 @@
+[
+    {
+        "merged": "E:\\WeVolunteerApp\\NbVolunteerAndroid2016-9-27\\NbVolunteerAndroid\\PullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\slide_in_from_bottom.xml",
+        "source": "E:\\WeVolunteerApp\\NbVolunteerAndroid2016-9-27\\NbVolunteerAndroid\\PullToRefresh\\build\\intermediates\\bundles\\debug\\res\\anim\\slide_in_from_bottom.xml"
+    },
+    {
+        "merged": "E:\\WeVolunteerApp\\NbVolunteerAndroid2016-9-27\\NbVolunteerAndroid\\PullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\slide_out_to_bottom.xml",
+        "source": "E:\\WeVolunteerApp\\NbVolunteerAndroid2016-9-27\\NbVolunteerAndroid\\PullToRefresh\\build\\intermediates\\bundles\\debug\\res\\anim\\slide_out_to_bottom.xml"
+    },
+    {
+        "merged": "E:\\WeVolunteerApp\\NbVolunteerAndroid2016-12-13\\NbVolunteerAndroid\\PullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\slide_in_from_top.xml",
+        "source": "E:\\WeVolunteerApp\\NbVolunteerAndroid2016-12-13\\NbVolunteerAndroid\\PullToRefresh\\build\\intermediates\\bundles\\debug\\res\\anim\\slide_in_from_top.xml"
+    },
+    {
+        "merged": "F:\\MyGitHub\\NbVolunteerAndroid\\PullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\slide_in_from_bottom.xml",
+        "source": "F:\\MyGitHub\\NbVolunteerAndroid\\PullToRefresh\\build\\intermediates\\bundles\\debug\\res\\anim\\slide_in_from_bottom.xml"
+    },
+    {
+        "merged": "F:\\MyGitHub\\NbVolunteerAndroid\\PullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\slide_out_to_top.xml",
+        "source": "F:\\MyGitHub\\NbVolunteerAndroid\\PullToRefresh\\build\\intermediates\\bundles\\debug\\res\\anim\\slide_out_to_top.xml"
+    },
+    {
+        "merged": "E:\\WeVolunteerApp\\NbVolunteerAndroid2016-9-27\\NbVolunteerAndroid\\PullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\slide_out_to_top.xml",
+        "source": "E:\\WeVolunteerApp\\NbVolunteerAndroid2016-9-27\\NbVolunteerAndroid\\PullToRefresh\\build\\intermediates\\bundles\\debug\\res\\anim\\slide_out_to_top.xml"
+    },
+    {
+        "merged": "F:\\MyGitHub\\NbVolunteerAndroid\\PullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\slide_in_from_top.xml",
+        "source": "F:\\MyGitHub\\NbVolunteerAndroid\\PullToRefresh\\build\\intermediates\\bundles\\debug\\res\\anim\\slide_in_from_top.xml"
+    },
+    {
+        "merged": "E:\\NBzhongjing\\NbVolunteerAndroid2017-2-15\\NbVolunteerAndroid\\PullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\slide_out_to_top.xml",
+        "source": "E:\\NBzhongjing\\NbVolunteerAndroid2017-2-15\\NbVolunteerAndroid\\PullToRefresh\\build\\intermediates\\bundles\\debug\\res\\anim\\slide_out_to_top.xml"
+    },
+    {
+        "merged": "E:\\WeVolunteerApp\\NbVolunteerAndroid2016-12-13\\NbVolunteerAndroid\\PullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\slide_out_to_bottom.xml",
+        "source": "E:\\WeVolunteerApp\\NbVolunteerAndroid2016-12-13\\NbVolunteerAndroid\\PullToRefresh\\build\\intermediates\\bundles\\debug\\res\\anim\\slide_out_to_bottom.xml"
+    },
+    {
+        "merged": "E:\\WeVolunteerApp\\NbVolunteerAndroid2016-12-13\\NbVolunteerAndroid\\PullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\slide_in_from_bottom.xml",
+        "source": "E:\\WeVolunteerApp\\NbVolunteerAndroid2016-12-13\\NbVolunteerAndroid\\PullToRefresh\\build\\intermediates\\bundles\\debug\\res\\anim\\slide_in_from_bottom.xml"
+    },
+    {
+        "merged": "E:\\NBzhongjing\\NbVolunteerAndroid2017-2-15\\NbVolunteerAndroid\\PullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\slide_in_from_top.xml",
+        "source": "E:\\NBzhongjing\\NbVolunteerAndroid2017-2-15\\NbVolunteerAndroid\\PullToRefresh\\build\\intermediates\\bundles\\debug\\res\\anim\\slide_in_from_top.xml"
+    },
+    {
+        "merged": "E:\\NBzhongjing\\NbVolunteerAndroid2017-2-15\\NbVolunteerAndroid\\PullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\slide_in_from_bottom.xml",
+        "source": "E:\\NBzhongjing\\NbVolunteerAndroid2017-2-15\\NbVolunteerAndroid\\PullToRefresh\\build\\intermediates\\bundles\\debug\\res\\anim\\slide_in_from_bottom.xml"
+    },
+    {
+        "merged": "F:\\MyGitHub\\NbVolunteerAndroid\\PullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\slide_out_to_bottom.xml",
+        "source": "F:\\MyGitHub\\NbVolunteerAndroid\\PullToRefresh\\build\\intermediates\\bundles\\debug\\res\\anim\\slide_out_to_bottom.xml"
+    },
+    {
+        "merged": "E:\\WeVolunteerApp\\NbVolunteerAndroid2016-12-13\\NbVolunteerAndroid\\PullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\slide_out_to_top.xml",
+        "source": "E:\\WeVolunteerApp\\NbVolunteerAndroid2016-12-13\\NbVolunteerAndroid\\PullToRefresh\\build\\intermediates\\bundles\\debug\\res\\anim\\slide_out_to_top.xml"
+    },
+    {
+        "merged": "E:\\NBzhongjing\\NbVolunteerAndroid2017-2-15\\NbVolunteerAndroid\\PullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\slide_out_to_bottom.xml",
+        "source": "E:\\NBzhongjing\\NbVolunteerAndroid2017-2-15\\NbVolunteerAndroid\\PullToRefresh\\build\\intermediates\\bundles\\debug\\res\\anim\\slide_out_to_bottom.xml"
+    },
+    {
+        "merged": "E:\\WeVolunteerApp\\NbVolunteerAndroid2016-9-27\\NbVolunteerAndroid\\PullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\slide_in_from_top.xml",
+        "source": "E:\\WeVolunteerApp\\NbVolunteerAndroid2016-9-27\\NbVolunteerAndroid\\PullToRefresh\\build\\intermediates\\bundles\\debug\\res\\anim\\slide_in_from_top.xml"
+    }
+]

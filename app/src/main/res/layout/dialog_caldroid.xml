@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
+
+    <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+        android:id="@+id/calendarView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="您选择了"/>
+
+        <TextView
+            android:id="@+id/tv_dialogCaldroid_dateSelect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:background="@drawable/bg_tv_dateselect"
+            android:padding="8dp"
+            android:textColor="@color/colorBlue"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_dialogCaldroid_signUp"
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@color/colorBlue"
+        android:textColor="@color/colorWhite"
+        android:text="我要报名"/>
+</LinearLayout>

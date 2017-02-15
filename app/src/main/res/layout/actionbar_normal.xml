@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/actionbar_homepage_height"
+    android:background="@color/colorCyan">
+
+
+    <TextView
+        android:id="@+id/tv_normal_projectswitch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center"
+        android:layout_margin="7dp"
+        android:gravity="center"
+        android:text="组织"
+        android:textColor="@color/colorWhite"
+        android:textSize="22sp"/>
+
+    <ImageView
+        android:id="@+id/imageview_normal_indicator"
+        android:layout_width="@dimen/imageview_homepage_magnifierSize"
+        android:layout_height="@dimen/imageview_homepage_magnifierSize"
+        android:layout_alignLeft="@id/tv_normal_projectswitch"
+        android:layout_alignStart="@id/tv_normal_projectswitch"
+        android:layout_centerVertical="true"
+        android:padding="7dp"
+        android:src="@drawable/icon_indicator" />
+
+    <ImageView
+        android:id="@+id/imageview_normal_magnifier"
+        android:layout_width="@dimen/imageview_homepage_magnifierSize"
+        android:layout_height="@dimen/imageview_homepage_magnifierSize"
+        android:layout_alignEnd="@id/tv_normal_projectswitch"
+        android:layout_alignRight="@id/tv_normal_projectswitch"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="16dp"
+        android:padding="@dimen/imageview_backBTN_padding"
+        android:src="@drawable/magnifier" />
+</RelativeLayout>

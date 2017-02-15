@@ -1,0 +1,106 @@
+[
+    {
+        "outputFile": "F:\\MyGitHub\\NbVolunteerAndroid\\htmlDialog\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-v11\\values-v11.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endLine": 4,
+                    "endColumn": 12,
+                    "endOffset": 187
+                },
+                "from": {
+                    "file": "F:\\MyGitHub\\NbVolunteerAndroid\\htmlDialog\\build\\intermediates\\bundles\\debug\\res\\values-v11\\values-v11.xml",
+                    "position": {
+                        "startLine": 2,
+                        "startColumn": 4,
+                        "startOffset": 55,
+                        "endLine": 4,
+                        "endColumn": 12,
+                        "endOffset": 187
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "outputFile": "E:\\NBzhongjing\\NbVolunteerAndroid2017-2-15\\NbVolunteerAndroid\\htmlDialog\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-v11\\values-v11.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endLine": 4,
+                    "endColumn": 12,
+                    "endOffset": 187
+                },
+                "from": {
+                    "file": "E:\\NBzhongjing\\NbVolunteerAndroid2017-2-15\\NbVolunteerAndroid\\htmlDialog\\build\\intermediates\\bundles\\debug\\res\\values-v11\\values-v11.xml",
+                    "position": {
+                        "startLine": 2,
+                        "startColumn": 4,
+                        "startOffset": 55,
+                        "endLine": 4,
+                        "endColumn": 12,
+                        "endOffset": 187
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "outputFile": "E:\\WeVolunteerApp\\NbVolunteerAndroid2016-9-27\\NbVolunteerAndroid\\htmlDialog\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-v11\\values-v11.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endLine": 4,
+                    "endColumn": 12,
+                    "endOffset": 187
+                },
+                "from": {
+                    "file": "E:\\WeVolunteerApp\\NbVolunteerAndroid2016-9-27\\NbVolunteerAndroid\\htmlDialog\\build\\intermediates\\bundles\\debug\\res\\values-v11\\values-v11.xml",
+                    "position": {
+                        "startLine": 2,
+                        "startColumn": 4,
+                        "startOffset": 55,
+                        "endLine": 4,
+                        "endColumn": 12,
+                        "endOffset": 187
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "outputFile": "E:\\WeVolunteerApp\\NbVolunteerAndroid2016-12-13\\NbVolunteerAndroid\\htmlDialog\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-v11\\values-v11.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endLine": 4,
+                    "endColumn": 12,
+                    "endOffset": 187
+                },
+                "from": {
+                    "file": "E:\\WeVolunteerApp\\NbVolunteerAndroid2016-12-13\\NbVolunteerAndroid\\htmlDialog\\build\\intermediates\\bundles\\debug\\res\\values-v11\\values-v11.xml",
+                    "position": {
+                        "startLine": 2,
+                        "startColumn": 4,
+                        "startOffset": 55,
+                        "endLine": 4,
+                        "endColumn": 12,
+                        "endOffset": 187
+                    }
+                }
+            }
+        ]
+    }
+]

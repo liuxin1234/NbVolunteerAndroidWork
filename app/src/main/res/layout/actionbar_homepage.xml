@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/actionbar_homepage_height"
+    android:background="@color/colorCyan"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/linearlayout_homepage_scan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/actionbar_homepage_margin"
+        android:layout_marginStart="@dimen/actionbar_homepage_margin"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="@dimen/imageview_homepage_scanSize"
+            android:layout_height="@dimen/imageview_homepage_scanSize"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/scan" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:text="@string/tv_scan"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/textview_homepage_scanSize" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_homepage_title"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_margin="@dimen/actionbar_homepage_margin"
+        android:gravity="center"
+        android:text="@string/tv_appName"
+        android:textColor="@color/colorWhite"
+        android:textSize="@dimen/textview_homepage_titlesize" />
+
+    <ImageView
+        android:id="@+id/imageview_homepage_magnifier"
+        android:layout_width="@dimen/imageview_homepage_magnifierSize"
+        android:layout_height="match_parent"
+        android:layout_alignEnd="@id/tv_homepage_title"
+        android:layout_alignRight="@id/tv_homepage_title"
+        android:layout_centerVertical="true"
+        android:padding="@dimen/imageview_backBTN_padding"
+        android:src="@drawable/magnifier" />
+
+</RelativeLayout>

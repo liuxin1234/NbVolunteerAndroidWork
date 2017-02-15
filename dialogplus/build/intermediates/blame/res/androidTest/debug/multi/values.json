@@ -1,0 +1,326 @@
+[
+    {
+        "outputFile": "E:\\WeVolunteerApp\\NbVolunteerAndroid2016-12-13\\NbVolunteerAndroid\\dialogplus\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values\\values.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endColumn": 60,
+                    "endOffset": 111
+                },
+                "from": {
+                    "file": "E:\\WeVolunteerApp\\NbVolunteerAndroid2016-12-13\\NbVolunteerAndroid\\dialogplus\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 2,
+                        "startColumn": 4,
+                        "startOffset": 55,
+                        "endColumn": 60,
+                        "endOffset": 111
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 3,
+                    "startColumn": 4,
+                    "startOffset": 116,
+                    "endColumn": 56,
+                    "endOffset": 168
+                },
+                "from": {
+                    "file": "E:\\WeVolunteerApp\\NbVolunteerAndroid2016-12-13\\NbVolunteerAndroid\\dialogplus\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 3,
+                        "startColumn": 4,
+                        "startOffset": 116,
+                        "endColumn": 56,
+                        "endOffset": 168
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 4,
+                    "startColumn": 4,
+                    "startOffset": 173,
+                    "endColumn": 63,
+                    "endOffset": 232
+                },
+                "from": {
+                    "file": "E:\\WeVolunteerApp\\NbVolunteerAndroid2016-12-13\\NbVolunteerAndroid\\dialogplus\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 4,
+                        "startOffset": 173,
+                        "endColumn": 63,
+                        "endOffset": 232
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 5,
+                    "startColumn": 4,
+                    "startOffset": 237,
+                    "endColumn": 71,
+                    "endOffset": 304
+                },
+                "from": {
+                    "file": "E:\\WeVolunteerApp\\NbVolunteerAndroid2016-12-13\\NbVolunteerAndroid\\dialogplus\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 5,
+                        "startColumn": 4,
+                        "startOffset": 237,
+                        "endColumn": 71,
+                        "endOffset": 304
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "outputFile": "E:\\WeVolunteerApp\\NbVolunteerAndroid2016-9-27\\NbVolunteerAndroid\\dialogplus\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values\\values.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endColumn": 60,
+                    "endOffset": 111
+                },
+                "from": {
+                    "file": "E:\\WeVolunteerApp\\NbVolunteerAndroid2016-9-27\\NbVolunteerAndroid\\dialogplus\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 2,
+                        "startColumn": 4,
+                        "startOffset": 55,
+                        "endColumn": 60,
+                        "endOffset": 111
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 3,
+                    "startColumn": 4,
+                    "startOffset": 116,
+                    "endColumn": 56,
+                    "endOffset": 168
+                },
+                "from": {
+                    "file": "E:\\WeVolunteerApp\\NbVolunteerAndroid2016-9-27\\NbVolunteerAndroid\\dialogplus\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 3,
+                        "startColumn": 4,
+                        "startOffset": 116,
+                        "endColumn": 56,
+                        "endOffset": 168
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 4,
+                    "startColumn": 4,
+                    "startOffset": 173,
+                    "endColumn": 63,
+                    "endOffset": 232
+                },
+                "from": {
+                    "file": "E:\\WeVolunteerApp\\NbVolunteerAndroid2016-9-27\\NbVolunteerAndroid\\dialogplus\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 4,
+                        "startOffset": 173,
+                        "endColumn": 63,
+                        "endOffset": 232
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 5,
+                    "startColumn": 4,
+                    "startOffset": 237,
+                    "endColumn": 71,
+                    "endOffset": 304
+                },
+                "from": {
+                    "file": "E:\\WeVolunteerApp\\NbVolunteerAndroid2016-9-27\\NbVolunteerAndroid\\dialogplus\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 5,
+                        "startColumn": 4,
+                        "startOffset": 237,
+                        "endColumn": 71,
+                        "endOffset": 304
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "outputFile": "F:\\MyGitHub\\NbVolunteerAndroid\\dialogplus\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values\\values.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endColumn": 60,
+                    "endOffset": 111
+                },
+                "from": {
+                    "file": "F:\\MyGitHub\\NbVolunteerAndroid\\dialogplus\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 2,
+                        "startColumn": 4,
+                        "startOffset": 55,
+                        "endColumn": 60,
+                        "endOffset": 111
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 3,
+                    "startColumn": 4,
+                    "startOffset": 116,
+                    "endColumn": 56,
+                    "endOffset": 168
+                },
+                "from": {
+                    "file": "F:\\MyGitHub\\NbVolunteerAndroid\\dialogplus\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 3,
+                        "startColumn": 4,
+                        "startOffset": 116,
+                        "endColumn": 56,
+                        "endOffset": 168
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 4,
+                    "startColumn": 4,
+                    "startOffset": 173,
+                    "endColumn": 63,
+                    "endOffset": 232
+                },
+                "from": {
+                    "file": "F:\\MyGitHub\\NbVolunteerAndroid\\dialogplus\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 4,
+                        "startOffset": 173,
+                        "endColumn": 63,
+                        "endOffset": 232
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 5,
+                    "startColumn": 4,
+                    "startOffset": 237,
+                    "endColumn": 71,
+                    "endOffset": 304
+                },
+                "from": {
+                    "file": "F:\\MyGitHub\\NbVolunteerAndroid\\dialogplus\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 5,
+                        "startColumn": 4,
+                        "startOffset": 237,
+                        "endColumn": 71,
+                        "endOffset": 304
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "outputFile": "E:\\NBzhongjing\\NbVolunteerAndroid2017-2-15\\NbVolunteerAndroid\\dialogplus\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values\\values.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endColumn": 60,
+                    "endOffset": 111
+                },
+                "from": {
+                    "file": "E:\\NBzhongjing\\NbVolunteerAndroid2017-2-15\\NbVolunteerAndroid\\dialogplus\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 2,
+                        "startColumn": 4,
+                        "startOffset": 55,
+                        "endColumn": 60,
+                        "endOffset": 111
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 3,
+                    "startColumn": 4,
+                    "startOffset": 116,
+                    "endColumn": 56,
+                    "endOffset": 168
+                },
+                "from": {
+                    "file": "E:\\NBzhongjing\\NbVolunteerAndroid2017-2-15\\NbVolunteerAndroid\\dialogplus\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 3,
+                        "startColumn": 4,
+                        "startOffset": 116,
+                        "endColumn": 56,
+                        "endOffset": 168
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 4,
+                    "startColumn": 4,
+                    "startOffset": 173,
+                    "endColumn": 63,
+                    "endOffset": 232
+                },
+                "from": {
+                    "file": "E:\\NBzhongjing\\NbVolunteerAndroid2017-2-15\\NbVolunteerAndroid\\dialogplus\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 4,
+                        "startOffset": 173,
+                        "endColumn": 63,
+                        "endOffset": 232
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 5,
+                    "startColumn": 4,
+                    "startOffset": 237,
+                    "endColumn": 71,
+                    "endOffset": 304
+                },
+                "from": {
+                    "file": "E:\\NBzhongjing\\NbVolunteerAndroid2017-2-15\\NbVolunteerAndroid\\dialogplus\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 5,
+                        "startColumn": 4,
+                        "startOffset": 237,
+                        "endColumn": 71,
+                        "endOffset": 304
+                    }
+                }
+            }
+        ]
+    }
+]
