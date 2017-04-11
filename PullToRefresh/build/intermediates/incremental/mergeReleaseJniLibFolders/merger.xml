@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="E:\NBzhongjing\NbVolunteerAndroid2017-2-15\NbVolunteerAndroid\PullToRefresh\src\main\jniLibs"/></dataSet><dataSet config="release"><source path="E:\NBzhongjing\NbVolunteerAndroid2017-2-15\NbVolunteerAndroid\PullToRefresh\src\release\jniLibs"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="F:\MyGitHub\NbVolunteerAndroid\PullToRefresh\src\main\jniLibs"/></dataSet><dataSet config="release"><source path="F:\MyGitHub\NbVolunteerAndroid\PullToRefresh\src\release\jniLibs"/></dataSet></merger>

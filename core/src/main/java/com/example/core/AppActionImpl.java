@@ -1126,6 +1126,31 @@ public class AppActionImpl implements AppAction {
     }
 
     @Override
+    public void signRecordCreateBoth(final List<SignInOutDto> signInOutDtos, final ActionCallbackListener<List<String>> listener) {
+        //判断票据是否过期
+        final String accessToken = LocalDate.getInstance(context).getLocalDate("access_token", "");
+        new AsyncTask<Void, Void, ApiResponse<List<String>>>() {
+            @Override
+            protected ApiResponse<List<String>> doInBackground(Void... params) {
+                return api.signRecordCreateBoth(signInOutDtos, accessToken);
+            }
+
+            @Override
+            protected void onPostExecute(ApiResponse<List<String>> result) {
+                if (result == null) {
+                    listener.onFailure("", "请检查网络后重试");
+                    return;
+                }
+                if (result.isSuccess()) {
+                    listener.onSuccess(result.getData());
+                } else {
+                    listener.onFailure("", result.getMessage());
+                }
+            }
+        }.execute();
+    }
+
+    @Override
     public void update_major_attachment(final List<AttachmentParaDto> data, final ActionCallbackListener<List<AttachmentsReturnDto>> listener) {
         //判断票据是否过期
         final String accessToken = LocalDate.getInstance(context).getLocalDate("access_token", "");

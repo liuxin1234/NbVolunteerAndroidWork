@@ -132,9 +132,11 @@ public class UpdateManger {
 
     protected void installApk() {
         File apkfile = new File(saveFileName);
+
         if (!apkfile.exists()) {
             return;
         }
+        System.out.println(apkfile.toString());
         Intent i = new Intent(Intent.ACTION_VIEW);
         i.setDataAndType(Uri.parse("file://" + apkfile.toString()),
                 "application/vnd.android.package-archive");// File.toString()会返回路径信息

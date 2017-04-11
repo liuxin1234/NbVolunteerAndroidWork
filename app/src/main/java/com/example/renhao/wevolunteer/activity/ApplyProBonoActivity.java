@@ -52,6 +52,7 @@ public class ApplyProBonoActivity extends BaseActivity implements View.OnClickLi
     private String my_home;
     private String my_work;
     private String my_phone;
+    private String skill;
     private String my_verification;
     private int my_AuditStatus;
     private List<AttachmentParaDto> files;
@@ -211,6 +212,7 @@ public class ApplyProBonoActivity extends BaseActivity implements View.OnClickLi
                                                     personal_data.setMobile(my_phone);
                                                     personal_data.setAuditStatus(3);//审核状态改变
                                                     personal_data.setSpeciality(true);
+                                                    personal_data.setSkilled(skill);
                                                     List<VolunteerViewDto> vl_updates = new ArrayList<>();
                                                     vl_updates.add(personal_data);
                                                     //申请资料上传
@@ -245,6 +247,7 @@ public class ApplyProBonoActivity extends BaseActivity implements View.OnClickLi
                                     personal_data.setMobile(my_phone);
                                     personal_data.setAuditStatus(3);//审核状态改变
                                     personal_data.setSpeciality(true);
+                                    personal_data.setSkilled(skill);
                                     List<VolunteerViewDto> vl_updates = new ArrayList<>();
                                     vl_updates.add(personal_data);
                                     //申请资料上传
@@ -432,6 +435,8 @@ public class ApplyProBonoActivity extends BaseActivity implements View.OnClickLi
                 //files = (List<AttachmentParaDto>) result.getSerializable("files");
                 personal_data = (VolunteerViewDto) result.getSerializable("personal_data");
                 TextView tv_specialty_show = (TextView) findViewById(R.id.tv_apply_pro_bono_major);
+                skill = personal_data.getSkilled();
+                System.out.println("skill = "+skill);
                 tv_specialty_show.setText(personal_data.getSkilled());
                 Flag_speciality = true;
                 break;

@@ -19,6 +19,8 @@ public class SignInOutDto {
     private Integer SourceType;//(integer),
     private Integer ComputerStatus;// (integer),
     private Integer SignType;// (integer)
+    private Integer SignCode; //(integer, optional): 随机签到签离码 ,
+    private Integer SignMethod; //(integer, optional): 签离签到方式 二维码1 签到码2
 
     public String getActivityTimeActivityActivityName() {
         return ActivityTimeActivityActivityName;
@@ -138,5 +140,21 @@ public class SignInOutDto {
 
     public void setVolunteerTrueName(String volunteerTrueName) {
         VolunteerTrueName = volunteerTrueName;
+    }
+
+    public Integer getSignMethod() {
+        return SignMethod;
+    }
+
+    public void setSignMethod(Integer signMethod) {
+        SignMethod = signMethod;
+    }
+
+    public Integer getSignCode() {
+        return SignCode;
+    }
+
+    public void setSignCode(Integer signCode) {
+        SignCode = signCode;
     }
 }

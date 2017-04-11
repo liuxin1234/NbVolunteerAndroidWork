@@ -220,12 +220,14 @@ public class ProjectFragmentV4 extends BaseFragmentV4 {
                 dto.setDeleted(false);
                 dto.setActivityState("1");
                 dto.setStatus(1);
+                System.out.println("0");
                 break;
             case 1:
                 sorts_map.put("JoinNum", "Desc");
                 dto.setDeleted(false);
                 dto.setActivityState("1");
                 dto.setStatus(1);
+                System.out.println("1");
                 break;
             case 2:
                 dto.setDeleted(false);
@@ -234,8 +236,11 @@ public class ProjectFragmentV4 extends BaseFragmentV4 {
                 dto.setLat(lat);
                 dto.setLng(lng);
                 dto.setScope(scope);
+                System.out.println("2");
                 break;
         }
+        dto.setDeleted(false);//false 为正常在用的
+        dto.setStatus(1);
         dto.setSorts(sorts_map);
         AppActionImpl.getInstance(getActivity()).activityQuery(dto,
                 new ActionCallbackListener<PagedListEntityDto<ActivityListDto>>() {

@@ -136,6 +136,9 @@ public interface Api {
     //签到签退明细
     public static final String SIGNRECORD_CREATE = "Nbcei.Plugin.NbVolunteer.Api.Impl/v1/signrecord/create";
 
+    //数字签到签退: 测试地址/api/Nbcei.Plugin.NbVolunteer.Api.Impl/v1/signrecord/createboth
+    public static final String SIGNRECORD_CREATE_BOTH ="Nbcei.Plugin.NbVolunteer.Api.Impl/v1/signrecord/createboth";
+
     //专业证书批量上传
     public static final String UPDATE_MAJOR_ATTACHMENT = "Nbcei.Plugin.Attachment.Api.Impl/v1/attachments/savefile";
 
@@ -342,6 +345,8 @@ public interface Api {
      * 签到签退明细
      */
     public ApiResponse<List<String>> signRecordCreate(List<SignInOutDto> creates, String accessToken);
+
+    public ApiResponse<List<String>> signRecordCreateBoth(List<SignInOutDto> creates,String accessToken);
 
     //证书上传
     public ApiResponse<List<AttachmentsReturnDto>> update_major_attachment(List<AttachmentParaDto> data, String accessToken);

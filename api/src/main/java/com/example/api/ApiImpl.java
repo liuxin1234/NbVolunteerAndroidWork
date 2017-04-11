@@ -127,10 +127,6 @@ public class ApiImpl implements Api {
     @Override
     public ApiResponse<UserViewDto> userLogin(String userName, String password, String assessToken) {
 
-        /*Map<String,String> params=new HashMap<>();
-        params.put("password",password);
-        params.put("userName",userName);*/
-
         List<String> params = new ArrayList<>();
         params.add(userName);
         params.add(password);
@@ -443,6 +439,7 @@ public class ApiImpl implements Api {
     public ApiResponse<PagedListEntityDto<ContentListDto>> contentQuery(ContentQueryOptionDto query, String accessToken) {
         Gson gson = new Gson();
         String params = gson.toJson(query);
+        System.out.println("Params====:"+params);
         Type typeOfT = new TypeToken<ApiResponse<PagedListEntityDto<ContentListDto>>>() {
         }.getType();
         try {
@@ -662,6 +659,20 @@ public class ApiImpl implements Api {
         }.getType();
         try {
             return HttpEngine.getInstance().postApiHandler(params, SIGNRECORD_CREATE, typeOft, accessToken);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return new ApiResponse<>(false, "网络连接异常");
+    }
+
+    @Override
+    public ApiResponse<List<String>> signRecordCreateBoth(List<SignInOutDto> creates, String accessToken) {
+        Gson gson = new Gson();
+        String params = gson.toJson(creates);
+        Type typeOft = new TypeToken<ApiResponse<List<String>>>() {
+        }.getType();
+        try {
+            return HttpEngine.getInstance().postApiHandler(params, SIGNRECORD_CREATE_BOTH, typeOft, accessToken);
         } catch (IOException e) {
             e.printStackTrace();
         }

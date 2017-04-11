@@ -59,7 +59,8 @@
     <string name="btn_apply">申 请</string>
 
     <!--fragment map Sign in -->
-    <string name="btn_sign_in">签 到</string>
+    <string name="btn_sign_in_scan">二维码</string>
+    <string name="btn_sign_in_num">签到码</string>
     <string name="btn_sign_out">签 退</string>
 
     <!--personalData-->

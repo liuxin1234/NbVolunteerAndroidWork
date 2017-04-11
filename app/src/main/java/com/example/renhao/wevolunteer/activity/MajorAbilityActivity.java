@@ -205,6 +205,7 @@ public class MajorAbilityActivity extends BaseActivity {
                                                                      public void onFailure(String errorEvent, String message) {
                                                                          dissMissNormalDialog();
                                                                          showToast("证书上传失败");
+                                                                         tv_submit.setClickable(true);
 
                                                                      }
                                                                  });

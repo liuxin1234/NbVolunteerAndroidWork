@@ -28,7 +28,6 @@ import com.example.renhao.wevolunteer.activity.Complete_information;
 import com.example.renhao.wevolunteer.activity.FAQActivity;
 import com.example.renhao.wevolunteer.activity.LoginActivity;
 import com.example.renhao.wevolunteer.activity.MajorAbilityActivity;
-import com.example.renhao.wevolunteer.activity.MyORGActivity;
 import com.example.renhao.wevolunteer.activity.MyProjectActivity;
 import com.example.renhao.wevolunteer.activity.MyRecuritJobActivity;
 import com.example.renhao.wevolunteer.activity.PersonalDataActivity;
@@ -324,15 +323,15 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
                 startActivity(intent);
                 break;
 
-            case TO_ORG:
-                if (personal_data == null) {
-                    showToast("登录异常");
-                    return;
-                }
-                intent.setClass(getActivity(), MyORGActivity.class);
-                intent.putExtra("personal_data", personal_data);
-                startActivity(intent);
-                break;
+//            case TO_ORG:
+//                if (personal_data == null) {
+//                    showToast("登录异常");
+//                    return;
+//                }
+//                intent.setClass(getActivity(), MyORGActivity.class);
+//                intent.putExtra("personal_data", personal_data);
+//                startActivity(intent);
+//                break;
 
             case TO_RANK:
                 break;

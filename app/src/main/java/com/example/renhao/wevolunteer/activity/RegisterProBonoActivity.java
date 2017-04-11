@@ -591,19 +591,24 @@ public class RegisterProBonoActivity extends BaseActivity implements View.OnFocu
                         @Override
                         public void onSuccess(Boolean data) {
                             if (data) {
-                                AppActionImpl.getInstance(getApplicationContext()).update_major_attachment(files,
-                                        new ActionCallbackListener<List<AttachmentsReturnDto>>() {
-                                            @Override
-                                            public void onSuccess(List<AttachmentsReturnDto> data) {
-                                                //申请资料上传
-                                                RegisterSubmit();
-                                            }
+                                if (files != null){
+                                    AppActionImpl.getInstance(getApplicationContext()).update_major_attachment(files,
+                                            new ActionCallbackListener<List<AttachmentsReturnDto>>() {
+                                                @Override
+                                                public void onSuccess(List<AttachmentsReturnDto> data) {
+                                                    //申请资料上传
+                                                    RegisterSubmit();
+                                                }
 
-                                            @Override
-                                            public void onFailure(String errorEvent, String message) {
-                                                showToast("证书上传失败");
-                                            }
-                                        });
+                                                @Override
+                                                public void onFailure(String errorEvent, String message) {
+                                                    showToast("证书上传失败");
+                                                }
+                                            });
+                                }else {
+                                    //申请资料上传
+                                    RegisterSubmit();
+                                }
                             } else {
                                 showToast("验证码错误");
                             }

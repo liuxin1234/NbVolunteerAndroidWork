@@ -55,6 +55,7 @@ import com.example.renhao.wevolunteer.R;
 import com.example.renhao.wevolunteer.base.BaseFragment;
 import com.example.renhao.wevolunteer.event.QRCodeResultEvent;
 import com.example.renhao.wevolunteer.utils.Util;
+import com.jungly.gridpasswordview.GridPasswordView;
 import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.EventBus;
@@ -83,6 +84,10 @@ public class FindPageFragment extends BaseFragment implements LocationSource,
     private static final int LOCATION_REQUEST_CODE = 1;
     private static final int TAKE_PHOTO_REQUEST_CODE = 2;
 
+    //签到签退的两种方式：二维码：1，签到码：2
+    private int SIGN_IN_QR = 1;
+    private int SIGN_IN_NUM = 2;
+    private int SIGN_OUT = 0;
 
     private int showMap = MAP_ALL;
 
@@ -116,6 +121,7 @@ public class FindPageFragment extends BaseFragment implements LocationSource,
 
     Button sign_in;//签到
     Button sign_out;//签退
+    Button sign_in_num;//签到码按钮
     LinearLayout linearLayout;//签到计时的布局
     Chronometer chronometer;//计时器
 
@@ -142,6 +148,7 @@ public class FindPageFragment extends BaseFragment implements LocationSource,
         this.mapView = (MapView) localView.findViewById(R.id.map);
         this.sign_in = (Button) localView.findViewById(R.id.btn_sign_in);
         this.sign_out = (Button) localView.findViewById(R.id.btn_sign_out);
+        this.sign_in_num = (Button) localView.findViewById(R.id.btn_sign_in_num);
         this.linearLayout = (LinearLayout) localView.findViewById(R.id.time_layout);
         this.chronometer = (Chronometer) localView.findViewById(R.id.chronometer);
         chronometer.setFormat("%s");
@@ -165,6 +172,7 @@ public class FindPageFragment extends BaseFragment implements LocationSource,
         if (type) {
             if (!flag) {
                 sign_in.setVisibility(View.VISIBLE);
+                sign_in_num.setVisibility(View.VISIBLE);
             } else {
                 sign_out.setVisibility(View.VISIBLE);
                 linearLayout.setVisibility(View.VISIBLE);
@@ -173,6 +181,7 @@ public class FindPageFragment extends BaseFragment implements LocationSource,
             tag = true;
         } else {
             sign_in.setVisibility(View.GONE);
+            sign_in_num.setVisibility(View.GONE);
             sign_out.setVisibility(View.INVISIBLE);
             linearLayout.setVisibility(View.INVISIBLE);
             tag = false;
@@ -204,14 +213,14 @@ public class FindPageFragment extends BaseFragment implements LocationSource,
                             case 0:
                                 boolean f = LocalDate.getInstance(getActivity()).getLocalDate("flag", false);
                                 if (f) {
-                                    signOut(event.getQrcodeMsg(), volunteerId);
+                                    signOut(event.getQrcodeMsg(), volunteerId, SIGN_IN_QR);
                                 } else {
-                                    signIn(event.getQrcodeMsg(), volunteerId);
+                                    signIn(event.getQrcodeMsg(), volunteerId, SIGN_IN_QR);
                                     LocalDate.getInstance(getActivity()).setLocalDate("activityId", event.getQrcodeMsg());
                                 }
                                 break;
                             case 1:
-                                signIn(event.getQrcodeMsg(), volunteerId);
+                                signIn(event.getQrcodeMsg(), volunteerId, SIGN_IN_QR);
                                 LocalDate.getInstance(getActivity()).setLocalDate("activityId", event.getQrcodeMsg());
                                 break;
                             default:
@@ -222,7 +231,7 @@ public class FindPageFragment extends BaseFragment implements LocationSource,
                     @Override
                     public void onFailure(String errorEvent, String message) {
                         System.out.println(event.getQrcodeMsg());
-//                            showToast("请扫描正确的二维码内容");
+                            showToast("请扫描正确的We志愿活动/岗位的二维码内容");
                     }
                 });
     }
@@ -230,6 +239,7 @@ public class FindPageFragment extends BaseFragment implements LocationSource,
     private void setmListener() {
         sign_in.setOnClickListener(this);
         sign_out.setOnClickListener(this);
+        sign_in_num.setOnClickListener(this);
     }
 
 
@@ -761,6 +771,7 @@ public class FindPageFragment extends BaseFragment implements LocationSource,
         Intent intent = new Intent(getActivity(), MipcaActivityCapture.class);
         switch (v.getId()) {
             case R.id.btn_sign_in:
+                LocalDate.getInstance(getActivity()).setLocalDate("SIGN_OUT", "1");
                 if (Build.VERSION.SDK_INT >= 23) {
                     if (ContextCompat.checkSelfPermission(getActivity(),
                             Manifest.permission.CAMERA)
@@ -793,8 +804,15 @@ public class FindPageFragment extends BaseFragment implements LocationSource,
                 builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        String activityId = LocalDate.getInstance(getActivity()).getLocalDate("activityId", "");
-                        signOut(activityId, volunteerId);
+                        String sign_out = LocalDate.getInstance(getActivity()).getLocalDate("SIGN_OUT","");
+                        System.out.println("sing_out=========> "+sign_out);
+                        if (sign_out.equals("2") || sign_out.equals("")){
+                            String activityNumCode = LocalDate.getInstance(getActivity()).getLocalDate("activityNumCode", "");
+                            signOut(activityNumCode, volunteerId, SIGN_IN_NUM);
+                        }else if (sign_out.equals("1")){
+                            String activityId = LocalDate.getInstance(getActivity()).getLocalDate("activityId", "");
+                            signOut(activityId, volunteerId,SIGN_IN_QR);
+                        }
                     }
                 });
                 builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -805,11 +823,47 @@ public class FindPageFragment extends BaseFragment implements LocationSource,
                 });
                 builder.create().show();
                 break;
+            case R.id.btn_sign_in_num:
+                showNumberDialog(volunteerId);
+                SIGN_OUT = SIGN_IN_NUM;//作为判断 用户点击的是签到码
+                LocalDate.getInstance(getActivity()).setLocalDate("SIGN_OUT", String.valueOf(SIGN_OUT));
+                break;
         }
     }
 
+    /**
+     * 设置签到码输入框
+     * @param volunteerId
+     */
+    private void showNumberDialog(final String volunteerId) {
+        final AlertDialog mDialog;
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        View view = View.inflate(getActivity(),R.layout.number_sign_in,null);
+        mDialog = builder.create();
+        mDialog.setView(view);
+        mDialog.show();
+        GridPasswordView mView = (GridPasswordView) view.findViewById(R.id.pswView);
+        mView.setOnPasswordChangedListener(new GridPasswordView.OnPasswordChangedListener() {
+            @Override
+            public void onTextChanged(String psw) {
+                if (psw.length() == 6){
+                    signIn(psw,volunteerId,SIGN_IN_NUM);
+                    mDialog.dismiss();
+                    Log.e(TAG, "onTextChanged: "+psw);
 
-    private void signIn(String qrcode, String volunteerId) {
+                }
+
+            }
+
+            @Override
+            public void onInputFinish(String psw) {
+
+            }
+        });
+    }
+
+
+    private void signIn(String qrcode, String volunteerId,int signMethod) {
         //直接发送二维码的内容
         SignInOutDto create = new SignInOutDto();
         if (LocalDate.getInstance(getActivity()).getLocalDate("lat", null) != null &&
@@ -825,9 +879,14 @@ public class FindPageFragment extends BaseFragment implements LocationSource,
             create.setLat(location.getLatitude());
             create.setNg(location.getLongitude());
         }
+        if (signMethod == 1){
+            create.setActivityId(qrcode);
+        }else if (signMethod == 2){
+            create.setSignCode(Integer.valueOf(qrcode));
+            LocalDate.getInstance(getActivity()).setLocalDate("activityNumCode", qrcode);
+        }
         create.setVolunteerId(volunteerId);
-        create.setActivityId(qrcode);
-        //create.setActivityTimeId();
+        create.setSignMethod(signMethod);
         create.setSigntime(Util.getNowDate());
         create.setDeviceId(Util.getMac());
         create.setSourceType(0);
@@ -835,7 +894,7 @@ public class FindPageFragment extends BaseFragment implements LocationSource,
         create.setId(UUID.randomUUID().toString());
         List<SignInOutDto> creates = new ArrayList<>();
         creates.add(create);
-        AppActionImpl.getInstance(getActivity()).signRecordCreate(creates, new ActionCallbackListener<List<String>>() {
+        AppActionImpl.getInstance(getActivity()).signRecordCreateBoth(creates, new ActionCallbackListener<List<String>>() {
             @Override
             public void onSuccess(List<String> data) {
                 if (data == null) {
@@ -848,6 +907,8 @@ public class FindPageFragment extends BaseFragment implements LocationSource,
                 }
 
                 flag = saveFlag(true);
+                sign_in.setVisibility(View.GONE);
+                sign_in_num.setVisibility(View.GONE);
                 sign_out.setVisibility(View.VISIBLE);
                 linearLayout.setVisibility(View.VISIBLE);
                 startChronometer();
@@ -862,7 +923,7 @@ public class FindPageFragment extends BaseFragment implements LocationSource,
         });
     }
 
-    private void signOut(String qrcode, String volunteerId) {
+    private void signOut(String qrcode, String volunteerId,int signMethod) {
         //直接发送二维码的内容
         SignInOutDto create = new SignInOutDto();
         if (LocalDate.getInstance(getActivity()).getLocalDate("lat", null) != null &&
@@ -878,8 +939,14 @@ public class FindPageFragment extends BaseFragment implements LocationSource,
             create.setLat(location.getLatitude());
             create.setNg(location.getLongitude());
         }
+        if (signMethod == 1){
+            create.setActivityId(qrcode);
+        }else if (signMethod == 2){
+            create.setSignCode(Integer.valueOf(qrcode));
+        }
+
         create.setVolunteerId(volunteerId);
-        create.setActivityId(qrcode);
+        create.setSignMethod(signMethod);
         //create.setActivityTimeId();
         create.setSigntime(Util.getNowDate());
         create.setDeviceId(Util.getMac());
@@ -888,7 +955,7 @@ public class FindPageFragment extends BaseFragment implements LocationSource,
         create.setId(UUID.randomUUID().toString());
         List<SignInOutDto> creates = new ArrayList<>();
         creates.add(create);
-        AppActionImpl.getInstance(getActivity()).signRecordCreate(creates,
+        AppActionImpl.getInstance(getActivity()).signRecordCreateBoth(creates,
                 new ActionCallbackListener<List<String>>() {
                     @Override
                     public void onSuccess(List<String> data) {
@@ -901,8 +968,12 @@ public class FindPageFragment extends BaseFragment implements LocationSource,
                             return;
                         }
                         LocalDate.getInstance(getActivity()).setLocalDate("activityId", "");
+                        LocalDate.getInstance(getActivity()).setLocalDate("activityNumCode", "");
+                        LocalDate.getInstance(getActivity()).setLocalDate("SIGN_OUT","0");
+                        SIGN_OUT = 0;
                         flag = saveFlag(false);
                         sign_in.setVisibility(View.VISIBLE);
+                        sign_in_num.setVisibility(View.VISIBLE);
                         sign_out.setVisibility(View.GONE);
                         linearLayout.setVisibility(View.GONE);
                         stopChronometer();

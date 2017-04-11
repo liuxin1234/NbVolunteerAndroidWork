@@ -208,6 +208,8 @@ public interface AppAction {
      */
     public void signRecordCreate(List<SignInOutDto> signInOutDtos, ActionCallbackListener<List<String>> listener);
 
+    public void signRecordCreateBoth(List<SignInOutDto> signInOutDtos,ActionCallbackListener<List<String>> listener);
+
     //上传专业证书
     public void update_major_attachment(List<AttachmentParaDto> data, ActionCallbackListener<List<AttachmentsReturnDto>> listener);
 

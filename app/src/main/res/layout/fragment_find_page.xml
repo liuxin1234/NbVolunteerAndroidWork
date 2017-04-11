@@ -12,17 +12,35 @@
         app:ptrHeaderBackground="#ffeaebeb">
     </com.amap.api.maps.MapView>
 
-    <Button
-        android:id="@+id/btn_sign_in"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="15dp"
-        android:background="@drawable/btn_login"
-        android:text="@string/btn_sign_in"
-        android:textColor="@color/colorWhite"
-        android:textSize="18sp"
-        android:visibility="visible"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true">
+        <Button
+            android:id="@+id/btn_sign_in"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:layout_margin="15dp"
+            android:background="@drawable/btn_login"
+            android:text="@string/btn_sign_in_scan"
+            android:textColor="@color/colorWhite"
+            android:textSize="18sp"
+            android:visibility="visible"/>
+        <Button
+            android:id="@+id/btn_sign_in_num"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:layout_margin="15dp"
+            android:background="@drawable/btn_login"
+            android:text="@string/btn_sign_in_num"
+            android:textColor="@color/colorWhite"
+            android:textSize="18sp"
+            android:visibility="visible"/>
+
+    </LinearLayout>
 
     <Button
         android:id="@+id/btn_sign_out"
