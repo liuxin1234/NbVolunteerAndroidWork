@@ -170,8 +170,4 @@ public class OrganizationDetailActivity extends BaseActivity {
             }
         });
     }
-
-/*    @OnClick(R.id.imageview_organization_icon)
-    public void onClick() {
-    }*/
 }

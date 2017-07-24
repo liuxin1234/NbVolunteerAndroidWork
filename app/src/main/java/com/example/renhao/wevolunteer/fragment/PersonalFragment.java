@@ -5,8 +5,16 @@ package com.example.renhao.wevolunteer.fragment;
  *
  */
 
+import android.Manifest;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +28,11 @@ import android.widget.Toast;
 import com.example.core.AppActionImpl;
 import com.example.core.local.LocalDate;
 import com.example.model.ActionCallbackListener;
+import com.example.model.Attachment.AttachmentsViewDto;
+import com.example.model.PagedListEntityDto;
+import com.example.model.mobileVersion.MobileVersionListDto;
+import com.example.model.mobileVersion.MobileVersionQueryOptionDto;
+import com.example.model.mobileVersion.MobileVersionViewDto;
 import com.example.model.volunteer.VolunteerViewDto;
 import com.example.renhao.wevolunteer.R;
 import com.example.renhao.wevolunteer.activity.AboutUsActivity;
@@ -34,9 +47,13 @@ import com.example.renhao.wevolunteer.activity.PersonalDataActivity;
 import com.example.renhao.wevolunteer.activity.ReportProblemActivity;
 import com.example.renhao.wevolunteer.base.BaseActivity;
 import com.example.renhao.wevolunteer.base.BaseFragment;
+import com.example.renhao.wevolunteer.update.UpdateManger;
 import com.example.renhao.wevolunteer.utils.DataCleanManager;
 import com.example.renhao.wevolunteer.utils.Util;
 import com.orhanobut.logger.Logger;
+
+import java.util.LinkedHashMap;
+import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
 import static com.example.renhao.wevolunteer.R.drawable.star;
@@ -60,8 +77,14 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
     private Button exit;
     private TextView tv_specialty_show;
     private BaseActivity mBaseActivity;
-    private LinearLayout job, attention, ORG, rank, Information, aboutUS, WIPE_CACHE, REPORT_PROBLEM, FAQ,My_Recruit_Job;
+    private LinearLayout job, attention, ORG, rank, Information, aboutUS, WIPE_CACHE,
+                         REPORT_PROBLEM, FAQ,My_Recruit_Job,upAPK;
 
+    //6.0申请存储权限
+    private static final int LOCATION_REQUEST_CODE = 1;
+    private static final int TAKE_PHOTO_REQUEST_CODE = 2;
+    private static final int SDCARD_REQUEST_CODE = 3;
+    private UpdateManger updateManger = null;
 
     private boolean toSpecialRegister_connect_again = true;
     private boolean toInformation_connect_again = true;
@@ -84,6 +107,7 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
     private final int TO_FAQ = 10;
     private final int LOGIN = 11;
     private final int TO_MYRECRUIT = 12;
+    private final int TO_UPAPK = 13;
 
     private boolean isSpeciality;
     private int AuditStatus;
@@ -223,7 +247,7 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
         REPORT_PROBLEM = (LinearLayout) bottomView.findViewById(R.id.LL_PF_REPORT_PROBLEM);
         FAQ = (LinearLayout) bottomView.findViewById(R.id.LL_PF_FAQ);
         My_Recruit_Job = (LinearLayout) bottomView.findViewById(R.id.LL_PF_remove);
-
+        upAPK = (LinearLayout) bottomView.findViewById(R.id.LL_PF_UPAPK);
 
 
         //添加点击监听
@@ -239,6 +263,7 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
         REPORT_PROBLEM.setOnClickListener(this);
         FAQ.setOnClickListener(this);
         My_Recruit_Job.setOnClickListener(this);
+        upAPK.setOnClickListener(this);
 
         //添加点击标签
         professional_true.setTag(PROFESSIONAL_SELECTION);
@@ -253,6 +278,7 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
         REPORT_PROBLEM.setTag(TO_REPORT_PROBLEM);
         FAQ.setTag(TO_FAQ);
         My_Recruit_Job.setTag(TO_MYRECRUIT);
+        upAPK.setTag(TO_UPAPK);
 
     }
 
@@ -323,16 +349,6 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
                 startActivity(intent);
                 break;
 
-//            case TO_ORG:
-//                if (personal_data == null) {
-//                    showToast("登录异常");
-//                    return;
-//                }
-//                intent.setClass(getActivity(), MyORGActivity.class);
-//                intent.putExtra("personal_data", personal_data);
-//                startActivity(intent);
-//                break;
-
             case TO_RANK:
                 break;
 
@@ -353,7 +369,6 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
                     Toast.makeText(mBaseActivity, "清除成功", Toast.LENGTH_SHORT).show();
                 } catch (Exception localException) {
                 }
-               /* LocalDate.getInstance(getActivity()).setLocalDate("isLogin", false);*/
                 break;
 
             case TO_REPORT_PROBLEM:
@@ -364,6 +379,9 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
             case TO_FAQ:
                 intent.setClass(getActivity(), FAQActivity.class);
                 startActivity(intent);
+                break;
+            case TO_UPAPK:
+                isUpdate();
                 break;
 
         }
@@ -408,8 +426,8 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
                     @Override
                     public void onSuccess(VolunteerViewDto data) {
                         if (data == null) {
-                            System.out.println("data:"+data);
-                            System.out.println("isInit"+isInit);
+//                            System.out.println("data:"+data);
+//                            System.out.println("isInit"+isInit);
                             //如果用户登录失败则跳转到登录界面
                             if (isInit) {
                                 isInit = false;
@@ -422,10 +440,10 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
                         //将data传到另一个activity中备用
                         personal_data = data;
                         setClickTrue();
-                        System.out.println("trueName:"+personal_data.getTrueName());
-                        System.out.println("IdNumber:"+personal_data.getIdNumber());
-                        System.out.println("Email:"+personal_data.getEmail());
-                        System.out.println("Mobile:"+personal_data.getMobile());
+//                        System.out.println("trueName:"+personal_data.getTrueName());
+//                        System.out.println("IdNumber:"+personal_data.getIdNumber());
+//                        System.out.println("Email:"+personal_data.getEmail());
+//                        System.out.println("Mobile:"+personal_data.getMobile());
                         if (personal_data.getTrueName() == null
                                 || personal_data.getIdNumber() == null
                                 || personal_data.getEmail() == null
@@ -549,4 +567,112 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
 
         }
     }
+
+
+
+    private void isUpdate() {
+        if (!Util.hasSDcard())
+            return;
+        MobileVersionQueryOptionDto queryOptionDto = new MobileVersionQueryOptionDto();
+        LinkedHashMap<String, String> sorts_map = new LinkedHashMap<>();
+        sorts_map.put("CreateOperation.CreateTime", "desc");
+        queryOptionDto.setSorts(sorts_map);
+        final Context context = getActivity();
+        AppActionImpl.getInstance(context).mobileVersionQuery(queryOptionDto,
+                new ActionCallbackListener<PagedListEntityDto<MobileVersionListDto>>() {
+                    @Override
+                    public void onSuccess(PagedListEntityDto<MobileVersionListDto> data) {
+                        if (data == null)
+                            return;
+                        List<MobileVersionListDto> listDto = data.getRows();
+                        if (listDto == null || listDto.size() < 1)
+                            return;
+                        String nowVersion = "V" + Util.getAppVersion(context);
+                        String newVersion = listDto.get(0).getVersionNumber();
+                        if (nowVersion.equals(newVersion)){
+                            showToast("已经是最新版本了");
+                            return;
+                        }
+
+                        String versionId = listDto.get(0).getId();
+                        AppActionImpl.getInstance(context).mobileVersionDetails(versionId,
+                                new ActionCallbackListener<MobileVersionViewDto>() {
+                                    @Override
+                                    public void onSuccess(MobileVersionViewDto data) {
+                                        if (data == null)
+                                            return;
+                                        String attatchMentId = data.getAttachmentId();
+                                        AppActionImpl.getInstance(context).attatchmentDetails(attatchMentId,
+                                                new ActionCallbackListener<AttachmentsViewDto>() {
+                                                    @Override
+                                                    public void onSuccess(AttachmentsViewDto data) {
+                                                        if (data == null)
+                                                            return;
+                                                        System.out.println(data.getFileUrl());
+                                                        System.out.println(Util.getRealUrl(data.getFileUrl()));
+                                                        updateManger = new UpdateManger(context, Util.getRealUrl(data.getFileUrl()), "检测到新版本，是否更新");
+                                                        // updateManger = new UpdateManger(context, "http://192.168.1.100:8080/lib_check/WeVolunteer.apk", "检测到新版本，是否更新");
+
+                                                        if (Build.VERSION.SDK_INT >= 23) {
+                                                            if (ContextCompat.checkSelfPermission(context,
+                                                                    Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                                                                    != PackageManager.PERMISSION_GRANTED) {
+                                                                if (!ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                                                                    showMessageOKCancel("您需要在应用权限设置中对本应用读写SD卡进行授权才能正常使用该功能",
+                                                                            new DialogInterface.OnClickListener() {
+                                                                                @Override
+                                                                                public void onClick(DialogInterface dialog, int which) {
+                                                                                    ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                                                                                            SDCARD_REQUEST_CODE);
+                                                                                }
+                                                                            });
+                                                                    return;
+                                                                }
+                                                                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                                                                        SDCARD_REQUEST_CODE);
+                                                                return;
+                                                            }
+                                                            updateManger.checkUpdateInfo();
+                                                        } else {
+                                                            updateManger.checkUpdateInfo();
+                                                        }
+                                                    }
+
+                                                    @Override
+                                                    public void onFailure(String errorEvent, String message) {
+
+                                                    }
+                                                }
+
+                                        );
+                                    }
+
+                                    @Override
+                                    public void onFailure(String errorEvent, String message) {
+
+                                    }
+                                }
+
+                        );
+                    }
+
+                    @Override
+                    public void onFailure(String errorEvent, String message) {
+
+                    }
+                }
+
+        );
+    }
+
+    //文本提示对话框
+    public void showMessageOKCancel(String message, DialogInterface.OnClickListener okListener) {
+        new AlertDialog.Builder(getActivity())
+                .setMessage(message)
+                .setPositiveButton("确定", okListener)
+                .setNegativeButton("取消", null)
+                .create()
+                .show();
+    }
+
 }

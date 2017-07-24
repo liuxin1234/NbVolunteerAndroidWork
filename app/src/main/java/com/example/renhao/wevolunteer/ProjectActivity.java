@@ -82,8 +82,6 @@ public class ProjectActivity extends BaseActivity implements RadioGroup.OnChecke
 
         initActionbar();
 
-       /* initDictionary();*/
-
         page = getIntent().getIntExtra("page", JOBS);
         if (page == ACTIVITY) {
             switchPage.setCurrentItem(page);
@@ -95,21 +93,6 @@ public class ProjectActivity extends BaseActivity implements RadioGroup.OnChecke
         mHomepage.setIconColor(getResources().getColor(R.color.colorCyan));
     }
 
-    /*private void initDictionary() {
-        DictionaryQueryOptionDto dto=new DictionaryQueryOptionDto();
-        dto.setDictionaryTypeId("ActivityType");
-        AppActionImpl.getInstance(this).dictionaryQuery(dto, new ActionCallbackListener<PagedListEntityDto<DictionaryListDto>>() {
-            @Override
-            public void onSuccess(PagedListEntityDto<DictionaryListDto> data) {
-
-            }
-
-            @Override
-            public void onFailure(String errorEvent, String message) {
-
-            }
-        });
-    }*/
 
     private void initActionbar() {
         ActionBar mActionBar = getSupportActionBar();

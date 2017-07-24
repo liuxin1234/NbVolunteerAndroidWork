@@ -140,6 +140,7 @@ public class UpdateManger {
         Intent i = new Intent(Intent.ACTION_VIEW);
         i.setDataAndType(Uri.parse("file://" + apkfile.toString()),
                 "application/vnd.android.package-archive");// File.toString()会返回路径信息
+        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);     //在下载更新之后,并没有打开安装成功界面,闪退情况,想了许久,从新开一个任务栈
         mContext.startActivity(i);
     }
 

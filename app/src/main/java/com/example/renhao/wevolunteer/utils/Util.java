@@ -25,6 +25,9 @@ import java.util.regex.Pattern;
  * 创建人：renhao
  * 创建时间：2016/8/21 23:11
  * 修改备注：
+ * 正式环境拼接的URL：http://www.nbzyz.org
+ * 测试环境凭借的URL：http://115.238.150.174:5018/admin
+ *
  */
 public class Util {
     private static final String TAG = "Util";
@@ -176,7 +179,7 @@ public class Util {
     }
 
     public static boolean isID(String id) {
-        String pattern = "\\d{17}[\\d|x]|\\d{15}";
+        String pattern = "\\d{17}[\\d|X|x]|\\d{15}";
         Pattern r = Pattern.compile(pattern);
         Matcher m = r.matcher(id);
         if (m.matches())

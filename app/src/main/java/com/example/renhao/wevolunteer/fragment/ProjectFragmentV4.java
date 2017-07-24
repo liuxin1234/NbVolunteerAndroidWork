@@ -90,6 +90,16 @@ public class ProjectFragmentV4 extends BaseFragmentV4 {
     private String lng;
     private int scope = 0;
 
+    //一岗双责序列号
+    private int serviceTypeSelect = -1;
+    private List<String> serviceType = new ArrayList<>();
+    private List<String> serviceTypeCode = new ArrayList<>();
+    private boolean service_flag = true;    //判断是否点击了"一员双岗双建功"选项 用来固定第一层的postion
+    private boolean TypeSelect_flag = false;//判断是否选中"一员双岗双建功"选项
+    private int dropDownMenu_int = 1; //判断是否有2级菜单
+
+
+
     private int PageIndex;//(integer, optional): 当前页码
     private int PageSize;//(integer, optional): 每页条数
     private int TotalCount;// (integer, optional): 总共记录数
@@ -203,7 +213,17 @@ public class ProjectFragmentV4 extends BaseFragmentV4 {
         dto.setLanguageType("");
         dto.setType(PROJECT_TYPE);
         if (typeSelect > -1) {
-            dto.setActivityType(typeCode.get(typeSelect));
+            if (TypeSelect_flag){ // 判断是否有2级菜单
+                dto.setActivityType(typeCode.get(serviceTypeSelect));
+                System.out.println("执行到了。。。。");
+                if (serviceTypeCode != null && serviceTypeCode.size() > 0){
+                    dto.setServiceType(Integer.valueOf(serviceTypeCode.get(typeSelect)));
+                }
+
+            }else {
+                dto.setActivityType(typeCode.get(typeSelect));
+            }
+
         }
         if (stateSelect > -1) {
             dto.setActivityState(stateCode.get(stateSelect));
@@ -365,9 +385,37 @@ public class ProjectFragmentV4 extends BaseFragmentV4 {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 typeSelect = position - 1;
                 typeAdapter.setCheckItem(position);
-                mDropDownMenu.setTabText(position == 0 ? headers[0] : type.get(position));
-                mDropDownMenu.closeMenu();
-                initDate(REFRESH);
+
+                //设置这个判断主要防止typeCode的position的值为0的时候，position-1为负数，导致APP闪退
+                if (typeSelect > -1){
+
+                    //判断用户点击的是第一级菜单 并且点击的不是“一员双岗双建功”
+                    if (!typeCode.get(position-1).equals("00024") && dropDownMenu_int == 1){
+                        TypeSelect_flag = false;    //未选择“一员双岗双建功”
+                    }
+
+                    if (typeCode.get(position-1).equals("00024") && service_flag){
+                        serviceTypeSelect = position - 1;
+                        TypeSelect_flag = true;
+                        dropDownMenu_int = 2;
+                        againData();
+                    } else {
+                        mDropDownMenu.setTabText(position == 0 ? headers[0] : (dropDownMenu_int == 2 ? serviceType.get(position):type.get(position)));
+                        mDropDownMenu.closeMenu();
+                        service_flag = true;
+                        dropDownMenu_int = 1;
+                        initDate(REFRESH);
+
+                    }
+                }else {  //当用户点击下拉菜单的是“类型”字段时候，即postion=0时
+                    TypeSelect_flag = false;    //未选择“一员双岗双建功”
+                    mDropDownMenu.setTabText(position == 0 ? headers[0] : (dropDownMenu_int == 2 ? serviceType.get(position):type.get(position)));
+                    mDropDownMenu.closeMenu();
+                    service_flag = true;
+                    dropDownMenu_int = 1;
+                    initDate(REFRESH);
+                }
+
             }
         });
         //状态
@@ -414,28 +462,56 @@ public class ProjectFragmentV4 extends BaseFragmentV4 {
                 if (smartSelect < 2)
                     initDate(REFRESH);
                 else {
-                    GetGPS getGPS = new GetGPS(getActivity());
-                    getGPS.setGPSListener(new GetGPS.GPSListener() {
-                        @Override
-                        public void OnGPSChanged(AMapLocation aMapLocation) {
-                            lat = aMapLocation.getLatitude() + "";
-                            lng = aMapLocation.getLongitude() + "";
-                            initDate(REFRESH);
-                        }
-                    });
-                    getGPS.startGPSListener();
+            GetGPS getGPS = new GetGPS(getActivity());
+            getGPS.setGPSListener(new GetGPS.GPSListener() {
+                @Override
+                public void OnGPSChanged(AMapLocation aMapLocation) {
+                    lat = aMapLocation.getLatitude() + "";
+                    lng = aMapLocation.getLongitude() + "";
+                    initDate(REFRESH);
                 }
-                smartAdapter.setCheckItem(position);
-                mDropDownMenu.setTabText(position == 0 ? headers[3] : smart[position]);
-                mDropDownMenu.closeMenu();
-            }
-        });
+            });
+            getGPS.startGPSListener();
+        }
+        smartAdapter.setCheckItem(position);
+        mDropDownMenu.setTabText(position == 0 ? headers[3] : smart[position]);
+        mDropDownMenu.closeMenu();
+    }
+});
 
         //init popupViews
         popupViews.add(typeView);
         popupViews.add(stateView);
         popupViews.add(areaView);
         popupViews.add(smartView);
+    }
+
+
+    /**
+     * 一元双建双功
+     */
+    public void againData(){
+        AppActionImpl.getInstance(getActivity()).dictionaryQueryDefault("YYSGSJG", "",
+                new ActionCallbackListener<List<DictionaryListDto>>() {
+                    @Override
+                    public void onSuccess(List<DictionaryListDto> data) {
+                        serviceType = new ArrayList<String>();
+                        serviceType.add("类型");
+                        serviceTypeCode = new ArrayList<String>();
+                        for (int i = 0; i < data.size(); i++) {
+                            serviceType.add(data.get(i).getName());
+                            serviceTypeCode.add(data.get(i).getCode());
+                        }
+
+                        typeAdapter.setDate(serviceType);
+                        service_flag = false;
+                    }
+
+                    @Override
+                    public void onFailure(String errorEvent, String message) {
+
+                    }
+                });
     }
 
     @Override

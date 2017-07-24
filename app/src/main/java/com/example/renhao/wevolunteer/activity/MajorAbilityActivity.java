@@ -178,7 +178,7 @@ public class MajorAbilityActivity extends BaseActivity {
                                                          //压缩图片
                                                          bitmap = decodeSampledBitmapFromFile(show_pic.get(i), 560, 320);
                                                          String tempstr = Base64.encodeToString(getBitmapByte(bitmap), Base64.DEFAULT);
-                                                         byte[] temp = getBitmapByte(Util.byteToBitmap(tempstr));
+                                                         byte[] temp = getBitmapByte(Util.byteToBitmap(tempstr)); //客户端给服务器传递参数时，通过Base64传递二进制内容
 
                                                          attachment.setFileData(Base64.encodeToString(temp, Base64.DEFAULT));
                                                          attachment.setFileName("Major" + date + ".jpg");

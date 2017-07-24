@@ -36,6 +36,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     public static final int PERSONAL_ATTRIBUTE = 0;
     public static final int AREA_REGISTER = 2;
     public static final int ORG_REGISTER = 3;
+    public static final int MY_POLIT = 4;
 
     CheckBox cb_school;
     CheckBox cb_job;
@@ -57,9 +58,11 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     LinearLayout ll_org;
     LinearLayout ll_credentials_type;
     LinearLayout ll_personal_attribute;
+    LinearLayout ll_Political_Attribute;
     TextView tv_cardType;
     TextView areaNameTv, orgNameTv, clause;
     LinearLayout ll;
+    TextView tv_polity_show;
 
     private VolunteerViewDto personal_data;
 
@@ -80,6 +83,9 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     private String orgName;
     private String orgId;
     private String personalCode;
+
+    private String polity;
+    private boolean Flag_polity = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,7 +122,8 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         orgNameTv = (TextView) findViewById(R.id.tv_register_orgName);
         clause = (TextView) findViewById(R.id.tv_clause);
         ll = (LinearLayout) findViewById(R.id.ll_register);
-
+        ll_Political_Attribute = (LinearLayout) findViewById(R.id.ll_PoliticalAttribute);
+        tv_polity_show = (TextView) findViewById(R.id.tv_register_pro_bono_polity);
     }
 
     private void initViewListener() {
@@ -139,6 +146,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         et_email.setOnFocusChangeListener(this);
         et_verification_code.setOnFocusChangeListener(this);
         ll.setOnTouchListener(onTouchListener);
+        ll_Political_Attribute.setOnClickListener(this);
     }
 
     //用户填写的注册的信息
@@ -198,6 +206,18 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                 } catch (Exception e) {
                 }
             }
+        }
+        if (requestCode == MY_POLIT && resultCode == RESULT_OK) {
+            Bundle result = new Bundle();
+            result = data.getExtras();
+            personal_data = (VolunteerViewDto) data.getSerializableExtra("personal_data");
+            String polity_name = result.getString("polity_name");
+            if (personal_data != null) {
+                polity = personal_data.getPolity();
+                System.out.println("polity------" + polity);
+                tv_polity_show.setText(polity_name);
+            }
+            Flag_polity = true;
         }
     }
 
@@ -286,6 +306,13 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                 orgIntent.putExtra("personal_data", personal_data);
                 orgIntent.putExtra("type", ORG_REGISTER);
                 startActivityForResult(orgIntent, ORG_REGISTER);
+                break;
+            case R.id.ll_PoliticalAttribute:
+                Intent PoliticalAttributeintent = new Intent();
+                PoliticalAttributeintent.putExtra("personal_data", personal_data);
+                PoliticalAttributeintent.putExtra("type", 0);
+                PoliticalAttributeintent.setClass(this, PoliticsstatusActivity.class);
+                startActivityForResult(PoliticalAttributeintent, MY_POLIT);
                 break;
             case R.id.cb_register_agree:
                 if (((CheckBox) v).isChecked()) {
@@ -376,6 +403,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         vl_create.setMobile(phone);
         vl_create.setAreaCode(areaCode);
         vl_create.setOrgIds(orgId);
+        vl_create.setPolity(polity);//政治面貌
         vl_create.setEmail(email);
         vl_create.setJobStatus(Integer.valueOf(personalCode));
         vl_create.setCardType(Integer.parseInt(cardCode));
@@ -415,9 +443,29 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
             showToast("姓名不能为空");
         } else if (TextUtils.isEmpty(cardCode)) {
             showToast("证件类型不能为空");
-        } else if (TextUtils.isEmpty(id_number)) {
-            showToast("证件号码错误");
-        } else if (!Util.isEmail(email)) {
+        } else if (cardCode.equals("1")){
+            if (!Util.isID(id_number)) {
+                showToast("证件号码错误");
+            }else {
+                againInformation();
+            }
+        }else {
+            if (TextUtils.isEmpty(id_number)){
+                showToast("证件号码不能为空");
+            }else {
+                againInformation();
+            }
+        }
+
+
+    }
+
+
+    /**
+     * 该方法是： 验证身份证后继续对下面信息的验证
+     */
+    private void againInformation(){
+        if (!Util.isEmail(email)) {
             showToast("请输入正确的电子邮箱");
         } else if (TextUtils.isEmpty(password) || password.length() < 6) {
             showToast("密码需要不小于六位");
@@ -427,12 +475,14 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
             showToast("两次密码不同，请重新确认");
         } else if (TextUtils.isEmpty(personalCode)) {
             showToast("请选择个人属性");
-        } else if (!Util.isPhoneNumber(phone)) {
-            showToast("请输入正确的手机号");
-        } else if (TextUtils.isEmpty(areaCode)) {
+        }  else if (TextUtils.isEmpty(areaCode)) {
             showToast("请选择所在区域");
         } else if (TextUtils.isEmpty(orgId)) {
             showToast("请选择所属机构");
+        }else if (!Flag_polity) {
+            showToast("请选择政治面貌");
+        }else if (!Util.isPhoneNumber(phone)) {
+            showToast("请输入正确的手机号");
         } else if (TextUtils.isEmpty(verification_code)) {
             showToast("请输入验证码");
         } else if (TextUtils.isEmpty(isCheck_register_agree)) {
@@ -457,5 +507,4 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 
         }
     }
-
 }

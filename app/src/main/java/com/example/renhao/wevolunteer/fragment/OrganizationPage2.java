@@ -97,23 +97,6 @@ public class OrganizationPage2 extends BaseFragmentV4 {
     public void onEventMainThread(OrganizationDetailEvent event) {
         companyId = event.getCompanyViewDto().getId();
         initDate(REFRESH);
-       /* List<ActivityViewDto> dates = event.getCompanyViewDto().getActivitys();
-        if (dates == null)
-            return;
-        list = new ArrayList<>();
-        for (int i = 0; i < dates.size(); i++) {
-            HomePageListItem item = new HomePageListItem();
-            item.setType(dates.get(i).getType());
-            item.setState(dates.get(i).getOperationState());
-            item.setTitle(dates.get(i).getActivityName());
-            item.setNum(dates.get(i).getRecruited());
-            item.setMaxNum(dates.get(i).getRecruitNumber());
-            item.setTime(dates.get(i).getLengthTime().toString());
-            item.setImg(dates.get(i).getAppImgUrl());
-            list.add(item);
-        }
-
-        adapter.setDate(list);*/
 
     }
 
@@ -171,7 +154,8 @@ public class OrganizationPage2 extends BaseFragmentV4 {
         if (type == ADD) {
             dto.setPageIndex(PageIndex + 1);
         }
-
+        dto.setDeleted(false);//false 为正常在用的
+        dto.setStatus(1);
         AppActionImpl.getInstance(getActivity()).activityQuery(dto,
                 new ActionCallbackListener<PagedListEntityDto<ActivityListDto>>() {
                     @Override

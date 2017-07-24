@@ -924,6 +924,7 @@ public class ProjectDetailActivity extends BaseActivity {
     }
 
     private void showShare() {
+        String title = (String) mTvTilte.getText();
         ShareSDK.initSDK(this);
         OnekeyShare oks = new OnekeyShare();
         //关闭sso授权
@@ -932,7 +933,7 @@ public class ProjectDetailActivity extends BaseActivity {
         //oks.setNotification(R.drawable.ic_launcher, getString(R.string.app_name));
         // title标题，印象笔记、邮箱、信息、微信、人人网和QQ空间使用
         //oks.setTitle(getString(R.string.ssdk_oks_share));
-        oks.setTitle("We志愿");
+        oks.setTitle(title);
         // titleUrl是标题的网络链接，仅在人人网和QQ空间使用
         oks.setTitleUrl("http://www.nbzyz.org/" + activityOrJob_Url + id);
         // text是分享文本，所有平台都需要这个字段

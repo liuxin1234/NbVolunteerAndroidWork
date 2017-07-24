@@ -98,15 +98,8 @@ public class OrganizationActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_organization);
         ButterKnife.bind(this);
-       /* mHomepage = (ChangeColorIconWithTextView) findViewById(R.id.changrTv_view_homepage);
-        mFind = (ChangeColorIconWithTextView) findViewById(R.id.changrTv_view_find);
-        mSignin = (ChangeColorIconWithTextView) findViewById(R.id.changrTv_view_signin);
-        mMyself = (ChangeColorIconWithTextView) findViewById(R.id.changrTv_view_myself);
-        mDropDownMenu= (DropDownMenu) findViewById(R.id.dropDownMenu_organization_menu);*/
         initActionBar();
-
         initDropDownMenu();
-
         View v = LayoutInflater.from(this).inflate(R.layout.view_prtlistview, null);
         contentView = ButterKnife.findById(v, R.id.ptrListview_view_list);
         initPtrListView(contentView);
@@ -217,6 +210,7 @@ public class OrganizationActivity extends BaseActivity {
     private void initDate(final int type) {
         showNormalDialog("正在加载中.....");
         CompanyQueryOptionDto companyQueryOptionDto = new CompanyQueryOptionDto();
+        companyQueryOptionDto.setStatus(1);
         if (type == ADD) {
             companyQueryOptionDto.setPageIndex(PageIndex + 1);
         }

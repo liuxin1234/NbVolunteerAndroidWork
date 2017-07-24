@@ -16,11 +16,11 @@
         "source": "F:\\MyGitHub\\NbVolunteerAndroid\\dialogplus\\build\\intermediates\\bundles\\debug\\res\\anim\\slide_out_bottom.xml"
     },
     {
-        "merged": "F:\\MyGitHub\\NbVolunteerAndroid\\dialogplus\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\slide_out_top.xml",
-        "source": "F:\\MyGitHub\\NbVolunteerAndroid\\dialogplus\\build\\intermediates\\bundles\\debug\\res\\anim\\slide_out_top.xml"
-    },
-    {
         "merged": "F:\\MyGitHub\\NbVolunteerAndroid\\dialogplus\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\slide_in_top.xml",
         "source": "F:\\MyGitHub\\NbVolunteerAndroid\\dialogplus\\build\\intermediates\\bundles\\debug\\res\\anim\\slide_in_top.xml"
+    },
+    {
+        "merged": "F:\\MyGitHub\\NbVolunteerAndroid\\dialogplus\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\slide_out_top.xml",
+        "source": "F:\\MyGitHub\\NbVolunteerAndroid\\dialogplus\\build\\intermediates\\bundles\\debug\\res\\anim\\slide_out_top.xml"
     }
 ]

@@ -17,6 +17,7 @@
     <string name="personal_WIPE_CACHE">清空缓存</string>
     <string name="personal_REPORT_PROBLEM">问题反馈</string>
     <string name="personal_FAQ">常见问题</string>
+    <string name="personal_upAPK">检测新版本</string>
 
     <!--activity for personal-->
     <string name="title_nickname">昵称</string>

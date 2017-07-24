@@ -548,9 +548,25 @@ public class RegisterProBonoActivity extends BaseActivity implements View.OnFocu
             showToast("姓名不能为空");
         } else if (TextUtils.isEmpty(cardCode)) {
             showToast("证件类型不能为空");
-        } else if (TextUtils.isEmpty(id_number)) {
-            showToast("证件号码错误");
-        } else if (!Util.isEmail(email)) {
+        } else  if (cardCode.equals("1")){
+            if (!Util.isID(id_number)) {
+                showToast("证件号码错误");
+            }else {
+                againInformation();
+            }
+        }else {
+            if (TextUtils.isEmpty(id_number)){
+                showToast("证件号码不能为空");
+            }else {
+                againInformation();
+            }
+        }
+
+
+    }
+
+    private void againInformation() {
+        if (!Util.isEmail(email)) {
             showToast("请输入正确的电子邮箱");
         } else if (TextUtils.isEmpty(password) || password.length() < 6) {
             showToast("密码不能为空");
@@ -621,6 +637,8 @@ public class RegisterProBonoActivity extends BaseActivity implements View.OnFocu
                     });
 
         }
+
+
     }
 
     @Subscribe

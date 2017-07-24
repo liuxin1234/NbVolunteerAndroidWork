@@ -365,4 +365,31 @@
             android:layout_marginRight="@dimen/imageview_bottom_mark_marginright"
             android:src="@drawable/entry_mark" />
     </LinearLayout>
+    <LinearLayout
+        android:id="@+id/LL_PF_UPAPK"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bottom_item_height"
+        android:layout_marginBottom="@dimen/layout_bottom_bottom_marginbottom"
+        android:background="@drawable/linearlayout_select"
+        android:clickable="true"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/textview_bottom_left_marginleft"
+            android:layout_weight="1"
+            android:paddingLeft="@dimen/text_left_padding"
+            android:text="@string/personal_upAPK"
+            android:textColor="#000"
+            android:textSize="@dimen/textview_bottom_left_size" />
+
+        <ImageView
+            android:layout_width="@dimen/imageview_bottom_mark_size"
+            android:layout_height="@dimen/imageview_bottom_mark_size"
+            android:layout_gravity="center"
+            android:layout_marginRight="@dimen/imageview_bottom_mark_marginright"
+            android:src="@drawable/entry_mark" />
+    </LinearLayout>
 </LinearLayout>

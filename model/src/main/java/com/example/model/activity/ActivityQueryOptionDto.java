@@ -26,6 +26,15 @@ public class ActivityQueryOptionDto {
     private String lng;//(string, optional),
     private String lat;//(string, optional),
     private Integer scope;//(integer, optional),
+    private Integer ServiceType;//(integer, optional),//一岗双责对应序号
+
+    public Integer getServiceType() {
+        return ServiceType;
+    }
+
+    public void setServiceType(Integer serviceType) {
+        ServiceType = serviceType;
+    }
 
     public String getLat() {
         return lat;

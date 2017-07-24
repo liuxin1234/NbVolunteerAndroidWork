@@ -61,6 +61,7 @@ import com.orhanobut.logger.Logger;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -125,6 +126,7 @@ public class FindPageFragment extends BaseFragment implements LocationSource,
     LinearLayout linearLayout;//签到计时的布局
     Chronometer chronometer;//计时器
 
+    private SimpleDateFormat finishDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     public FindPageFragment() {
         // Required empty public constructor
@@ -159,6 +161,8 @@ public class FindPageFragment extends BaseFragment implements LocationSource,
         setmListener();
 
         sign_in.setClickable(false);
+
+        compulsoryChronometer();
         return localView;
     }
 
@@ -166,7 +170,7 @@ public class FindPageFragment extends BaseFragment implements LocationSource,
         this.tag = tag;
     }
 
-    //true:签到  false:发现
+    //type类型：true:签到界面  false:发现界面
     public void setType(boolean type) {
         flag = LocalDate.getInstance(getActivity()).getLocalDate("flag", false);
         if (type) {
@@ -831,6 +835,39 @@ public class FindPageFragment extends BaseFragment implements LocationSource,
         }
     }
 
+
+    /**
+     * 当用户忘记签退后，系统给它强制停止计时器
+     */
+    public void compulsoryChronometer(){
+        String nowDate = LocalDate.getInstance(getActivity()).getLocalDate("nowDate","");
+        String finishDate = finishDateFormat.format(new Date());
+        boolean f = flag = LocalDate.getInstance(getActivity()).getLocalDate("flag", false);;
+        System.out.println("当前签到时候纪录的年月日："+nowDate);
+        System.out.println("当前系统的年月日："+finishDate);
+        System.out.println(f);
+        //首先判断是否点击了签到按钮
+        if(f){
+            //判断当前日期和用户签到时候的日期是否同一天
+            if (!finishDate.equals(nowDate)){  //不同一天
+                LocalDate.getInstance(getActivity()).setLocalDate("activityId", "");
+                LocalDate.getInstance(getActivity()).setLocalDate("activityNumCode", "");
+                LocalDate.getInstance(getActivity()).setLocalDate("SIGN_OUT","0");
+                LocalDate.getInstance(getActivity()).setLocalDate("nowDate","");
+                SIGN_OUT = 0;
+                flag = saveFlag(false);
+                sign_in.setVisibility(View.VISIBLE);
+                sign_in_num.setVisibility(View.VISIBLE);
+                sign_out.setVisibility(View.GONE);
+                linearLayout.setVisibility(View.GONE);
+                stopChronometer();
+            }
+        }
+
+    }
+
+
+
     /**
      * 设置签到码输入框
      * @param volunteerId
@@ -905,7 +942,8 @@ public class FindPageFragment extends BaseFragment implements LocationSource,
                     showToast("签到失败");
                     return;
                 }
-
+                //保存当前用户签到后当天的日期
+                LocalDate.getInstance(getActivity()).setLocalDate("nowDate",finishDateFormat.format(new Date()));
                 flag = saveFlag(true);
                 sign_in.setVisibility(View.GONE);
                 sign_in_num.setVisibility(View.GONE);
@@ -970,6 +1008,7 @@ public class FindPageFragment extends BaseFragment implements LocationSource,
                         LocalDate.getInstance(getActivity()).setLocalDate("activityId", "");
                         LocalDate.getInstance(getActivity()).setLocalDate("activityNumCode", "");
                         LocalDate.getInstance(getActivity()).setLocalDate("SIGN_OUT","0");
+                        LocalDate.getInstance(getActivity()).setLocalDate("nowDate","");
                         SIGN_OUT = 0;
                         flag = saveFlag(false);
                         sign_in.setVisibility(View.VISIBLE);

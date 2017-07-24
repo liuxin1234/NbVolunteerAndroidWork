@@ -101,10 +101,7 @@
             android:name=".activity.ServiceCategoryActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity
-            android:name=".activity.AreaSelectionActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
         <activity
             android:name=".activity.ForgotPasswordActivity"
             android:screenOrientation="portrait"
@@ -165,10 +162,7 @@
             android:name=".activity.MyProjectActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity
-            android:name=".activity.MyORGActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
         <activity
             android:name=".activity.CompanyActivity"
             android:screenOrientation="portrait"
