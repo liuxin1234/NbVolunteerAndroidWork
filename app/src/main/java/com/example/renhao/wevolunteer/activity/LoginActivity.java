@@ -101,8 +101,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
     private void onSaveContent() {
         super.onStop();
-        username = et_username.getText().toString();
-        password = et_password.getText().toString();
+        username = et_username.getText().toString().trim();
+        password = et_password.getText().toString().trim();
         LocalDate.getInstance(this).setLocalDate("username", username);
         LocalDate.getInstance(this).setLocalDate("password", password);
     }
@@ -195,8 +195,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
     private void login() {
         showNormalDialog("正在登陆…");
-        username = et_username.getText().toString();
-        password = et_password.getText().toString();
+        username = et_username.getText().toString().trim();
+        password = et_password.getText().toString().trim();
         if (TextUtils.isEmpty(username)) {
             showToast("账号不能为空");
             dissMissNormalDialog();
@@ -255,7 +255,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                     } else {
                         showToast("网络未连接");
                     }
-
 
                 }
             });

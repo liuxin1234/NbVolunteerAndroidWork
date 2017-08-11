@@ -251,6 +251,7 @@ public class SearchResultFragment extends BaseFragment {
     private void getProject(String keyWords, int searchType, final int refreshType) {
         ActivityQueryOptionDto queryOptionDto = new ActivityQueryOptionDto();
         queryOptionDto.setType(searchType);
+        queryOptionDto.setDeleted(false);
         queryOptionDto.setStatus(1);
         if (refreshType == ADD) {
             queryOptionDto.setPageIndex(PageIndex + 1);

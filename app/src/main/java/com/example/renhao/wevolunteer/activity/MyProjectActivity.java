@@ -97,25 +97,7 @@ public class MyProjectActivity extends BaseActivity {
         initPtrListView();
 
         initDate(REFRESH);
-       /* //设置我的项目的适配器
-        lv_myProject = (ListView) findViewById(R.id.lv_myproject);
-        myProjectAdapter = new MyProjectAdapter(this);
-        lv_myProject.setAdapter(myProjectAdapter);
 
-        //设置标题
-        tv_title = (TextView) findViewById(R.id.tv_myProject_title);
-        Intent intent = getIntent();
-        String title = intent.getStringExtra("title");
-        tv_title.setText(title);
-
-
-        ImageView btn_back = (ImageView) findViewById(R.id.imageView_btn_back);
-        btn_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MyProjectActivity.this.finish();
-            }
-        });*/
     }
 
     private void initDate(int type) {

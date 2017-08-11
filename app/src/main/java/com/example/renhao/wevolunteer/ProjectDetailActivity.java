@@ -735,6 +735,8 @@ public class ProjectDetailActivity extends BaseActivity {
         calendarView.setTileHeightDp(44);
         calendarView.setArrowColor(getResources().getColor(R.color.colorCyan));
         calendarView.setNotes(notes);
+        //日期选择模式：默认为单选，可设置为多选模式
+        //calendarView.setSelectionMode(SELECTION_MODE_MULTIPLE);
         calendarView.setOnClickListener(new MaterialCalendarView.CloseListener() {
             @Override
             public void close(View view) {
@@ -745,6 +747,25 @@ public class ProjectDetailActivity extends BaseActivity {
             @Override
             public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
                 selsecTv.setText(date.getYear() + "-" + (date.getMonth() + 1) + "-" + date.getDay());
+
+                //这里是多选的测试方法，目前尚有bug
+//                final List<CalendarDay> selectedDates = calendarView.getSelectedDates();
+//                List<String> listDates = new ArrayList<String>();
+//                for (int i=0;i<selectedDates.size();i++){
+//
+//                    final int year = selectedDates.get(i).getYear();
+//                    final int month = selectedDates.get(i).getMonth()+1;
+//                    final int day = selectedDates.get(i).getDay();
+//                    String Data = year+"-"+month+"-"+day;
+//                    listDates.add(Data);
+//
+//                }
+//
+//                if (listDates.isEmpty() && listDates.size()<=0){
+//                    selsecTv.setText(null);
+//                }else {
+//                    selsecTv.setText(listDates.toString());
+//                }
             }
         });
 
