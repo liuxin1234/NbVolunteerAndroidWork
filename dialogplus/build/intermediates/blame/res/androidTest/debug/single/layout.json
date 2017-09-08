@@ -8,11 +8,27 @@
         "source": "F:\\MyGitHub\\NbVolunteerAndroid\\dialogplus\\build\\intermediates\\bundles\\debug\\res\\layout\\dialog_list.xml"
     },
     {
+        "merged": "E:\\androidProject\\MyGithub\\NbVolunteerAndroidWork\\dialogplus\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\dialog_grid.xml",
+        "source": "E:\\androidProject\\MyGithub\\NbVolunteerAndroidWork\\dialogplus\\build\\intermediates\\bundles\\debug\\res\\layout\\dialog_grid.xml"
+    },
+    {
+        "merged": "E:\\androidProject\\MyGithub\\NbVolunteerAndroidWork\\dialogplus\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\base_container.xml",
+        "source": "E:\\androidProject\\MyGithub\\NbVolunteerAndroidWork\\dialogplus\\build\\intermediates\\bundles\\debug\\res\\layout\\base_container.xml"
+    },
+    {
+        "merged": "E:\\androidProject\\MyGithub\\NbVolunteerAndroidWork\\dialogplus\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\dialog_list.xml",
+        "source": "E:\\androidProject\\MyGithub\\NbVolunteerAndroidWork\\dialogplus\\build\\intermediates\\bundles\\debug\\res\\layout\\dialog_list.xml"
+    },
+    {
         "merged": "F:\\MyGitHub\\NbVolunteerAndroid\\dialogplus\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\base_container.xml",
         "source": "F:\\MyGitHub\\NbVolunteerAndroid\\dialogplus\\build\\intermediates\\bundles\\debug\\res\\layout\\base_container.xml"
     },
     {
         "merged": "F:\\MyGitHub\\NbVolunteerAndroid\\dialogplus\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\dialog_grid.xml",
         "source": "F:\\MyGitHub\\NbVolunteerAndroid\\dialogplus\\build\\intermediates\\bundles\\debug\\res\\layout\\dialog_grid.xml"
+    },
+    {
+        "merged": "E:\\androidProject\\MyGithub\\NbVolunteerAndroidWork\\dialogplus\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\dialog_view.xml",
+        "source": "E:\\androidProject\\MyGithub\\NbVolunteerAndroidWork\\dialogplus\\build\\intermediates\\bundles\\debug\\res\\layout\\dialog_view.xml"
     }
 ]

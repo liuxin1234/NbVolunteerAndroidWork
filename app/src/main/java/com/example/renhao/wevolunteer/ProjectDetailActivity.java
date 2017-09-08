@@ -41,6 +41,7 @@ import com.example.renhao.wevolunteer.utils.Util;
 import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.Holder;
 import com.orhanobut.dialogplus.ViewHolder;
+import com.orhanobut.logger.Logger;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
@@ -50,6 +51,7 @@ import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -520,9 +522,9 @@ public class ProjectDetailActivity extends BaseActivity {
             mSkillBorder.setVisibility(View.GONE);
             mInfuseBorder.setVisibility(View.GONE);
             mTvTypeName.setText("活动类型");
-            mTvRegisterTimeName.setText("活动报名时间");
-            mTvEffectiveTimeName.setText("活动有效时间");
-            mTvServiceTimeName.setText("服务时间");
+            mTvRegisterTimeName.setText("活动报名日期");
+            mTvEffectiveTimeName.setText("活动有效日期");
+            mTvServiceTimeName.setText("单日服务时间");
             mTvLocationName.setText("活动服务地址");
             mTvFoundersName.setText("活动发起单位");
             mTvClaimName.setText("活动要求");
@@ -533,9 +535,9 @@ public class ProjectDetailActivity extends BaseActivity {
         } else if (type == 1) {
             //岗位
             mTvTypeName.setText("岗位类型:");
-            mTvRegisterTimeName.setText("岗位报名时间:");
-            mTvEffectiveTimeName.setText("岗位起始时间:");
-            mTvServiceTimeName.setText("服务时间");
+            mTvRegisterTimeName.setText("岗位报名日期:");
+            mTvEffectiveTimeName.setText("岗位起止日期:");
+            mTvServiceTimeName.setText("单日服务时间");
             mTvLocationName.setText("岗位服务地址:");
             mTvFoundersName.setText("岗位发起单位:");
             mTvClaimName.setText("岗位要求");
@@ -546,12 +548,6 @@ public class ProjectDetailActivity extends BaseActivity {
 
         }
 
-/*        for (int i = (mDate.getRecruited() > 5 ? 5 : mDate.getRecruited()) - 1; i >= 0; i--) {
-            ImageView view = (ImageView) mRelativeSignedPeople.getChildAt(i);
-            view.setVisibility(View.VISIBLE);
-            //设置图片
-            view.setImageResource(R.mipmap.ic_launcher);
-        }*/
 
     }
 
@@ -595,38 +591,6 @@ public class ProjectDetailActivity extends BaseActivity {
         });
     }
 
-    private void getSpecialType(String typeCodes) {
-
-        if (typeCodes == null)
-            return;
-
-        final String[] types = typeCodes.split(",");
-
-        AppActionImpl.getInstance(this).dictionaryQueryDefault("SPECIALITY", "",
-                new ActionCallbackListener<List<DictionaryListDto>>() {
-                    @Override
-                    public void onSuccess(List<DictionaryListDto> data) {
-                        if (data == null)
-                            return;
-                        String specialType = "";
-
-                        for (int i = 0; i < data.size(); i++) {
-                            for (int j = 0; j < types.length; j++) {
-                                if (data.get(i).getCode().equals(types[j])) {
-                                    specialType += data.get(i).getName() + "  ";
-                                }
-                            }
-                        }
-
-                        mTvSkill.setText(specialType);
-                    }
-
-                    @Override
-                    public void onFailure(String errorEvent, String message) {
-
-                    }
-                });
-    }
 
     @OnClick({R.id.btn_projectdetail_share,
             R.id.btn_projectdetail_apply,
@@ -734,7 +698,25 @@ public class ProjectDetailActivity extends BaseActivity {
         MaterialCalendarView calendarView = (MaterialCalendarView) dialogPlus.getHolderView().findViewById(R.id.calendarView);
         calendarView.setTileHeightDp(44);
         calendarView.setArrowColor(getResources().getColor(R.color.colorCyan));
+        //这是一个自定义的set方法,用来存储服务器传过来的活动报名日期，在日期控件上显示日历上的标记  时间 剩余报名人数
         calendarView.setNotes(notes);
+        Date date = new Date();
+        try {
+            date = format.parse(times.get(0).getSTime());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        Calendar c = Calendar.getInstance();
+        c.setTime(date);
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH);
+
+        // 设置日历显示的时间
+        calendarView.state().edit()
+                .setMinimumDate(CalendarDay.from(year,month,1))
+                .commit();
+
         //日期选择模式：默认为单选，可设置为多选模式
         //calendarView.setSelectionMode(SELECTION_MODE_MULTIPLE);
         calendarView.setOnClickListener(new MaterialCalendarView.CloseListener() {
@@ -946,6 +928,7 @@ public class ProjectDetailActivity extends BaseActivity {
 
     private void showShare() {
         String title = (String) mTvTilte.getText();
+        String content_txet = mTvDetail.getText().toString();
         ShareSDK.initSDK(this);
         OnekeyShare oks = new OnekeyShare();
         //关闭sso授权
@@ -958,16 +941,16 @@ public class ProjectDetailActivity extends BaseActivity {
         // titleUrl是标题的网络链接，仅在人人网和QQ空间使用
         oks.setTitleUrl("http://www.nbzyz.org/" + activityOrJob_Url + id);
         // text是分享文本，所有平台都需要这个字段
-        oks.setText("来自We志愿的分享");
+        oks.setText(content_txet);
         // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
         //oks.setImagePath("/sdcard/test.jpg");//确保SDcard下面存在此张图片
         // url仅在微信（包括好友和朋友圈）中使用
         oks.setUrl("http://www.nbzyz.org/" + activityOrJob_Url + id);
         // comment是我对这条分享的评论，仅在人人网和QQ空间使用
-        oks.setComment("来自We志愿的分享");
+        oks.setComment(content_txet);
         // site是分享此内容的网站名称，仅在QQ空间使用
         //oks.setSite(getString(R.string.app_name));
-        oks.setSite("来自We志愿的分享");
+        oks.setSite(content_txet);
         // siteUrl是分享此内容的网站地址，仅在QQ空间使用
         oks.setSiteUrl("http://www.nbzyz.org/" + activityOrJob_Url + id);
 

@@ -150,8 +150,8 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
 
         //中部
         tv_AllTime.setText(AllServiceTime);
-        tv_SchoolTime.setText(WorkServiceTime);
-        tv_InJobTime.setText(SchoolServiceTime);
+        tv_SchoolTime.setText(SchoolServiceTime);
+        tv_InJobTime.setText(WorkServiceTime);
         tv_RetireTime.setText(RetireServiceTime);
 
 
