@@ -54,6 +54,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -635,7 +636,10 @@ public class ProjectDetailActivity extends BaseActivity {
         avTimeDto.setActivityId(id);
         avTimeDto.setActivityName(activityName);
         avTimeDto.setPageIndex(1);
-        avTimeDto.setPageSize(30);
+        avTimeDto.setPageSize(90);  //活动/岗位规定时间为一个季度：90天
+        LinkedHashMap<String, String> sorts_map = new LinkedHashMap<>();
+        sorts_map.put("STime", "asc");  //desc:降序  asc:升序
+        avTimeDto.setSorts(sorts_map);
         AppActionImpl.getInstance(this).activityTimeQuery(avTimeDto, new ActionCallbackListener<PagedListEntityDto<ActivityTimeListDto>>() {
             @Override
             public void onSuccess(PagedListEntityDto<ActivityTimeListDto> data) {
