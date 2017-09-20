@@ -1,6 +1,7 @@
 package com.example.core;
 
 import android.content.Context;
+import android.nfc.NfcEvent;
 import android.os.AsyncTask;
 import android.text.TextUtils;
 
@@ -34,6 +35,7 @@ import com.example.model.company.CompanyQueryOptionDto;
 import com.example.model.company.CompanyViewDto;
 import com.example.model.content.ContentListDto;
 import com.example.model.content.ContentQueryOptionDto;
+import com.example.model.content.ContentViewDto;
 import com.example.model.dictionary.DictionaryListDto;
 import com.example.model.dictionary.DictionaryQueryOptionDto;
 import com.example.model.dictionary.DictionaryTypeListDto;
@@ -46,6 +48,7 @@ import com.example.model.mobileVersion.MobileVersionViewDto;
 import com.example.model.organization.OrganizationListDto;
 import com.example.model.organization.OrganizationQueryOptionDto;
 import com.example.model.signRecord.SignInOutDto;
+import com.example.model.signRecord.SignRecordSimple;
 import com.example.model.user.UserDepartmentViewDto;
 import com.example.model.user.UserDto;
 import com.example.model.user.UserListDto;
@@ -873,6 +876,31 @@ public class AppActionImpl implements AppAction {
     }
 
     @Override
+    public void contentDetails(final String id, final ActionCallbackListener<ContentViewDto> listener) {
+        //判断票据是否过期
+        final String accessToken = LocalDate.getInstance(context).getLocalDate("access_token", "");
+        new AsyncTask<Void, Void, ApiResponse<ContentViewDto>>() {
+            @Override
+            protected ApiResponse<ContentViewDto> doInBackground(Void... params) {
+                return api.getContentDetails(id, accessToken);
+            }
+
+            @Override
+            protected void onPostExecute(ApiResponse<ContentViewDto> result) {
+                if (result == null) {
+                    listener.onFailure("", "请检查网络后重试");
+                    return;
+                }
+                if (result.isSuccess()) {
+                    listener.onSuccess(result.getData());
+                } else {
+                    listener.onFailure("", result.getMessage());
+                }
+            }
+        }.execute();
+    }
+
+    @Override
     public void activityRecruitQuery(final ActivityRecruitQueryOptionDto query,
                                      final ActionCallbackListener<PagedListEntityDto<ActivityRecruitListDto>> listener) {
         //判断票据是否过期
@@ -1137,6 +1165,32 @@ public class AppActionImpl implements AppAction {
 
             @Override
             protected void onPostExecute(ApiResponse<List<String>> result) {
+                if (result == null) {
+                    listener.onFailure("", "请检查网络后重试");
+                    return;
+                }
+                if (result.isSuccess()) {
+                    listener.onSuccess(result.getData());
+                } else {
+                    listener.onFailure("", result.getMessage());
+                }
+            }
+        }.execute();
+    }
+
+    @Override
+    public void signRecordExists(final List<SignRecordSimple> signRecordSimples, final ActionCallbackListener<String> listener) {
+        //判断票据是否过期
+        final String accessToken = LocalDate.getInstance(context).getLocalDate("access_token", "");
+        new AsyncTask<Void,Void,ApiResponse<String>>(){
+
+            @Override
+            protected ApiResponse<String> doInBackground(Void... params) {
+                return api.post_ExistsSignRecord(signRecordSimples, accessToken);
+            }
+
+            @Override
+            protected void onPostExecute(ApiResponse<String> result) {
                 if (result == null) {
                     listener.onFailure("", "请检查网络后重试");
                     return;

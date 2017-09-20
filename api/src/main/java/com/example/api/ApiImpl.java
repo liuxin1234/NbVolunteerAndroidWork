@@ -27,6 +27,7 @@ import com.example.model.company.CompanyQueryOptionDto;
 import com.example.model.company.CompanyViewDto;
 import com.example.model.content.ContentListDto;
 import com.example.model.content.ContentQueryOptionDto;
+import com.example.model.content.ContentViewDto;
 import com.example.model.dictionary.DictionaryListDto;
 import com.example.model.dictionary.DictionaryQueryOptionDto;
 import com.example.model.dictionary.DictionaryTypeListDto;
@@ -39,6 +40,7 @@ import com.example.model.mobileVersion.MobileVersionViewDto;
 import com.example.model.organization.OrganizationListDto;
 import com.example.model.organization.OrganizationQueryOptionDto;
 import com.example.model.signRecord.SignInOutDto;
+import com.example.model.signRecord.SignRecordSimple;
 import com.example.model.user.UserDepartmentViewDto;
 import com.example.model.user.UserDto;
 import com.example.model.user.UserListDto;
@@ -680,6 +682,20 @@ public class ApiImpl implements Api {
     }
 
     @Override
+    public ApiResponse<String> post_ExistsSignRecord(List<SignRecordSimple> data, String accessToken) {
+        Gson gson = new Gson();
+        String params = gson.toJson(data);
+        Type typeOft = new TypeToken<ApiResponse<List<String>>>() {
+        }.getType();
+        try {
+            return HttpEngine.getInstance().postApiHandler(params, SIGNRECORD_EXISTS, typeOft, accessToken);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return new ApiResponse<>(false, "网络连接异常");
+    }
+
+    @Override
     public ApiResponse<List<AttachmentsReturnDto>> update_major_attachment(List<AttachmentParaDto> data, String accessToken) {
         Gson gson = new Gson();
         String params = gson.toJson(data);
@@ -850,6 +866,20 @@ public class ApiImpl implements Api {
             e.printStackTrace();
         }
 
+        return new ApiResponse<>(false, "网络连接异常");
+    }
+
+    @Override
+    public ApiResponse<ContentViewDto> getContentDetails(String id, String accessToken) {
+        List<String> params = new ArrayList<>();
+        params.add(id);
+        Type typeOft = new TypeToken<ApiResponse<ContentViewDto>>() {
+        }.getType();
+        try {
+            return HttpEngine.getInstance().getApiHandler(params, CONTENT_DETAILS, typeOft, accessToken);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return new ApiResponse<>(false, "网络连接异常");
     }
 }

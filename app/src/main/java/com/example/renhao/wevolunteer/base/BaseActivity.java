@@ -47,6 +47,9 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         isActivityExist = false;
+        if(normalDialog != null) {
+            normalDialog.dismiss();
+        }
         super.onDestroy();
 
     }

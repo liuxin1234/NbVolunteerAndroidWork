@@ -24,6 +24,7 @@ import com.example.model.company.CompanyQueryOptionDto;
 import com.example.model.company.CompanyViewDto;
 import com.example.model.content.ContentListDto;
 import com.example.model.content.ContentQueryOptionDto;
+import com.example.model.content.ContentViewDto;
 import com.example.model.dictionary.DictionaryListDto;
 import com.example.model.dictionary.DictionaryQueryOptionDto;
 import com.example.model.dictionary.DictionaryTypeListDto;
@@ -36,6 +37,7 @@ import com.example.model.mobileVersion.MobileVersionViewDto;
 import com.example.model.organization.OrganizationListDto;
 import com.example.model.organization.OrganizationQueryOptionDto;
 import com.example.model.signRecord.SignInOutDto;
+import com.example.model.signRecord.SignRecordSimple;
 import com.example.model.user.UserDepartmentViewDto;
 import com.example.model.user.UserDto;
 import com.example.model.user.UserListDto;
@@ -113,8 +115,9 @@ public interface Api {
 
     //新闻
     public static final String CONTENT_QUERY = "Nbcei.Plugin.CMS.Api.Impl/v1/Content/query";
+    //查询版权，主办方等等详细信息
+    public static final String CONTENT_DETAILS = "Nbcei.Plugin.CMS.Api.Impl/v1/Content/details";
 
-    //
 
 
     //发送验证码
@@ -138,6 +141,10 @@ public interface Api {
 
     //数字签到签退: 测试地址/api/Nbcei.Plugin.NbVolunteer.Api.Impl/v1/signrecord/createboth
     public static final String SIGNRECORD_CREATE_BOTH ="Nbcei.Plugin.NbVolunteer.Api.Impl/v1/signrecord/createboth";
+
+    //查询签到签退的状态
+    public static final String SIGNRECORD_EXISTS = "Nbcei.Plugin.NbVolunteer.Api.Impl/v1/signrecord/ExistsSignRecord";
+
 
     //专业证书批量上传
     public static final String UPDATE_MAJOR_ATTACHMENT = "Nbcei.Plugin.Attachment.Api.Impl/v1/attachments/savefile";
@@ -336,6 +343,8 @@ public interface Api {
      */
     public ApiResponse<PagedListEntityDto<ContentListDto>> contentQuery(ContentQueryOptionDto query, String accessToken);
 
+    public ApiResponse<ContentViewDto> getContentDetails(String id,String accessToken);
+
     /**
      * 志愿者服务站点
      */
@@ -347,6 +356,12 @@ public interface Api {
     public ApiResponse<List<String>> signRecordCreate(List<SignInOutDto> creates, String accessToken);
 
     public ApiResponse<List<String>> signRecordCreateBoth(List<SignInOutDto> creates,String accessToken);
+
+    /**
+     * 查询签到签退状态
+     */
+    public ApiResponse<String> post_ExistsSignRecord(List<SignRecordSimple> data,String accessToken);
+
 
     //证书上传
     public ApiResponse<List<AttachmentsReturnDto>> update_major_attachment(List<AttachmentParaDto> data, String accessToken);

@@ -40,6 +40,9 @@ public class BaseFragment extends Fragment {
     @Override
     public void onDestroy() {
         isFragmentExist = false;
+        if(normalDialog != null) {
+            normalDialog.dismiss();
+        }
         super.onDestroy();
     }
 

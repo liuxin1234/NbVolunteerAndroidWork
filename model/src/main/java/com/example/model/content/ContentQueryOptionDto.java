@@ -27,6 +27,15 @@ public class ContentQueryOptionDto {
     private Integer PageIndex;//(integer, optional): 当前页索引，默认1
     private Integer PageSize;//(integer, optional): 每页记录条数，默认20
     private Object Sorts;//(object, optional)
+    private String Contentid;//主办方的id信息
+
+    public String getContentid() {
+        return Contentid;
+    }
+
+    public void setContentid(String contentid) {
+        Contentid = contentid;
+    }
 
     public String getAuthor() {
         return Author;

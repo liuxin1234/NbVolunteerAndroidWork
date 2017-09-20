@@ -47,21 +47,29 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:text="@string/tv_version_number"
-        android:textSize="16sp" />
+        android:textSize="14sp" />
 
     <TextView
+        android:id="@+id/tv_Organizer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dp"
-        android:text="@string/tv_Organizer"
-        android:textSize="16sp" />
+        android:textSize="14sp" />
 
     <TextView
+        android:id="@+id/tv_chengbang"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dp"
-        android:text="@string/tv_official_website"
-        android:textSize="16sp" />
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/tv_url"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:textSize="14sp" />
 </LinearLayout>
