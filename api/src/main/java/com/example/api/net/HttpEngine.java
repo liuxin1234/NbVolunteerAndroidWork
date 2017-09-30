@@ -35,8 +35,8 @@ public class HttpEngine {
     public static final String APP_ID = "5b93977d-42a7-46fe-9b69-91d9d0142fb6";
     public static final String APP_SECRET = "MpUusGgG7+6XDiVtWjZY3Q==";
     public static final String BASIC = "NWI5Mzk3N2QtNDJhNy00NmZlLTliNjktOTFkOWQwMTQyZmI2Ok1wVXVzR2dHNys2WERpVnRXalpZM1E9PQ==";
-    public static final String SERVER_URL = "http://webapi.nbzyz.org/api/";
-    public static final String ACCESSTOKEN_URL = "http://webapi.nbzyz.org/token";
+    public static final String SERVER_URL = "http://115.238.150.174:5019/api/";
+    public static final String ACCESSTOKEN_URL = "http://115.238.150.174:5019/token";
 
     public static final int CONNECT_TIMEOUT = 20000;
     public static final int READ_TIMEOUT = 20000;

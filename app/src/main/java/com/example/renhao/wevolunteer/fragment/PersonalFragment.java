@@ -213,7 +213,13 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
         exit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                exitLogin();
+                boolean flag = LocalDate.getInstance(getActivity()).getLocalDate("flag", false);
+                Logger.v(TAG,""+flag);
+                if (flag){ //判断用户是否签退，如果没签退  先签退才能更（切）换账号。
+                    Toast.makeText(getActivity(), "您还未签退，请先签退！", Toast.LENGTH_SHORT).show();
+                }else {
+                    exitLogin();
+                }
             }
         });
 
