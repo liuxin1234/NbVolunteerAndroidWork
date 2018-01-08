@@ -257,8 +257,9 @@ public class ForgotPasswordActivity extends BaseActivity implements View.OnClick
                         public void onSuccess(Boolean data) {
                             if (data) {
                                 getByMobile();
-                            } else
+                            } else {
                                 showToast("验证码错误");
+                            }
                         }
 
                         @Override

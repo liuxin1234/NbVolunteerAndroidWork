@@ -121,8 +121,9 @@ public class ApplyProBonoActivity extends BaseActivity implements View.OnClickLi
         EventBus.getDefault().register(this);
         Intent intent = getIntent();
         personal_data = (VolunteerViewDto) intent.getSerializableExtra("personal_data");
-        if (personal_data.getAuditStatus() != null)
+        if (personal_data.getAuditStatus() != null) {
             SendHandlerMsg(UPDATE_UI);
+        }
 
         ImageView btn_back = (ImageView) findViewById(R.id.imageView_btn_back);
         btn_back.setOnClickListener(new View.OnClickListener() {
@@ -201,7 +202,7 @@ public class ApplyProBonoActivity extends BaseActivity implements View.OnClickLi
                         @Override
                         public void onSuccess(Boolean data) {
                             if (data) {
-                                if (files != null)
+                                if (files != null) {
                                     AppActionImpl.getInstance(getApplicationContext()).update_major_attachment(files,
                                             new ActionCallbackListener<List<AttachmentsReturnDto>>() {
                                                 @Override
@@ -240,7 +241,7 @@ public class ApplyProBonoActivity extends BaseActivity implements View.OnClickLi
                                                     showToast("证书上传失败");
                                                 }
                                             });
-                                else {
+                                } else {
                                     //修改项
                                     personal_data.setWorkunit(my_work);
                                     personal_data.setAddr(my_home);
@@ -393,6 +394,8 @@ public class ApplyProBonoActivity extends BaseActivity implements View.OnClickLi
                         .build()
                         .show();
                 break;
+            default:
+                break;
         }
     }
 
@@ -447,7 +450,8 @@ public class ApplyProBonoActivity extends BaseActivity implements View.OnClickLi
                 tv_polity_show.setText(result.getString("polity_name"));
                 Flag_polity = true;
                 break;
-
+            default:
+                break;
         }
     }
 
@@ -480,6 +484,8 @@ public class ApplyProBonoActivity extends BaseActivity implements View.OnClickLi
                 case R.id.btn_masses:
                     personal_data.setPolity(getResources().getString(R.string.btn_masses_string));
                     Flag_polity = true;
+                    break;
+                default:
                     break;
             }
         }

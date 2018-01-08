@@ -49,7 +49,9 @@ public class BaseApplication extends Application {
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         if (newConfig.fontScale != 1)//非默认值
+        {
             getResources();
+        }
         super.onConfigurationChanged(newConfig);
     }
 

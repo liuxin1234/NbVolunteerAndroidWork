@@ -50,12 +50,15 @@ public class Util {
         Bitmap bitmap = null;
         byte[] temp = Base64.decode(img.getBytes(), Base64.DEFAULT);
         BitmapFactory.Options options = new BitmapFactory.Options();
-        if (temp.length > (1024 * 512))
+        if (temp.length > (1024 * 512)) {
             options.inSampleSize = 2;
-        if (temp.length > (1024 * 1024))
+        }
+        if (temp.length > (1024 * 1024)) {
             options.inSampleSize = 4;
-        if (temp.length > (1024 * 2048))
+        }
+        if (temp.length > (1024 * 2048)) {
             options.inSampleSize = 8;
+        }
         input = new ByteArrayInputStream(temp);
         SoftReference softRef = new SoftReference(BitmapFactory.decodeStream(
                 input, null, options));
@@ -162,37 +165,30 @@ public class Util {
         String pattern = "0?(11|12|13|14|15|16|17|18|19)[0-9]{9}";
         Pattern r = Pattern.compile(pattern);
         Matcher m = r.matcher(number);
-        if (m.matches())
-            return true;
-        else
-            return false;
+        return m.matches();
     }
 
     public static boolean isEmail(String email) {
         String pattern = "\\w[-\\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\\.)+[A-Za-z]{2,14}";
         Pattern r = Pattern.compile(pattern);
         Matcher m = r.matcher(email);
-        if (m.matches())
-            return true;
-        else
-            return false;
+        return m.matches();
     }
 
     public static boolean isID(String id) {
         String pattern = "\\d{17}[\\d|X|x]|\\d{15}";
         Pattern r = Pattern.compile(pattern);
         Matcher m = r.matcher(id);
-        if (m.matches())
-            return true;
-        else
-            return false;
+        return m.matches();
     }
 
     public static String getRealUrl(String url) {
         String temp = "http://11";
-        if (url != null)
-            if (url.length() > 1)
+        if (url != null) {
+            if (url.length() > 1) {
                 temp = IMG_URL + url.substring(1, url.length());
+            }
+        }
         return temp;
     }
 

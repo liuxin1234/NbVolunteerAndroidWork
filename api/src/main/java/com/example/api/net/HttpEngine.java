@@ -35,8 +35,8 @@ public class HttpEngine {
     public static final String APP_ID = "5b93977d-42a7-46fe-9b69-91d9d0142fb6";
     public static final String APP_SECRET = "MpUusGgG7+6XDiVtWjZY3Q==";
     public static final String BASIC = "NWI5Mzk3N2QtNDJhNy00NmZlLTliNjktOTFkOWQwMTQyZmI2Ok1wVXVzR2dHNys2WERpVnRXalpZM1E9PQ==";
-    public static final String SERVER_URL = "http://115.238.150.174:5019/api/";
-    public static final String ACCESSTOKEN_URL = "http://115.238.150.174:5019/token";
+    public static final String SERVER_URL = "http://webapi.nbzyz.org/api/";
+    public static final String ACCESSTOKEN_URL = "http://webapi.nbzyz.org/token";
 
     public static final int CONNECT_TIMEOUT = 20000;
     public static final int READ_TIMEOUT = 20000;
@@ -238,10 +238,11 @@ public class HttpEngine {
     public <T> T getApiHandler(Map<String, String> params, String serverAction, Type typeOfT, String accessToken) throws IOException {
 
         FormBody.Builder builder = new FormBody.Builder();
-        if (params != null)
+        if (params != null) {
             for (String key : params.keySet()) {
                 builder.add(key, params.get(key));
             }
+        }
         RequestBody body = builder.build();
         Request request = new Request.Builder()
                 .addHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8")
@@ -285,10 +286,11 @@ public class HttpEngine {
     public <T> T getApiHandler(List<String> params, String serverAction, Type typeOfT, String accessToken) throws IOException {
 
         String paramsString = "";
-        if (params != null)
+        if (params != null) {
             for (int i = 0; i < params.size(); i++) {
                 paramsString = paramsString + "/" + params.get(i);
             }
+        }
         Request request = new Request.Builder()
                 .addHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8")
                 .addHeader("Connection", "keep-alive")
@@ -373,10 +375,11 @@ public class HttpEngine {
     public <T> T PSWDpostApiHandler(List<String> params, String serverAction, Type typeOfT, String accessToken) throws IOException {
 
         String paramsString = "";
-        if (params != null)
+        if (params != null) {
             for (int i = 0; i < params.size(); i++) {
                 paramsString = paramsString + "/" + params.get(i);
             }
+        }
         RequestBody body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), "{}");
         Request request = new Request.Builder()
                 .addHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8")

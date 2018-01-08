@@ -70,6 +70,7 @@ import java.util.UUID;
 /**
  * 发现地图界面
  * A simple {@link Fragment} subclass.
+ * @author 75095
  */
 public class FindPageFragment extends BaseFragment implements LocationSource,
         AMapLocationListener, AMap.OnMapLoadedListener, AMap.OnMarkerClickListener, AMap.OnInfoWindowClickListener, View.OnClickListener {
@@ -284,8 +285,9 @@ public class FindPageFragment extends BaseFragment implements LocationSource,
         aMap.setOnMapLoadedListener(this);// 设置amap加载成功事件监听器
         aMap.setOnMarkerClickListener(this);// 设置点击marker事件监听器
         aMap.setOnInfoWindowClickListener(this);// 设置点击infoWindow事件监听器
-        if (!tag)
+        if (!tag) {
             addMarkersToMap();// 往地图上添加marker
+        }
     }
 
     /**
@@ -317,6 +319,8 @@ public class FindPageFragment extends BaseFragment implements LocationSource,
             case MAP_STATION:
                 getServiceStationData(1);//all
                 break;
+            default:
+                break;
         }
     }
 
@@ -332,8 +336,9 @@ public class FindPageFragment extends BaseFragment implements LocationSource,
         AppActionImpl.getInstance(getActivity()).activityQuery(query, new ActionCallbackListener<PagedListEntityDto<ActivityListDto>>() {
             @Override
             public void onSuccess(PagedListEntityDto<ActivityListDto> data) {
-                if (data.getRows() == null || data.getRows().size() == 0)
+                if (data.getRows() == null || data.getRows().size() == 0) {
                     return;
+                }
                 activityDatas = data.getRows();
                 for (int i = 0; i < activityDatas.size(); i++) {
                     ActivityListDto dto = activityDatas.get(i);
@@ -348,8 +353,9 @@ public class FindPageFragment extends BaseFragment implements LocationSource,
                     contactStr += TextUtils.isEmpty(dto.getMobile()) ? "" : dto.getMobile();
                     String contacts_phone = contactStr;
                     LatLng latlng = new LatLng(lat, lng);
-                    if (aMap == null || !isShow)
+                    if (aMap == null || !isShow) {
                         break;
+                    }
                     if (!TextUtils.isEmpty(addr) && !TextUtils.isEmpty(activityName) && !operationState.equals("已结束")) {
                         if (addr.length() < 17 || activityName.length() < 20) {
                             Marker marker = aMap.addMarker(new MarkerOptions().anchor(0.5f, 0.5f)
@@ -396,8 +402,9 @@ public class FindPageFragment extends BaseFragment implements LocationSource,
         AppActionImpl.getInstance(getActivity()).activityQuery(query, new ActionCallbackListener<PagedListEntityDto<ActivityListDto>>() {
             @Override
             public void onSuccess(PagedListEntityDto<ActivityListDto> data) {
-                if (data.getRows() == null || data.getRows().size() == 0)
+                if (data.getRows() == null || data.getRows().size() == 0) {
                     return;
+                }
                 jobDatas = data.getRows();
                 for (int i = 0; i < jobDatas.size(); i++) {
                     ActivityListDto dto = jobDatas.get(i);
@@ -413,8 +420,9 @@ public class FindPageFragment extends BaseFragment implements LocationSource,
                     String contacts_phone = contactStr;
 
                     LatLng latlng = new LatLng(lat, lng);
-                    if (aMap == null || !isShow)
+                    if (aMap == null || !isShow) {
                         break;
+                    }
                     if (!TextUtils.isEmpty(addr) && !TextUtils.isEmpty(jobActivityName) && !operationState.equals("已结束")) {
                         if (addr.length() < 17 || jobActivityName.length() < 20) {
                             Marker marker = aMap.addMarker(new MarkerOptions().anchor(0.5f, 0.5f)
@@ -461,8 +469,9 @@ public class FindPageFragment extends BaseFragment implements LocationSource,
             @Override
             public void onSuccess(PagedListEntityDto<VolunteerBaseListDto> data) {
 
-                if (data.getRows() == null || data.getRows().size() == 0)
+                if (data.getRows() == null || data.getRows().size() == 0) {
                     return;
+                }
 
                 guidanceCenterDatas = data.getRows();
                 for (int i = 0; i < guidanceCenterDatas.size(); i++) {
@@ -474,8 +483,9 @@ public class FindPageFragment extends BaseFragment implements LocationSource,
                     String contacts = dto.getContacts();
                     String phone = dto.getPhone();
                     LatLng latlng = new LatLng(lat, lng);
-                    if (aMap == null || !isShow)
+                    if (aMap == null || !isShow) {
                         break;
+                    }
                     if (!TextUtils.isEmpty(addr) && !TextUtils.isEmpty(title)) {
                         if (addr.length() < 17 || title.length() < 20) {
                             aMap.addMarker(new MarkerOptions().anchor(0.5f, 0.5f)
@@ -494,8 +504,9 @@ public class FindPageFragment extends BaseFragment implements LocationSource,
 
                 }
 
-                if (!isShow)
+                if (!isShow) {
                     return;
+                }
 
                 if (data.getHasNextPage()) {
                     getGuidanceCenterData(data.getPageIndex() + 1);
@@ -522,8 +533,9 @@ public class FindPageFragment extends BaseFragment implements LocationSource,
             @Override
             public void onSuccess(PagedListEntityDto<VolunteerBaseListDto> data) {
 
-                if (data.getRows() == null || data.getRows().size() == 0)
+                if (data.getRows() == null || data.getRows().size() == 0) {
                     return;
+                }
 
                 serviceStationDatas = data.getRows();
                 for (int i = 0; i < serviceStationDatas.size(); i++) {
@@ -535,8 +547,9 @@ public class FindPageFragment extends BaseFragment implements LocationSource,
                     String contacts = dto.getContacts();
                     String phone = dto.getPhone();
                     LatLng latlng = new LatLng(lat, lng);
-                    if (aMap == null || !isShow)
+                    if (aMap == null || !isShow) {
                         break;
+                    }
 
                     if (!TextUtils.isEmpty(addr) && !TextUtils.isEmpty(title)) {
                         if (addr.length() < 17 || title.length() < 20) {
@@ -555,8 +568,9 @@ public class FindPageFragment extends BaseFragment implements LocationSource,
                     }
                 }
 
-                if (!isShow)
+                if (!isShow) {
                     return;
+                }
 
                 if (data.getHasNextPage()) {
                     getServiceStationData(data.getPageIndex() + 1);
@@ -599,16 +613,18 @@ public class FindPageFragment extends BaseFragment implements LocationSource,
                 }
             } else {
                 this.mapView.onResume();
-                if (mlocationClient != null)
+                if (mlocationClient != null) {
                     mlocationClient.startLocation();
+                }
                 if (aMap != null) {
                     setUpMap();
                 }
             }
         } else {
             this.mapView.onResume();
-            if (mlocationClient != null)
+            if (mlocationClient != null) {
                 mlocationClient.startLocation();
+            }
             if (aMap != null) {
                 setUpMap();
             }
@@ -620,7 +636,6 @@ public class FindPageFragment extends BaseFragment implements LocationSource,
      */
     @Override
     public void onPause() {
-//        Logger.d(TAG, "onPause");
         super.onPause();
         this.mapView.onPause();
         deactivate();
@@ -632,7 +647,6 @@ public class FindPageFragment extends BaseFragment implements LocationSource,
      */
     @Override
     public void onSaveInstanceState(Bundle outState) {
-//        Logger.d(TAG, "onSaveInstanceState");
         super.onSaveInstanceState(outState);
         this.mapView.onSaveInstanceState(outState);
     }
@@ -748,6 +762,8 @@ public class FindPageFragment extends BaseFragment implements LocationSource,
                 activityIntent.putExtra("id", bundle.getString("id"));
                 startActivity(activityIntent);
                 break;
+            default:
+                break;
         }
     }
 
@@ -831,6 +847,8 @@ public class FindPageFragment extends BaseFragment implements LocationSource,
                 showNumberDialog(volunteerId);
                 SIGN_OUT = SIGN_IN_NUM;//作为判断 用户点击的是签到码
                 LocalDate.getInstance(getActivity()).setLocalDate("SIGN_OUT", String.valueOf(SIGN_OUT));
+                break;
+            default:
                 break;
         }
     }
@@ -919,7 +937,7 @@ public class FindPageFragment extends BaseFragment implements LocationSource,
         if (signMethod == 1){
             create.setActivityId(qrcode);
         }else if (signMethod == 2){
-            create.setSignCode(Integer.valueOf(qrcode));
+            create.setSignCode(qrcode);
             LocalDate.getInstance(getActivity()).setLocalDate("activityNumCode", qrcode);
         }
         create.setVolunteerId(volunteerId);
@@ -980,7 +998,7 @@ public class FindPageFragment extends BaseFragment implements LocationSource,
         if (signMethod == 1){
             create.setActivityId(qrcode);
         }else if (signMethod == 2){
-            create.setSignCode(Integer.valueOf(qrcode));
+            create.setSignCode(qrcode);
         }
 
         create.setVolunteerId(volunteerId);
@@ -1041,8 +1059,9 @@ public class FindPageFragment extends BaseFragment implements LocationSource,
      * 开始计时
      */
     private void startChronometer() {
-        if (chronometer == null)
+        if (chronometer == null) {
             return;
+        }
         String lastTime = LocalDate.getInstance(getActivity()).getLocalDate("lastTime", "");
         long time = 0;
         Date now = new Date();
@@ -1059,8 +1078,9 @@ public class FindPageFragment extends BaseFragment implements LocationSource,
      * 结束计时
      */
     private void stopChronometer() {
-        if (chronometer == null)
+        if (chronometer == null) {
             return;
+        }
         chronometer.stop();
         LocalDate.getInstance(getActivity()).setLocalDate("lastTime", "");
 
@@ -1076,10 +1096,12 @@ public class FindPageFragment extends BaseFragment implements LocationSource,
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         String qrcodeMsg = data.getExtras().getString("result");
-        if (qrcodeMsg == null)
+        if (qrcodeMsg == null) {
             return;
-        if (qrcodeMsg.equals("0"))
+        }
+        if (qrcodeMsg.equals("0")) {
             return;
+        }
         //将获取到的二维码的值传到FindPageFragment
         EventBus.getDefault().post(new QRCodeResultEvent(qrcodeMsg, requestCode));
 

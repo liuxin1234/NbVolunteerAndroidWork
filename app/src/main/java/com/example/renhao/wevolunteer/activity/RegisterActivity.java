@@ -495,8 +495,9 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                         public void onSuccess(Boolean data) {
                             if (data) {
                                 RegisterSubmit();
-                            } else
+                            } else {
                                 showToast("验证码错误");
+                            }
                         }
 
                         @Override

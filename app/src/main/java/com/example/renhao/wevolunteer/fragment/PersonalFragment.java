@@ -156,8 +156,9 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
 
 
         //底部
-        if (personal_data.getRankingName() != null)
+        if (personal_data.getRankingName() != null) {
             tv_rank_show.setText(personal_data.getRankingName());
+        }
 
         isCreat = true;
     }
@@ -389,7 +390,8 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
             case TO_UPAPK:
                 isUpdate();
                 break;
-
+            default:
+                break;
         }
     }
 
@@ -550,8 +552,9 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
 
     @Override
     public void onDestroy() {
-        if (group != null)
+        if (group != null) {
             group.removeAllViews();
+        }
         isCreat = false;
         super.onDestroy();
     }
@@ -577,8 +580,9 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
 
 
     private void isUpdate() {
-        if (!Util.hasSDcard())
+        if (!Util.hasSDcard()) {
             return;
+        }
         MobileVersionQueryOptionDto queryOptionDto = new MobileVersionQueryOptionDto();
         LinkedHashMap<String, String> sorts_map = new LinkedHashMap<>();
         sorts_map.put("CreateOperation.CreateTime", "desc");
@@ -588,11 +592,13 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
                 new ActionCallbackListener<PagedListEntityDto<MobileVersionListDto>>() {
                     @Override
                     public void onSuccess(PagedListEntityDto<MobileVersionListDto> data) {
-                        if (data == null)
+                        if (data == null) {
                             return;
+                        }
                         List<MobileVersionListDto> listDto = data.getRows();
-                        if (listDto == null || listDto.size() < 1)
+                        if (listDto == null || listDto.size() < 1) {
                             return;
+                        }
                         String nowVersion = "V" + Util.getAppVersion(context);
                         String newVersion = listDto.get(0).getVersionNumber();
                         if (nowVersion.equals(newVersion)){
@@ -605,15 +611,17 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
                                 new ActionCallbackListener<MobileVersionViewDto>() {
                                     @Override
                                     public void onSuccess(MobileVersionViewDto data) {
-                                        if (data == null)
+                                        if (data == null) {
                                             return;
+                                        }
                                         String attatchMentId = data.getAttachmentId();
                                         AppActionImpl.getInstance(context).attatchmentDetails(attatchMentId,
                                                 new ActionCallbackListener<AttachmentsViewDto>() {
                                                     @Override
                                                     public void onSuccess(AttachmentsViewDto data) {
-                                                        if (data == null)
+                                                        if (data == null) {
                                                             return;
+                                                        }
                                                         System.out.println(data.getFileUrl());
                                                         System.out.println(Util.getRealUrl(data.getFileUrl()));
                                                         updateManger = new UpdateManger(context, Util.getRealUrl(data.getFileUrl()), "检测到新版本，是否更新");

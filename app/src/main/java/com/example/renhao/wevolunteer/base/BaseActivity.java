@@ -55,8 +55,9 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     protected void showToast(String msg) {
-        if (isActivityExist)
+        if (isActivityExist) {
             Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+        }
     }
 
     /**
@@ -75,8 +76,9 @@ public class BaseActivity extends AppCompatActivity {
      */
     public void dissMissNormalDialog() {
         try {
-            if (normalDialog.isShowing())
+            if (normalDialog.isShowing()) {
                 normalDialog.dismiss();
+            }
         }catch (Exception e){
         }
     }

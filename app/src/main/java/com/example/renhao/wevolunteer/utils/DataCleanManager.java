@@ -6,26 +6,33 @@ import android.os.Environment;
 import java.io.File;
 import java.math.BigDecimal;
 
+/**
+ * @author 75095
+ */
 public class DataCleanManager
 {
     public static void clearAllCache(Context paramContext)
     {
         deleteDir(paramContext.getCacheDir());
-        if (Environment.getExternalStorageState().equals("mounted"))
+        if (Environment.getExternalStorageState().equals("mounted")) {
             deleteDir(paramContext.getExternalCacheDir());
+        }
     }
 
     private static boolean deleteDir(File paramFile)
     {
         String[] arrayOfString = new String[0];
-        if ((paramFile != null) && (paramFile.isDirectory()))
+        if ((paramFile != null) && (paramFile.isDirectory())) {
             arrayOfString = paramFile.list();
+        }
         for (int i = 0; ; i++)
         {
-            if (i >= arrayOfString.length)
+            if (i >= arrayOfString.length) {
                 return paramFile.delete();
-            if (!deleteDir(new File(paramFile, arrayOfString[i])))
+            }
+            if (!deleteDir(new File(paramFile, arrayOfString[i]))) {
                 return false;
+            }
         }
     }
 
@@ -40,8 +47,9 @@ public class DataCleanManager
             {
                 File[] arrayOfFile = paramFile.listFiles();
                 i = 0;
-                if (i >= arrayOfFile.length)
+                if (i >= arrayOfFile.length) {
                     return l1;
+                }
                 if (arrayOfFile[i].isDirectory())
                 {
                     l1 += getFolderSize(arrayOfFile[i]);
@@ -64,26 +72,29 @@ public class DataCleanManager
     private static String getFormatSize(double paramDouble)
     {
         double d1 = paramDouble / 1024.0D;
-        if (d1 < 1.0D)
+        if (d1 < 1.0D) {
             return "0KB";
+        }
         double d2 = d1 / 1024.0D;
-        if (d2 < 1.0D)
+        if (d2 < 1.0D) {
             return new BigDecimal(Double.toString(d1)).setScale(2, 4).toPlainString() + "KB";
+        }
         double d3 = d2 / 1024.0D;
-        if (d3 < 1.0D)
+        if (d3 < 1.0D) {
             return new BigDecimal(Double.toString(d2)).setScale(2, 4).toPlainString() + "MB";
+        }
         double d4 = d3 / 1024.0D;
-        if (d4 < 1.0D)
+        if (d4 < 1.0D) {
             return new BigDecimal(Double.toString(d3)).setScale(2, 4).toPlainString() + "GB";
+        }
         return new BigDecimal(d4).setScale(2, 4).toPlainString() + "TB";
     }
 
-    public static String getTotalCacheSize(Context paramContext)
-            throws Exception
-    {
+    public static String getTotalCacheSize(Context paramContext) throws Exception {
         long l = getFolderSize(paramContext.getCacheDir());
-        if (Environment.getExternalStorageState().equals("mounted"))
+        if (Environment.getExternalStorageState().equals("mounted")) {
             l += getFolderSize(paramContext.getExternalCacheDir());
+        }
         return getFormatSize(l);
     }
 }
