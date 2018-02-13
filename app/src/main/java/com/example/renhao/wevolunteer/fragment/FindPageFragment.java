@@ -24,6 +24,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.MrL.qrcodescan.MipcaActivityCapture;
 import com.amap.api.location.AMapLocation;
@@ -40,6 +41,7 @@ import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
 import com.amap.api.maps.model.MyLocationStyle;
+import com.blankj.utilcode.util.DeviceUtils;
 import com.example.core.AppActionImpl;
 import com.example.core.local.LocalDate;
 import com.example.model.ActionCallbackListener;
@@ -126,6 +128,10 @@ public class FindPageFragment extends BaseFragment implements LocationSource,
     Button sign_in_num;//签到码按钮
     LinearLayout linearLayout;//签到计时的布局
     Chronometer chronometer;//计时器
+    private TextView tvWarn;
+    private LinearLayout llWarm; //注意提示
+    private String replace; //动态显示活动结束时间的提示框
+
 
     private SimpleDateFormat finishDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -154,6 +160,10 @@ public class FindPageFragment extends BaseFragment implements LocationSource,
         this.sign_in_num = (Button) localView.findViewById(R.id.btn_sign_in_num);
         this.linearLayout = (LinearLayout) localView.findViewById(R.id.time_layout);
         this.chronometer = (Chronometer) localView.findViewById(R.id.chronometer);
+        this.tvWarn = (TextView) localView.findViewById(R.id.tv_warn);
+        this.llWarm = (LinearLayout) localView.findViewById(R.id.ll_warn);
+        tvWarn.setHorizontallyScrolling(true);
+        tvWarn.setSelected(true);
         chronometer.setFormat("%s");
         //在activity执行onCreate时执行mMapView.onCreate(savedInstanceState)，实现地图生命周期管理
         this.mapView.onCreate(savedInstanceState);// 此方法必须重写
@@ -178,17 +188,20 @@ public class FindPageFragment extends BaseFragment implements LocationSource,
             if (!flag) {
                 sign_in.setVisibility(View.VISIBLE);
                 sign_in_num.setVisibility(View.VISIBLE);
+                llWarm.setVisibility(View.GONE);
             } else {
                 sign_out.setVisibility(View.VISIBLE);
                 linearLayout.setVisibility(View.VISIBLE);
+                llWarm.setVisibility(View.VISIBLE);
                 startChronometer();
             }
             tag = true;
         } else {
             sign_in.setVisibility(View.GONE);
             sign_in_num.setVisibility(View.GONE);
-            sign_out.setVisibility(View.INVISIBLE);
-            linearLayout.setVisibility(View.INVISIBLE);
+            sign_out.setVisibility(View.GONE);
+            linearLayout.setVisibility(View.GONE);
+            llWarm.setVisibility(View.GONE);
             tag = false;
         }
     }
@@ -245,6 +258,7 @@ public class FindPageFragment extends BaseFragment implements LocationSource,
         sign_in.setOnClickListener(this);
         sign_out.setOnClickListener(this);
         sign_in_num.setOnClickListener(this);
+        llWarm.setOnClickListener(this);
     }
 
 
@@ -273,9 +287,9 @@ public class FindPageFragment extends BaseFragment implements LocationSource,
         MyLocationStyle myLocationStyle = new MyLocationStyle();
         myLocationStyle.myLocationIcon(BitmapDescriptorFactory
                 .fromResource(R.drawable.location_marker));// 设置小蓝点的图标
-        myLocationStyle.strokeColor(Color.BLACK);// 设置圆形的边框颜色
-        myLocationStyle.radiusFillColor(Color.argb(100, 0, 0, 180));// 设置圆形的填充颜色
-        myLocationStyle.strokeWidth(1.0f);// 设置圆形的边框粗细
+        myLocationStyle.strokeColor(Color.argb(0, 0, 0, 0));// 设置圆形的边框颜色
+        myLocationStyle.radiusFillColor(Color.argb(0, 0, 0, 0));// 设置圆形的填充颜色
+        myLocationStyle.strokeWidth(0f);// 设置圆形的边框粗细
         aMap.setMyLocationStyle(myLocationStyle);
         aMap.setLocationSource(this);// 设置定位监听
         aMap.getUiSettings().setMyLocationButtonEnabled(true);// 设置默认定位按钮是否显示
@@ -652,6 +666,11 @@ public class FindPageFragment extends BaseFragment implements LocationSource,
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+    }
+
+    @Override
     public void onStop() {
         super.onStop();
     }
@@ -848,6 +867,16 @@ public class FindPageFragment extends BaseFragment implements LocationSource,
                 SIGN_OUT = SIGN_IN_NUM;//作为判断 用户点击的是签到码
                 LocalDate.getInstance(getActivity()).setLocalDate("SIGN_OUT", String.valueOf(SIGN_OUT));
                 break;
+
+
+            case R.id.ll_warn:
+                showMessageOKCancel(replace, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                break;
             default:
                 break;
         }
@@ -878,6 +907,7 @@ public class FindPageFragment extends BaseFragment implements LocationSource,
                 sign_in_num.setVisibility(View.VISIBLE);
                 sign_out.setVisibility(View.GONE);
                 linearLayout.setVisibility(View.GONE);
+                llWarm.setVisibility(View.GONE);
                 stopChronometer();
             }
         }
@@ -918,7 +948,7 @@ public class FindPageFragment extends BaseFragment implements LocationSource,
     }
 
 
-    private void signIn(String qrcode, String volunteerId,int signMethod) {
+    private void signIn(final String qrcode, String volunteerId, final int signMethod) {
         //直接发送二维码的内容
         SignInOutDto create = new SignInOutDto();
         if (LocalDate.getInstance(getActivity()).getLocalDate("lat", null) != null &&
@@ -943,7 +973,7 @@ public class FindPageFragment extends BaseFragment implements LocationSource,
         create.setVolunteerId(volunteerId);
         create.setSignMethod(signMethod);
         create.setSigntime(Util.getNowDate());
-        create.setDeviceId(Util.getMac());
+        create.setDeviceId(DeviceUtils.getMacAddress());
         create.setSourceType(0);
         create.setSignType(0);
         create.setId(UUID.randomUUID().toString());
@@ -967,8 +997,12 @@ public class FindPageFragment extends BaseFragment implements LocationSource,
                 sign_in_num.setVisibility(View.GONE);
                 sign_out.setVisibility(View.VISIBLE);
                 linearLayout.setVisibility(View.VISIBLE);
+                llWarm.setVisibility(View.VISIBLE);
                 startChronometer();
                 showToast("签到成功");
+
+                getActivityDetails(qrcode,signMethod);
+
             }
 
             @Override
@@ -1005,7 +1039,7 @@ public class FindPageFragment extends BaseFragment implements LocationSource,
         create.setSignMethod(signMethod);
         //create.setActivityTimeId();
         create.setSigntime(Util.getNowDate());
-        create.setDeviceId(Util.getMac());
+        create.setDeviceId(DeviceUtils.getMacAddress());
         create.setSourceType(0);
         create.setSignType(1);
         create.setId(UUID.randomUUID().toString());
@@ -1033,6 +1067,7 @@ public class FindPageFragment extends BaseFragment implements LocationSource,
                         sign_in_num.setVisibility(View.VISIBLE);
                         sign_out.setVisibility(View.GONE);
                         linearLayout.setVisibility(View.GONE);
+                        llWarm.setVisibility(View.GONE);
                         stopChronometer();
                         showToast("签退成功");
                     }
@@ -1106,4 +1141,75 @@ public class FindPageFragment extends BaseFragment implements LocationSource,
         EventBus.getDefault().post(new QRCodeResultEvent(qrcodeMsg, requestCode));
 
     }
+
+    private String dayETime; //结束时间
+    private void getActivityDetails(String qrcode, int signMethod){
+        ActivityQueryOptionDto query = new ActivityQueryOptionDto();
+        if (signMethod == 1){
+            activityIdQuery(qrcode);
+        }else if (signMethod == 2){
+            query.setSignCode(qrcode);
+            activitySignCodeQuery(query);
+        }
+
+    }
+
+    /**
+     * 利用签到码来获取活动详情信息
+     * @param query
+     */
+    private void activitySignCodeQuery(ActivityQueryOptionDto query){
+        AppActionImpl.getInstance(getActivity()).activityQuery(query, new ActionCallbackListener<PagedListEntityDto<ActivityListDto>>() {
+            @Override
+            public void onSuccess(PagedListEntityDto<ActivityListDto> data) {
+                if (data.getRows() == null || data.getRows().size() == 0) {
+                    return;
+                }
+                dayETime = data.getRows().get(0).getDayETime();
+                replace = getString(R.string.tv_warn).replace("活动/岗位结束", dayETime);
+                tvWarn.setText(replace);
+                showMessageOKCancel(replace, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+            }
+
+            @Override
+            public void onFailure(String errorEvent, String message) {
+
+            }
+        });
+    }
+
+    /**
+     * 利用活动Id来获取详细信息
+     * @param qrcode
+     */
+    private void activityIdQuery(String qrcode){
+        AppActionImpl.getInstance(getActivity()).activityDetail(qrcode, new ActionCallbackListener<ActivityViewDto>() {
+            @Override
+            public void onSuccess(ActivityViewDto data) {
+                if (data != null) {
+                    dayETime = data.getDayETime();
+                    replace = getString(R.string.tv_warn).replace("活动/岗位结束", dayETime);
+                    tvWarn.setText(replace);
+                    showMessageOKCancel(replace, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+                }
+
+            }
+
+            @Override
+            public void onFailure(String errorEvent, String message) {
+
+            }
+        });
+    }
+
 }

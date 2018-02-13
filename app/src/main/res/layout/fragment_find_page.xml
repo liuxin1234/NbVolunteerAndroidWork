@@ -9,6 +9,9 @@
         android:id="@+id/map"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         app:ptrHeaderBackground="#ffeaebeb">
     </com.amap.api.maps.MapView>
 
@@ -61,7 +64,7 @@
         android:layout_above="@+id/btn_sign_out"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:background="@drawable/btn_register"
+        android:background="@drawable/bg_single_time"
         android:gravity="center"
         android:orientation="horizontal"
         android:visibility="gone">
@@ -84,4 +87,39 @@
             android:textSize="18sp"
             />
     </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/ll_warn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/time_layout"
+        android:gravity="center"
+        android:background="@color/colorTransparentWhite"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="10dp"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/warn"/>
+
+        <TextView
+            android:id="@+id/tv_warn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/tv_warn"
+            android:textColor="@color/colorRed"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:ellipsize="marquee"
+            android:singleLine="true"
+            android:marqueeRepeatLimit="marquee_forever"/>
+    </LinearLayout>
+
+
+
+
 </com.example.renhao.wevolunteer.view.FractionTranslateLayout>

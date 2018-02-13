@@ -6,6 +6,7 @@ package com.example.model.user;
  */
 
 public class UserPhotoDto {
+    private String Id;
     private String UserId; // (string, optional),
     private String Photo; //(string, optional)
 
@@ -23,5 +24,13 @@ public class UserPhotoDto {
 
     public void setUserId(String userId) {
         UserId = userId;
+    }
+
+    public String getId() {
+        return Id;
+    }
+
+    public void setId(String id) {
+        this.Id = id;
     }
 }

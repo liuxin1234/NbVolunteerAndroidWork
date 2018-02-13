@@ -1029,6 +1029,31 @@ public class AppActionImpl implements AppAction {
     }
 
     @Override
+    public void create_portrait(final UserPhotoDto photoDto, final ActionCallbackListener<String> listener) {
+        //判断票据是否过期
+        final String accessToken = LocalDate.getInstance(context).getLocalDate("access_token", "");
+        new AsyncTask<Void, Void, ApiResponse<String>>() {
+            @Override
+            protected ApiResponse<String> doInBackground(Void... params) {
+                return api.create_portrait(photoDto, accessToken);
+            }
+
+            @Override
+            protected void onPostExecute(ApiResponse<String> result) {
+                if (result == null) {
+                    listener.onFailure("", "请检查网络后重试");
+                    return;
+                }
+                if (result.isSuccess()) {
+                    listener.onSuccess(result.getData());
+                } else {
+                    listener.onFailure("", result.getMessage());
+                }
+            }
+        }.execute();
+    }
+
+    @Override
     public void update_portrait(final UserPhotoDto photo, final ActionCallbackListener<String> listener) {
         //判断票据是否过期
         final String accessToken = LocalDate.getInstance(context).getLocalDate("access_token", "");

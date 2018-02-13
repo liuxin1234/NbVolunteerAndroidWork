@@ -232,6 +232,46 @@
                     android:src="@drawable/entry_mark" />
             </LinearLayout>
 
+            <!--电子邮箱-->
+            <LinearLayout
+                android:id="@+id/ll_volunteer_type"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/bottom_item_height"
+                android:background="@drawable/linearlayout_select"
+                android:clickable="true"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/textview_bottom_left_marginleft"
+                    android:layout_weight="1"
+                    android:paddingLeft="@dimen/text_left_padding"
+                    android:text="@string/my_Volunteer_type_text"
+                    android:textColor="#000"
+                    android:textSize="@dimen/textview_bottom_left_size" />
+
+                <TextView
+                    android:id="@+id/tv_volunteer_type"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:paddingBottom="15dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="5dp"
+                    android:paddingTop="15dp"
+                    android:textSize="14sp" />
+
+
+                <ImageView
+                    android:layout_width="@dimen/imageview_bottom_mark_size"
+                    android:layout_height="@dimen/imageview_bottom_mark_size"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="@dimen/imageview_bottom_mark_marginright"
+                    android:src="@drawable/entry_mark" />
+            </LinearLayout>
+
             <!--用户名-->
             <LinearLayout
                 android:id="@+id/LL_PD_myUserName"

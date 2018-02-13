@@ -183,8 +183,9 @@ public class IndexActivity extends BaseActivity implements AMapLocationListener 
     }
 
     private void isUpdate() {
-        if (!Util.hasSDcard())
+        if (!Util.hasSDcard()) {
             return;
+        }
         MobileVersionQueryOptionDto queryOptionDto = new MobileVersionQueryOptionDto();
         LinkedHashMap<String, String> sorts_map = new LinkedHashMap<>();
         sorts_map.put("CreateOperation.CreateTime", "desc");
@@ -194,29 +195,34 @@ public class IndexActivity extends BaseActivity implements AMapLocationListener 
                 new ActionCallbackListener<PagedListEntityDto<MobileVersionListDto>>() {
                     @Override
                     public void onSuccess(PagedListEntityDto<MobileVersionListDto> data) {
-                        if (data == null)
+                        if (data == null) {
                             return;
+                        }
                         List<MobileVersionListDto> listDto = data.getRows();
-                        if (listDto == null || listDto.size() < 1)
+                        if (listDto == null || listDto.size() < 1) {
                             return;
+                        }
                         String nowVersion = "V" + Util.getAppVersion(context);
                         String newVersion = listDto.get(0).getVersionNumber();
-                        if (nowVersion.equals(newVersion))
+                        if (nowVersion.equals(newVersion)) {
                             return;
+                        }
                         String versionId = listDto.get(0).getId();
                         AppActionImpl.getInstance(context).mobileVersionDetails(versionId,
                                 new ActionCallbackListener<MobileVersionViewDto>() {
                                     @Override
                                     public void onSuccess(MobileVersionViewDto data) {
-                                        if (data == null)
+                                        if (data == null) {
                                             return;
+                                        }
                                         String attatchMentId = data.getAttachmentId();
                                         AppActionImpl.getInstance(context).attatchmentDetails(attatchMentId,
                                                 new ActionCallbackListener<AttachmentsViewDto>() {
                                                     @Override
                                                     public void onSuccess(AttachmentsViewDto data) {
-                                                        if (data == null)
+                                                        if (data == null) {
                                                             return;
+                                                        }
                                                         System.out.println(data.getFileUrl());
                                                         System.out.println(Util.getRealUrl(data.getFileUrl()));
                                                         updateManger = new UpdateManger(context, Util.getRealUrl(data.getFileUrl()), "检测到新版本，是否更新");
@@ -287,7 +293,7 @@ public class IndexActivity extends BaseActivity implements AMapLocationListener 
                 try {
                     Date expires = format.parse(strExpires);
                     //判断票据是否过期
-                    if (new Date().getTime() >= expires.getTime()) {
+                    if (System.currentTimeMillis() >= expires.getTime()) {
                         Logger.v(TAG, "accesstoken is overdue");
                         getAccessToken();
                     } else {
@@ -373,24 +379,31 @@ public class IndexActivity extends BaseActivity implements AMapLocationListener 
                         public void onClick(PopupMenu.MENUITEM item, String str) {
                             switch (str) {
                                 case "全部":
-                                    if (mFindPageFragment != null)
+                                    if (mFindPageFragment != null) {
                                         mFindPageFragment.setShowMap(FindPageFragment.MAP_ALL);
+                                    }
                                     break;
                                 case "岗位":
-                                    if (mFindPageFragment != null)
+                                    if (mFindPageFragment != null) {
                                         mFindPageFragment.setShowMap(FindPageFragment.MAP_JOB);
+                                    }
                                     break;
                                 case "活动":
-                                    if (mFindPageFragment != null)
+                                    if (mFindPageFragment != null) {
                                         mFindPageFragment.setShowMap(FindPageFragment.MAP_ACTIVITY);
+                                    }
                                     break;
                                 case "志愿者指导中心":
-                                    if (mFindPageFragment != null)
+                                    if (mFindPageFragment != null) {
                                         mFindPageFragment.setShowMap(FindPageFragment.MAP_CENTER);
+                                    }
                                     break;
                                 case "志愿者服务站":
-                                    if (mFindPageFragment != null)
+                                    if (mFindPageFragment != null) {
                                         mFindPageFragment.setShowMap(FindPageFragment.MAP_STATION);
+                                    }
+                                    break;
+                                default:
                                     break;
                             }
                         }
@@ -407,11 +420,13 @@ public class IndexActivity extends BaseActivity implements AMapLocationListener 
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         //授权回调中检查是否授权后执行相应操作
-        if (requestCode == LOCATION_REQUEST_CODE)
+        if (requestCode == LOCATION_REQUEST_CODE) {
             if (ContextCompat.checkSelfPermission(IndexActivity.this,
                     Manifest.permission.ACCESS_FINE_LOCATION)
-                    == PackageManager.PERMISSION_GRANTED)
+                    == PackageManager.PERMISSION_GRANTED) {
                 locationClient.startLocation();
+            }
+        }
         if (requestCode == TAKE_PHOTO_REQUEST_CODE) {
             if (ContextCompat.checkSelfPermission(IndexActivity.this,
                     Manifest.permission.CAMERA)
@@ -425,8 +440,9 @@ public class IndexActivity extends BaseActivity implements AMapLocationListener 
         if (requestCode == SDCARD_REQUEST_CODE) {
             if (ContextCompat.checkSelfPermission(IndexActivity.this,
                     Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                    == PackageManager.PERMISSION_GRANTED)
+                    == PackageManager.PERMISSION_GRANTED) {
                 updateManger.checkUpdateInfo();
+            }
         }
 
     }
@@ -438,8 +454,9 @@ public class IndexActivity extends BaseActivity implements AMapLocationListener 
      * @param position
      */
     public void setFragment(int position) {
-        if (fragmentPosition == position)
+        if (fragmentPosition == position) {
             return;
+        }
         FragmentManager fm = getFragmentManager();
         FragmentTransaction transaction = fm.beginTransaction();
 
@@ -508,6 +525,8 @@ public class IndexActivity extends BaseActivity implements AMapLocationListener 
                 transaction.replace(R.id.framelayout_index_content, mPersonalFragment);
                 fragmentPosition = MYSELF;
                 break;
+            default:
+                break;
 
         }
         transaction.commit();
@@ -550,6 +569,8 @@ public class IndexActivity extends BaseActivity implements AMapLocationListener 
             case R.id.changrTv_index_myself:
                 setFragment(MYSELF);
                 break;
+            default:
+                break;
         }
     }
 
@@ -567,6 +588,8 @@ public class IndexActivity extends BaseActivity implements AMapLocationListener 
                 break;
             case MYSELF:
                 setFragment(MYSELF);
+                break;
+            default:
                 break;
         }
     }
@@ -606,10 +629,12 @@ public class IndexActivity extends BaseActivity implements AMapLocationListener 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         String qrcodeMsg = data.getExtras().getString("result");
         Logger.v("QRCode", "qrcode result in indexActivity  " + qrcodeMsg);
-        if (qrcodeMsg == null)
+        if (qrcodeMsg == null) {
             return;
-        if (qrcodeMsg.equals("0"))
+        }
+        if (qrcodeMsg.equals("0")) {
             return;
+        }
         Logger.v(TAG, requestCode);
         if (requestCode == 0) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);

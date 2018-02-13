@@ -10,6 +10,8 @@
     <color name="colorGray">#999999</color>
     <color name="colorDarkWhite">#f3efec</color>
     <color name="colorDarkDarkWhite">#d9d9d9</color>
+    <color name="colorTransparentWhite">#78ffffff</color>
+
 
     <color name="colorShadllowCyan">#a7dfd4</color>
     <color name="colorTransparentDark">#66000000</color>

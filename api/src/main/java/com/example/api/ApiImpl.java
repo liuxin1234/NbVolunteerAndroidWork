@@ -597,6 +597,20 @@ public class ApiImpl implements Api {
     }
 
     @Override
+    public ApiResponse<String> create_portrait(UserPhotoDto photoDto, String accessToken) {
+        Gson gson = new Gson();
+        String params = gson.toJson(photoDto);
+        Type typeOfT = new TypeToken<ApiResponse<String>>() {
+        }.getType();
+        try {
+            return HttpEngine.getInstance().postApiHandler(params, CREATE_PORTRAIT, typeOfT, accessToken);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return new ApiResponse<>(false, "网络连接异常");
+    }
+
+    @Override
     public ApiResponse<String> update_portrait(UserPhotoDto portrait, String accessToken) {
         Gson gson = new Gson();
         String params = gson.toJson(portrait);

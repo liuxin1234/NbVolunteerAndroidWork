@@ -26,6 +26,11 @@ import com.github.jjobes.htmldialog.HtmlDialogListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * 注册界面
@@ -37,6 +42,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     public static final int AREA_REGISTER = 2;
     public static final int ORG_REGISTER = 3;
     public static final int MY_POLIT = 4;
+    public static final int VOLUNTEER_TYPE = 5;
 
     CheckBox cb_school;
     CheckBox cb_job;
@@ -63,6 +69,10 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     TextView areaNameTv, orgNameTv, clause;
     LinearLayout ll;
     TextView tv_polity_show;
+    @Bind(R.id.tv_volunteer_type)
+    TextView tvVolunteerType;
+    @Bind(R.id.ll_volunteer_type)
+    LinearLayout llVolunteerType;
 
     private VolunteerViewDto personal_data;
 
@@ -87,16 +97,21 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     private String polity;
     private boolean Flag_polity = false;
 
+    private String volunteerTagName;
+    private Integer volunteerTagCode;
+    private String userId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         setContentView(R.layout.activity_register);
+        ButterKnife.bind(this);
         personal_data = new VolunteerViewDto();
         initView();
         initViewListener();
         getAccessToken();
-
+        userId = UUID.randomUUID().toString();
     }
 
     private void initView() {
@@ -219,6 +234,15 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
             }
             Flag_polity = true;
         }
+
+        if (requestCode == VOLUNTEER_TYPE && resultCode == RESULT_OK){
+            personal_data = (VolunteerViewDto) data.getSerializableExtra("personal_data");
+            if (personal_data != null) {
+                volunteerTagName = personal_data.getTagName();
+                volunteerTagCode = personal_data.getTag();
+                tvVolunteerType.setText(volunteerTagName);
+            }
+        }
     }
 
     /**
@@ -239,43 +263,43 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     public void onFocusChange(View v, boolean hasFocus) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.et_register_nickname:
-                setHintEt(et_nickname,hasFocus);
+                setHintEt(et_nickname, hasFocus);
                 break;
             case R.id.et_register_trueName:
-                setHintEt(et_truename,hasFocus);
+                setHintEt(et_truename, hasFocus);
                 break;
             case R.id.et_register_id_number:
-                setHintEt(et_id_number,hasFocus);
+                setHintEt(et_id_number, hasFocus);
                 break;
             case R.id.et_register_phone:
-                setHintEt(et_phone,hasFocus);
+                setHintEt(et_phone, hasFocus);
                 break;
             case R.id.et_register_password:
-                setHintEt(et_password,hasFocus);
+                setHintEt(et_password, hasFocus);
                 break;
             case R.id.et_register_Repassword:
-                setHintEt(et_Repassword,hasFocus);
+                setHintEt(et_Repassword, hasFocus);
                 break;
             case R.id.et_register_email:
-                setHintEt(et_email,hasFocus);
+                setHintEt(et_email, hasFocus);
                 break;
             case R.id.et_register_verification_code:
-                setHintEt(et_verification_code,hasFocus);
+                setHintEt(et_verification_code, hasFocus);
                 break;
             default:
                 break;
         }
     }
 
-    private void setHintEt(EditText et,boolean hasFocus){
+    private void setHintEt(EditText et, boolean hasFocus) {
         String hint;
-        if(hasFocus){
+        if (hasFocus) {
             hint = et.getHint().toString();
             et.setTag(hint);
             et.setHint("");
-        }else{
+        } else {
             hint = et.getTag().toString();
             et.setHint(hint);
         }
@@ -383,7 +407,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 
                 @Override
                 public void onFailure(String errorEvent, String message) {
-                    showToast("验证码发送失败,"+message);
+                    showToast("验证码发送失败," + message);
                 }
             });
         } else {
@@ -395,6 +419,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     public void RegisterSubmit() {
         showNormalDialog("正在提交数据，请稍后....");
         VolunteerCreateDto vl_create = new VolunteerCreateDto();
+        vl_create.setUserId(userId);
         vl_create.setLoginUserName(nickname);
         vl_create.setTrueName(truename);
         vl_create.setUserPassword(password);
@@ -405,6 +430,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         vl_create.setOrgIds(orgId);
         vl_create.setPolity(polity);//政治面貌
         vl_create.setEmail(email);
+        vl_create.setTag(volunteerTagCode);
         vl_create.setJobStatus(Integer.valueOf(personalCode));
         vl_create.setCardType(Integer.parseInt(cardCode));
         vl_create.setIsSpeciality(false);
@@ -443,16 +469,16 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
             showToast("姓名不能为空");
         } else if (TextUtils.isEmpty(cardCode)) {
             showToast("证件类型不能为空");
-        } else if (cardCode.equals("1")){
+        } else if (cardCode.equals("1")) {
             if (!Util.isID(id_number)) {
                 showToast("证件号码错误");
-            }else {
+            } else {
                 againInformation();
             }
-        }else {
-            if (TextUtils.isEmpty(id_number)){
+        } else {
+            if (TextUtils.isEmpty(id_number)) {
                 showToast("证件号码不能为空");
-            }else {
+            } else {
                 againInformation();
             }
         }
@@ -464,7 +490,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     /**
      * 该方法是： 验证身份证后继续对下面信息的验证
      */
-    private void againInformation(){
+    private void againInformation() {
         if (!Util.isEmail(email)) {
             showToast("请输入正确的电子邮箱");
         } else if (TextUtils.isEmpty(password) || password.length() < 6) {
@@ -475,13 +501,15 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
             showToast("两次密码不同，请重新确认");
         } else if (TextUtils.isEmpty(personalCode)) {
             showToast("请选择个人属性");
-        }  else if (TextUtils.isEmpty(areaCode)) {
+        } else if (TextUtils.isEmpty(areaCode)) {
             showToast("请选择所在区域");
         } else if (TextUtils.isEmpty(orgId)) {
             showToast("请选择所属机构");
-        }else if (!Flag_polity) {
+        } else if (!Flag_polity) {
             showToast("请选择政治面貌");
-        }else if (!Util.isPhoneNumber(phone)) {
+        }else if (TextUtils.isEmpty(volunteerTagName)) {
+            showToast("请选择是否为平安志愿者");
+        } else if (!Util.isPhoneNumber(phone)) {
             showToast("请输入正确的手机号");
         } else if (TextUtils.isEmpty(verification_code)) {
             showToast("请输入验证码");
@@ -507,5 +535,15 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                     });
 
         }
+    }
+
+    @OnClick(R.id.ll_volunteer_type)
+    public void onViewClicked() {
+        //是否为平安志愿者
+        Intent intentVolunteerType = new Intent();
+        intentVolunteerType.putExtra("personal_data", personal_data);
+        intentVolunteerType.putExtra("type", VOLUNTEER_TYPE);
+        intentVolunteerType.setClass(RegisterActivity.this, VolunteerTagActivity.class);
+        startActivityForResult(intentVolunteerType, VOLUNTEER_TYPE);
     }
 }

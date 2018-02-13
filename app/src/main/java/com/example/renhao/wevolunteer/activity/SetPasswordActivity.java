@@ -14,6 +14,7 @@ import com.example.core.local.LocalDate;
 import com.example.model.ActionCallbackListener;
 import com.example.renhao.wevolunteer.R;
 import com.example.renhao.wevolunteer.base.BaseActivity;
+import com.orhanobut.logger.Logger;
 
 /**
  * 设置密码界面
@@ -96,8 +97,8 @@ public class SetPasswordActivity extends BaseActivity implements View.OnFocusCha
         if (!TextUtils.isEmpty(edit_old.getText())) {
             if (!TextUtils.isEmpty(edit_new.getText())) {
                 if (!TextUtils.isEmpty(edit_again.getText())) {
-                    if (EncryptUtil.makeMD5(edit_old.getText().toString()).toUpperCase().
-                            equals(PSWD_OLD)) {
+                    if (EncryptUtil.makeMD5(edit_old.getText().toString()).
+                            equalsIgnoreCase(PSWD_OLD)) {
                         PSWD_NEW = edit_new.getText().toString();
                         PSWD_AGAIN = edit_again.getText().toString();
                         if (PSWD_NEW.length() < 6){

@@ -229,6 +229,8 @@ public class HomePageFragment extends BaseFragment implements BaseSliderView.OnS
                         });
                         builder.create().show();
                         break;
+                    default:
+                        break;
                 }
             }
         });

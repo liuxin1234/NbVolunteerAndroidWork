@@ -59,7 +59,7 @@ public class SearchResultFragment extends BaseFragment {
     @Bind(R.id.tv_searchResult)
     TextView mTv;
 
-    private int searchType;
+
     private String keyWords;
 
     private int PageIndex;//(integer, optional): 当前页码
@@ -77,9 +77,7 @@ public class SearchResultFragment extends BaseFragment {
     private List<HomePageListItem> projectItem = new ArrayList<>();
     private List<ActivityListDto> projectResult = new ArrayList<>();
 
-    private OrganizationAdapter orginazationAdapter;
-    private List<CompanyListDto> orginazationResult = new ArrayList<>();
-    private ArrayList<OrganizationListItem> orginazationItem = new ArrayList<>();
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -128,13 +126,13 @@ public class SearchResultFragment extends BaseFragment {
         mSearchResult.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
-                getDate(keyWords, searchType, REFRESH);
+                getDate(keyWords, REFRESH);
             }
 
             @Override
             public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
                 if (HasNextPage) {
-                    getDate(keyWords, searchType, ADD);
+                    getDate(keyWords, ADD);
                 } else {
                     showToast("已经是最后一页");
                     new FinishRefresh().execute();
@@ -161,18 +159,13 @@ public class SearchResultFragment extends BaseFragment {
         mSearchResult.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (searchType == 0 || searchType == 1) {//活动和岗位
-                    Intent intent = new Intent(getActivity(), ProjectDetailActivity.class);
-                    intent.putExtra("id", projectResult.get(position - 1).getId());
-                    intent.putExtra("type", projectResult.get(position - 1).getType());
-                    intent.putExtra("origin", 1);
-                    startActivity(intent);
-                } else if (searchType == 2) {//组织
-                    Intent intent = new Intent(getActivity(), OrganizationDetailActivity.class);
-                    intent.putExtra("id", orginazationResult.get(position - 1).getId());
-                    intent.putExtra("origin", 1);
-                    startActivity(intent);
-                }
+
+                Intent intent = new Intent(getActivity(), ProjectDetailActivity.class);
+                intent.putExtra("id", projectResult.get(position - 1).getId());
+                intent.putExtra("type", projectResult.get(position - 1).getType());
+                intent.putExtra("origin", 1);
+                startActivity(intent);
+
             }
         });
     }
@@ -184,73 +177,19 @@ public class SearchResultFragment extends BaseFragment {
     }
 
     private void getSearchResult() {
-        searchType = mSearchActivity.getSearchType();
         keyWords = mSearchActivity.getKeyWords();
-        getDate(keyWords, searchType, REFRESH);
+        getDate(keyWords, REFRESH);
     }
 
-    private void getDate(String keyWords, int searchType, final int refreshType) {
+    private void getDate(String keyWords, final int refreshType) {
+        getProject(keyWords, refreshType);
 
-        if (searchType == 0 || searchType == 1) {//活动和岗位
-            getProject(keyWords, searchType, refreshType);
-        } else if (searchType == 2) {//组织
-            getOrganization(keyWords, refreshType);
-        }
     }
 
-    private void getOrganization(String keyWords, final int refreshType) {
-        CompanyQueryOptionDto queryOptionDto = new CompanyQueryOptionDto();
-        queryOptionDto.setKeyWord(keyWords);
-        queryOptionDto.setStatus(1);
-        if (refreshType == ADD) {
-            queryOptionDto.setPageIndex(PageIndex + 1);
-        }
-        queryOptionDto.setPageSize(PageSize);
-        AppActionImpl.getInstance(getActivity()).companyQuery(queryOptionDto,
-                new ActionCallbackListener<PagedListEntityDto<CompanyListDto>>() {
-                    @Override
-                    public void onSuccess(PagedListEntityDto<CompanyListDto> data) {
-                        if (mSearchResult == null)
-                            return;
-                        mSearchResult.onRefreshComplete();
-                        if (refreshType == REFRESH) {
-                            orginazationItem = new ArrayList<OrganizationListItem>();
-                            orginazationResult = new ArrayList<CompanyListDto>();
-                        }
-                        for (int i = 0; i < data.getRows().size(); i++) {
-                            orginazationResult.add(data.getRows().get(i));
-                            OrganizationListItem item = new OrganizationListItem();
-                            item.setName(data.getRows().get(i).getCompanyName());
-                            item.setAddress(data.getRows().get(i).getAddr());
-                            item.setIconUrl(data.getRows().get(i).getAppLstUrl());
-                            orginazationItem.add(item);
-                        }
-                        PageIndex = data.getPageIndex();
-                        PageSize = data.getPageSize();
-                        TotalCount = data.getTotalCount();
-                        TotalPages = data.getTotalPages();
-                        StartPosition = data.getStartPosition();
-                        EndPosition = data.getEndPosition();
-                        HasPreviousPage = data.getHasPreviousPage();
-                        HasNextPage = data.getHasNextPage();
 
-                        orginazationAdapter = new OrganizationAdapter(getActivity(), orginazationItem);
-                        mSearchResult.setAdapter(orginazationAdapter);
-                    }
 
-                    @Override
-                    public void onFailure(String errorEvent, String message) {
-                        if (mSearchResult == null)
-                            return;
-                        mSearchResult.onRefreshComplete();
-
-                    }
-                });
-    }
-
-    private void getProject(String keyWords, int searchType, final int refreshType) {
+    private void getProject(String keyWords, final int refreshType) {
         ActivityQueryOptionDto queryOptionDto = new ActivityQueryOptionDto();
-        queryOptionDto.setType(searchType);
         queryOptionDto.setDeleted(false);
         queryOptionDto.setStatus(1);
         if (refreshType == ADD) {
@@ -299,8 +238,9 @@ public class SearchResultFragment extends BaseFragment {
 
                     @Override
                     public void onFailure(String errorEvent, String message) {
-                        if (mSearchResult == null)
+                        if (mSearchResult == null) {
                             return;
+                        }
                         mSearchResult.onRefreshComplete();
                     }
                 });
@@ -316,7 +256,7 @@ public class SearchResultFragment extends BaseFragment {
 
     @Subscribe
     public void onEventMainThread(SearchHistoryEvent event) {
-        getDate(event.getKeyWords(), event.getSearchType(), event.getRefreshType());
+        getDate(event.getKeyWords(), event.getRefreshType());
     }
 
     @Override

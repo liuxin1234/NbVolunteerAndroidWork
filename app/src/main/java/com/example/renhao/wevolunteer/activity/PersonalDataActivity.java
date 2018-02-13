@@ -41,6 +41,7 @@ import com.example.renhao.wevolunteer.utils.Util;
 import com.example.renhao.wevolunteer.view.Attribute_Pop;
 import com.example.renhao.wevolunteer.view.Portrait_Pop;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
@@ -56,9 +57,9 @@ public class PersonalDataActivity extends BaseActivity implements View.OnClickLi
 
     public static Activity PDactivity;
     private VolunteerViewDto Personal_Data;
-    private Button exit;
     private TextView tv_myNickName, tv_myPhone, tv_myUserName, tv_myTrueName, tv_myIDNumber, tv_myAttribute, tv_myEMail;
-    private TextView tv_polity_show, tv_area_show, tv_ORG_show, tv_specialty_show, tv_work_show, tv_address_show, tv_serviceType, tv_serviceTime;
+    private TextView tv_polity_show, tv_area_show, tv_ORG_show, tv_specialty_show, tv_work_show,
+            tv_address_show, tv_serviceType, tv_serviceTime,tv_VolunteerType;
 
 
     //需要更改的值 头像暂无
@@ -119,6 +120,7 @@ public class PersonalDataActivity extends BaseActivity implements View.OnClickLi
     private final int MY_IMAGETIME = 14;
     private final int MY_IMAGETYPE = 15;
     private final int MY_EMAIL = 16;
+    private final int MY_VOLUNTEERTYPE = 17;
 
     private final int UPDATE_UI = 0;
 
@@ -140,6 +142,7 @@ public class PersonalDataActivity extends BaseActivity implements View.OnClickLi
     private LinearLayout myImageTime;
     private LinearLayout myImageType;
     private LinearLayout myEMail;
+    private LinearLayout myVolunteerType;
 
     private String volunteerId;
 
@@ -183,17 +186,21 @@ public class PersonalDataActivity extends BaseActivity implements View.OnClickLi
         if (Personal_Data.getSpecialty() != null) {
             tv_specialty_show.setText(Personal_Data.getSpecialty());
         }
-        if (Personal_Data.getWorkunit() != null)
+        if (Personal_Data.getWorkunit() != null) {
             tv_work_show.setText(Personal_Data.getWorkunit());
+        }
 
-        if (Personal_Data.getDomicile() != null)
+        if (Personal_Data.getDomicile() != null) {
             tv_address_show.setText(Personal_Data.getDomicile());
+        }
 
-        if (Personal_Data.getEmail() != null)
+        if (Personal_Data.getEmail() != null) {
             tv_myEMail.setText(Personal_Data.getEmail());
+        }
 
-        if (Personal_Data.getServiceTime() != null)
+        if (Personal_Data.getServiceTime() != null) {
             tv_serviceTime.setText("已选");
+        }
 
         if (Personal_Data.getServiceIntention() != null){
             query_dictionary("ActivityType");
@@ -201,6 +208,10 @@ public class PersonalDataActivity extends BaseActivity implements View.OnClickLi
 
         if(Personal_Data.getSpecialtyType() != null){
             query_dictionary("SPECIALITY");
+        }
+
+        if (Personal_Data.getTag() != null){
+            query_dictionary("VlteTag");
         }
 
 //        String temp = null;
@@ -254,8 +265,9 @@ public class PersonalDataActivity extends BaseActivity implements View.OnClickLi
                 new ActionCallbackListener<List<DictionaryListDto>>() {
                     @Override
                     public void onSuccess(List<DictionaryListDto> data) {
-                        if (data == null || data.size() < 1)
+                        if (data == null || data.size() < 1) {
                             return;
+                        }
                         List<String> codes = new ArrayList<String>();
                         List<String> names = new ArrayList<String>();
                         LinkedHashMap<String,String> serverType = new  LinkedHashMap<String, String>();
@@ -267,24 +279,28 @@ public class PersonalDataActivity extends BaseActivity implements View.OnClickLi
                             codes.add(code);
                             names.add(name);
                         }
-                        if (type.equals("PersonAttribute"))
+                        if (type.equals("PersonAttribute")) {
                             try {
                                 for (int i = 0; i < data.size(); i++) {
-                                    if (codes.get(i).equals(Personal_Data.getJobStatus().toString()))
+                                    if (codes.get(i).equals(Personal_Data.getJobStatus().toString())) {
                                         tv_myAttribute.setText(names.get(i));
+                                    }
                                 }
 
                             } catch (Exception e) {
                             }
-                        if (type.equals("PoliticalAttribute"))
+                        }
+                        if (type.equals("PoliticalAttribute")) {
                             try {
                                 for (int i = 0; i < data.size(); i++) {
-                                    if (codes.get(i).equals(Personal_Data.getPolity()))
+                                    if (codes.get(i).equals(Personal_Data.getPolity())) {
                                         tv_polity_show.setText(names.get(i));
+                                    }
                                 }
 
                             } catch (Exception e) {
                             }
+                        }
                         if (type.equals("SPECIALITY")){
                             try{
                                 String specialtyTypeName = "";
@@ -302,20 +318,34 @@ public class PersonalDataActivity extends BaseActivity implements View.OnClickLi
                             }
                         }
 
-                        if (type.equals("ActivityType"))
-                            try{
+                        if (type.equals("ActivityType")) {
+                            try {
                                 String serviceTypeName = "";
                                 for (int i = 0; i < data.size(); i++) {
-                                    serverType.put(data.get(i).getCode(),data.get(i).getName());
-                                    }
+                                    serverType.put(data.get(i).getCode(), data.get(i).getName());
+                                }
                                 String[] ServiceTypeCode = Personal_Data.getServiceIntention().split(",");
                                 for (String aServiceTypeCode : ServiceTypeCode) {
-                                    serviceTypeName += serverType.get(aServiceTypeCode)+",";
+                                    serviceTypeName += serverType.get(aServiceTypeCode) + ",";
                                 }
-                                    tv_serviceType.setText(serviceTypeName);
+                                tv_serviceType.setText(serviceTypeName);
+                            } catch (Exception e) {
+
+                            }
+                        }
+
+                        if (type.equals("VlteTag")){
+                            try {
+                                String vlteTag = "";
+                                for (int i=0;i<data.size();i++){
+                                    if (codes.get(i).equals(Personal_Data.getTag().toString())) {
+                                        tv_VolunteerType.setText(names.get(i));
+                                    }
+                                }
                             }catch (Exception e){
 
                             }
+                        }
 
 
                     }
@@ -351,7 +381,7 @@ public class PersonalDataActivity extends BaseActivity implements View.OnClickLi
         myImageTime = (LinearLayout) findViewById(R.id.LL_PD_myImageTime);
         myImageType = (LinearLayout) findViewById(R.id.LL_PD_myImageType);
         myEMail = (LinearLayout) findViewById(R.id.LL_PD_myEMail);
-
+        myVolunteerType = (LinearLayout) findViewById(R.id.ll_volunteer_type);
 
         tv_polity_show = (TextView) findViewById(R.id.tv_personal_data_polity);
         tv_area_show = (TextView) findViewById(R.id.tv_personal_data_area);
@@ -361,6 +391,7 @@ public class PersonalDataActivity extends BaseActivity implements View.OnClickLi
         tv_address_show = (TextView) findViewById(R.id.tv_personal_data_address);
         tv_serviceType = (TextView) findViewById(R.id.tv_personal_data_serviceType);
         tv_serviceTime = (TextView) findViewById(R.id.tv_personal_data_serviceTime);
+        tv_VolunteerType = (TextView) findViewById(R.id.tv_volunteer_type);
 
         //设置监听
         top_btn_back.setOnClickListener(this);
@@ -381,6 +412,7 @@ public class PersonalDataActivity extends BaseActivity implements View.OnClickLi
         myImageTime.setOnClickListener(this);
         myImageType.setOnClickListener(this);
         myEMail.setOnClickListener(this);
+        myVolunteerType.setOnClickListener(this);
 
         //添加标签
         top_btn_back.setTag(BACK);
@@ -401,6 +433,7 @@ public class PersonalDataActivity extends BaseActivity implements View.OnClickLi
         myImageTime.setTag(MY_IMAGETIME);
         myImageType.setTag(MY_IMAGETYPE);
         myEMail.setTag(MY_EMAIL);
+        myVolunteerType.setTag(MY_VOLUNTEERTYPE);
     }
 
 
@@ -500,7 +533,10 @@ public class PersonalDataActivity extends BaseActivity implements View.OnClickLi
                 intent.setClass(this, MyEMail.class);
                 startActivityForResult(intent, MY_EMAIL);
                 break;
-
+            case MY_VOLUNTEERTYPE:
+                intent.setClass(this, VolunteerTagActivity.class);
+                startActivityForResult(intent, MY_VOLUNTEERTYPE);
+                break;
             default:
                 break;
         }
@@ -508,6 +544,7 @@ public class PersonalDataActivity extends BaseActivity implements View.OnClickLi
 
     //为弹出窗口实现监听类
     private View.OnClickListener itemsOnClick = new View.OnClickListener() {
+        @Override
         public void onClick(View v) {
             //点击以后销毁pop框，将背景恢复
             if (ppwindow_flag == 0) {
@@ -560,11 +597,13 @@ public class PersonalDataActivity extends BaseActivity implements View.OnClickLi
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == TAKE_PHOTO_REQUEST_CODE)
+        if (requestCode == TAKE_PHOTO_REQUEST_CODE) {
             if (ContextCompat.checkSelfPermission(PersonalDataActivity.this,
                     Manifest.permission.CAMERA)
-                    == PackageManager.PERMISSION_GRANTED)
+                    == PackageManager.PERMISSION_GRANTED) {
                 choseHeadImageFromCameraCapture();
+            }
+        }
     }
 
     @Override
@@ -653,10 +692,12 @@ public class PersonalDataActivity extends BaseActivity implements View.OnClickLi
                             System.out.println("勾选提交的数据 = "+Personal_Data.getServiceIntention());
                         }
                         String temp = null;
-                        if (Personal_Data.getServiceIntention() != null)
+                        if (Personal_Data.getServiceIntention() != null) {
                             temp = serverTypeName;
-                        if (Personal_Data.getServiceIntentionOther() != null)
+                        }
+                        if (Personal_Data.getServiceIntentionOther() != null) {
                             temp = serverTypeName + Personal_Data.getServiceIntentionOther();
+                        }
                         tv_serviceType.setText(temp);
                     } catch (Exception e) {
                     }
@@ -667,7 +708,11 @@ public class PersonalDataActivity extends BaseActivity implements View.OnClickLi
                     Personal_Data = (VolunteerViewDto) result.getSerializable("personal_data");
                     tv_myEMail.setText(Personal_Data.getEmail());
                     break;
-
+                case MY_VOLUNTEERTYPE:
+                    result = data.getExtras();
+                    Personal_Data = (VolunteerViewDto) result.getSerializable("personal_data");
+                    tv_VolunteerType.setText(Personal_Data.getTagName());
+                    break;
 
                 //照片的返回结果处理
                 case CODE_GALLERY_REQUEST:
@@ -688,6 +733,8 @@ public class PersonalDataActivity extends BaseActivity implements View.OnClickLi
                     if (data != null) {
                         setImageToHeadView(data);
                     }
+                    break;
+                default:
                     break;
             }
         }

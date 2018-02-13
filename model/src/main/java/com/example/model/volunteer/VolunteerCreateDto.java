@@ -85,6 +85,7 @@ public class VolunteerCreateDto implements Serializable {
     private Integer IsVerify;// (integer, optional): 认证状态 ,
     private String Code;// (string, optional): 志愿者证编号 ,
     private String DeviceId;// (string, optional): 设备序列号
+    private Integer Tag;//(integer, optional):是否为平安志愿者 0:志愿者  1;平安志愿者
 
     public String getOrgIds() {
         return OrgIds;
@@ -712,5 +713,13 @@ public class VolunteerCreateDto implements Serializable {
 
     public void setServiceTimeIntention(String serviceTimeIntention) {
         ServiceTimeIntention = serviceTimeIntention;
+    }
+
+    public Integer getTag() {
+        return Tag;
+    }
+
+    public void setTag(Integer tag) {
+        Tag = tag;
     }
 }

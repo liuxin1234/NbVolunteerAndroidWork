@@ -131,7 +131,7 @@ public interface Api {
     //头像操作
     public static final String UPDATE_PORTRAIT = "Nbcei.Framework.Api.Impl/v1/user/update/photo";
     public static final String GET_PORTRAIT = "Nbcei.Framework.Api.Impl/v1/user/query/photo";
-
+    public static final String CREATE_PORTRAIT = "Nbcei.Framework.Api.Impl/v1/user/create/photo";
 
     //志愿者服务站点
     public static final String VOLUNTEER_BASE_QUERY = "Nbcei.Plugin.NbVolunteer.Api.Impl/v1/volunteerbase/query";
@@ -274,6 +274,9 @@ public interface Api {
     public ApiResponse<String> get_oldPSWD(String id, String accessToken);
 
     public ApiResponse<String> set_newPSWD(String id, String newPassword, String accessToken);
+
+    //创建头像
+    public ApiResponse<String> create_portrait(UserPhotoDto photoDto,String accessToken);
 
     //头像上传
     public ApiResponse<String> update_portrait(UserPhotoDto portrait, String accessToken);

@@ -47,8 +47,9 @@ public class BaseFragment extends Fragment {
     }
 
     protected void showToast(String msg) {
-        if (isFragmentExist)
-        Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
+        if (isFragmentExist) {
+            Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
+        }
     }
 
     /**
@@ -67,8 +68,9 @@ public class BaseFragment extends Fragment {
      */
     protected void dissMissNormalDialog() {
         try {
-            if (normalDialog.isShowing())
+            if (normalDialog.isShowing()) {
                 normalDialog.dismiss();
+            }
         } catch (Exception e) {
         }
 

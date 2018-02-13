@@ -136,6 +136,9 @@ public interface AppAction {
 
     public void setnew_PSWD(String id, String newPassword, ActionCallbackListener<String> listener);
 
+    //创建头像
+    public void create_portrait(UserPhotoDto photoDto,ActionCallbackListener<String> listener);
+
     //更改头像
     public void update_portrait(UserPhotoDto photo, ActionCallbackListener<String> listener);
 

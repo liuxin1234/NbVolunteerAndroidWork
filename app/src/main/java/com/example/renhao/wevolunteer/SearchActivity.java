@@ -118,8 +118,9 @@ public class SearchActivity extends BaseActivity {
                 setFragment(SHOW);
                 mSearchView.setFocusable(false);
                 mSearchView.clearFocus();
-                if (state == SHOW)
+                if (state == SHOW) {
                     EventBus.getDefault().post(new SearchHistoryEvent(query, REFRESH, searchType));
+                }
                 return false;
             }
 
@@ -159,8 +160,9 @@ public class SearchActivity extends BaseActivity {
                 break;
             }
         }
-        if (isExist)
+        if (isExist) {
             return;
+        }
         String str = query;
         int MaxSize = historyStr.size() > MAX_HISTORY_SIZE ? MAX_HISTORY_SIZE : historyStr.size();
         Logger.v(TAG, "Max Size " + MaxSize);
@@ -210,6 +212,8 @@ public class SearchActivity extends BaseActivity {
                 transaction.replace(R.id.feagment_searchactivity, mSearchResultFragment);
                 this.state = SHOW;
                 break;
+            default:
+                break;
         }
         transaction.commit();
     }
@@ -219,13 +223,16 @@ public class SearchActivity extends BaseActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_search_cancel:
-                if (state == SEARCH)
+                if (state == SEARCH) {
                     finish();
-                else if (state == SHOW)
+                } else if (state == SHOW) {
                     setFragment(SEARCH);
+                }
                 break;
             case R.id.searchview_searchactivity_search:
 
+                break;
+            default:
                 break;
         }
     }

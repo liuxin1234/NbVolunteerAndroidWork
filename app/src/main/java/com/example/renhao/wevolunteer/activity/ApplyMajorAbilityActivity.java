@@ -219,10 +219,10 @@ public class ApplyMajorAbilityActivity extends BaseActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        if (requestCode == READ_EXTERNAL_STORAGE_REQUEST_CODE)
+        if (requestCode == READ_EXTERNAL_STORAGE_REQUEST_CODE) {
             if (ContextCompat.checkSelfPermission(ApplyMajorAbilityActivity.this,
                     Manifest.permission.READ_EXTERNAL_STORAGE)
-                    == PackageManager.PERMISSION_GRANTED)
+                    == PackageManager.PERMISSION_GRANTED) {
                 if (ContextCompat.checkSelfPermission(ApplyMajorAbilityActivity.this,
                         Manifest.permission.CAMERA)
                         != PackageManager.PERMISSION_GRANTED) {
@@ -243,12 +243,16 @@ public class ApplyMajorAbilityActivity extends BaseActivity {
                 } else {
                     get_pic();
                 }
+            }
+        }
 
-        if (requestCode == TAKE_PHOTO_REQUEST_CODE)
+        if (requestCode == TAKE_PHOTO_REQUEST_CODE) {
             if (ContextCompat.checkSelfPermission(ApplyMajorAbilityActivity.this,
                     Manifest.permission.CAMERA)
-                    != PackageManager.PERMISSION_GRANTED)
+                    != PackageManager.PERMISSION_GRANTED) {
                 get_pic();
+            }
+        }
     }
 
     @Override

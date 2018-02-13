@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="请选择"
+        android:textSize="20sp"
+        android:textColor="@color/colorCyan"
+        android:layout_marginTop="15dp"
+        android:layout_gravity="center"/>
+    <Button
+        android:id="@+id/btn_dialog_only_signUp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/bg_btn_selected"
+        android:text="日历报名"
+        android:textSize="18sp"
+        android:textColor="@color/colorWhite"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="15dp"/>
+
+    <Button
+        android:id="@+id/btn_dialog_more_signUp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/bg_btn_selected"
+        android:text="批量报名"
+        android:textSize="18sp"
+        android:textColor="@color/colorWhite"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"/>
+</LinearLayout>

@@ -59,8 +59,9 @@ public class PoliticsstatusActivity extends BaseActivity {
 
         Intent intent = getIntent();
         personalData = (VolunteerViewDto) intent.getSerializableExtra("personal_data");
-        if (personalData.getPolity() != null)
+        if (personalData.getPolity() != null) {
             myPolity = personalData.getPolity();
+        }
         initView();
 
     }
@@ -73,8 +74,9 @@ public class PoliticsstatusActivity extends BaseActivity {
                     @Override
                     public void onSuccess(List<DictionaryListDto> data) {
                         dissMissNormalDialog();
-                        if (data == null || data.size() < 1)
+                        if (data == null || data.size() < 1) {
                             return;
+                        }
                         codes = new ArrayList<String>();
                         names = new ArrayList<String>();
                         int temp = -1;
@@ -92,8 +94,9 @@ public class PoliticsstatusActivity extends BaseActivity {
                         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(PoliticsstatusActivity.this, android.R.layout.simple_list_item_multiple_choice, android.R.id.text1, names);
                         mRgSelsec.setAdapter(arrayAdapter);
                         mRgSelsec.setChoiceMode(ListView.CHOICE_MODE_SINGLE);//这里我们直接在源代码中设置选择模式
-                        if (temp > -1)
+                        if (temp > -1) {
                             mRgSelsec.setItemChecked(temp, true);
+                        }
                         mRgSelsec.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                             @Override
                             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -121,6 +124,8 @@ public class PoliticsstatusActivity extends BaseActivity {
                 break;
             case R.id.tv_myPolity_submit:
                 submit();
+                break;
+            default:
                 break;
         }
     }

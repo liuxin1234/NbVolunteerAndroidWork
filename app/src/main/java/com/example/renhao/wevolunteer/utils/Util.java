@@ -14,7 +14,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.ref.SoftReference;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -219,4 +221,28 @@ public class Util {
         return version;
     }
 
+
+    /**
+     * 两个日期之间的所有日期
+     * @param startDate
+     * @param endDate
+     * @return
+     * @throws Exception
+     */
+    public static List<Date> dateSplit(Date startDate, Date endDate)
+            throws Exception {
+        if (!startDate.before(endDate)) {
+            throw new Exception("开始时间应该在结束时间之后");
+        }
+        Long spi = endDate.getTime() - startDate.getTime();
+        Long step = spi / (24 * 60 * 60 * 1000);// 相隔天数
+
+        List<Date> dateList = new ArrayList<Date>();
+        dateList.add(endDate);
+        for (int i = 1; i <= step; i++) {
+            dateList.add(new Date(dateList.get(i - 1).getTime()
+                    - (24 * 60 * 60 * 1000)));// 比上一天减一
+        }
+        return dateList;
+    }
 }

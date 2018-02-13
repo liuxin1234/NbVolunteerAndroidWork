@@ -53,6 +53,7 @@ public class UpdateManger {
     private boolean interceptFlag = false;// 用户取消下载
 
     // 通知处理刷新界面的handler
+    @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
         @SuppressLint("HandlerLeak")
         @Override
@@ -64,6 +65,8 @@ public class UpdateManger {
                     break;
                 case DOWN_OVER:
                     installApk();
+                    break;
+                default:
                     break;
             }
             super.handleMessage(msg);
@@ -86,6 +89,8 @@ public class UpdateManger {
                 mContext);// Builder，可以通过此builder设置改变AleartDialog的默认的主题样式及属性相关信息
         builder.setTitle("软件版本更新");
         builder.setMessage(updateMsg);
+        //设置点击对话框外部区域不关闭对话框
+        builder.setCancelable(false);
         builder.setPositiveButton("下载", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -93,12 +98,7 @@ public class UpdateManger {
                 showDownloadDialog();
             }
         });
-        builder.setNegativeButton("以后再说", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
+
         noticeDialog = builder.create();
         noticeDialog.show();
     }
@@ -112,13 +112,15 @@ public class UpdateManger {
         mProgress = (ProgressBar) v.findViewById(R.id.progress);
         mtextview = (TextView) v.findViewById(R.id.progress_textview);
         builder.setView(v);// 设置对话框的内容为一个View
-        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-                interceptFlag = true;
-            }
-        });
+        //设置点击对话框外部区域不关闭对话框
+        builder.setCancelable(false);
+//        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                dialog.dismiss();
+//                interceptFlag = true;
+//            }
+//        });
         downloadDialog = builder.create();
         downloadDialog.show();
         downloadApk();

@@ -93,6 +93,7 @@ public class JobActivityViewDto {
     private String AppLstUrl;// (string, optional): App图片
     private String OperationState;//(string, optional): 当前项目运行状态
     private String SpecialityTypeName;// (string, optional)
+    private String LimitDayNum; // (string, optional): 报名结束截至天数
 
     public String getOperationState() {
         return OperationState;
@@ -724,5 +725,13 @@ public class JobActivityViewDto {
 
     public void setSpecialityTypeName(String specialityTypeName) {
         SpecialityTypeName = specialityTypeName;
+    }
+
+    public String getLimitDayNum() {
+        return LimitDayNum;
+    }
+
+    public void setLimitDayNum(String limitDayNum) {
+        LimitDayNum = limitDayNum;
     }
 }

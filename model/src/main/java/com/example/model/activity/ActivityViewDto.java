@@ -89,6 +89,7 @@ public class ActivityViewDto implements Serializable {
     private String SpecialityType;// (string, optional),志愿者专业要求
     private String SpecialityTypeName;// (string, optional)
     private String AppLstUrl;
+    private String LimitDayNum; // (string, optional): 报名结束截至天数
 
     public String getAppLstUrl() {
         return AppLstUrl;
@@ -688,5 +689,13 @@ public class ActivityViewDto implements Serializable {
 
     public void setSpecialityTypeName(String specialityTypeName) {
         SpecialityTypeName = specialityTypeName;
+    }
+
+    public String getLimitDayNum() {
+        return LimitDayNum;
+    }
+
+    public void setLimitDayNum(String limitDayNum) {
+        LimitDayNum = limitDayNum;
     }
 }

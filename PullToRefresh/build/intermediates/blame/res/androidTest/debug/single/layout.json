@@ -1,13 +1,5 @@
 [
     {
-        "merged": "F:\\MyGitHub\\NbVolunteerAndroid\\PullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\pull_to_refresh_header_horizontal.xml",
-        "source": "F:\\MyGitHub\\NbVolunteerAndroid\\PullToRefresh\\build\\intermediates\\bundles\\debug\\res\\layout\\pull_to_refresh_header_horizontal.xml"
-    },
-    {
-        "merged": "F:\\MyGitHub\\NbVolunteerAndroid\\PullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\pull_to_refresh_header_vertical.xml",
-        "source": "F:\\MyGitHub\\NbVolunteerAndroid\\PullToRefresh\\build\\intermediates\\bundles\\debug\\res\\layout\\pull_to_refresh_header_vertical.xml"
-    },
-    {
         "merged": "E:\\androidProject\\MyGithub\\NbVolunteerAndroidWork\\PullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\pull_to_refresh_header_horizontal.xml",
         "source": "E:\\androidProject\\MyGithub\\NbVolunteerAndroidWork\\PullToRefresh\\build\\intermediates\\bundles\\debug\\res\\layout\\pull_to_refresh_header_horizontal.xml"
     },

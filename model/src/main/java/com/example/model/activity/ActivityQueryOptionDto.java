@@ -27,6 +27,15 @@ public class ActivityQueryOptionDto {
     private String lat;//(string, optional),
     private Integer scope;//(integer, optional),
     private Integer ServiceType;//(integer, optional),//一岗双责对应序号
+    private String SignCode;// (string, optional): 随机签到签离码
+
+    public String getSignCode() {
+        return SignCode;
+    }
+
+    public void setSignCode(String signCode) {
+        SignCode = signCode;
+    }
 
     public Integer getServiceType() {
         return ServiceType;

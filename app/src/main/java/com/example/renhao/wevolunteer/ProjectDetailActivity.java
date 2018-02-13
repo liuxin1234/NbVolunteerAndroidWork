@@ -1,7 +1,9 @@
 package com.example.renhao.wevolunteer;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,13 +14,19 @@ import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.bigkoo.pickerview.TimePickerView;
+import com.blankj.utilcode.util.DeviceUtils;
 import com.example.core.AppActionImpl;
 import com.example.core.local.LocalDate;
 import com.example.model.ActionCallbackListener;
@@ -32,11 +40,11 @@ import com.example.model.activityTime.ActivityTimeQueryOptionDto;
 import com.example.model.activityattention.ActivityAttentionDto;
 import com.example.model.activityattention.ActivityAttentionListDto;
 import com.example.model.activityattention.ActivityAttentionQueryOptionDto;
-import com.example.model.dictionary.DictionaryListDto;
 import com.example.model.jobActivity.JobActivityViewDto;
 import com.example.model.volunteer.VolunteerTopViewDto;
 import com.example.renhao.wevolunteer.base.BaseActivity;
 import com.example.renhao.wevolunteer.handler.MxgsaTagHandler;
+import com.example.renhao.wevolunteer.utils.GsonUtils;
 import com.example.renhao.wevolunteer.utils.Util;
 import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.Holder;
@@ -51,14 +59,16 @@ import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -192,6 +202,8 @@ public class ProjectDetailActivity extends BaseActivity {
 
     private ActivityViewDto mActivityViewDto;
     private JobActivityViewDto mJobActivityViewDto;
+    private String periodType;  //活动/岗位的（日期）周期
+    private List<String> periodTypeLists = new ArrayList<>();
 
     private List<ActivityTimeListDto> times = new ArrayList<>();
     private List<String> sTime = new ArrayList<>();
@@ -265,8 +277,9 @@ public class ProjectDetailActivity extends BaseActivity {
      * @param position
      */
     private void setVolunteerPhoto(final List<VolunteerTopViewDto> list, final int position) {
-        if (list == null || list.size() < (position + 1))
+        if (list == null || list.size() < (position + 1)) {
             return;
+        }
         //取得头像
         AppActionImpl.getInstance(this).get_portrait(list.get(position).getUserId(),
                 new ActionCallbackListener<String>() {
@@ -279,7 +292,6 @@ public class ProjectDetailActivity extends BaseActivity {
                             } catch (Exception ignored) {
 
                             }
-//                            return;
                         } else {
                             try {
                                 Bitmap bitmap = Util.byteToBitmap(data);
@@ -335,6 +347,11 @@ public class ProjectDetailActivity extends BaseActivity {
                 mActivityViewDto = data;
                 activityName = data.getActivityName();
                 setActivityDetail(data);
+                periodType = data.getPeriodType();
+                String[] split = periodType.split(",");
+                periodTypeLists.addAll(Arrays.asList(split));
+                initTimePicker();
+
             }
 
             @Override
@@ -368,24 +385,15 @@ public class ProjectDetailActivity extends BaseActivity {
         }
 
         //岗位类型 可能有多个
-//        String[] activityTypeName = data.getActivityTypeName().split(",");
         String typeName = data.getActivityTypeName();
 
-        Pattern pattern;
-        Matcher matcher;
-        pattern = Pattern.compile("^[\\u4E00-\\u9FA5]+$");
-//        for (int i = 0; i < activityTypeName.length; i++) {
-//            matcher = pattern.matcher(activityTypeName[i]);
-//            if (matcher.matches()) {
-//                typeName += activityTypeName[i] + "   ";
-//            }
-//        }
         mTvType.setText(typeName);//
         String[] sBeginTime = data.getBeginTime().split(" ");
         String[] sEndTime = data.getEndTime().split(" ");
         String[] sStartTime = data.getStartTime().split(" ");
         String[] sFinishTime = data.getFinishTime().split(" ");
-        mTvRegisterTime.setText(sBeginTime[0] + " - " + sEndTime[0]);
+        mTvRegisterTime.setText(sBeginTime[0] + "\n" +
+                "报名截止到活动开始前"+ data.getLimitDayNum() +"天");
 
         mTvEffectiveTime.setText(sStartTime[0] + " - " + sFinishTime[0]);
 
@@ -430,6 +438,10 @@ public class ProjectDetailActivity extends BaseActivity {
                 //times = data.getActivityTimes();
                 activityName = data.getActivityName();
                 setJobActivityDetail(data);
+                periodType = data.getPeriodType();
+                String[] split = periodType.split(",");
+                periodTypeLists.addAll(Arrays.asList(split));
+                initTimePicker();
             }
 
             @Override
@@ -464,24 +476,15 @@ public class ProjectDetailActivity extends BaseActivity {
         }
 
         //岗位类型 可能有多个
-//        String[] activityTypeName = data.getActivityTypeName().split(",");
         String typeName =  data.getActivityTypeName();
 
-        Pattern pattern;
-        Matcher matcher;
-        pattern = Pattern.compile("^[\\u4E00-\\u9FA5]+$");
-//        for (int i = 0; i < activityTypeName.length; i++) {
-//            matcher = pattern.matcher(activityTypeName[i]);
-//            if (matcher.matches()) {
-//                typeName += activityTypeName[i] + "   ";
-//            }
-//        }
         mTvType.setText(typeName);//
         String[] sBeginTime = data.getBeginTime().split(" ");
         String[] sEndTime = data.getEndTime().split(" ");
         String[] sStartTime = data.getStartTime().split(" ");
         String[] sFinishTime = data.getFinishTime().split(" ");
-        mTvRegisterTime.setText(sBeginTime[0] + " - " + sEndTime[0]);
+        mTvRegisterTime.setText(sBeginTime[0] + "\n" +
+                "报名截止到岗位开始前"+ data.getLimitDayNum() +"天");
 
         mTvEffectiveTime.setText(sStartTime[0] + " - " + sFinishTime[0]);
 
@@ -523,9 +526,9 @@ public class ProjectDetailActivity extends BaseActivity {
             mSkillBorder.setVisibility(View.GONE);
             mInfuseBorder.setVisibility(View.GONE);
             mTvTypeName.setText("活动类型");
-            mTvRegisterTimeName.setText("活动报名日期");
-            mTvEffectiveTimeName.setText("活动有效日期");
-            mTvServiceTimeName.setText("单日服务时间");
+            mTvRegisterTimeName.setText("报名开始日期");
+            mTvEffectiveTimeName.setText("活动起止日期");
+            mTvServiceTimeName.setText("服务时间");
             mTvLocationName.setText("活动服务地址");
             mTvFoundersName.setText("活动发起单位");
             mTvClaimName.setText("活动要求");
@@ -582,9 +585,9 @@ public class ProjectDetailActivity extends BaseActivity {
         magnifierImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (origin == 1)
+                if (origin == 1) {
                     finish();
-                else {
+                } else {
                     Intent intent = new Intent(ProjectDetailActivity.this, SearchActivity.class);
                     startActivity(intent);
                 }
@@ -612,10 +615,11 @@ public class ProjectDetailActivity extends BaseActivity {
                     showToast("请先登录");
                     return;
                 }
-                if (isInitAttention)
+                if (isInitAttention) {
                     setOrCelAttention();
-                else
+                } else {
                     isAttention();
+                }
                 break;
             case R.id.imageview_projectdetail_itemImage:
                 break;
@@ -631,7 +635,7 @@ public class ProjectDetailActivity extends BaseActivity {
     /**
      * 根据活动的ID和name,来查询activityTime的时间
      */
-    private void getActivityTime() {
+    private void getActivityTime(final int signUpType) {
         ActivityTimeQueryOptionDto avTimeDto = new ActivityTimeQueryOptionDto();
         avTimeDto.setActivityId(id);
         avTimeDto.setActivityName(activityName);
@@ -661,9 +665,18 @@ public class ProjectDetailActivity extends BaseActivity {
                             e.printStackTrace();
                         }
                     }
-                    dissMissNormalDialog();
-                    //显示日历选择器
-                    showSiginInDialog();
+
+                    if (signUpType == 1){ //1:表示日历报名
+                        dissMissNormalDialog();
+                        //显示日历选择器
+                        showSiginInDialog();
+                    }
+
+                    if (signUpType == 2){ //2：表示批量报名
+                        dissMissNormalDialog();
+                        createMoreSignUpPickerAlertDialog(times);
+                    }
+
                 }
             }
 
@@ -685,8 +698,7 @@ public class ProjectDetailActivity extends BaseActivity {
         if (mTvState.getText().equals("已结束")) {
             showToast("有效的报名时间段已经过期");
         } else {
-            showNormalDialog("正在从服务器获取数据...");
-            getActivityTime();//获取到activityTime数据的接口方法
+            createAlertDialog();
         }
     }
 
@@ -801,7 +813,7 @@ public class ProjectDetailActivity extends BaseActivity {
                                     recruitDto.setSignout(0);
                                     recruitDto.setSource(0);
                                     //获取Mac地址
-                                    recruitDto.setIP(Util.getMac());
+                                    recruitDto.setIP(DeviceUtils.getMacAddress());
                                     recruitDto.setDeleted(false);
                                     recruitDtos.add(recruitDto);
 
@@ -849,8 +861,9 @@ public class ProjectDetailActivity extends BaseActivity {
      * 查看用户是否已经关注此项目，是为已关注，否为关注
      */
     private void isAttention() {
-        if (TextUtils.isEmpty(volunteerId))
+        if (TextUtils.isEmpty(volunteerId)) {
             return;
+        }
         ActivityAttentionQueryOptionDto queryOptionDto = new ActivityAttentionQueryOptionDto();
         queryOptionDto.setActivityId(id);
         queryOptionDto.setUserId(volunteerId);
@@ -881,8 +894,9 @@ public class ProjectDetailActivity extends BaseActivity {
      */
     private void setOrCelAttention() {
         if (isAttention) {
-            if (TextUtils.isEmpty(attentionId))
+            if (TextUtils.isEmpty(attentionId)) {
                 return;
+            }
             List<String> id = new ArrayList<>();
             id.add(attentionId);
             AppActionImpl.getInstance(this).activityAttentionDelete(id, new ActionCallbackListener<String>() {
@@ -909,8 +923,9 @@ public class ProjectDetailActivity extends BaseActivity {
                     new ActionCallbackListener<List<String>>() {
                         @Override
                         public void onSuccess(List<String> data) {
-                            if (data == null)
+                            if (data == null) {
                                 return;
+                            }
                             attentionId = data.get(0);
                             mBtnFocuson.setText("已关注");
                             isAttention = true;
@@ -964,4 +979,225 @@ public class ProjectDetailActivity extends BaseActivity {
         oks.show(this);
     }
 
+
+    private void createAlertDialog() {
+        final AlertDialog builder = new AlertDialog.Builder(this).create();
+        LayoutInflater inflater = getLayoutInflater();
+        final View view = inflater.inflate(R.layout.dialog_sign_up_type, null);
+        Button btnDialogOnlySignUp = (Button) view.findViewById(R.id.btn_dialog_only_signUp);
+        Button btnDialogMoreSignUp = (Button) view.findViewById(R.id.btn_dialog_more_signUp);
+        if (btnDialogOnlySignUp != null) {
+            btnDialogOnlySignUp.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    builder.dismiss();
+                    showNormalDialog("正在从服务器获取数据...");
+                    getActivityTime(1);//获取到activityTime数据的接口方法 1:表示日历报名
+                }
+            });
+        }
+        if (btnDialogMoreSignUp != null) {
+            btnDialogMoreSignUp.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    builder.dismiss();
+                    showNormalDialog("正在从服务器获取数据...");
+                    getActivityTime(2);//获取到activityTime数据的接口方法 1:表示日历报名
+                }
+            });
+        }
+
+        builder.setView(view);
+        builder.show();
+    }
+
+    private List<String> mStartDateList = new ArrayList<>(); //活动开始时间的集合
+    private List<String> mEndDateList = new ArrayList<>();  //活动结束时间的集合
+    private String mStartDate;  //开始时间
+    private String mEndDate;    //结束时间
+
+    private List<String> mDatesList = new ArrayList<>(); //选中的时间段
+
+    private void createMoreSignUpPickerAlertDialog(List<ActivityTimeListDto> times) {
+        final AlertDialog builder = new AlertDialog.Builder(this).create();
+        LayoutInflater inflater = getLayoutInflater();
+        final View view =  inflater.inflate(R.layout.dialog_sign_up_more_picker, null);
+        TextView tvTitleName = (TextView) view.findViewById(R.id.tv_Title_Name);
+        final TextView tvStartDate = (TextView) view.findViewById(R.id.tv_start_date);
+        final TextView tvEndDate = (TextView) view.findViewById(R.id.tv_end_date);
+        Button btnMoreSignUp = (Button) view.findViewById(R.id.btn_more_signUp);
+        tvTitleName.setText(activityName);
+        for (int i=0;i<times.size();i++){
+            mStartDateList.add(times.get(i).getSTime().split(" ")[0]);
+            mEndDateList.add(times.get(i).getETime().split(" ")[0]);
+        }
+        tvStartDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pvTime.show(tvStartDate);
+            }
+        });
+
+        tvEndDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pvTime.show(tvEndDate);
+            }
+        });
+
+        btnMoreSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try{
+                    mStartDate = tvStartDate.getText().toString().split(" ")[0];
+                    mEndDate = tvEndDate.getText().toString().split(" ")[0];
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA);
+                    Date start = sdf.parse(mStartDate);
+                    Date end = sdf.parse(mEndDate);
+                    List<Date> dateList = Util.dateSplit(start, end);
+                    if (!dateList.isEmpty()) {
+                        mDatesList.clear();
+                        for (Date date : dateList) {
+                            String format = sdf.format(date);
+                            mDatesList.add(format);
+                        }
+                        moreSignUp(builder,mDatesList);
+
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        builder.setView(view);
+        builder.show();
+    }
+
+    private TimePickerView pvTime;
+    private String mStartYear;
+    private String mStartMonth;
+    private String mStartDay;
+    private String mEndYear;
+    private String mEndMonth;
+    private String mEndDay;
+    /**
+     * 时间选择器
+     */
+    private void initTimePicker() {
+        if (type == 0){
+            String startTime = mActivityViewDto.getStartTime().split(" ")[0];
+            String finishTime = mActivityViewDto.getFinishTime().split(" ")[0];
+            mStartYear = startTime.split("-")[0];
+            mStartMonth = startTime.split("-")[1];
+            mStartDay = startTime.split("-")[2];
+            mEndYear = finishTime.split("-")[0];
+            mEndMonth = finishTime.split("-")[1];
+            mEndDay = finishTime.split("-")[2];
+        }else if (type == 1){
+            String startTime = mJobActivityViewDto.getStartTime().split(" ")[0];
+            String finishTime = mJobActivityViewDto.getFinishTime().split(" ")[0];
+            mStartYear = startTime.split("-")[0];
+            mStartMonth = startTime.split("-")[1];
+            mStartDay = startTime.split("-")[2];
+            mEndYear = finishTime.split("-")[0];
+            mEndMonth = finishTime.split("-")[1];
+            mEndDay = finishTime.split("-")[2];
+        }
+
+//        Logger.e(mStartYear+"\n"+mStartMonth+"\n"+mStartDay+"\n"+mEndYear+"\n"+mEndMonth+"\n"+mEndDay);
+
+        //控制时间范围(如果不设置范围，则使用默认时间1900-2100年，此段代码可注释)
+        //因为系统Calendar的月份是从0-11的,所以如果是调用Calendar的set方法来设置时间,月份的范围也要是从0-11
+        Calendar selectedDate = Calendar.getInstance();
+        Calendar startDate = Calendar.getInstance();
+        startDate.set(Integer.parseInt(mStartYear), Integer.parseInt(mStartMonth)-1, Integer.parseInt(mStartDay));
+        Calendar endDate = Calendar.getInstance();
+        endDate.set(Integer.parseInt(mEndYear), Integer.parseInt(mEndMonth)-1, Integer.parseInt(mEndDay));
+        //时间选择器
+        pvTime = new TimePickerView.Builder(this, new TimePickerView.OnTimeSelectListener() {
+            @Override
+            public void onTimeSelect(Date date, View v) {//选中事件回调
+                // 这里回调过来的v,就是show()方法里面所添加的 View 参数，如果show的时候没有添加参数，v则为null
+                /*btn_Time.setText(getTime(date));*/
+                TextView tv = (TextView) v;
+                tv.setText(getTime(date));
+            }
+        })
+                //年月日时分秒 的显示与否，不设置则默认全部显示
+                .setType(new boolean[]{true, true, true, false, false, false})
+                .setLabel("", "", "", "", "", "")
+                .isCenterLabel(false)
+                .setDividerColor(Color.DKGRAY)
+                .setContentSize(21)
+                .setDate(selectedDate)
+                .setRangDate(startDate, endDate)
+                .setBackgroundId(0x00FFFFFF) //设置外部遮罩颜色
+                .setDecorView(null)
+                .isDialog(true)
+                .build();
+    }
+
+    private String getTime(Date date) {//可根据需要自行截取数据显示
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd",Locale.CHINA);
+        return format.format(date);
+    }
+
+    //批量报名日期数据上传
+    private void moreSignUp(final AlertDialog builder, List<String> list){
+        //报名
+        List<ActivityRecruitDto> recruitDtos = new ArrayList<ActivityRecruitDto>();
+
+        for (int i=0;i<times.size();i++){
+            for (int j=0;j<list.size();j++){
+                String sTime = times.get(i).getMountguardTime();
+                String[] split = sTime.split(" ");
+                //活动的时间
+                String replaceTime1 = split[0].trim();
+                //批量报名的时间
+                String replaceTime2 = list.get(j).trim();
+                if (replaceTime1.equals(replaceTime2)){
+                    ActivityRecruitDto recruitDto = new ActivityRecruitDto();
+                    recruitDto.setActivityId(id);
+                    recruitDto.setVolunteerId(volunteerId);
+                    recruitDto.setActivityTimeId(times.get(i).getId());
+                    recruitDto.setBaoMingDate(Util.getNowDate("yyyy-MM-dd HH:mm:ss"));
+                    recruitDto.setExecuteTime(Util.getNowDate(times.get(i).getSTime()));//参加的活动或岗位时间
+                    recruitDto.setAuditStatus(0);
+                    recruitDto.setSign(0);
+                    recruitDto.setSignout(0);
+                    recruitDto.setSource(0);
+                    //获取Mac地址
+                    recruitDto.setIP(DeviceUtils.getMacAddress());
+                    recruitDto.setDeleted(false);
+                    recruitDtos.add(recruitDto);
+
+                }
+            }
+        }
+
+            AppActionImpl.getInstance(getApplicationContext()).activityRecruitCreate(recruitDtos,
+                    new ActionCallbackListener<List<String>>() {
+                        @Override
+                        public void onSuccess(List<String> data) {
+                            builder.dismiss();
+                            if (data != null) {
+                                showToast("报名成功");
+                                try {
+                                    getSiginInVolunteer();
+                                } catch (Exception e) {
+                                }
+                            } else {
+                                showToast("报名失败");
+                            }
+                            dissMissNormalDialog();
+                        }
+
+                        @Override
+                        public void onFailure(String errorEvent, String message) {
+                            showToast(message);
+                            dissMissNormalDialog();
+                        }
+                    });
+    }
 }

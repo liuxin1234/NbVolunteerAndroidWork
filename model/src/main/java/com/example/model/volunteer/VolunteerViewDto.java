@@ -92,7 +92,8 @@ public class VolunteerViewDto implements Serializable {
     private String DeviceId; //(string, optional): 设备序列号
     private Integer Ranking; //(integer, optional): 排名
     private String RankingName; //(string, optional)
-
+    private Integer Tag; //(integer, optional):是否为平安志愿者 0:志愿者  1;平安志愿者
+    private String TagName; // 0:志愿者  1;平安志愿者
     @Override
     public String toString() {
         return "VolunteerViewDto{" +
@@ -853,5 +854,21 @@ public class VolunteerViewDto implements Serializable {
 
     public void setRanking(Integer ranking) {
         Ranking = ranking;
+    }
+
+    public Integer getTag() {
+        return Tag;
+    }
+
+    public void setTag(Integer tag) {
+        Tag = tag;
+    }
+
+    public String getTagName() {
+        return TagName;
+    }
+
+    public void setTagName(String tagName) {
+        TagName = tagName;
     }
 }

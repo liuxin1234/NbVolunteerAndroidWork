@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 
+import com.blankj.utilcode.util.Utils;
 import com.orhanobut.logger.Logger;
 
 /**
@@ -36,6 +37,7 @@ public class BaseApplication extends Application {
         setInstance(this);
 
         initLogger();
+        Utils.init(INSTANCE);
     }
 
     private void initLogger() {

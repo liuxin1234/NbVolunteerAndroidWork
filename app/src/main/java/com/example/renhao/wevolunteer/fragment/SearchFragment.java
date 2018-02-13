@@ -35,12 +35,7 @@ public class SearchFragment extends BaseFragment {
     public static final int ACTIVITY = 0;
     public static final int JOB = 1;
     public static final int ORGAZIZATION = 2;
-    @Bind(R.id.tv_search_activity)
-    TextView mTvSearchActivity;
-    @Bind(R.id.tv_search_job)
-    TextView mTvSearchJob;
-    @Bind(R.id.tv_search_organization)
-    TextView mTvSearchOrganization;
+
     @Bind(R.id.gridview_search_history)
     GridView mSearchHistory;
     @Bind(R.id.btn_search_clearHistory)
@@ -48,7 +43,6 @@ public class SearchFragment extends BaseFragment {
 
     private SearchActivity mSearchActivity;
 
-    private int searchType = JOB;
 
     private HistoryAdapter mAdapter;
     private List<String> history = new ArrayList<>();
@@ -76,32 +70,11 @@ public class SearchFragment extends BaseFragment {
             }
         });
 
-        setSearchType(searchType);
-
         return view;
     }
 
 
-    public void setSearchType(int type) {
-        mSearchActivity.setSearchType(type);
-        mTvSearchActivity.setBackgroundResource(R.drawable.bg_border_gray_oval);
-        mTvSearchJob.setBackgroundResource(R.drawable.bg_border_gray_oval);
-        mTvSearchOrganization.setBackgroundResource(R.drawable.bg_border_gray_oval);
 
-        switch (type) {
-            case ACTIVITY:
-                mTvSearchActivity.setBackgroundResource(R.drawable.bg_border_gray_oval_select);
-                break;
-            case JOB:
-                mTvSearchJob.setBackgroundResource(R.drawable.bg_border_gray_oval_select);
-                break;
-            case ORGAZIZATION:
-                mTvSearchOrganization.setBackgroundResource(R.drawable.bg_border_gray_oval_select);
-                break;
-        }
-
-        searchType = type;
-    }
 
     @Override
     public void onDestroyView() {
@@ -109,24 +82,15 @@ public class SearchFragment extends BaseFragment {
         ButterKnife.unbind(this);
     }
 
-    @OnClick({R.id.tv_search_activity,
-            R.id.tv_search_job,
-            R.id.tv_search_organization,
-            R.id.btn_search_clearHistory})
+    @OnClick({R.id.btn_search_clearHistory})
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.tv_search_activity:
-                setSearchType(ACTIVITY);
-                break;
-            case R.id.tv_search_job:
-                setSearchType(JOB);
-                break;
-            case R.id.tv_search_organization:
-                setSearchType(ORGAZIZATION);
-                break;
+
             case R.id.btn_search_clearHistory:
                 mSearchActivity.clearSearchHistory();
                 mAdapter.setDate(new ArrayList<String>());
+                break;
+            default:
                 break;
         }
     }
