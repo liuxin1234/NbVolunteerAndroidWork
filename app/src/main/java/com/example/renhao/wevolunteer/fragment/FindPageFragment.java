@@ -25,6 +25,7 @@ import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.MrL.qrcodescan.MipcaActivityCapture;
 import com.amap.api.location.AMapLocation;
@@ -41,7 +42,7 @@ import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
 import com.amap.api.maps.model.MyLocationStyle;
-import com.blankj.utilcode.util.DeviceUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.example.core.AppActionImpl;
 import com.example.core.local.LocalDate;
 import com.example.model.ActionCallbackListener;
@@ -56,6 +57,7 @@ import com.example.renhao.wevolunteer.ProjectDetailActivity;
 import com.example.renhao.wevolunteer.R;
 import com.example.renhao.wevolunteer.base.BaseFragment;
 import com.example.renhao.wevolunteer.event.QRCodeResultEvent;
+import com.example.renhao.wevolunteer.utils.DeviceUtils;
 import com.example.renhao.wevolunteer.utils.Util;
 import com.jungly.gridpasswordview.GridPasswordView;
 import com.orhanobut.logger.Logger;
@@ -266,7 +268,7 @@ public class FindPageFragment extends BaseFragment implements LocationSource,
      * 初始化AMap对象
      */
     private void init() {
-        Logger.d(TAG, "init");
+//        Logger.d(TAG, "init");
         if (aMap == null) {
             aMap = mapView.getMap();
             mUiSettings = aMap.getUiSettings();
@@ -901,6 +903,7 @@ public class FindPageFragment extends BaseFragment implements LocationSource,
                 LocalDate.getInstance(getActivity()).setLocalDate("activityNumCode", "");
                 LocalDate.getInstance(getActivity()).setLocalDate("SIGN_OUT","0");
                 LocalDate.getInstance(getActivity()).setLocalDate("nowDate","");
+                LocalDate.getInstance(getActivity()).setLocalDate("Mac","");
                 SIGN_OUT = 0;
                 flag = saveFlag(false);
                 sign_in.setVisibility(View.VISIBLE);
@@ -947,10 +950,18 @@ public class FindPageFragment extends BaseFragment implements LocationSource,
         });
     }
 
-
+    /**
+     * 签到方法
+     * @param qrcode ：二维码 或  签到码
+     * @param volunteerId： 用户ID
+     * @param signMethod：签到模式
+     */
     private void signIn(final String qrcode, String volunteerId, final int signMethod) {
         //直接发送二维码的内容
         SignInOutDto create = new SignInOutDto();
+        //获取Mac地址
+        final String macAddress = DeviceUtils.getMacAddress();
+        Logger.e(macAddress);
         if (LocalDate.getInstance(getActivity()).getLocalDate("lat", null) != null &&
                 LocalDate.getInstance(getActivity()).getLocalDate("lng", null) != null) {
             double myLat = Double.parseDouble(LocalDate.getInstance(getActivity()).getLocalDate("lat", ""));
@@ -961,8 +972,13 @@ public class FindPageFragment extends BaseFragment implements LocationSource,
             LocalDate.getInstance(getActivity()).setLocalDate("lng", null);
         } else {
             Location location = aMap.getMyLocation();
-            create.setLat(location.getLatitude());
-            create.setNg(location.getLongitude());
+            if (location != null){
+                create.setLat(location.getLatitude());
+                create.setNg(location.getLongitude());
+            }else {
+                showToast("当前定位信息为空，确保开启定位权限后，请重新定位!");
+                return;
+            }
         }
         if (signMethod == 1){
             create.setActivityId(qrcode);
@@ -973,7 +989,7 @@ public class FindPageFragment extends BaseFragment implements LocationSource,
         create.setVolunteerId(volunteerId);
         create.setSignMethod(signMethod);
         create.setSigntime(Util.getNowDate());
-        create.setDeviceId(DeviceUtils.getMacAddress());
+        create.setDeviceId(macAddress);
         create.setSourceType(0);
         create.setSignType(0);
         create.setId(UUID.randomUUID().toString());
@@ -990,6 +1006,8 @@ public class FindPageFragment extends BaseFragment implements LocationSource,
                     showToast("签到失败");
                     return;
                 }
+                //保存当前用户签到的Mac地址
+                LocalDate.getInstance(getActivity()).setLocalDate("Mac",macAddress);
                 //保存当前用户签到后当天的日期
                 LocalDate.getInstance(getActivity()).setLocalDate("nowDate",finishDateFormat.format(new Date()));
                 flag = saveFlag(true);
@@ -1013,9 +1031,17 @@ public class FindPageFragment extends BaseFragment implements LocationSource,
         });
     }
 
+    /**
+     *  签退方法
+     * @param qrcode ：二维码 或  签到码
+     * @param volunteerId： 用户ID
+     * @param signMethod：签到模式
+     */
     private void signOut(String qrcode, String volunteerId,int signMethod) {
         //直接发送二维码的内容
         SignInOutDto create = new SignInOutDto();
+        String Mac = LocalDate.getInstance(getActivity()).getLocalDate("Mac", "");
+        Logger.e(Mac);
         if (LocalDate.getInstance(getActivity()).getLocalDate("lat", null) != null &&
                 LocalDate.getInstance(getActivity()).getLocalDate("lng", null) != null) {
             double myLat = Double.parseDouble(LocalDate.getInstance(getActivity()).getLocalDate("lat", ""));
@@ -1026,8 +1052,14 @@ public class FindPageFragment extends BaseFragment implements LocationSource,
             LocalDate.getInstance(getActivity()).setLocalDate("lng", null);
         } else {
             Location location = aMap.getMyLocation();
-            create.setLat(location.getLatitude());
-            create.setNg(location.getLongitude());
+            if (location != null){
+                create.setLat(location.getLatitude());
+                create.setNg(location.getLongitude());
+            }else {
+                showToast("当前定位信息为空，确保开启定位权限后，请重新定位!");
+                return;
+            }
+
         }
         if (signMethod == 1){
             create.setActivityId(qrcode);
@@ -1037,9 +1069,8 @@ public class FindPageFragment extends BaseFragment implements LocationSource,
 
         create.setVolunteerId(volunteerId);
         create.setSignMethod(signMethod);
-        //create.setActivityTimeId();
         create.setSigntime(Util.getNowDate());
-        create.setDeviceId(DeviceUtils.getMacAddress());
+        create.setDeviceId(Mac);
         create.setSourceType(0);
         create.setSignType(1);
         create.setId(UUID.randomUUID().toString());
@@ -1061,6 +1092,7 @@ public class FindPageFragment extends BaseFragment implements LocationSource,
                         LocalDate.getInstance(getActivity()).setLocalDate("activityNumCode", "");
                         LocalDate.getInstance(getActivity()).setLocalDate("SIGN_OUT","0");
                         LocalDate.getInstance(getActivity()).setLocalDate("nowDate","");
+                        LocalDate.getInstance(getActivity()).setLocalDate("Mac","");
                         SIGN_OUT = 0;
                         flag = saveFlag(false);
                         sign_in.setVisibility(View.VISIBLE);
@@ -1130,7 +1162,12 @@ public class FindPageFragment extends BaseFragment implements LocationSource,
     //二维码的activity返回的值
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        String qrcodeMsg = data.getExtras().getString("result");
+        Bundle bundle = data.getExtras();
+        if(bundle == null){
+            ToastUtils.showLong("未获取到二维码中有效信息！！！");
+            return;
+        }
+        String qrcodeMsg = bundle.getString("result");
         if (qrcodeMsg == null) {
             return;
         }

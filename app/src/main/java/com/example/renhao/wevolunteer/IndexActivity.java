@@ -34,6 +34,7 @@ import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
+import com.blankj.utilcode.util.ToastUtils;
 import com.example.core.AppActionImpl;
 import com.example.core.local.LocalDate;
 import com.example.model.ActionCallbackListener;
@@ -50,6 +51,7 @@ import com.example.renhao.wevolunteer.fragment.HomePageFragment;
 import com.example.renhao.wevolunteer.fragment.PersonalFragment;
 import com.example.renhao.wevolunteer.fragment.SigninPageFragment;
 import com.example.renhao.wevolunteer.update.UpdateManger;
+import com.example.renhao.wevolunteer.utils.RandomUntil;
 import com.example.renhao.wevolunteer.utils.Util;
 import com.example.renhao.wevolunteer.view.ChangeColorIconWithTextView;
 import com.example.renhao.wevolunteer.view.PopupMenu;
@@ -139,7 +141,6 @@ public class IndexActivity extends BaseActivity implements AMapLocationListener 
         getWindow().setFormat(PixelFormat.TRANSLUCENT);
         ButterKnife.bind(this);
         EventBus.getDefault().register(this);
-
         initActionBar();
         setFragment(HOME);
 
@@ -627,7 +628,12 @@ public class IndexActivity extends BaseActivity implements AMapLocationListener 
     //二维码的activity返回的值
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        String qrcodeMsg = data.getExtras().getString("result");
+        Bundle bundle = data.getExtras();
+        if(bundle == null){
+            ToastUtils.showLong("未获取到二维码中有效信息！！！");
+            return;
+        }
+        String qrcodeMsg = bundle.getString("result");
         Logger.v("QRCode", "qrcode result in indexActivity  " + qrcodeMsg);
         if (qrcodeMsg == null) {
             return;

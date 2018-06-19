@@ -66,7 +66,8 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginTop="@dimen/top_item_margeintop"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:visibility="gone">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -82,7 +83,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:textColor="#fff"
-                            android:textSize="@dimen/textview_personal_integral_size" />
+                            android:textSize="@dimen/textview_personal_integral_size"/>
                     </LinearLayout>
 
 

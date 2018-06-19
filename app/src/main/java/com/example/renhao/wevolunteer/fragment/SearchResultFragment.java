@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -17,21 +18,17 @@ import com.example.model.ActionCallbackListener;
 import com.example.model.PagedListEntityDto;
 import com.example.model.activity.ActivityListDto;
 import com.example.model.activity.ActivityQueryOptionDto;
-import com.example.model.company.CompanyListDto;
-import com.example.model.company.CompanyQueryOptionDto;
 import com.example.model.items.HomePageListItem;
-import com.example.model.items.OrganizationListItem;
-import com.example.renhao.wevolunteer.OrganizationDetailActivity;
 import com.example.renhao.wevolunteer.ProjectDetailActivity;
 import com.example.renhao.wevolunteer.R;
 import com.example.renhao.wevolunteer.SearchActivity;
 import com.example.renhao.wevolunteer.adapter.HomePageAdapter;
-import com.example.renhao.wevolunteer.adapter.OrganizationAdapter;
 import com.example.renhao.wevolunteer.base.BaseFragment;
 import com.example.renhao.wevolunteer.event.SearchHistoryEvent;
 import com.handmark.pulltorefresh.library.ILoadingLayout;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
+import com.orhanobut.logger.Logger;
 import com.squareup.picasso.Picasso;
 
 import org.greenrobot.eventbus.EventBus;
@@ -58,6 +55,8 @@ public class SearchResultFragment extends BaseFragment {
     PullToRefreshListView mSearchResult;
     @Bind(R.id.tv_searchResult)
     TextView mTv;
+    @Bind(R.id.img_No_SearchResult)
+    ImageView imgNoSearchResult;
 
 
     private String keyWords;
@@ -78,7 +77,6 @@ public class SearchResultFragment extends BaseFragment {
     private List<ActivityListDto> projectResult = new ArrayList<>();
 
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,7 +89,7 @@ public class SearchResultFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.fragment_searchresult, container, false);
         ButterKnife.bind(this, view);
         EventBus.getDefault().register(this);
-
+        imgNoSearchResult.setVisibility(View.INVISIBLE);
         mTv.setVisibility(View.INVISIBLE);
         mSearchResult.setVisibility(View.VISIBLE);
 
@@ -187,7 +185,6 @@ public class SearchResultFragment extends BaseFragment {
     }
 
 
-
     private void getProject(String keyWords, final int refreshType) {
         ActivityQueryOptionDto queryOptionDto = new ActivityQueryOptionDto();
         queryOptionDto.setDeleted(false);
@@ -201,6 +198,10 @@ public class SearchResultFragment extends BaseFragment {
                 new ActionCallbackListener<PagedListEntityDto<ActivityListDto>>() {
                     @Override
                     public void onSuccess(PagedListEntityDto<ActivityListDto> data) {
+                        if (data.getRows().size() <= 0 || data.getRows() == null) {
+                            noResult();
+                            return;
+                        }
                         if (mSearchResult == null) {
                             showToast("该类型搜索结果为空，请尝试其他类型搜索");
                             return;
@@ -250,6 +251,7 @@ public class SearchResultFragment extends BaseFragment {
      * 没有返回结果时调用
      */
     private void noResult() {
+        imgNoSearchResult.setVisibility(View.VISIBLE);
         mTv.setVisibility(View.VISIBLE);
         mSearchResult.setVisibility(View.INVISIBLE);
     }

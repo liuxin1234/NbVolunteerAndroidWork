@@ -1,5 +1,6 @@
 package com.example.renhao.wevolunteer.activity;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
@@ -31,6 +32,7 @@ public class AboutUsActivity extends BaseActivity {
     TextView tvUrl;
 
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,22 +54,15 @@ public class AboutUsActivity extends BaseActivity {
     /**
      * 主办方的详细信息
      */
-    private void getDetails() {
+    public void getDetails() {
         AppActionImpl.getInstance(this).contentDetails(contentid, new ActionCallbackListener<ContentViewDto>() {
             @Override
             public void onSuccess(ContentViewDto data) {
                 if (data == null) {
                     return;
                 }
-                String spanned = String.valueOf(Html.fromHtml(data.getContents(), null, new MxgsaTagHandler(AboutUsActivity.this)));
-                String arrays[] = spanned.split("\n");
-                String zhubang = arrays[0];
-                String chengbang = arrays[2];
-                String url = arrays[4];
+                tvOrganizer.setText(Html.fromHtml(data.getContents(),null, new MxgsaTagHandler(AboutUsActivity.this)));
 
-                tvOrganizer.setText(zhubang);
-                tvChengbang.setText(chengbang);
-                tvUrl.setText(url);
             }
 
             @Override
