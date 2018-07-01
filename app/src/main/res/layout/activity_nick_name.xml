@@ -8,48 +8,48 @@
     tools:context="com.example.renhao.wevolunteer.activity.NickNameActivity">
 
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/actionbar_homepage_height"
-        android:background="@color/colorCyan">
+    <!--<RelativeLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="@dimen/actionbar_homepage_height"-->
+        <!--android:background="@color/colorCyan">-->
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:gravity="center_vertical"
-            android:text="@string/title_nickname"
-            android:textColor="@color/colorWhite"
-            android:textSize="@dimen/textview_homepage_titlesize" />
+        <!--<TextView-->
+            <!--android:id="@+id/textView"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_centerInParent="true"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:text="@string/title_nickname"-->
+            <!--android:textColor="@color/colorWhite"-->
+            <!--android:textSize="@dimen/textview_homepage_titlesize" />-->
 
-        <TextView
-            android:id="@+id/tv_nickname_update"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="@dimen/textview_homepage_titlesize"
-            android:layout_marginRight="@dimen/textview_homepage_titlesize"
-            android:clickable="true"
-            android:gravity="center"
-            android:text="@string/tv_submit"
-            android:textColor="@color/colorWhite"
-            android:textSize="@dimen/textview_submit_titlesize" />
+        <!--<TextView-->
+            <!--android:id="@+id/tv_nickname_update"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_alignParentEnd="true"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_marginEnd="@dimen/textview_homepage_titlesize"-->
+            <!--android:layout_marginRight="@dimen/textview_homepage_titlesize"-->
+            <!--android:clickable="true"-->
+            <!--android:gravity="center"-->
+            <!--android:text="@string/tv_submit"-->
+            <!--android:textColor="@color/colorWhite"-->
+            <!--android:textSize="@dimen/textview_submit_titlesize" />-->
 
-        <ImageView
-            android:id="@+id/imageView_nickname_back"
-            android:layout_width="@dimen/imageview_homepage_magnifierSize"
-            android:layout_height="@dimen/imageview_homepage_magnifierSize"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="14dp"
-            android:layout_marginStart="14dp"
-            android:padding="@dimen/imageview_backBTN_padding"
-            android:src="@drawable/icon_indicator" />
-    </RelativeLayout>
+        <!--<ImageView-->
+            <!--android:id="@+id/imageView_nickname_back"-->
+            <!--android:layout_width="@dimen/imageview_homepage_magnifierSize"-->
+            <!--android:layout_height="@dimen/imageview_homepage_magnifierSize"-->
+            <!--android:layout_alignParentLeft="true"-->
+            <!--android:layout_alignParentStart="true"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_marginLeft="14dp"-->
+            <!--android:layout_marginStart="14dp"-->
+            <!--android:padding="@dimen/imageview_backBTN_padding"-->
+            <!--android:src="@drawable/icon_indicator" />-->
+    <!--</RelativeLayout>-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

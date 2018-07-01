@@ -13,6 +13,7 @@ import com.example.model.ActionCallbackListener;
 import com.example.model.volunteer.VolunteerViewDto;
 import com.example.renhao.wevolunteer.R;
 import com.example.renhao.wevolunteer.base.BaseActivity;
+import com.example.renhao.wevolunteer.utils.ActionBarUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,13 +31,28 @@ public class NickNameActivity extends BaseActivity implements View.OnFocusChange
 
     private EditText et_nickname;
     private CheckBox isShow;
-    private TextView update_submit;
-    private ImageView btn_back;
+//    private TextView update_submit;
+//    private ImageView btn_back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nick_name);
+
+        View actionBar = setActionBar();
+        ActionBarUtils.setImgBack(actionBar, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        ActionBarUtils.setTvTitlet(actionBar,"我的昵称");
+        ActionBarUtils.setTvSubmit(actionBar,"提交", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                submit();
+            }
+        });
 
         Intent intent = getIntent();
         personal_data = (VolunteerViewDto) intent.getSerializableExtra("personal_data");
@@ -53,51 +69,55 @@ public class NickNameActivity extends BaseActivity implements View.OnFocusChange
         }
 
 
-        update_submit = (TextView) findViewById(R.id.tv_nickname_update);
-        update_submit.setOnClickListener(new View.OnClickListener() {
+//        update_submit = (TextView) findViewById(R.id.tv_nickname_update);
+//        update_submit.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
+//
+//        //回退按钮
+//        btn_back = (ImageView) findViewById(R.id.imageView_nickname_back);
+//        btn_back.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                NickNameActivity.this.finish();
+//            }
+//        });
+        et_nickname.setOnFocusChangeListener(this);
+    }
+
+    private void submit() {
+        showNormalDialog("正在提交数据");
+        MyNickName = et_nickname.getText().toString();
+        IsShowTrueName = isShow.isChecked();
+        //修改项
+        personal_data.setNickName(MyNickName);
+        personal_data.setShowTrueName(IsShowTrueName);
+
+
+        List<VolunteerViewDto> vl_updates = new ArrayList<>();
+        vl_updates.add(personal_data);
+        AppActionImpl.getInstance(getApplicationContext()).volunteerUpdate(vl_updates, new ActionCallbackListener<String>() {
             @Override
-            public void onClick(View v) {
-                showNormalDialog("正在提交数据");
-                MyNickName = et_nickname.getText().toString();
-                IsShowTrueName = isShow.isChecked();
-                //修改项
-                personal_data.setNickName(MyNickName);
-                personal_data.setShowTrueName(IsShowTrueName);
+            public void onSuccess(String data) {
+                dissMissNormalDialog();
+                Intent result = new Intent();
+                result.putExtra("personal_data", personal_data);
+                setResult(RESULT_OK, result);
+                showToast("修改成功");
+                NickNameActivity.this.finish();
 
+            }
 
-                List<VolunteerViewDto> vl_updates = new ArrayList<>();
-                vl_updates.add(personal_data);
-                AppActionImpl.getInstance(getApplicationContext()).volunteerUpdate(vl_updates, new ActionCallbackListener<String>() {
-                    @Override
-                    public void onSuccess(String data) {
-                        dissMissNormalDialog();
-                        Intent result = new Intent();
-                        result.putExtra("personal_data", personal_data);
-                        setResult(RESULT_OK, result);
-                        showToast("修改成功");
-                        NickNameActivity.this.finish();
-
-                    }
-
-                    @Override
-                    public void onFailure(String errorEvent, String message) {
-                        showToast("网络异常，请检查后重试");
-                        dissMissNormalDialog();
-                    }
-                });
+            @Override
+            public void onFailure(String errorEvent, String message) {
+                showToast("网络异常，请检查后重试");
                 dissMissNormalDialog();
             }
         });
-
-        //回退按钮
-        btn_back = (ImageView) findViewById(R.id.imageView_nickname_back);
-        btn_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                NickNameActivity.this.finish();
-            }
-        });
-        et_nickname.setOnFocusChangeListener(this);
+        dissMissNormalDialog();
     }
 
 

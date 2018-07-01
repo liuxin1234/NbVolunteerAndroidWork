@@ -13,7 +13,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <!--activity login and register-->
-    <string name="hint_login_username">用户名/手机号码/身份证号</string>
+    <string name="hint_login_username">身份证号</string>
     <string name="hint_login_password">密码</string>
     <string name="tv_login_forgot_password">忘记密码</string>
     <string name="btn_login">登 录</string>
@@ -22,7 +22,7 @@
     <string name="tv_next">下一步</string>
     <string name="my_HeadPortrait">证件照头像:</string>
     <string name="tv_register_nickname">昵　称:</string>
-    <string name="tv_register_name">姓　名:</string>
+    <string name="tv_register_name">真实姓名:</string>
     <string name="tv_id_number">证件号码:</string>
     <string name="tv_Email">电子邮箱:</string>
     <string name="tv_id_number_type">证件类型:</string>
@@ -47,14 +47,14 @@
 
     <!--activity register pro bono-->
     <string name="title_register_pro_bono">注册专业志愿者</string>
-    <string name="tv_area">所在区域:</string>
+    <string name="tv_area">居住区域:</string>
     <string name="tv_organization">所属机构:</string>
     <string name="tv_politics_status">政治面貌:</string>
     <string name="tv_speciality_advantages">专业特长:</string>
     <string name="tv_work_unit">现工作单位:</string>
     <string name="tv_family_address">现家庭住址:</string>
     <string name="tv_intention_time">意向时间:</string>
-    <string name="tv_intention_type">意向类别:</string>
+    <string name="tv_intention_type">服务类型:</string>
     <string name="tv_professional_ability">专业能力:</string>
     <!--activity apply pro bono-->
     <string name="title_apply_pro_bono">申请专业志愿者</string>
@@ -78,5 +78,5 @@
     <string name="btn_masses_string">4</string>
 
     <string name="rationale_location_contacts">此功能需要定位和读写,相机等权限，否则无法正常使用，是否打开设置</string>
-
+    <string name="activity_hint_search">请输入需要查询内容</string>
 </resources>

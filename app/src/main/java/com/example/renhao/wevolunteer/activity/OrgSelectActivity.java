@@ -5,18 +5,23 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.core.AppActionImpl;
 import com.example.model.ActionCallbackListener;
+import com.example.model.PagedListEntityDto;
 import com.example.model.organization.OrganizationListDto;
+import com.example.model.organization.OrganizationQueryOptionDto;
 import com.example.model.user.UserDepartmentViewDto;
 import com.example.model.volunteer.VolunteerViewDto;
 import com.example.renhao.wevolunteer.R;
 import com.example.renhao.wevolunteer.adapter.SimpleAdapter1;
 import com.example.renhao.wevolunteer.base.BaseActivity;
+import com.example.renhao.wevolunteer.utils.ActionBarUtils;
+import com.example.renhao.wevolunteer.utils.SoftKeyBoardUtils;
 import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
@@ -34,19 +39,23 @@ import butterknife.OnClick;
  * 类描述：
  * 创建人：renhao
  * 创建时间：2016/8/29 23:22
- * 修改备注：
+ * 修改备注：所属机构的选择界面
  */
 public class OrgSelectActivity extends BaseActivity {
     private static final String TAG = "OrgSelectActivity";
     private static final String parentId = "ae14862e-6383-4d23-9a5d-cc3caaad7e99";
-    @Bind(R.id.iv_ab_sp1_back)
-    ImageView mBack;
-    @Bind(R.id.tv_ab_sp1_title)
-    TextView mTitle;
-    @Bind(R.id.tv_ab_sp1_submit)
-    TextView mSubmit;
+//    @Bind(R.id.iv_ab_sp1_back)
+//    ImageView mBack;
+//    @Bind(R.id.tv_ab_sp1_title)
+//    TextView mTitle;
+//    @Bind(R.id.tv_ab_sp1_submit)
+//    TextView mSubmit;
     @Bind(R.id.lv_chose_1)
     ListView mListView;
+    @Bind(R.id.et_View)
+    EditText mEtSearchView;
+    @Bind(R.id.tv_Search)
+    TextView tvSearch;
 
     private int choseModel = SimpleAdapter1.MULTIPLY;//单选多选改这里
 
@@ -65,8 +74,23 @@ public class OrgSelectActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.layout_chose_1);
+        setContentView(R.layout.activity_org_select_chose);
         ButterKnife.bind(this);
+
+        View actionBar = setActionBar();
+        ActionBarUtils.setImgBack(actionBar, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                initBack();
+            }
+        });
+        ActionBarUtils.setTvTitlet(actionBar,"所属机构");
+        ActionBarUtils.setTvSubmit(actionBar,"提交", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                submit();
+            }
+        });
 
         type = getIntent().getIntExtra("type", -1);
         mVolunteerViewDto = (VolunteerViewDto) getIntent().getSerializableExtra("personal_data");
@@ -75,8 +99,10 @@ public class OrgSelectActivity extends BaseActivity {
         getDate(parentId, true);
     }
 
+
+
     private void init() {
-        mTitle.setText("所属机构");
+//        mTitle.setText("所属机构");
         try {
             //获取默认选中的
             if (choseModel == SimpleAdapter1.SINGLE) {
@@ -178,7 +204,7 @@ public class OrgSelectActivity extends BaseActivity {
                             else
                                 hierarchy--;
                             lastParentId[hierarchy] = parentId;
-                            setDate2ListView(data);
+                            setDateListView(data,false);
                         }
 
                         @Override
@@ -194,12 +220,12 @@ public class OrgSelectActivity extends BaseActivity {
             else
                 hierarchy--;
             lastParentId[hierarchy] = parentId;
-            setDate2ListView(list);
+            setDateListView(list,false);
         }
     }
 
 
-    private void setDate2ListView(List<OrganizationListDto> date) {
+    private void setDateListView(List<OrganizationListDto> date,boolean isSearch) {
         items = new ArrayList<>();
         for (int i = 0; i < date.size(); i++) {
             OrganizationListDto listDto = date.get(i);
@@ -214,26 +240,61 @@ public class OrgSelectActivity extends BaseActivity {
             itemDate.setValue(listDto);
             items.add(itemDate);
         }
-        if (hierarchy == 0 || hierarchy == -1)
-            mAdapter.setDate(items, false);
-        else
+        if (hierarchy == 0 || hierarchy == -1){
+            if (isSearch){
+                mAdapter.setDate(items, true);
+            }else {
+                mAdapter.setDate(items, false);
+            }
+        }
+        else{
             mAdapter.setDate(items, true);
+        }
     }
 
-    @OnClick({R.id.iv_ab_sp1_back, R.id.tv_ab_sp1_submit})
+    @OnClick({R.id.tv_Search})
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.iv_ab_sp1_back:
-                if (hierarchy == 0 || hierarchy == -1) {
-                    finish();
-                } else {
-                    getDate(lastParentId[hierarchy - 1], false);
-                }
-                break;
-            case R.id.tv_ab_sp1_submit:
-                submit();
+//            case R.id.iv_ab_sp1_back:
+//
+//                break;
+//            case R.id.tv_ab_sp1_submit:
+//                submit();
+//                break;
+            case R.id.tv_Search:
+                String keyWord = mEtSearchView.getText().toString();
+                getSearchData(keyWord);
+                mEtSearchView.clearFocus();
+                SoftKeyBoardUtils.closeKeybord(mEtSearchView,this);
                 break;
         }
+    }
+
+    /**
+     *  模糊搜索机构方法
+     * @param keyWord
+     */
+    private void getSearchData(String keyWord) {
+        OrganizationQueryOptionDto queryOptionDto = new OrganizationQueryOptionDto();
+        queryOptionDto.setKeyWord(keyWord);
+        AppActionImpl.getInstance(this).organizationQuery(queryOptionDto, new ActionCallbackListener<PagedListEntityDto<OrganizationListDto>>() {
+            @Override
+            public void onSuccess(PagedListEntityDto<OrganizationListDto> data) {
+                if (data == null){
+                    return;
+                }
+                List<OrganizationListDto> rows = data.getRows();
+                if (rows == null || rows.size() < 0){
+                    return;
+                }
+                setDateListView(rows,true);
+            }
+
+            @Override
+            public void onFailure(String errorEvent, String message) {
+
+            }
+        });
     }
 
     @Override
@@ -245,10 +306,33 @@ public class OrgSelectActivity extends BaseActivity {
         }
     }
 
+    private void initBack() {
+        if (hierarchy == 0 || hierarchy == -1) {
+            if(mEtSearchView.hasFocus()){
+                mEtSearchView.clearFocus();
+                SoftKeyBoardUtils.closeKeybord(mEtSearchView,this);
+            }else {
+                finish();
+            }
+        } else {
+            if(mEtSearchView.hasFocus()){
+                mEtSearchView.clearFocus();
+                SoftKeyBoardUtils.closeKeybord(mEtSearchView,this);
+            }else {
+                getDate(lastParentId[hierarchy - 1], false);
+            }
+        }
+    }
+
     private void submit() {
         showNormalDialog("正在提交");
         if (selects.size() == 0) {
             showToast("请选择");
+            dissMissNormalDialog();
+            return;
+        }
+        if (selects.size() > 5){
+            showToast("所选机构不能超过5个");
             dissMissNormalDialog();
             return;
         }
@@ -281,6 +365,7 @@ public class OrgSelectActivity extends BaseActivity {
                 @Override
                 public void onSuccess(String data) {
                     dissMissNormalDialog();
+                    showToast("提交成功");
                     Intent intent = new Intent();
                     intent.putExtra("personal_data", mVolunteerViewDto);
                     setResult(RESULT_OK, intent);

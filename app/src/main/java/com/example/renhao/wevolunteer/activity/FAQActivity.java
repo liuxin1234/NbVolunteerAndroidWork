@@ -15,6 +15,7 @@ import com.example.model.content.ContentListDto;
 import com.example.model.content.ContentQueryOptionDto;
 import com.example.renhao.wevolunteer.R;
 import com.example.renhao.wevolunteer.base.BaseActivity;
+import com.example.renhao.wevolunteer.utils.ActionBarUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +34,16 @@ public class FAQActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_faq);
+
+        View actionBar = setActionBar();
+        ActionBarUtils.setImgBack(actionBar, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        ActionBarUtils.setTvTitlet(actionBar,getResources().getString(R.string.title_common_problem));
+
         listView = (ListView) findViewById(R.id.listView_FAQ);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -45,14 +56,14 @@ public class FAQActivity extends BaseActivity {
             }
         });
 
-        //回退按钮
-        ImageView btn_back = (ImageView) findViewById(R.id.imageView_btn_back);
-        btn_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FAQActivity.this.finish();
-            }
-        });
+//        //回退按钮
+//        ImageView btn_back = (ImageView) findViewById(R.id.imageView_btn_back);
+//        btn_back.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                FAQActivity.this.finish();
+//            }
+//        });
 
         getFAQMsg();
     }

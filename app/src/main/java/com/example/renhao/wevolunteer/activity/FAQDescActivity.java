@@ -2,6 +2,7 @@ package com.example.renhao.wevolunteer.activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -18,7 +19,7 @@ import butterknife.OnClick;
  * 类描述：
  * 创建人：renhao
  * 创建时间：2016/9/18 10:33
- * 修改备注：
+ * 修改备注：常见问题详情描述界面
  */
 public class FAQDescActivity extends BaseActivity {
     private static final String TAG = "FAQDescActivity";
@@ -34,6 +35,7 @@ public class FAQDescActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_faqdesc);
         ButterKnife.bind(this);
 

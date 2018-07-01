@@ -20,6 +20,7 @@ import com.example.model.dictionary.DictionaryListDto;
 import com.example.model.volunteer.VolunteerViewDto;
 import com.example.renhao.wevolunteer.R;
 import com.example.renhao.wevolunteer.base.BaseActivity;
+import com.example.renhao.wevolunteer.utils.ActionBarUtils;
 import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.Holder;
 import com.orhanobut.dialogplus.ViewHolder;
@@ -34,20 +35,20 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
- *专业能力/特长
+ * 专业能力/特长界面
  */
 public class SpecilaAbilityActivity extends BaseActivity {
     private static final String TAG = "ServiceCategoryActivity";
-    @Bind(R.id.imageView)
-    ImageView mBack;
-    @Bind(R.id.relativeLayout)
-    RelativeLayout mRelativeLayout;
+//    @Bind(R.id.imageView)
+//    ImageView mBack;
+//    @Bind(R.id.relativeLayout)
+//    RelativeLayout mRelativeLayout;
     @Bind(R.id.listView_service_category)
     ListView listView;
-    @Bind(R.id.tv_serverCategory_submit)
-    TextView mSubmit;
-    @Bind(R.id.tv_service_title)
-    TextView mTitle;
+//    @Bind(R.id.tv_serverCategory_submit)
+//    TextView mSubmit;
+//    @Bind(R.id.tv_service_title)
+//    TextView mTitle;
 
     private int type;
 
@@ -69,8 +70,24 @@ public class SpecilaAbilityActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_service_category);
         ButterKnife.bind(this);
+
+        View actionBar = setActionBar();
+        ActionBarUtils.setImgBack(actionBar, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        ActionBarUtils.setTvTitlet(actionBar,"专业特长");
+        ActionBarUtils.setTvSubmit(actionBar,"提交", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                submit();
+            }
+        });
+
         type = getIntent().getIntExtra("type", -1);
-        mTitle.setText("专业特长");
+//        mTitle.setText();
 
         selectCode = new HashMap<>();
 
@@ -186,17 +203,17 @@ public class SpecilaAbilityActivity extends BaseActivity {
         dialogPlus.show();
     }
 
-    @OnClick({R.id.imageView, R.id.tv_serverCategory_submit})
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.imageView:
-                finish();
-                break;
-            case R.id.tv_serverCategory_submit:
-                submit();
-                break;
-        }
-    }
+//    @OnClick({R.id.imageView, R.id.tv_serverCategory_submit})
+//    public void onClick(View view) {
+//        switch (view.getId()) {
+//            case R.id.imageView:
+//                finish();
+//                break;
+//            case R.id.tv_serverCategory_submit:
+//                submit();
+//                break;
+//        }
+//    }
 
     private void submit() {
         showNormalDialog("正在提交");

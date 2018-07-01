@@ -6,35 +6,35 @@
     android:orientation="vertical"
     tools:context="com.example.renhao.wevolunteer.activity.RegisterProBonoActivity">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/actionbar_homepage_height"
-        android:background="@color/colorCyan"
-        android:focusable="true"
-        android:focusableInTouchMode="true">
+    <!--<RelativeLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="@dimen/actionbar_homepage_height"-->
+        <!--android:background="@color/colorCyan"-->
+        <!--android:focusable="true"-->
+        <!--android:focusableInTouchMode="true">-->
 
-        <ImageView
-            android:id="@+id/imageView_btn_back"
-            android:layout_width="@dimen/imageview_homepage_magnifierSize"
-            android:layout_height="@dimen/imageview_homepage_magnifierSize"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/actionbar_homepage_margin"
-            android:layout_marginStart="@dimen/actionbar_homepage_margin"
-            android:padding="@dimen/imageview_backBTN_padding"
-            android:src="@drawable/icon_indicator" />
+        <!--<ImageView-->
+            <!--android:id="@+id/imageView_btn_back"-->
+            <!--android:layout_width="@dimen/imageview_homepage_magnifierSize"-->
+            <!--android:layout_height="@dimen/imageview_homepage_magnifierSize"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_marginLeft="@dimen/actionbar_homepage_margin"-->
+            <!--android:layout_marginStart="@dimen/actionbar_homepage_margin"-->
+            <!--android:padding="@dimen/imageview_backBTN_padding"-->
+            <!--android:src="@drawable/icon_indicator" />-->
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:gravity="center_vertical"
-            android:text="@string/title_apply_pro_bono"
-            android:textColor="@color/colorWhite"
-            android:textSize="@dimen/textview_homepage_titlesize" />
+        <!--<TextView-->
+            <!--android:id="@+id/textView"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_centerInParent="true"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:text="@string/title_apply_pro_bono"-->
+            <!--android:textColor="@color/colorWhite"-->
+            <!--android:textSize="@dimen/textview_homepage_titlesize" />-->
 
 
-    </RelativeLayout>
+    <!--</RelativeLayout>-->
 
     <TextView
         android:id="@+id/tv_pro_bono_apply_tip"
@@ -60,7 +60,8 @@
     <ScrollView
         android:id="@+id/Scroll_pro_bono_ALL"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"

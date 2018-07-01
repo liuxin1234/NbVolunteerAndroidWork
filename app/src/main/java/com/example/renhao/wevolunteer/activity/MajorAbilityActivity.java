@@ -28,6 +28,7 @@ import com.example.model.volunteer.VolunteerViewDto;
 import com.example.renhao.wevolunteer.R;
 import com.example.renhao.wevolunteer.adapter.List_major_pic_Adapter;
 import com.example.renhao.wevolunteer.base.BaseActivity;
+import com.example.renhao.wevolunteer.utils.ActionBarUtils;
 import com.example.renhao.wevolunteer.utils.Util;
 
 import java.io.ByteArrayOutputStream;
@@ -48,7 +49,7 @@ public class MajorAbilityActivity extends BaseActivity {
     private static final int READ_EXTERNAL_STORAGE_REQUEST_CODE = 1;
     private static final int TAKE_PHOTO_REQUEST_CODE = 2;
 
-    private TextView tv_submit;
+//    private TextView tv_submit;
     private EditText edit_major;
     private LinearLayout Choose_pic;
 
@@ -67,6 +68,21 @@ public class MajorAbilityActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_major_ability);
 
+        View actionBar = setActionBar();
+        ActionBarUtils.setImgBack(actionBar, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        ActionBarUtils.setTvTitlet(actionBar,getResources().getString(R.string.title_major_ability));
+        ActionBarUtils.setTvSubmit(actionBar,"提交", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                submit();
+            }
+        });
+
         final Intent intent = getIntent();
         personal_data = (VolunteerViewDto) intent.getSerializableExtra("personal_data");
         edit_major = (EditText) findViewById(R.id.edit_major);
@@ -76,174 +92,154 @@ public class MajorAbilityActivity extends BaseActivity {
         }
         Choose_pic = (LinearLayout) findViewById(R.id.LL_major_CertificatePic);
         Choose_pic.setOnClickListener(new View.OnClickListener() {
-                                          @Override
-                                          public void onClick(View v) {
-                                              if (Build.VERSION.SDK_INT >= 23) {
-                                                  if (ContextCompat.checkSelfPermission(MajorAbilityActivity.this,
-                                                          Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                                                          != PackageManager.PERMISSION_GRANTED) {
-                                                      if (!ActivityCompat.shouldShowRequestPermissionRationale(MajorAbilityActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-                                                          showMessageOKCancel("您需要在应用权限设置中对本应用读写SD卡进行授权才能正常使用该功能",
-                                                                  new DialogInterface.OnClickListener() {
-                                                                      @Override
-                                                                      public void onClick(DialogInterface dialog, int which) {
-                                                                          ActivityCompat.requestPermissions(MajorAbilityActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                                                                                  READ_EXTERNAL_STORAGE_REQUEST_CODE);
-                                                                      }
-                                                                  });
-                                                          return;
-                                                      }
-                                                      ActivityCompat.requestPermissions(MajorAbilityActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                                                              READ_EXTERNAL_STORAGE_REQUEST_CODE);
-                                                      return;
-                                                  } else if (ContextCompat.checkSelfPermission(MajorAbilityActivity.this,
-                                                          Manifest.permission.CAMERA)
-                                                          != PackageManager.PERMISSION_GRANTED) {
-                                                      if (!ActivityCompat.shouldShowRequestPermissionRationale(MajorAbilityActivity.this, Manifest.permission.CAMERA)) {
-                                                          showMessageOKCancel("您需要在应用权限设置中对本应用使用摄像头进行授权才能正常使用该功能",
-                                                                  new DialogInterface.OnClickListener() {
-                                                                      @Override
-                                                                      public void onClick(DialogInterface dialog, int which) {
-                                                                          ActivityCompat.requestPermissions(MajorAbilityActivity.this, new String[]{Manifest.permission.CAMERA},
-                                                                                  TAKE_PHOTO_REQUEST_CODE);
-                                                                      }
-                                                                  });
-                                                          return;
-                                                      }
-                                                      ActivityCompat.requestPermissions(MajorAbilityActivity.this, new String[]{Manifest.permission.CAMERA},
-                                                              TAKE_PHOTO_REQUEST_CODE);
-                                                      return;
-                                                  }
-                                                  get_pic();
-                                              } else {
-                                                  get_pic();
-                                              }
+            @Override
+            public void onClick(View v) {
+                if (Build.VERSION.SDK_INT >= 23) {
+                    if (ContextCompat.checkSelfPermission(MajorAbilityActivity.this,
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                        if (!ActivityCompat.shouldShowRequestPermissionRationale(MajorAbilityActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                            showMessageOKCancel("您需要在应用权限设置中对本应用读写SD卡进行授权才能正常使用该功能",
+                                    new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            ActivityCompat.requestPermissions(MajorAbilityActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                                                    READ_EXTERNAL_STORAGE_REQUEST_CODE);
+                                        }
+                                    });
+                            return;
+                        }
+                        ActivityCompat.requestPermissions(MajorAbilityActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                                READ_EXTERNAL_STORAGE_REQUEST_CODE);
+                        return;
+                    } else if (ContextCompat.checkSelfPermission(MajorAbilityActivity.this,
+                            Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                        if (!ActivityCompat.shouldShowRequestPermissionRationale(MajorAbilityActivity.this, Manifest.permission.CAMERA)) {
+                            showMessageOKCancel("您需要在应用权限设置中对本应用使用摄像头进行授权才能正常使用该功能",
+                                    new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            ActivityCompat.requestPermissions(MajorAbilityActivity.this, new String[]{Manifest.permission.CAMERA},
+                                                    TAKE_PHOTO_REQUEST_CODE);
+                                        }
+                                    });
+                            return;
+                        }
+                        ActivityCompat.requestPermissions(MajorAbilityActivity.this, new String[]{Manifest.permission.CAMERA},
+                                TAKE_PHOTO_REQUEST_CODE);
+                        return;
+                    }
+                    get_pic();
+                } else {
+                    get_pic();
+                }
+            }
+        });
 
-                                          }
-                                      }
-        );
-
-        list_show = (ListView)
-
-                findViewById(R.id.lv_major_ability_pic);
-
-        list_major_pic_Adapter = new
-
-                List_major_pic_Adapter(this);
+        list_show = (ListView) findViewById(R.id.lv_major_ability_pic);
+        list_major_pic_Adapter = new List_major_pic_Adapter(this);
 
         list_show.setAdapter(list_major_pic_Adapter);
-        list_show.setOnItemClickListener(new AdapterView.OnItemClickListener()
-
-                                         {
-                                             @Override
-                                             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                                 Intent intent = new Intent();
-                                                 intent.setClass(MajorAbilityActivity.this, Delete_certificate.class);
-                                                 intent.putExtra("path", show_pic.get(position));
-                                                 intent.putExtra("position", position);
-                                                 startActivityForResult(intent, CODE_DELETE);
-                                             }
-                                         }
-
-        );
+        list_show.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent();
+                intent.setClass(MajorAbilityActivity.this, Delete_certificate.class);
+                intent.putExtra("path", show_pic.get(position));
+                intent.putExtra("position", position);
+                startActivityForResult(intent, CODE_DELETE);
+            }
+        });
 
         show_pic = new ArrayList<>();
-        tv_submit = (TextView)
-
-                findViewById(R.id.tv_major_submit);
-
-        tv_submit.setOnClickListener(new View.OnClickListener()
-
-                                     {
-                                         @Override
-                                         public void onClick(View v) {
-                                             showNormalDialog("正在上传证书，请稍后");
-                                             my_major = edit_major.getText().toString();
-                                             List<VolunteerViewDto> vl_updates = new ArrayList<>();
-                                             personal_data.setSkilled(my_major);
-                                             vl_updates.add(personal_data);
-                                             AppActionImpl.getInstance(getApplicationContext()).volunteerUpdate(vl_updates, new ActionCallbackListener<String>() {
-                                                 @Override
-                                                 public void onSuccess(String data) {
-                                                     Intent result = new Intent();
-                                                     result.putExtra("personal_data", personal_data);
-                                                     setResult(RESULT_OK, result);
-                                                     //附件上传
-                                                     AttachmentParaDto attachment = new AttachmentParaDto();
-                                                     List<AttachmentParaDto> files = new ArrayList<>();
-                                                     //获取当前事件作为文件名
-                                                     SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy-MM-dd-hh:mm:ss");
-                                                     String date = sDateFormat.format(new java.util.Date());
-                                                     for (int i = 0; i < show_pic.size(); i++) {
-                                                         //压缩图片
-                                                         bitmap = decodeSampledBitmapFromFile(show_pic.get(i), 560, 320);
-                                                         String tempstr = Base64.encodeToString(getBitmapByte(bitmap), Base64.DEFAULT);
-                                                         byte[] temp = getBitmapByte(Util.byteToBitmap(tempstr)); //客户端给服务器传递参数时，通过Base64传递二进制内容
-
-                                                         attachment.setFileData(Base64.encodeToString(temp, Base64.DEFAULT));
-                                                         attachment.setFileName("Major" + date + ".jpg");
-                                                         attachment.setMaxSize("10");
-                                                         attachment.setIsPublic("1");
-                                                         attachment.setPcWH("560|320");
-                                                         attachment.setAppWH("280|160");
-                                                         files.add(attachment);
-                                                     }
-                                                     tv_submit.setClickable(false);
-
-                                                     if (show_pic.size() != 0)
-                                                         AppActionImpl.getInstance(getApplicationContext()).update_major_attachment(files,
-                                                                 new ActionCallbackListener<List<AttachmentsReturnDto>>() {
-                                                                     @Override
-                                                                     public void onSuccess(List<AttachmentsReturnDto> data) {
-                                                                         dissMissNormalDialog();
-                                                                         showToast("全部上传成功");
-                                                                         finish();
-                                                                         tv_submit.setClickable(true);
-                                                                     }
-
-                                                                     @Override
-                                                                     public void onFailure(String errorEvent, String message) {
-                                                                         dissMissNormalDialog();
-                                                                         showToast("证书上传失败");
-                                                                         tv_submit.setClickable(true);
-
-                                                                     }
-                                                                 });
-                                                     else {
-                                                         dissMissNormalDialog();
-                                                         showToast("上传成功");
-                                                         tv_submit.setClickable(true);
-                                                         finish();
-                                                     }
-
-                                                 }
-
-                                                 @Override
-                                                 public void onFailure(String errorEvent, String message) {
-                                                     dissMissNormalDialog();
-                                                     showToast("网络异常，请检查后重试");
-                                                 }
-                                             });
-                                             dissMissNormalDialog();
-                                         }
-                                     }
-
-        );
+//        tv_submit = (TextView) findViewById(R.id.tv_major_submit);
+//        tv_submit.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
 
 
         //回退按钮
-        ImageView btn_back = (ImageView) findViewById(R.id.imageView_btn_back);
-        btn_back.setOnClickListener(new View.OnClickListener()
+//        ImageView btn_back = (ImageView) findViewById(R.id.imageView_btn_back);
+//        btn_back.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                MajorAbilityActivity.this.finish();
+//            }
+//        });
 
-                                    {
-                                        @Override
-                                        public void onClick(View v) {
-                                            MajorAbilityActivity.this.finish();
-                                        }
-                                    }
+    }
 
-        );
+    private void submit() {
+        showNormalDialog("正在上传证书，请稍后");
+        my_major = edit_major.getText().toString();
+        List<VolunteerViewDto> vl_updates = new ArrayList<>();
+        personal_data.setSkilled(my_major);
+        vl_updates.add(personal_data);
+        AppActionImpl.getInstance(getApplicationContext()).volunteerUpdate(vl_updates, new ActionCallbackListener<String>() {
+            @Override
+            public void onSuccess(String data) {
+                Intent result = new Intent();
+                result.putExtra("personal_data", personal_data);
+                setResult(RESULT_OK, result);
+                //附件上传
+                AttachmentParaDto attachment = new AttachmentParaDto();
+                List<AttachmentParaDto> files = new ArrayList<>();
+                //获取当前事件作为文件名
+                SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy-MM-dd-hh:mm:ss");
+                String date = sDateFormat.format(new java.util.Date());
+                for (int i = 0; i < show_pic.size(); i++) {
+                    //压缩图片
+                    bitmap = decodeSampledBitmapFromFile(show_pic.get(i), 560, 320);
+                    String tempstr = Base64.encodeToString(getBitmapByte(bitmap), Base64.DEFAULT);
+                    byte[] temp = getBitmapByte(Util.byteToBitmap(tempstr)); //客户端给服务器传递参数时，通过Base64传递二进制内容
 
+                    attachment.setFileData(Base64.encodeToString(temp, Base64.DEFAULT));
+                    attachment.setFileName("Major" + date + ".jpg");
+                    attachment.setMaxSize("10");
+                    attachment.setIsPublic("1");
+                    attachment.setPcWH("560|320");
+                    attachment.setAppWH("280|160");
+                    files.add(attachment);
+                }
+//                tv_submit.setClickable(false);
+
+                if (show_pic.size() != 0)
+                    AppActionImpl.getInstance(getApplicationContext()).update_major_attachment(files,
+                            new ActionCallbackListener<List<AttachmentsReturnDto>>() {
+                                @Override
+                                public void onSuccess(List<AttachmentsReturnDto> data) {
+                                    dissMissNormalDialog();
+                                    showToast("全部上传成功");
+                                    finish();
+//                                    tv_submit.setClickable(true);
+                                }
+
+                                @Override
+                                public void onFailure(String errorEvent, String message) {
+                                    dissMissNormalDialog();
+                                    showToast("证书上传失败");
+//                                    tv_submit.setClickable(true);
+
+                                }
+                            });
+                else {
+                    dissMissNormalDialog();
+                    showToast("上传成功");
+//                    tv_submit.setClickable(true);
+                    finish();
+                }
+
+            }
+
+            @Override
+            public void onFailure(String errorEvent, String message) {
+                dissMissNormalDialog();
+                showToast("网络异常，请检查后重试");
+            }
+        });
+        dissMissNormalDialog();
     }
 
     public void get_pic() {

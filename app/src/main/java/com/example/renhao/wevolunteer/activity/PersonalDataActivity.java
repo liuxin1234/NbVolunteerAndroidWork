@@ -11,6 +11,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -37,9 +38,12 @@ import com.example.model.user.UserPhotoDto;
 import com.example.model.volunteer.VolunteerViewDto;
 import com.example.renhao.wevolunteer.R;
 import com.example.renhao.wevolunteer.base.BaseActivity;
+import com.example.renhao.wevolunteer.utils.ActionBarUtils;
+import com.example.renhao.wevolunteer.utils.FileProviderUtils;
 import com.example.renhao.wevolunteer.utils.Util;
 import com.example.renhao.wevolunteer.view.Attribute_Pop;
 import com.example.renhao.wevolunteer.view.Portrait_Pop;
+import com.orhanobut.logger.Logger;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
@@ -49,6 +53,9 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
+/**
+ * 个人中心  信息展示界面
+ */
 public class PersonalDataActivity extends BaseActivity implements View.OnClickListener {
 
     private Portrait_Pop portrait_PPwindow;
@@ -60,6 +67,9 @@ public class PersonalDataActivity extends BaseActivity implements View.OnClickLi
     private TextView tv_myNickName, tv_myPhone, tv_myUserName, tv_myTrueName, tv_myIDNumber, tv_myAttribute, tv_myEMail;
     private TextView tv_polity_show, tv_area_show, tv_ORG_show, tv_specialty_show, tv_work_show,
             tv_address_show, tv_serviceType, tv_serviceTime,tv_VolunteerType;
+
+    private TextView tv_MySex;   //性别 tv
+    private TextView tv_Education;   //最高学历 tv
 
 
     //需要更改的值 头像暂无
@@ -107,9 +117,9 @@ public class PersonalDataActivity extends BaseActivity implements View.OnClickLi
     private final int MY_NICKNAME = 1;
     private final int CHANGE_PASSWORD = 2;
     private final int MY_PHONENUMBER = 3;
-    private final int MY_USERNAME = 4;
-    private final int MY_TRUENAME = 5;
-    private final int MY_IDNUMBER = 6;
+    private final int MY_SEX = 4;
+    private final int MY_EDUCATION = 5;
+
     private final int MY_ATTRIBUTE = 7;
     private final int MY_POLITICSSTATUS = 8;
     private final int MY_AREA = 9;
@@ -124,7 +134,7 @@ public class PersonalDataActivity extends BaseActivity implements View.OnClickLi
 
     private final int UPDATE_UI = 0;
 
-    private ImageView top_btn_back;
+//    private ImageView top_btn_back;
     private LinearLayout myPortrait;
     private LinearLayout myNickName;
     private LinearLayout changePassword;
@@ -143,83 +153,96 @@ public class PersonalDataActivity extends BaseActivity implements View.OnClickLi
     private LinearLayout myImageType;
     private LinearLayout myEMail;
     private LinearLayout myVolunteerType;
+    private LinearLayout mySex;
+    private LinearLayout myEducation;
 
     private String volunteerId;
 
-
+    /**
+     * 更新用户数据方法
+     */
     private void repeat_update() {
-
         volunteerId = LocalDate.getInstance(this).getLocalDate("volunteerId", "");
-
+        //用户昵称
         if (Personal_Data.getNickName() != null) {
             IsShowTrueName = Personal_Data.getShowTrueName();
             MyNickNmae = Personal_Data.getNickName();
             tv_myNickName.setText(MyNickNmae);
         }
-
+        //手机号
         if (Personal_Data.getMobile() != null) {
             MYMobile = Personal_Data.getMobile();
             tv_myPhone.setText(MYMobile);
         }
-        //暂无用户名参数
-
+        //真实姓名
         if (Personal_Data.getTrueName() != null) {
             MyTrueName = Personal_Data.getTrueName();
             tv_myTrueName.setText(MyTrueName);
         }
+        //身份证号码
         if (Personal_Data.getIdNumber() != null) {
             MyIDNumber = Personal_Data.getIdNumber();
             tv_myIDNumber.setText(MyIDNumber);
         }
+        //个人属性
         if (Personal_Data.getJobStatus() != null) {
-            query_dictionary("PersonAttribute");
+            tv_myAttribute.setText(Personal_Data.getJobStatusStr());
+//            query_dictionary("PersonAttribute");
         }
+        //政治面貌
         if (Personal_Data.getPolity() != null) {
             query_dictionary("PoliticalAttribute");
         }
+        //所在区域
         if (Personal_Data.getAreaName() != null) {
             tv_area_show.setText(Personal_Data.getAreaName());
         }
+        //所在机构
         if (Personal_Data.getOrganizationName() != null) {
             tv_ORG_show.setText(Personal_Data.getOrganizationName());
         }
+        //专业 这里可能会与下面的专业类型重复 但是应该也是没问题
         if (Personal_Data.getSpecialty() != null) {
             tv_specialty_show.setText(Personal_Data.getSpecialty());
         }
+        //现在工作单位
         if (Personal_Data.getWorkunit() != null) {
             tv_work_show.setText(Personal_Data.getWorkunit());
         }
-
+        //现在居住地
         if (Personal_Data.getDomicile() != null) {
             tv_address_show.setText(Personal_Data.getDomicile());
         }
-
+        //邮箱
         if (Personal_Data.getEmail() != null) {
             tv_myEMail.setText(Personal_Data.getEmail());
         }
-
+        //服务时间
         if (Personal_Data.getServiceTime() != null) {
             tv_serviceTime.setText("已选");
         }
-
+        //服务意向类别
         if (Personal_Data.getServiceIntention() != null){
             query_dictionary("ActivityType");
         }
-
+        //专业类型
         if(Personal_Data.getSpecialtyType() != null){
             query_dictionary("SPECIALITY");
         }
-
+        //是否为平安志愿者
         if (Personal_Data.getTag() != null){
             query_dictionary("VlteTag");
         }
+        //性别
+        if (Personal_Data.getSex() != null){
+            query_dictionary("Sex");
+        }
+        //最高学历
+        if (Personal_Data.getDegree() != null){
+//            query_dictionary("Education");
+            tv_Education.setText(Personal_Data.getDegree());
+        }
 
-//        String temp = null;
-//        if (Personal_Data.getServiceIntention() != null)
-//            temp = Personal_Data.getServiceIntention();
-//        if (Personal_Data.getServiceIntentionOther() != null)
-//            temp = temp + "," + Personal_Data.getServiceIntentionOther();
-//        tv_serviceType.setText(temp);
     }
 
     @Override
@@ -227,6 +250,14 @@ public class PersonalDataActivity extends BaseActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_data);
 
+        View actionBar = setActionBar();
+        ActionBarUtils.setImgBack(actionBar, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        ActionBarUtils.setTvTitlet(actionBar,getResources().getString(R.string.title_personal_data));
 
         Intent intent = getIntent();
         Personal_Data = (VolunteerViewDto) intent.getSerializableExtra("data");
@@ -286,8 +317,8 @@ public class PersonalDataActivity extends BaseActivity implements View.OnClickLi
                                         tv_myAttribute.setText(names.get(i));
                                     }
                                 }
-
                             } catch (Exception e) {
+                                e.printStackTrace();
                             }
                         }
                         if (type.equals("PoliticalAttribute")) {
@@ -297,8 +328,8 @@ public class PersonalDataActivity extends BaseActivity implements View.OnClickLi
                                         tv_polity_show.setText(names.get(i));
                                     }
                                 }
-
                             } catch (Exception e) {
+                                e.printStackTrace();
                             }
                         }
                         if (type.equals("SPECIALITY")){
@@ -314,7 +345,7 @@ public class PersonalDataActivity extends BaseActivity implements View.OnClickLi
                                 }
                                 tv_specialty_show.setText(specialtyTypeName);
                             }catch (Exception e){
-
+                                e.printStackTrace();
                             }
                         }
 
@@ -330,20 +361,42 @@ public class PersonalDataActivity extends BaseActivity implements View.OnClickLi
                                 }
                                 tv_serviceType.setText(serviceTypeName);
                             } catch (Exception e) {
-
+                                e.printStackTrace();
                             }
                         }
 
                         if (type.equals("VlteTag")){
                             try {
-                                String vlteTag = "";
                                 for (int i=0;i<data.size();i++){
                                     if (codes.get(i).equals(Personal_Data.getTag().toString())) {
                                         tv_VolunteerType.setText(names.get(i));
                                     }
                                 }
                             }catch (Exception e){
+                                e.printStackTrace();
+                            }
+                        }
+                        if (type.equals("Sex")){
+                            try {
+                                for (int i=0;i<data.size();i++){
+                                    if (codes.get(i).equals(Personal_Data.getSex().toString())){
+                                        tv_MySex.setText(names.get(i));
+                                    }
+                                }
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
 
+                        }
+                        if (type.equals("Education")){
+                            try {
+                                for (int i = 0; i < data.size(); i++) {
+                                    if (codes.get(i).equals(Personal_Data.getDegree())) {
+                                        tv_Education.setText(names.get(i));
+                                    }
+                                }
+                            }catch (Exception e){
+                                e.printStackTrace();
                             }
                         }
 
@@ -363,7 +416,7 @@ public class PersonalDataActivity extends BaseActivity implements View.OnClickLi
     private void initViewsEven() {
 
         //find组件
-        top_btn_back = (ImageView) findViewById(R.id.imageView_btn_back);
+//        top_btn_back = (ImageView) findViewById(R.id.imageView_btn_back);
         myPortrait = (LinearLayout) findViewById(R.id.LL_PD_myPortrait);
         myNickName = (LinearLayout) findViewById(R.id.LL_PD_myNickName);
         changePassword = (LinearLayout) findViewById(R.id.LL_PD_changePassword);
@@ -382,6 +435,8 @@ public class PersonalDataActivity extends BaseActivity implements View.OnClickLi
         myImageType = (LinearLayout) findViewById(R.id.LL_PD_myImageType);
         myEMail = (LinearLayout) findViewById(R.id.LL_PD_myEMail);
         myVolunteerType = (LinearLayout) findViewById(R.id.ll_volunteer_type);
+        mySex = (LinearLayout) findViewById(R.id.LL_PD_mySex);
+        myEducation = (LinearLayout) findViewById(R.id.LL_PD_myEducation);
 
         tv_polity_show = (TextView) findViewById(R.id.tv_personal_data_polity);
         tv_area_show = (TextView) findViewById(R.id.tv_personal_data_area);
@@ -392,9 +447,11 @@ public class PersonalDataActivity extends BaseActivity implements View.OnClickLi
         tv_serviceType = (TextView) findViewById(R.id.tv_personal_data_serviceType);
         tv_serviceTime = (TextView) findViewById(R.id.tv_personal_data_serviceTime);
         tv_VolunteerType = (TextView) findViewById(R.id.tv_volunteer_type);
+        tv_MySex = (TextView) findViewById(R.id.tv_PD_mySex);
+        tv_Education = (TextView) findViewById(R.id.tv_PD_myEducation);
 
         //设置监听
-        top_btn_back.setOnClickListener(this);
+//        top_btn_back.setOnClickListener(this);
         myPortrait.setOnClickListener(this);
         myNickName.setOnClickListener(this);
         changePassword.setOnClickListener(this);
@@ -413,16 +470,17 @@ public class PersonalDataActivity extends BaseActivity implements View.OnClickLi
         myImageType.setOnClickListener(this);
         myEMail.setOnClickListener(this);
         myVolunteerType.setOnClickListener(this);
+        mySex.setOnClickListener(this);
+        myEducation.setOnClickListener(this);
 
         //添加标签
-        top_btn_back.setTag(BACK);
+//        top_btn_back.setTag(BACK);
         myPortrait.setTag(MY_PORTRAIT);
         myNickName.setTag(MY_NICKNAME);
         changePassword.setTag(CHANGE_PASSWORD);
         myPhoneNumber.setTag(MY_PHONENUMBER);
-        myUserName.setTag(MY_USERNAME);
-        myTrueName.setTag(MY_TRUENAME);
-        myIDNumber.setTag(MY_IDNUMBER);
+        mySex.setTag(MY_SEX);
+        myEducation.setTag(MY_EDUCATION);
         myAttribute.setTag(MY_ATTRIBUTE);
         myPoliticsStatus.setTag(MY_POLITICSSTATUS);
         myArea.setTag(MY_AREA);
@@ -443,96 +501,93 @@ public class PersonalDataActivity extends BaseActivity implements View.OnClickLi
         Intent intent = new Intent();
         intent.putExtra("personal_data", Personal_Data);
         switch (tag) {
-            case BACK:
-                this.finish();
-                break;
-
+//            case BACK:
+//                this.finish();
+//                break;
+            //政治面貌
             case MY_PORTRAIT:
                 portrait_PPwindow = new Portrait_Pop(this, itemsOnClick);
                 portrait_PPwindow.showAtLocation(this.findViewById(R.id.SV_PD),
                         Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0); //设置layout在PopupWindow中显示的位置
                 ppwindow_flag = 0;
                 break;
-
+            //昵称
             case MY_NICKNAME:
                 intent.setClass(this, NickNameActivity.class);
                 startActivityForResult(intent, MY_NICKNAME);
                 break;
-
+            //修改密码
             case CHANGE_PASSWORD:
                 intent.putExtra("ID", volunteerId);
                 intent.setClass(this, SetPasswordActivity.class);
                 startActivity(intent);
                 break;
-
+            //修改手机号
             case MY_PHONENUMBER:
                 intent.setClass(this, MobilePhoneActivity.class);
                 startActivityForResult(intent, MY_PHONENUMBER);
                 break;
-
-            case MY_USERNAME:
-                //暂时删除
+            //修改性别
+            case MY_SEX:
+                intent.setClass(this, SexAtivity.class);
+                startActivityForResult(intent, MY_SEX);
                 break;
-
-            case MY_TRUENAME:
+            //修改最高学历
+            case MY_EDUCATION:
+                intent.setClass(this, EducationActivity.class);
+                startActivityForResult(intent, MY_EDUCATION);
                 break;
-
-            case MY_IDNUMBER:
-                break;
-
+            //修改个人属性
             case MY_ATTRIBUTE:
-                /*attribute_PPwindow = new Attribute_Pop(this, itemsOnClick);
-                attribute_PPwindow.showAtLocation(this.findViewById(R.id.SV_PD),
-                        Gravity.CENTER, 0, 0); //设置layout在PopupWindow中显示的位置
-                ppwindow_flag = 1;*/
                 intent.setClass(this, AttributeAtivity.class);
                 startActivityForResult(intent, MY_ATTRIBUTE);
                 break;
-
+            //修改政治面貌
             case MY_POLITICSSTATUS:
                 intent.setClass(this, PoliticsstatusActivity.class);
                 startActivityForResult(intent, MY_POLITICSSTATUS);
                 break;
-
+            //修改所属区域
             case MY_AREA:
                 intent.setClass(this, AreaSelectAction2.class);
                 startActivityForResult(intent, MY_AREA);
                 break;
-
+            //修改所属机构
             case MY_ORG:
                 intent.setClass(this, OrgSelectActivity.class);
                 startActivityForResult(intent, MY_ORG);
                 break;
-
+            //修改业能力/特长
             case MY_MAJOR:
                 intent.setClass(this, SpecilaAbilityActivity.class);
                 startActivityForResult(intent, MY_MAJOR);
                 break;
-
+            //修改现工作单位
             case MY_NOWCOMPANY:
                 intent.setClass(this, CompanyActivity.class);
                 startActivityForResult(intent, MY_NOWCOMPANY);
                 break;
-
+            //修改居住地
             case MY_HOMEADDRESS:
                 intent.setClass(this, ResidenceActivity.class);
                 startActivityForResult(intent, MY_HOMEADDRESS);
                 break;
-
+            //修改服务时间
             case MY_IMAGETIME:
                 intent.setClass(this, ServiceTimeActivity.class);
                 startActivityForResult(intent, MY_IMAGETIME);
                 break;
-
+            //修改意向志愿服务类别
             case MY_IMAGETYPE:
                 intent.setClass(this, ServiceCategoryActivity.class);
                 startActivityForResult(intent, MY_IMAGETYPE);
                 break;
-
+            //修改我的邮箱
             case MY_EMAIL:
                 intent.setClass(this, MyEMail.class);
                 startActivityForResult(intent, MY_EMAIL);
                 break;
+            //修改是否为平安志愿者
             case MY_VOLUNTEERTYPE:
                 intent.setClass(this, VolunteerTagActivity.class);
                 startActivityForResult(intent, MY_VOLUNTEERTYPE);
@@ -625,44 +680,56 @@ public class PersonalDataActivity extends BaseActivity implements View.OnClickLi
                 case CHANGE_PASSWORD:
                     //无需回调
                     break;
-
+                //修改手机号码的数据回调
                 case MY_PHONENUMBER:
                     result = data.getExtras();
                     Personal_Data = (VolunteerViewDto) result.getSerializable("personal_data");
                     repeat_update();
                     break;
-
+                //修改性别的数据回调
+                case MY_SEX:
+                    result = data.getExtras();
+                    Personal_Data = (VolunteerViewDto) result.getSerializable("personal_data");
+                    repeat_update();
+                    break;
+                //修改最高学历的数据回调
+                case MY_EDUCATION:
+                    result = data.getExtras();
+                    Personal_Data = (VolunteerViewDto) result.getSerializable("personal_data");
+                    repeat_update();
+                    break;
+                //修改个人属性的数据回调
                 case MY_ATTRIBUTE:
                     result = data.getExtras();
                     Personal_Data = (VolunteerViewDto) result.getSerializable("personal_data");
                     repeat_update();
                     break;
-
+                //修改政治面貌的数据回调
                 case MY_POLITICSSTATUS:
                     result = data.getExtras();
                     Personal_Data = (VolunteerViewDto) result.getSerializable("personal_data");
                     String polity_name = result.getString("polity_name");
                     tv_polity_show.setText(polity_name);
                     break;
-
+                //修改我的专业类型的数据回调
                 case MY_MAJOR:
                     result = data.getExtras();
                     Personal_Data = (VolunteerViewDto) result.getSerializable("personal_data");
                     tv_specialty_show.setText(Personal_Data.getSpecialty());
                     break;
-
+                //修改我的现工作单位的数据回调
                 case MY_NOWCOMPANY:
                     result = data.getExtras();
                     Personal_Data = (VolunteerViewDto) result.getSerializable("personal_data");
                     tv_work_show.setText(Personal_Data.getWorkunit());
                     break;
-
+                //修改现居住地的数据回调
                 case MY_HOMEADDRESS:
                     result = data.getExtras();
                     Personal_Data = (VolunteerViewDto) result.getSerializable("personal_data");
                     tv_address_show.setText(Personal_Data.getDomicile());
                     break;
-
+                //修改我的服务时间的数据回调
                 case MY_IMAGETIME:
                     result = data.getExtras();
                     Personal_Data = (VolunteerViewDto) result.getSerializable("personal_data");
@@ -670,19 +737,19 @@ public class PersonalDataActivity extends BaseActivity implements View.OnClickLi
                         tv_serviceTime.setText("已选");
                     }
                     break;
-
+                //修改我的所在区域的数据回调
                 case MY_AREA:
                     result = data.getExtras();
                     Personal_Data = (VolunteerViewDto) result.getSerializable("personal_data");
                     tv_area_show.setText(Personal_Data.getAreaName());
                     break;
-
+                //修改我的所在机构的数据回调
                 case MY_ORG:
                     result = data.getExtras();
                     Personal_Data = (VolunteerViewDto) result.getSerializable("personal_data");
                     tv_ORG_show.setText(Personal_Data.getOrganizationName());
                     break;
-
+                //修改我的服务意向类型的数据回调
                 case MY_IMAGETYPE:
                     try {
                         result = data.getExtras();
@@ -702,12 +769,13 @@ public class PersonalDataActivity extends BaseActivity implements View.OnClickLi
                     } catch (Exception e) {
                     }
                     break;
-
+                //修改我的邮箱数据回调
                 case MY_EMAIL:
                     result = data.getExtras();
                     Personal_Data = (VolunteerViewDto) result.getSerializable("personal_data");
                     tv_myEMail.setText(Personal_Data.getEmail());
                     break;
+                //修改我的是否为平安志愿者的数据回调
                 case MY_VOLUNTEERTYPE:
                     result = data.getExtras();
                     Personal_Data = (VolunteerViewDto) result.getSerializable("personal_data");
@@ -716,14 +784,20 @@ public class PersonalDataActivity extends BaseActivity implements View.OnClickLi
 
                 //照片的返回结果处理
                 case CODE_GALLERY_REQUEST:
-                    cropRawPhoto(data.getData());
+                    if (Util.hasSDcard()) {
+                        File tempFile = new File(Environment.getExternalStorageDirectory(),
+                                IMAGE_FILE_NAME);
+                        cropRawPhoto(data.getData(),tempFile);
+                    } else {
+                        Toast.makeText(getApplication(), "没有SDCard!", Toast.LENGTH_LONG).show();
+                    }
                     break;
 
                 case CODE_CAMERA_REQUEST:
                     if (Util.hasSDcard()) {
                         File tempFile = new File(Environment.getExternalStorageDirectory(),
                                 IMAGE_FILE_NAME);
-                        cropRawPhoto(Uri.fromFile(tempFile));
+                        cropRawPhoto(Uri.fromFile(tempFile),tempFile);
                     } else {
                         Toast.makeText(getApplication(), "没有SDCard!", Toast.LENGTH_LONG).show();
                     }
@@ -731,7 +805,17 @@ public class PersonalDataActivity extends BaseActivity implements View.OnClickLi
 
                 case CODE_RESULT_REQUEST:
                     if (data != null) {
-                        setImageToHeadView(data);
+                        //图片裁切完成，显示裁切后的图片
+                        try {
+                            File tempFile = new File(Environment.getExternalStorageDirectory(),
+                                    IMAGE_FILE_NAME);
+                            Uri uri = Uri.fromFile(tempFile);
+                            Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(uri));
+                            UpdatePortrait(bitmap);
+                        }catch (Exception ex){
+                            ex.printStackTrace();
+                        }
+//                        setImageToHeadView(data);
                     }
                     break;
                 default:
@@ -748,45 +832,42 @@ public class PersonalDataActivity extends BaseActivity implements View.OnClickLi
         Intent intentFromGallery = new Intent();
         // 设置文件类型
         intentFromGallery.setType("image/*");
-        intentFromGallery.setAction(Intent.ACTION_GET_CONTENT);
+        intentFromGallery.setAction("android.intent.action.PICK");
+        intentFromGallery.addCategory("android.intent.category.DEFAULT");
         startActivityForResult(intentFromGallery, CODE_GALLERY_REQUEST);
     }
 
     // 启动手机相机拍摄照片作为头像
     private void choseHeadImageFromCameraCapture() {
-        Intent intentFromCapture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
-        // 判断存储卡是否可用，存储照片文件
-        if (Util.hasSDcard()) {
-            intentFromCapture.putExtra(MediaStore.EXTRA_OUTPUT, Uri
-                    .fromFile(new File(Environment
-                            .getExternalStorageDirectory(), IMAGE_FILE_NAME)));
-        }
-
-        startActivityForResult(intentFromCapture, CODE_CAMERA_REQUEST);
+        Intent intent = new Intent();
+        intent.setAction("android.media.action.IMAGE_CAPTURE");
+        intent.addCategory("android.intent.category.DEFAULT");
+        Uri uri = FileProviderUtils.uriFromFile(this, new File(Environment
+                .getExternalStorageDirectory(), IMAGE_FILE_NAME));
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+        startActivityForResult(intent, CODE_CAMERA_REQUEST);
     }
 
 
     /**
      * 裁剪原始的图片
      */
-    public void cropRawPhoto(Uri uri) {
-
+    public void cropRawPhoto(Uri uri,File outputFile) {
         Intent intent = new Intent("com.android.camera.action.CROP");
-        intent.setDataAndType(uri, "image/*");
-
-        // 设置裁剪
+        FileProviderUtils.setIntentDataAndType(this, intent, "image/*", uri, true);
         intent.putExtra("crop", "true");
-
-        // aspectX , aspectY :选择框宽高的比例
         intent.putExtra("aspectX", 1);
         intent.putExtra("aspectY", 1);
-
-        // outputX , outputY : 裁剪图片宽高
-        intent.putExtra("outputX", output_X);
-        intent.putExtra("outputY", output_Y);
-        intent.putExtra("return-data", true);
-
+        intent.putExtra("outputX", 300);
+        intent.putExtra("outputY", 300);
+        //return-data为true时，直接返回bitmap，可能会很占内存，不建议，小米等个别机型会出异常！！！
+        //所以适配小米等个别机型，裁切后的图片，不能直接使用data返回，应使用uri指向
+        //裁切后保存的URI，不属于我们向外共享的，所以可以使用fill://类型的URI
+        Uri outputUri = Uri.fromFile(outputFile);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, outputUri);
+        intent.putExtra("return-data", false);
+        intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
+        intent.putExtra("noFaceDetection", true);
         startActivityForResult(intent, CODE_RESULT_REQUEST);
     }
 

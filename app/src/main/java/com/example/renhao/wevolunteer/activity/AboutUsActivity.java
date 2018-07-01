@@ -13,6 +13,7 @@ import com.example.model.content.ContentViewDto;
 import com.example.renhao.wevolunteer.R;
 import com.example.renhao.wevolunteer.base.BaseActivity;
 import com.example.renhao.wevolunteer.handler.MxgsaTagHandler;
+import com.example.renhao.wevolunteer.utils.ActionBarUtils;
 import com.example.renhao.wevolunteer.utils.Util;
 
 import butterknife.Bind;
@@ -38,13 +39,24 @@ public class AboutUsActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about_us);
         ButterKnife.bind(this);
-        ImageView btn_back = (ImageView) findViewById(R.id.imageView_btn_back);
-        btn_back.setOnClickListener(new View.OnClickListener() {
+
+        View actionBar = setActionBar();
+        ActionBarUtils.setImgBack(actionBar, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AboutUsActivity.this.finish();
+                finish();
             }
         });
+        ActionBarUtils.setTvTitlet(actionBar,getResources().getString(R.string.title_about_us));
+
+
+//        ImageView btn_back = (ImageView) findViewById(R.id.imageView_btn_back);
+//        btn_back.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                AboutUsActivity.this.finish();
+//            }
+//        });
 
         TextView versionTv = (TextView) findViewById(R.id.about_us_version);
         versionTv.setText("版本号 : " + Util.getAppVersion(this));

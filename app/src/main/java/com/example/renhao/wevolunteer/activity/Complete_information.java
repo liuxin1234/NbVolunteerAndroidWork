@@ -28,6 +28,9 @@ import com.example.renhao.wevolunteer.view.Btn_TimeCountUtil;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 完善补全个人信息界面
+ */
 public class Complete_information extends BaseActivity implements View.OnClickListener, View.OnFocusChangeListener {
     private VolunteerViewDto personal_data;
     private AppAction mAction;

@@ -7,79 +7,77 @@
     android:id="@+id/ll_register_pro"
     tools:context="com.example.renhao.wevolunteer.activity.RegisterProBonoActivity">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/actionbar_homepage_height"
-        android:background="@color/colorCyan">
+    <!--<RelativeLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="@dimen/actionbar_homepage_height"-->
+        <!--android:background="@color/colorCyan">-->
 
-        <LinearLayout
-            android:id="@+id/ll_back"
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:background="@drawable/linearlayout_back">
+        <!--<LinearLayout-->
+            <!--android:id="@+id/ll_back"-->
+            <!--android:layout_width="50dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:background="@drawable/linearlayout_back">-->
 
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="@dimen/imageview_homepage_magnifierSize"
-                android:layout_height="@dimen/imageview_homepage_magnifierSize"
-                android:layout_gravity="center"
-                android:layout_marginLeft="@dimen/actionbar_homepage_margin"
-                android:layout_marginStart="@dimen/actionbar_homepage_margin"
-                android:padding="@dimen/imageview_backBTN_padding"
-                android:src="@drawable/icon_indicator" />
-        </LinearLayout>
+            <!--<ImageView-->
+                <!--android:id="@+id/imageView"-->
+                <!--android:layout_width="@dimen/imageview_homepage_magnifierSize"-->
+                <!--android:layout_height="@dimen/imageview_homepage_magnifierSize"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:layout_marginLeft="@dimen/actionbar_homepage_margin"-->
+                <!--android:layout_marginStart="@dimen/actionbar_homepage_margin"-->
+                <!--android:padding="@dimen/imageview_backBTN_padding"-->
+                <!--android:src="@drawable/icon_indicator" />-->
+        <!--</LinearLayout>-->
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:gravity="center_vertical"
-            android:text="@string/title_register_pro_bono"
-            android:textColor="@color/colorWhite"
-            android:textSize="@dimen/textview_homepage_titlesize" />
+        <!--<TextView-->
+            <!--android:id="@+id/textView"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_centerInParent="true"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:text="@string/title_register_pro_bono"-->
+            <!--android:textColor="@color/colorWhite"-->
+            <!--android:textSize="@dimen/textview_homepage_titlesize" />-->
 
-    </RelativeLayout>
+    <!--</RelativeLayout>-->
 
     <ScrollView
         android:id="@+id/sv_Register"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="50dp"-->
+                <!--android:background="@drawable/bg_single_input"-->
+                <!--android:orientation="horizontal"-->
+                <!--android:focusable="true"-->
+                <!--android:focusableInTouchMode="true">-->
 
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:padding="15dp"-->
+                    <!--android:text="@string/tv_register_nickname"-->
+                    <!--android:textSize="16sp"-->
+                    <!--android:textStyle="bold" />-->
 
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@drawable/bg_single_input"
-                android:orientation="horizontal"
-                android:focusable="true"
-                android:focusableInTouchMode="true">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="15dp"
-                    android:text="@string/tv_register_nickname"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-
-                <EditText
-                    android:id="@+id/et_register_nickname"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="23dp"
-                    android:layout_marginStart="23dp"
-                    android:background="@color/colorWhite"
-                    android:hint="@string/hint_register_nickname"
-                    android:textSize="15sp" />
-            </LinearLayout>
+                <!--<EditText-->
+                    <!--android:id="@+id/et_register_nickname"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginLeft="23dp"-->
+                    <!--android:layout_marginStart="23dp"-->
+                    <!--android:background="@color/colorWhite"-->
+                    <!--android:hint="@string/hint_register_nickname"-->
+                    <!--android:textSize="15sp" />-->
+            <!--</LinearLayout>-->
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -99,8 +97,8 @@
                     android:id="@+id/et_register_trueName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="23dp"
-                    android:layout_marginStart="23dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginStart="5dp"
                     android:background="@color/colorWhite"
                     android:hint="@string/hint_register_name"
                     android:textSize="15sp" />
@@ -168,6 +166,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/ll_Sex"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="@drawable/bg_single_input"
@@ -177,21 +176,86 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="15dp"
-                    android:text="@string/tv_Email"
+                    android:text=" 性  别:"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
-                <EditText
-                    android:id="@+id/et_register_email"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+                    <RadioGroup
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="23dp"
+                        android:layout_marginStart="23dp"
+                        android:orientation="horizontal">
+                        <RadioButton
+                            android:id="@+id/rb_man"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="男"/>
+                        <RadioButton
+                            android:id="@+id/rb_woman"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="女"/>
+                    </RadioGroup>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_DateBirth"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/bg_single_input"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="15dp"
+                    android:text="出生日期:"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_register_datebirth"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:layout_marginStart="5dp"
                     android:background="@color/colorWhite"
-                    android:hint="@string/hint_Email"
-                    android:inputType="textEmailAddress"
+                    android:hint="请选择出生日期"
                     android:textSize="15sp" />
             </LinearLayout>
+
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="50dp"-->
+                <!--android:background="@drawable/bg_single_input"-->
+                <!--android:orientation="horizontal">-->
+
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:padding="15dp"-->
+                    <!--android:text="@string/tv_Email"-->
+                    <!--android:textSize="16sp"-->
+                    <!--android:textStyle="bold" />-->
+
+                <!--<EditText-->
+                    <!--android:id="@+id/et_register_email"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginLeft="5dp"-->
+                    <!--android:layout_marginStart="5dp"-->
+                    <!--android:background="@color/colorWhite"-->
+                    <!--android:hint="@string/hint_Email"-->
+                    <!--android:inputType="textEmailAddress"-->
+                    <!--android:textSize="15sp" />-->
+            <!--</LinearLayout>-->
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -282,82 +346,82 @@
                 android:layout_height="1dp"
                 android:background="#d9d9d9" />
 
-            <include layout="@layout/include_pro_bono" />
+            <include layout="@layout/include_pro_bono_new" />
 
             <!--我的头像-->
-            <LinearLayout
-                android:id="@+id/LL_PD_myPortrait"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@drawable/bg_single_input"
-                android:clickable="true"
-                android:orientation="horizontal">
+            <!--<LinearLayout-->
+                <!--android:id="@+id/LL_PD_myPortrait"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="50dp"-->
+                <!--android:background="@drawable/bg_single_input"-->
+                <!--android:clickable="true"-->
+                <!--android:orientation="horizontal">-->
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="@dimen/textview_bottom_left_marginleft"
-                    android:layout_weight="0.8"
-                    android:paddingLeft="@dimen/text_left_padding"
-                    android:text="@string/my_HeadPortrait"
-                    android:textStyle="bold"
-                    android:textSize="16sp" />
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_gravity="center"-->
+                    <!--android:layout_marginLeft="@dimen/textview_bottom_left_marginleft"-->
+                    <!--android:layout_weight="0.8"-->
+                    <!--android:paddingLeft="@dimen/text_left_padding"-->
+                    <!--android:text="@string/my_HeadPortrait"-->
+                    <!--android:textStyle="bold"-->
+                    <!--android:textSize="16sp" />-->
 
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/imageview_item_myPortrait"
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
-                    android:layout_marginRight="22dp"
-                    android:layout_marginEnd="22dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/personal_no_portrait" />
+                <!--<de.hdodenhof.circleimageview.CircleImageView-->
+                    <!--android:id="@+id/imageview_item_myPortrait"-->
+                    <!--android:layout_width="45dp"-->
+                    <!--android:layout_height="45dp"-->
+                    <!--android:layout_marginRight="22dp"-->
+                    <!--android:layout_marginEnd="22dp"-->
+                    <!--android:layout_gravity="center"-->
+                    <!--android:src="@drawable/personal_no_portrait" />-->
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginRight="10dp"
-                    android:src="@drawable/icon_right_indicator" />
-            </LinearLayout>
+                <!--<ImageView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_gravity="center"-->
+                    <!--android:layout_marginEnd="10dp"-->
+                    <!--android:layout_marginRight="10dp"-->
+                    <!--android:src="@drawable/icon_right_indicator" />-->
+            <!--</LinearLayout>-->
 
-            <LinearLayout
-                android:id="@+id/ll_volunteer_type"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@drawable/linearlayout_select"
-                android:clickable="true"
-                android:orientation="horizontal">
+            <!--<LinearLayout-->
+                <!--android:id="@+id/ll_volunteer_type"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="50dp"-->
+                <!--android:background="@drawable/linearlayout_select"-->
+                <!--android:clickable="true"-->
+                <!--android:orientation="horizontal">-->
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="15dp"
-                    android:text="@string/tv_volunteer_type"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:padding="15dp"-->
+                    <!--android:text="@string/tv_volunteer_type"-->
+                    <!--android:textSize="16sp"-->
+                    <!--android:textStyle="bold" />-->
 
-                <TextView
-                    android:id="@+id/tv_volunteer_type"
-                    android:layout_width="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="22dp"
-                    android:layout_marginEnd="22dp"
-                    android:gravity="end"
-                    android:textSize="15sp" />
+                <!--<TextView-->
+                    <!--android:id="@+id/tv_volunteer_type"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginRight="22dp"-->
+                    <!--android:layout_marginEnd="22dp"-->
+                    <!--android:gravity="end"-->
+                    <!--android:textSize="15sp" />-->
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="0.1"
-                    android:layout_marginEnd="3dp"
-                    android:src="@drawable/icon_right_indicator"
-                    android:layout_marginRight="3dp"/>
+                <!--<ImageView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_gravity="center"-->
+                    <!--android:layout_weight="0.1"-->
+                    <!--android:layout_marginEnd="3dp"-->
+                    <!--android:src="@drawable/icon_right_indicator"-->
+                    <!--android:layout_marginRight="3dp"/>-->
 
-            </LinearLayout>
+            <!--</LinearLayout>-->
 
 
 

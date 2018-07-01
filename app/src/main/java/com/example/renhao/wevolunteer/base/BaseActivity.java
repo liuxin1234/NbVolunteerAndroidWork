@@ -8,8 +8,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.core.AppActionImpl;
@@ -32,7 +38,7 @@ import pub.devrel.easypermissions.EasyPermissions;
  * 创建时间：2016/8/15 11:28
  * 修改备注：
  */
-public class BaseActivity extends AppCompatActivity implements EasyPermissions.PermissionCallbacks{
+public abstract class BaseActivity extends AppCompatActivity implements EasyPermissions.PermissionCallbacks{
     private static final String TAG = "BaseActivity";
 
     public static final int REFRESH = 0;
@@ -65,6 +71,19 @@ public class BaseActivity extends AppCompatActivity implements EasyPermissions.P
         locationAndContactsTask();
     }
 
+
+
+    public View setActionBar(){
+        ActionBar mActionBar = getSupportActionBar();
+        mActionBar.setDisplayShowHomeEnabled(false);
+        mActionBar.setDisplayShowTitleEnabled(false);
+        LayoutInflater mInflater = LayoutInflater.from(this);
+        View mCustomView = mInflater.inflate(R.layout.actionbar_common_layout, null);
+        mActionBar.setCustomView(mCustomView);
+        mActionBar.setDisplayShowCustomEnabled(true);
+        ((Toolbar) mCustomView.getParent()).setContentInsetsAbsolute(0, 0);
+        return mCustomView;
+    }
 
     @Override
     protected void onResume() {

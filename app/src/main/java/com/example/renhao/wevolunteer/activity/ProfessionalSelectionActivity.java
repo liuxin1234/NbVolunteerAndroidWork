@@ -11,12 +11,13 @@ import android.widget.Toast;
 
 import com.example.renhao.wevolunteer.R;
 import com.example.renhao.wevolunteer.base.BaseActivity;
+import com.example.renhao.wevolunteer.utils.ActionBarUtils;
 
 import java.util.Arrays;
 import java.util.List;
 
 /**
- * 专业选择界面
+ * 专业选择界面  好像本页面目前没用
  */
 public class ProfessionalSelectionActivity extends BaseActivity {
     private static final String TAG = "ProfessionalSelectionActivity";
@@ -28,16 +29,32 @@ public class ProfessionalSelectionActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_professional_selection);
-        listView = (ListView) findViewById(R.id.listView_professional_selection);
 
-        //回退按钮
-        ImageView btn_back = (ImageView) findViewById(R.id.imageView_btn_back);
-        btn_back.setOnClickListener(new View.OnClickListener() {
+        View actionBar = setActionBar();
+        ActionBarUtils.setImgBack(actionBar, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
+        ActionBarUtils.setTvTitlet(actionBar,getResources().getString(R.string.title_professional_selection));
+        ActionBarUtils.setTvSubmit(actionBar,"提交", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                submit();
+            }
+        });
+
+        listView = (ListView) findViewById(R.id.listView_professional_selection);
+
+        //回退按钮
+//        ImageView btn_back = (ImageView) findViewById(R.id.imageView_btn_back);
+//        btn_back.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                finish();
+//            }
+//        });
 
         String[] s = new String[]{
                 "法律援助",
@@ -67,5 +84,9 @@ public class ProfessionalSelectionActivity extends BaseActivity {
                 Toast.makeText(getApplicationContext(), ((TextView) view).getText(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void submit() {
+
     }
 }

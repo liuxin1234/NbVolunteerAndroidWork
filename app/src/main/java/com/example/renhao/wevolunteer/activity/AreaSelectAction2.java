@@ -3,20 +3,30 @@ package com.example.renhao.wevolunteer.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.Window;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.core.AppActionImpl;
 import com.example.model.ActionCallbackListener;
+import com.example.model.PagedListEntityDto;
 import com.example.model.area.AreaListDto;
+import com.example.model.area.AreaQueryOptionDto;
 import com.example.model.volunteer.VolunteerViewDto;
 import com.example.renhao.wevolunteer.R;
 import com.example.renhao.wevolunteer.adapter.SimpleAdapter1;
 import com.example.renhao.wevolunteer.base.BaseActivity;
+import com.example.renhao.wevolunteer.event.SearchHistoryEvent;
+import com.example.renhao.wevolunteer.utils.ActionBarUtils;
+import com.example.renhao.wevolunteer.utils.SoftKeyBoardUtils;
 import com.orhanobut.logger.Logger;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,21 +42,15 @@ import butterknife.OnClick;
  * 类描述：
  * 创建人：renhao
  * 创建时间：2016/8/30 18:01
- * 修改备注：
+ * 修改备注：区域选择界面
  */
 public class AreaSelectAction2 extends BaseActivity {
     private static final String TAG = "AreaSelectAction2";
     public static final String parentId = "ac689592-5a3e-4015-8609-cdeed42df6ab";
-    @Bind(R.id.iv_ab_sp1_back)
-    ImageView mBack;
-    @Bind(R.id.tv_ab_sp1_title)
-    TextView mTitle;
-    @Bind(R.id.tv_ab_sp1_submit)
-    TextView mSubmit;
     @Bind(R.id.lv_chose_1)
     ListView mListView;
 
-    private int choseModel = SimpleAdapter1.SINGLE;//单选多选改这里
+    private int choseModel = SimpleAdapter1.MULTIPLY;//单选多选改这里 SINGLE：单选  MULTIPLY：多选
 
     private SimpleAdapter1 mAdapter;
     private List<SimpleAdapter1.ItemDate> items = new ArrayList<>();
@@ -65,17 +69,30 @@ public class AreaSelectAction2 extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_chose_1);
         ButterKnife.bind(this);
+
+        View actionBar = setActionBar();
+        ActionBarUtils.setImgBack(actionBar, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                initBack();
+            }
+        });
+        ActionBarUtils.setTvTitlet(actionBar,"居住区域");
+        ActionBarUtils.setTvSubmit(actionBar,"提交", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                submit();
+            }
+        });
+
         //type: 1 时为注册界面的传递过来的值  没有name的值 默认为-1  为个人资料界面点击区域直接进入该界面，并未传值。
         type = getIntent().getIntExtra("type", -1);//第二个参数是defaultValue 是当你没有设置name的值，没有找到name的时候，返回的默认值。
         mVolunteerViewDto = (VolunteerViewDto) getIntent().getSerializableExtra("personal_data");
-
         init();
         getDate(parentId, true);
     }
 
     private void init() {
-        mTitle.setText("所在区域");
-
         //获取默认选中的
         if (choseModel == SimpleAdapter1.SINGLE) {
             String id = null;
@@ -95,13 +112,12 @@ public class AreaSelectAction2 extends BaseActivity {
             }
         }
 
-
         mAdapter = new SimpleAdapter1(this, items);
         mAdapter.setChoseModle(choseModel);
         mAdapter.setOnCheckedChangeListener(new SimpleAdapter1.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(SimpleAdapter1.ItemDate date, boolean isChecked) {
-                Logger.v(TAG, isChecked + "  ");
+//                Logger.v(TAG, isChecked + "  ");
                 AreaListDto dto = (AreaListDto) date.getValue();
                 if (choseModel == SimpleAdapter1.MULTIPLY) {
                     if (isChecked) {
@@ -149,7 +165,7 @@ public class AreaSelectAction2 extends BaseActivity {
                             else
                                 hierarchy--;
                             lastParentId[hierarchy] = parentId;
-                            setDate2ListView(data);
+                            setDateListView(data);
                         }
 
                         @Override
@@ -165,12 +181,12 @@ public class AreaSelectAction2 extends BaseActivity {
             else
                 hierarchy--;
             lastParentId[hierarchy] = parentId;
-            setDate2ListView(list);
+            setDateListView(list);
         }
         dissMissNormalDialog();
     }
 
-    private void setDate2ListView(List<AreaListDto> date) {
+    private void setDateListView(List<AreaListDto> date) {
         items = new ArrayList<>();
         for (int i = 0; i < date.size(); i++) {
             AreaListDto listDto = date.get(i);
@@ -190,24 +206,16 @@ public class AreaSelectAction2 extends BaseActivity {
         mAdapter.setDate(items);
     }
 
-    @OnClick({R.id.iv_ab_sp1_back, R.id.tv_ab_sp1_submit})
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.iv_ab_sp1_back:
-                if (hierarchy == 0 || hierarchy == -1) {
-                    finish();
-                } else {
-                    getDate(lastParentId[hierarchy - 1], false);
-                }
-                break;
-            case R.id.tv_ab_sp1_submit:
-                submit();
-                break;
+    @Override
+    public void onBackPressed() {
+        if (hierarchy == 0 || hierarchy == -1) {
+            finish();
+        } else {
+            getDate(lastParentId[hierarchy - 1], false);
         }
     }
 
-    @Override
-    public void onBackPressed() {
+    private void initBack() {
         if (hierarchy == 0 || hierarchy == -1) {
             finish();
         } else {
@@ -234,10 +242,10 @@ public class AreaSelectAction2 extends BaseActivity {
         areaName = areaName.substring(0, areaName.length() - 1);
         areaCode = areaCode.substring(0, areaCode.length() - 1);
 
-        mVolunteerViewDto.setAreaCode(areaCode);
+        mVolunteerViewDto.setAreaCodes(areaCode);
         mVolunteerViewDto.setAreaId(areaId);
         mVolunteerViewDto.setAreaName(areaName);
-        if (type > -1) {
+        if (type > -1) { //注册界面
             Intent intent = new Intent();
             intent.putExtra("areaName", areaName);
             intent.putExtra("areaId", areaId);

@@ -3,6 +3,7 @@ package com.example.renhao.wevolunteer.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
@@ -15,6 +16,7 @@ import com.example.model.dictionary.DictionaryListDto;
 import com.example.model.volunteer.VolunteerViewDto;
 import com.example.renhao.wevolunteer.R;
 import com.example.renhao.wevolunteer.base.BaseActivity;
+import com.example.renhao.wevolunteer.utils.ActionBarUtils;
 import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
@@ -30,10 +32,10 @@ import butterknife.OnClick;
  */
 public class VolunteerTagActivity extends BaseActivity {
     private static final String TAG = "VolunteerTagActivity";
-    @Bind(R.id.imageView_btn_back)
-    ImageView imageViewBtnBack;
-    @Bind(R.id.tv_myPolity_submit)
-    TextView tvMyPolitySubmit;
+//    @Bind(R.id.imageView_btn_back)
+//    ImageView imageViewBtnBack;
+//    @Bind(R.id.tv_myPolity_submit)
+//    TextView tvMyPolitySubmit;
     @Bind(R.id.rg_VolunteerType_Selsec)
     ListView rgVolunteerTypeSelsec;
 
@@ -49,6 +51,22 @@ public class VolunteerTagActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_volunteer_tag);
         ButterKnife.bind(this);
+
+        View actionBar = setActionBar();
+        ActionBarUtils.setImgBack(actionBar, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        ActionBarUtils.setTvTitlet(actionBar,getResources().getString(R.string.title_volunteer_type));
+        ActionBarUtils.setTvSubmit(actionBar, "提交", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                submit();
+            }
+        });
+
         type = getIntent().getIntExtra("type", -1);
         try {
             Intent intent = getIntent();
@@ -109,19 +127,19 @@ public class VolunteerTagActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.imageView_btn_back, R.id.tv_myPolity_submit})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.imageView_btn_back:
-                finish();
-                break;
-            case R.id.tv_myPolity_submit:
-                submit();
-                break;
-            default:
-                break;
-        }
-    }
+//    @OnClick({R.id.imageView_btn_back, R.id.tv_myPolity_submit})
+//    public void onViewClicked(View view) {
+//        switch (view.getId()) {
+//            case R.id.imageView_btn_back:
+//                finish();
+//                break;
+//            case R.id.tv_myPolity_submit:
+//                submit();
+//                break;
+//            default:
+//                break;
+//        }
+//    }
 
     private void submit() {
         showNormalDialog("正在提交");

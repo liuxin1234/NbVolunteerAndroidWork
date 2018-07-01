@@ -21,6 +21,7 @@ import com.example.model.activityattention.ActivityAttentionDto;
 import com.example.model.activityattention.ActivityAttentionListDto;
 import com.example.model.activityattention.ActivityAttentionQueryOptionDto;
 import com.example.model.area.AreaListDto;
+import com.example.model.area.AreaQueryOptionDto;
 import com.example.model.area.AreaViewDto;
 import com.example.model.company.CompanyListDto;
 import com.example.model.company.CompanyQueryOptionDto;
@@ -41,6 +42,8 @@ import com.example.model.organization.OrganizationListDto;
 import com.example.model.organization.OrganizationQueryOptionDto;
 import com.example.model.signRecord.SignInOutDto;
 import com.example.model.signRecord.SignRecordSimple;
+import com.example.model.signResult.SignResultListDto;
+import com.example.model.signResult.SignResultQueryOptionDto;
 import com.example.model.user.UserDepartmentViewDto;
 import com.example.model.user.UserDto;
 import com.example.model.user.UserListDto;
@@ -434,6 +437,20 @@ public class ApiImpl implements Api {
             e.printStackTrace();
         }
 
+        return new ApiResponse<>(false, "网络连接异常");
+    }
+
+    @Override
+    public ApiResponse<PagedListEntityDto<AreaListDto>> postAreaKeyWordQuery(AreaQueryOptionDto query, String accessToken) {
+        Gson gson = new Gson();
+        String params = gson.toJson(query);
+        Type typeOfT = new TypeToken<ApiResponse<PagedListEntityDto<AreaListDto>>>() {
+        }.getType();
+        try {
+            return HttpEngine.getInstance().postApiHandler(params, AREA_KEY_WORD_QUERY, typeOfT, accessToken);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return new ApiResponse<>(false, "网络连接异常");
     }
 
@@ -880,6 +897,20 @@ public class ApiImpl implements Api {
             e.printStackTrace();
         }
 
+        return new ApiResponse<>(false, "网络连接异常");
+    }
+
+    @Override
+    public ApiResponse<PagedListEntityDto<SignResultListDto>> postSignResultQuery(SignResultQueryOptionDto query, String accessToken) {
+        Gson gson = new Gson();
+        String params = gson.toJson(query);
+        Type typeOft = new TypeToken<ApiResponse<PagedListEntityDto<SignResultListDto>>>() {
+        }.getType();
+        try {
+            return HttpEngine.getInstance().postApiHandler(params, SIGN_RESULT_QUERY, typeOft, accessToken);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return new ApiResponse<>(false, "网络连接异常");
     }
 

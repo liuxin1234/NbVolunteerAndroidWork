@@ -15,6 +15,7 @@ import com.example.core.AppActionImpl;
 import com.example.model.ActionCallbackListener;
 import com.example.renhao.wevolunteer.R;
 import com.example.renhao.wevolunteer.base.BaseActivity;
+import com.example.renhao.wevolunteer.utils.ActionBarUtils;
 import com.example.renhao.wevolunteer.utils.Util;
 import com.example.renhao.wevolunteer.view.Btn_TimeCountUtil;
 
@@ -27,7 +28,7 @@ public class ForgotPasswordActivity extends BaseActivity implements View.OnClick
     Button btn_verification_code;
     EditText et_phone;
     EditText et_verification_code;
-    LinearLayout ll_back;
+//    LinearLayout ll_back;
     Button btn_forgot_byMobile;
     Button btn_forgot_byIDNumber;
     LinearLayout ll_layout1;
@@ -53,6 +54,14 @@ public class ForgotPasswordActivity extends BaseActivity implements View.OnClick
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_password);
+        View actionBar = setActionBar();
+        ActionBarUtils.setImgBack(actionBar, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        ActionBarUtils.setTvTitlet(actionBar,getResources().getString(R.string.title_forgot_password));
         getAccessToken();
         initView();
         initListener();
@@ -62,7 +71,7 @@ public class ForgotPasswordActivity extends BaseActivity implements View.OnClick
         btn_verification_code = (Button) findViewById(R.id.btn_forget_verification_code);
         et_phone = (EditText) findViewById(R.id.et_forget_phone);
         et_verification_code = (EditText) findViewById(R.id.et_forget_verification_code);
-        ll_back = (LinearLayout) findViewById(R.id.ll_back);
+//        ll_back = (LinearLayout) findViewById(R.id.ll_back);
         btn_forgot_byMobile = (Button) findViewById(R.id.btn_forgot_byMobile);
         btn_forgot_byIDNumber = (Button) findViewById(R.id.btn_forgot_byIDNumber);
         ll_layout1 = (LinearLayout) findViewById(R.id.layout1);
@@ -77,7 +86,7 @@ public class ForgotPasswordActivity extends BaseActivity implements View.OnClick
 
     private void initListener() {
         btn_verification_code.setOnClickListener(this);
-        ll_back.setOnClickListener(this);
+//        ll_back.setOnClickListener(this);
         btn_forgot_byMobile.setOnClickListener(this);
         btn_forgot_byIDNumber.setOnClickListener(this);
         btn_byMobile.setOnClickListener(this);
@@ -171,9 +180,9 @@ public class ForgotPasswordActivity extends BaseActivity implements View.OnClick
             case R.id.btn_forget_verification_code:
                 existsMobile();
                 break;
-            case R.id.ll_back:
-                finish();
-                break;
+//            case R.id.ll_back:
+//                finish();
+//                break;
             case R.id.btn_forgot_byMobile:
                 verifyCode();
                 break;

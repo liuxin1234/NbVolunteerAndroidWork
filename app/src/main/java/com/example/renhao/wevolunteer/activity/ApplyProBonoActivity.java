@@ -22,6 +22,7 @@ import com.example.model.volunteer.VolunteerViewDto;
 import com.example.renhao.wevolunteer.R;
 import com.example.renhao.wevolunteer.base.BaseActivity;
 import com.example.renhao.wevolunteer.event.UpLoadFileEvent;
+import com.example.renhao.wevolunteer.utils.ActionBarUtils;
 import com.example.renhao.wevolunteer.view.Btn_TimeCountUtil;
 import com.example.renhao.wevolunteer.view.Polity_Pop;
 import com.github.jjobes.htmldialog.HtmlDialog;
@@ -119,19 +120,29 @@ public class ApplyProBonoActivity extends BaseActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_apply_pro_bono);
         EventBus.getDefault().register(this);
+
+        View actionBar = setActionBar();
+        ActionBarUtils.setImgBack(actionBar, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        ActionBarUtils.setTvTitlet(actionBar,getResources().getString(R.string.title_apply_pro_bono));
+
         Intent intent = getIntent();
         personal_data = (VolunteerViewDto) intent.getSerializableExtra("personal_data");
         if (personal_data.getAuditStatus() != null) {
             SendHandlerMsg(UPDATE_UI);
         }
 
-        ImageView btn_back = (ImageView) findViewById(R.id.imageView_btn_back);
-        btn_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ApplyProBonoActivity.this.finish();
-            }
-        });
+//        ImageView btn_back = (ImageView) findViewById(R.id.imageView_btn_back);
+//        btn_back.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                ApplyProBonoActivity.this.finish();
+//            }
+//        });
 
 
         //手机验证码

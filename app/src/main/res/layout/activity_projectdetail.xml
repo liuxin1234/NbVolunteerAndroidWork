@@ -56,7 +56,7 @@
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
         android:layout_above="@id/projectdetail_border"
-        android:scrollbars="vertical">
+        android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -77,6 +77,15 @@
                     android:layout_centerVertical="true"
                     android:layout_margin="@dimen/listitem_homepage_margin"
                     android:scaleType="fitXY"/>
+
+                <ImageView
+                    android:id="@+id/imageview_state"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:src="@mipmap/icon_processing_right"/>
 
                 <RelativeLayout
                     android:id="@+id/relative_projectdetail"
@@ -167,21 +176,21 @@
                         android:textColor="@color/colorWhite"
                         android:textSize="@dimen/textview_listview_textsizeSmall"/>
 
-                    <TextView
-                        android:id="@+id/tv_projectdetail_state"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginBottom="@dimen/textview_listview_margin"
-                        android:layout_marginRight="@dimen/textview_listview_margin"
-                        android:background="@color/colorCyan"
-                        android:paddingBottom="@dimen/textview_listview_paddingSmall"
-                        android:paddingLeft="@dimen/textview_listview_paddingBig"
-                        android:paddingRight="@dimen/textview_listview_paddingBig"
-                        android:paddingTop="@dimen/textview_listview_paddingSmall"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="@dimen/textview_listview_textsizeSmall"/>
+                    <!--<TextView-->
+                        <!--android:id="@+id/tv_projectdetail_state"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_alignParentBottom="true"-->
+                        <!--android:layout_alignParentRight="true"-->
+                        <!--android:layout_marginBottom="@dimen/textview_listview_margin"-->
+                        <!--android:layout_marginRight="@dimen/textview_listview_margin"-->
+                        <!--android:background="@color/colorCyan"-->
+                        <!--android:paddingBottom="@dimen/textview_listview_paddingSmall"-->
+                        <!--android:paddingLeft="@dimen/textview_listview_paddingBig"-->
+                        <!--android:paddingRight="@dimen/textview_listview_paddingBig"-->
+                        <!--android:paddingTop="@dimen/textview_listview_paddingSmall"-->
+                        <!--android:textColor="@color/colorWhite"-->
+                        <!--android:textSize="@dimen/textview_listview_textsizeSmall"/>-->
 
                 </RelativeLayout>
             </RelativeLayout>

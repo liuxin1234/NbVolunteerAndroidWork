@@ -55,7 +55,7 @@
     <dimen name="imageview_myproject_magnifierSize">20dp</dimen>
 
     <!--myProject-->
-    <dimen name="myProject_item_height">100dp</dimen>
+    <dimen name="myProject_item_height">120dp</dimen>
     <dimen name="imageview_myproject_margin">8dp</dimen>
     <dimen name="imageview_myproject_item_width">100dp</dimen>
     <dimen name="imageview_myproject_item_height">70dp</dimen>

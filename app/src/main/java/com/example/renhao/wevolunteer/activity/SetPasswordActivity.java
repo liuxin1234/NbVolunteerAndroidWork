@@ -14,6 +14,7 @@ import com.example.core.local.LocalDate;
 import com.example.model.ActionCallbackListener;
 import com.example.renhao.wevolunteer.R;
 import com.example.renhao.wevolunteer.base.BaseActivity;
+import com.example.renhao.wevolunteer.utils.ActionBarUtils;
 import com.orhanobut.logger.Logger;
 
 /**
@@ -35,28 +36,41 @@ public class SetPasswordActivity extends BaseActivity implements View.OnFocusCha
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set_password);
 
-        Intent intent = getIntent();
-        ID = intent.getStringExtra("ID");
-
-        //QueryOldPSWD();
-        edit_old = (EditText) findViewById(R.id.edit_password_old);
-        edit_new = (EditText) findViewById(R.id.edit_password_new);
-        edit_again = (EditText) findViewById(R.id.edit_password_again);
-
-        tv_submit = (TextView) findViewById(R.id.tv_password_change);
-        tv_submit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                QueryOldPSWD();
-            }
-        });
-        back = (ImageView) findViewById(R.id.imageView_setpassword_back);
-        back.setOnClickListener(new View.OnClickListener() {
+        View actionBar = setActionBar();
+        ActionBarUtils.setImgBack(actionBar, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
+        ActionBarUtils.setTvTitlet(actionBar,getResources().getString(R.string.title_set_password));
+        ActionBarUtils.setTvSubmit(actionBar,"提交", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                QueryOldPSWD();
+            }
+        });
+
+        Intent intent = getIntent();
+        ID = intent.getStringExtra("ID");
+
+        edit_old = (EditText) findViewById(R.id.edit_password_old);
+        edit_new = (EditText) findViewById(R.id.edit_password_new);
+        edit_again = (EditText) findViewById(R.id.edit_password_again);
+
+//        tv_submit = (TextView) findViewById(R.id.tv_password_change);
+//        tv_submit.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//            }
+//        });
+//        back = (ImageView) findViewById(R.id.imageView_setpassword_back);
+//        back.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                finish();
+//            }
+//        });
         edit_old.setOnFocusChangeListener(this);
         edit_new.setOnFocusChangeListener(this);
         edit_again.setOnFocusChangeListener(this);

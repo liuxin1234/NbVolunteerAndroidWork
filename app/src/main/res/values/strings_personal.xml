@@ -61,6 +61,7 @@
     <string name="title_service_category">意向志愿服务类别</string>
     <string name="title_area_selection">区域选择</string>
     <string name="title_personal_attribute">个人属性</string>
+    <string name="title_personal_sex">性别</string>
     <string name="title_volunteer_type">是否为平安志愿者</string>
     <string name="title_forgot_password">找回密码</string>
     <string name="tv_account">手机号码</string>
@@ -82,8 +83,10 @@
     <string name="myEMail_item_text">我的邮箱</string>
     <string name="myUserName_item_text">用 户 名</string>
     <string name="myTrueName_item_text">姓    名</string>
+    <string name="mySex_item_text">性    别</string>
     <string name="myIDNumber_item_text">身份证号</string>
     <string name="myAttribute_item_text">个人属性</string>
+    <string name="myEducation_item_text">最高学历</string>
     <string name="myPoliticsStatus_item_text">政治面貌</string>
     <string name="myMajor_item_text">专业特长</string>
     <string name="myNowCompany_item_text">现工作单位</string>
@@ -92,7 +95,8 @@
     <string name="myImageType_item_text">意向类别</string>
     <string name="btn_quit_text">退出登陆</string>
     <string name="my_Volunteer_type_text">是否为平安志愿者</string>
-
+    <string name="myNation_type_text">民族类型</string>
+    <string name="myEducation_type_text">最高学历</string>
 
     <!--POP for PersonalData-->
     <string name="btn_pickPIC">从相册选择</string>

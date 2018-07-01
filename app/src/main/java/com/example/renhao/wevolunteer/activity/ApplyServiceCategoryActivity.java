@@ -17,6 +17,7 @@ import com.example.model.dictionary.DictionaryListDto;
 import com.example.model.volunteer.VolunteerViewDto;
 import com.example.renhao.wevolunteer.R;
 import com.example.renhao.wevolunteer.base.BaseActivity;
+import com.example.renhao.wevolunteer.utils.ActionBarUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,14 +33,14 @@ import butterknife.OnClick;
  */
 public class ApplyServiceCategoryActivity extends BaseActivity {
     private static final String TAG = "ApplyServiceCategoryActivity";
-    @Bind(R.id.imageView)
-    ImageView mBack;
-    @Bind(R.id.relativeLayout)
-    RelativeLayout mRelativeLayout;
+//    @Bind(R.id.imageView)
+//    ImageView mBack;
+//    @Bind(R.id.relativeLayout)
+//    RelativeLayout mRelativeLayout;
     @Bind(R.id.listView_service_category)
     ListView listView;
-    @Bind(R.id.tv_serverCategory_submit)
-    TextView mSubmit;
+//    @Bind(R.id.tv_serverCategory_submit)
+//    TextView mSubmit;
 
     private int type;
 
@@ -57,6 +58,21 @@ public class ApplyServiceCategoryActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_service_category);
         ButterKnife.bind(this);
+
+        View actionBar = setActionBar();
+        ActionBarUtils.setImgBack(actionBar, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        ActionBarUtils.setTvTitlet(actionBar,"意向服务类别");
+        ActionBarUtils.setTvSubmit(actionBar,"提交", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                submit();
+            }
+        });
 
         type = getIntent().getIntExtra("type", -1);
 
@@ -110,17 +126,17 @@ public class ApplyServiceCategoryActivity extends BaseActivity {
         });
     }
 
-    @OnClick({R.id.imageView, R.id.tv_serverCategory_submit})
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.imageView:
-                finish();
-                break;
-            case R.id.tv_serverCategory_submit:
-                submit();
-                break;
-        }
-    }
+//    @OnClick({R.id.imageView, R.id.tv_serverCategory_submit})
+//    public void onClick(View view) {
+//        switch (view.getId()) {
+//            case R.id.imageView:
+//                finish();
+//                break;
+//            case R.id.tv_serverCategory_submit:
+//                submit();
+//                break;
+//        }
+//    }
 
     private void submit() {
         //获取选择的意向类型code
@@ -139,6 +155,7 @@ public class ApplyServiceCategoryActivity extends BaseActivity {
 
         if (TextUtils.isEmpty(serviceIntention)) {
             showToast("请选择");
+            dissMissNormalDialog();
             return;
         }
         serviceIntention = serviceIntention.substring(0, serviceIntention.length() - 1);

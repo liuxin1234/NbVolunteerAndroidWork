@@ -58,6 +58,9 @@ public class MyRecruitJobAdapter extends BaseAdapter {
         public TextView TIME;
         public TextView STATE;
         public ImageView PIC;
+        public TextView tvSignInTiem;
+        public TextView tvSignOutTime;
+        public TextView tvLengthTime;
     }
 
 
@@ -71,6 +74,9 @@ public class MyRecruitJobAdapter extends BaseAdapter {
             holder.STATE = (TextView) convertView.findViewById(R.id.tv_myProject_state);
             holder.PIC = (ImageView) convertView.findViewById(R.id.iv_myProject_item);
             holder.TIME = (TextView) convertView.findViewById(R.id.tv_myProject_projectTime);
+            holder.tvSignInTiem = (TextView) convertView.findViewById(R.id.tv_SignInTime);
+            holder.tvSignOutTime = (TextView) convertView.findViewById(R.id.tv_SignOutTime);
+            holder.tvLengthTime = (TextView) convertView.findViewById(R.id.tv_LengthTime);
             convertView.setTag(holder);//绑定ViewHolder对象
         } else {
             holder = (MyRecruitJobAdapter.ViewHolder) convertView.getTag();//取出ViewHolder对象
@@ -78,6 +84,13 @@ public class MyRecruitJobAdapter extends BaseAdapter {
         holder.name.setText(lists.get(position).getNeme());
         holder.TIME.setText(lists.get(position).getTime());
         holder.STATE.setText("取消"+"\n"+"报名");
+
+        if (lists.get(position).getType() == 3){
+            holder.tvSignInTiem.setVisibility(View.GONE);
+            holder.tvSignOutTime.setVisibility(View.GONE);
+            holder.tvLengthTime.setVisibility(View.GONE);
+        }
+
         if (lists.get(position).getAuditStatus() == 0){
             System.out.println(1);
             holder.STATE.setVisibility(View.VISIBLE);

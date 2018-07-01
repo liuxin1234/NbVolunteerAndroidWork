@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.example.model.items.HomePageListItem;
 import com.example.renhao.wevolunteer.R;
+import com.example.renhao.wevolunteer.utils.ServiceDateUtils;
 import com.example.renhao.wevolunteer.utils.Util;
 import com.orhanobut.logger.Logger;
 import com.squareup.picasso.Picasso;
@@ -64,13 +65,13 @@ public class HomePageAdapter extends BaseAdapter {
             convertView = layoutInflater.inflate(R.layout.listitem_homepage, null);
             viewHolder = new ViewHolder();
             viewHolder.imageView = (ImageView) convertView.findViewById(R.id.imageview_homepage_itemImage);
+            viewHolder.imageState = (ImageView) convertView.findViewById(R.id.imageview_state);
             viewHolder.typeTv = (TextView) convertView.findViewById(R.id.textview_listitem_type);
             viewHolder.titleTv = (TextView) convertView.findViewById(R.id.textview_listitem_tilte);
             viewHolder.numNameTv = (TextView) convertView.findViewById(R.id.tv_listitem_numName);
             viewHolder.numTv = (TextView) convertView.findViewById(R.id.tv_listitem_num);
-            viewHolder.timeNameTv = (TextView) convertView.findViewById(R.id.tv_listitem_timeName);
+//            viewHolder.timeNameTv = (TextView) convertView.findViewById(R.id.tv_listitem_timeName);
             viewHolder.timeTv = (TextView) convertView.findViewById(R.id.tv_listitem_time);
-            viewHolder.stateTv = (TextView) convertView.findViewById(R.id.tv_listitem_state);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
@@ -94,29 +95,38 @@ public class HomePageAdapter extends BaseAdapter {
         viewHolder.titleTv.setText(item.getTitle());
 
         viewHolder.numTv.setText(item.getNum() + "/" + item.getMaxNum() + " 人");
-        Number h = item.getTime();
-        java.text.DecimalFormat df = new java.text.DecimalFormat("#.##");
-        viewHolder.timeTv.setText(df.format(h) + "时");
+//        Number h = item.getTime();
+//        java.text.DecimalFormat df = new java.text.DecimalFormat("#.##");
+//        viewHolder.timeTv.setText(df.format(h) + "时");
+        String startTime = item.getStartTime();
+        String finishTime = item.getFinishTime();
+        String serviceTime = ServiceDateUtils.setServiceTime(startTime, finishTime);
+        viewHolder.timeTv.setText(serviceTime);
 
         if (item.getType() == 0)//活动
         {
             viewHolder.typeTv.setText("活动");
-            viewHolder.numNameTv.setText("活动招募人数");
-            viewHolder.timeNameTv.setText("活动服务时长");
+            viewHolder.numNameTv.setText("招募人数");
         } else {
             viewHolder.typeTv.setText("岗位");
-            viewHolder.numNameTv.setText("岗位招募人次");
-            viewHolder.timeNameTv.setText("单次服务时长");
+            viewHolder.numNameTv.setText("招募人数");
         }
 
-        viewHolder.stateTv.setText(item.getState());
+        String state = item.getState();
+        if (state.equals("招募中")){
+            viewHolder.imageState.setImageResource(R.mipmap.icon_recruiting_right);
+        }else if (state.equals("进行中")) {
+            viewHolder.imageState.setImageResource(R.mipmap.icon_processing_right);
+        }else if (state.equals("已结束")) {
+            viewHolder.imageState.setImageResource(R.mipmap.icon_over_right);
+        }
 
         return convertView;
     }
 
 
     static class ViewHolder {
-        ImageView imageView;
-        TextView typeTv, titleTv, numNameTv, numTv, timeNameTv, timeTv, stateTv;
+        ImageView imageView, imageState;
+        TextView typeTv, titleTv, numNameTv, numTv, timeTv;
     }
 }

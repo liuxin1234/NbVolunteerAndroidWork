@@ -16,6 +16,7 @@ import com.example.model.dictionary.DictionaryListDto;
 import com.example.model.volunteer.VolunteerViewDto;
 import com.example.renhao.wevolunteer.R;
 import com.example.renhao.wevolunteer.base.BaseActivity;
+import com.example.renhao.wevolunteer.utils.ActionBarUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,14 +32,14 @@ import butterknife.OnClick;
  */
 public class ApplySpecialtyActivity extends BaseActivity {
     private static final String TAG = "ApplyServiceCategoryActivity";
-    @Bind(R.id.imageView)
-    ImageView mBack;
+//    @Bind(R.id.imageView)
+//    ImageView mBack;
     @Bind(R.id.relativeLayout)
     RelativeLayout mRelativeLayout;
     @Bind(R.id.listView_service_category)
     ListView listView;
-    @Bind(R.id.tv_serverCategory_submit)
-    TextView mSubmit;
+//    @Bind(R.id.tv_serverCategory_submit)
+//    TextView mSubmit;
 
     private List<String> actions;
     private List<String> actionCodes;
@@ -54,6 +55,22 @@ public class ApplySpecialtyActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_service_category);
         ButterKnife.bind(this);
+
+        View actionBar = setActionBar();
+        ActionBarUtils.setImgBack(actionBar, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        ActionBarUtils.setTvTitlet(actionBar,getResources().getString(R.string.myNation_type_text));
+        ActionBarUtils.setTvSubmit(actionBar,"提交", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                submit();
+            }
+        });
+
         selectCode = new HashMap<>();
 
         personalData = (VolunteerViewDto) getIntent().getSerializableExtra("personal_data");
@@ -89,6 +106,23 @@ public class ApplySpecialtyActivity extends BaseActivity {
                 });
     }
 
+    private void submit() {
+        //获取选择的意向类型code
+        String serviceIntention = "";
+        for (int i = 0; i < actionCodes.size(); i++) {
+            if (isSelect.get(i)) {
+                serviceIntention += actionCodes.get(i) + ",";
+            }
+        }
+        serviceIntention = serviceIntention.substring(0, serviceIntention.length() - 1);
+        //提交
+        personalData.setSpecialtyType(serviceIntention);
+        Intent result = new Intent();
+        result.putExtra("personal_data", personalData);
+        setResult(RESULT_OK, result);
+        ApplySpecialtyActivity.this.finish();
+    }
+
     private void initListView() {
         actions = new ArrayList<>();
         arrayAdapter = new ArrayAdapter<String>(
@@ -104,30 +138,17 @@ public class ApplySpecialtyActivity extends BaseActivity {
         });
     }
 
-    @OnClick({R.id.imageView, R.id.tv_serverCategory_submit})
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.imageView:
-                finish();
-                break;
-            case R.id.tv_serverCategory_submit:
-                //获取选择的意向类型code
-                String serviceIntention = "";
-                for (int i = 0; i < actionCodes.size(); i++) {
-                    if (isSelect.get(i)) {
-                        serviceIntention += actionCodes.get(i) + ",";
-                    }
-                }
-                serviceIntention = serviceIntention.substring(0, serviceIntention.length() - 1);
-                //提交
-                personalData.setSpecialtyType(serviceIntention);
-                Intent result = new Intent();
-                result.putExtra("personal_data", personalData);
-                setResult(RESULT_OK, result);
-                ApplySpecialtyActivity.this.finish();
-                break;
-        }
-    }
+//    @OnClick({R.id.imageView, R.id.tv_serverCategory_submit})
+//    public void onClick(View view) {
+//        switch (view.getId()) {
+//            case R.id.imageView:
+//                finish();
+//                break;
+//            case R.id.tv_serverCategory_submit:
+//
+//                break;
+//        }
+//    }
 
 
 }

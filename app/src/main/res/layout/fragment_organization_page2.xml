@@ -71,7 +71,8 @@
     <com.handmark.pulltorefresh.library.PullToRefreshListView
         android:id="@+id/listvew_organization_projectItem"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:scrollbars="none">
     </com.handmark.pulltorefresh.library.PullToRefreshListView>
 
 </LinearLayout>

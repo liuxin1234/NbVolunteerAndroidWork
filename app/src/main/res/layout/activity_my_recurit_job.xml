@@ -5,48 +5,47 @@
     android:layout_height="match_parent"
     android:background="#ffeaebeb"
     android:orientation="vertical">
-    <RelativeLayout
-        android:id="@+id/relativeLayout"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/actionbar_homepage_height"
-        android:background="@color/colorCyan">
+    <!--<RelativeLayout-->
+        <!--android:id="@+id/relativeLayout"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="@dimen/actionbar_homepage_height"-->
+        <!--android:background="@color/colorCyan">-->
 
-        <ImageView
-            android:id="@+id/imageView_myRecruitJob_btn_back"
-            android:layout_width="@dimen/imageview_homepage_magnifierSize"
-            android:layout_height="@dimen/imageview_homepage_magnifierSize"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/actionbar_homepage_margin"
-            android:layout_marginStart="@dimen/actionbar_homepage_margin"
-            android:padding="@dimen/imageview_backBTN_padding"
-            android:src="@drawable/icon_indicator" />
+        <!--<ImageView-->
+            <!--android:id="@+id/imageView_myRecruitJob_btn_back"-->
+            <!--android:layout_width="@dimen/imageview_homepage_magnifierSize"-->
+            <!--android:layout_height="@dimen/imageview_homepage_magnifierSize"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_marginLeft="@dimen/actionbar_homepage_margin"-->
+            <!--android:layout_marginStart="@dimen/actionbar_homepage_margin"-->
+            <!--android:padding="@dimen/imageview_backBTN_padding"-->
+            <!--android:src="@drawable/icon_indicator" />-->
 
-        <ImageView
-            android:id="@+id/imageview_myRecruitJob_magnifier"
-            android:layout_width="@dimen/imageview_myproject_magnifierSize"
-            android:layout_height="@dimen/imageview_myproject_magnifierSize"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/imageview_myproject_margin"
-            android:src="@drawable/magnifier" />
+        <!--<ImageView-->
+            <!--android:id="@+id/imageview_myRecruitJob_magnifier"-->
+            <!--android:layout_width="@dimen/imageview_myproject_magnifierSize"-->
+            <!--android:layout_height="@dimen/imageview_myproject_magnifierSize"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_marginRight="@dimen/imageview_myproject_margin"-->
+            <!--android:src="@drawable/magnifier" />-->
 
-        <TextView
-            android:id="@+id/tv_myRecruitJob_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:gravity="center_vertical"
-            android:textColor="@color/colorWhite"
-            android:text="我的报名纪录"
-            android:textSize="@dimen/textview_homepage_titlesize" />
-    </RelativeLayout>
+        <!--<TextView-->
+            <!--android:id="@+id/tv_myRecruitJob_title"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:textColor="@color/colorWhite"-->
+            <!--android:text="我的报名纪录"-->
+            <!--android:textSize="@dimen/textview_homepage_titlesize" />-->
+    <!--</RelativeLayout>-->
 
     <com.handmark.pulltorefresh.library.PullToRefreshListView
         android:id="@+id/listview_myRecruitJob"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
         android:cacheColorHint="#00000000"
         android:choiceMode="singleChoice"
         android:divider="#00000000"
@@ -57,5 +56,6 @@
         android:groupIndicator="@null"
         android:listSelector="@drawable/timer_list_selector"
         android:scrollingCache="true"
+        android:scrollbars="none"
         app:ptrHeaderBackground="#ffeaebeb" />
 </LinearLayout>

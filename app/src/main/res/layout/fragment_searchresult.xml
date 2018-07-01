@@ -21,6 +21,7 @@
         android:groupIndicator="@null"
         android:listSelector="@drawable/timer_list_selector"
         android:scrollingCache="true"
+        android:scrollbars="none"
         app:ptrHeaderBackground="#ffeaebeb"/>
 
     <LinearLayout

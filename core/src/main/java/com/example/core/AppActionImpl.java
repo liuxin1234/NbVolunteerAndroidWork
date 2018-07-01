@@ -29,6 +29,7 @@ import com.example.model.activityattention.ActivityAttentionDto;
 import com.example.model.activityattention.ActivityAttentionListDto;
 import com.example.model.activityattention.ActivityAttentionQueryOptionDto;
 import com.example.model.area.AreaListDto;
+import com.example.model.area.AreaQueryOptionDto;
 import com.example.model.area.AreaViewDto;
 import com.example.model.company.CompanyListDto;
 import com.example.model.company.CompanyQueryOptionDto;
@@ -49,6 +50,8 @@ import com.example.model.organization.OrganizationListDto;
 import com.example.model.organization.OrganizationQueryOptionDto;
 import com.example.model.signRecord.SignInOutDto;
 import com.example.model.signRecord.SignRecordSimple;
+import com.example.model.signResult.SignResultListDto;
+import com.example.model.signResult.SignResultQueryOptionDto;
 import com.example.model.user.UserDepartmentViewDto;
 import com.example.model.user.UserDto;
 import com.example.model.user.UserListDto;
@@ -851,6 +854,31 @@ public class AppActionImpl implements AppAction {
     }
 
     @Override
+    public void postAreaKeyWordQuery(final AreaQueryOptionDto query, final ActionCallbackListener<PagedListEntityDto<AreaListDto>> listener) {
+        //判断票据是否过期
+        final String accessToken = LocalDate.getInstance(context).getLocalDate("access_token", "");
+        new AsyncTask<Void, Void, ApiResponse<PagedListEntityDto<AreaListDto>>>() {
+            @Override
+            protected ApiResponse<PagedListEntityDto<AreaListDto>> doInBackground(Void... params) {
+                return api.postAreaKeyWordQuery(query, accessToken);
+            }
+
+            @Override
+            protected void onPostExecute(ApiResponse<PagedListEntityDto<AreaListDto>> result) {
+                if (result == null) {
+                    listener.onFailure("", "请检查网络后重试");
+                    return;
+                }
+                if (result.isSuccess()) {
+                    listener.onSuccess(result.getData());
+                } else {
+                    listener.onFailure("", result.getMessage());
+                }
+            }
+        }.execute();
+    }
+
+    @Override
     public void contentQuery(final ContentQueryOptionDto query, final ActionCallbackListener<PagedListEntityDto<ContentListDto>> listener) {
         //判断票据是否过期
         final String accessToken = LocalDate.getInstance(context).getLocalDate("access_token", "");
@@ -1519,6 +1547,31 @@ public class AppActionImpl implements AppAction {
 
             @Override
             protected void onPostExecute(ApiResponse<String> result) {
+                if (result == null) {
+                    listener.onFailure("", "请检查网络后重试");
+                    return;
+                }
+                if (result.isSuccess()) {
+                    listener.onSuccess(result.getData());
+                } else {
+                    listener.onFailure("", result.getMessage());
+                }
+            }
+        }.execute();
+    }
+
+    @Override
+    public void postSignResultQuery(final SignResultQueryOptionDto query, final ActionCallbackListener<PagedListEntityDto<SignResultListDto>> listener) {
+        //判断票据是否过期
+        final String accessToken = LocalDate.getInstance(context).getLocalDate("access_token", "");
+        new AsyncTask<Void, Void, ApiResponse<PagedListEntityDto<SignResultListDto>>>() {
+            @Override
+            protected ApiResponse<PagedListEntityDto<SignResultListDto>> doInBackground(Void... params) {
+                return api.postSignResultQuery(query, accessToken);
+            }
+
+            @Override
+            protected void onPostExecute(ApiResponse<PagedListEntityDto<SignResultListDto>> result) {
                 if (result == null) {
                     listener.onFailure("", "请检查网络后重试");
                     return;

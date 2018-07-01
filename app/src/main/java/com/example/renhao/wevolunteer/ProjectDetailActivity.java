@@ -105,8 +105,8 @@ public class ProjectDetailActivity extends BaseActivity {
     TextView mTvTimeName;
     @Bind(R.id.tv_projectdetail_time)
     TextView mTvTime;
-    @Bind(R.id.tv_projectdetail_state)
-    TextView mTvState;
+//    @Bind(R.id.tv_projectdetail_state)
+//    TextView mTvState;
     @Bind(R.id.relative_projectdetail)
     RelativeLayout mRelative;
     @Bind(R.id.relative_projectdetail_item)
@@ -191,7 +191,8 @@ public class ProjectDetailActivity extends BaseActivity {
     TextView mTvServiceTimeName;
     @Bind(R.id.tv_projectDetail_serviceTime)
     TextView mTvServiceTime;
-
+    @Bind(R.id.imageview_state)
+    ImageView mImageViewState;
 
     private View mCustomView;//actionbar的自定义视图
     private ImageView indicatorImg;
@@ -211,7 +212,7 @@ public class ProjectDetailActivity extends BaseActivity {
     private String id;
     private int type;
     private Map<String, String> notes = new HashMap<>();
-    private SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
+    private SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     private boolean isAttention = false;
     private boolean isInitAttention = false;
@@ -223,6 +224,7 @@ public class ProjectDetailActivity extends BaseActivity {
     String imagUrl = "";
 
     String activityOrJob_Url = "";
+    private String mOperationState; //当前活动状态
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -371,8 +373,9 @@ public class ProjectDetailActivity extends BaseActivity {
         DecimalFormat df = new DecimalFormat("#.##");
         mTvTime.setText(df.format(h) + "小时");
 
-        mTvState.setText(data.getOperationState());
-
+//        mTvState.setText(data.getOperationState());
+        mOperationState = data.getOperationState();
+        setOperationStateImg(mOperationState);
 
         if (!TextUtils.isEmpty(data.getAppLstUrl())) {
             imagUrl = data.getAppLstUrl();
@@ -461,8 +464,9 @@ public class ProjectDetailActivity extends BaseActivity {
         DecimalFormat df = new DecimalFormat("#.##");
         mTvTime.setText(df.format(h) + "小时");
 
-        mTvState.setText(data.getOperationState());
-
+//        mTvState.setText(data.getOperationState());
+        mOperationState = data.getOperationState();
+        setOperationStateImg(mOperationState);
 
 
         if (!TextUtils.isEmpty(data.getAppLstUrl())) {
@@ -549,10 +553,21 @@ public class ProjectDetailActivity extends BaseActivity {
             mTvSignedName.setText("已报名志愿者");
             mTvNumName.setText("岗位招募人数");
             mTvTimeName.setText("岗位服务时长");
-
         }
+    }
 
-
+    /**
+     * 设置右上角的岗位/活动状态
+     * @param operationState
+     */
+    private void setOperationStateImg(String operationState){
+        if (operationState.equals("招募中")){
+            mImageViewState.setImageResource(R.mipmap.icon_recruiting_right);
+        }else if (operationState.equals("进行中")) {
+            mImageViewState.setImageResource(R.mipmap.icon_processing_right);
+        }else if (operationState.equals("已结束")) {
+            mImageViewState.setImageResource(R.mipmap.icon_over_right);
+        }
     }
 
     private void initActionBar() {
@@ -695,7 +710,7 @@ public class ProjectDetailActivity extends BaseActivity {
             showToast("请先登录");
             return;
         }
-        if (mTvState.getText().equals("已结束")) {
+        if (mOperationState.equals("已结束")) {
             showToast("有效的报名时间段已经过期");
         } else {
             createAlertDialog();
@@ -745,25 +760,6 @@ public class ProjectDetailActivity extends BaseActivity {
             @Override
             public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
                 selsecTv.setText(date.getYear() + "-" + (date.getMonth() + 1) + "-" + date.getDay());
-
-                //这里是多选的测试方法，目前尚有bug
-//                final List<CalendarDay> selectedDates = calendarView.getSelectedDates();
-//                List<String> listDates = new ArrayList<String>();
-//                for (int i=0;i<selectedDates.size();i++){
-//
-//                    final int year = selectedDates.get(i).getYear();
-//                    final int month = selectedDates.get(i).getMonth()+1;
-//                    final int day = selectedDates.get(i).getDay();
-//                    String Data = year+"-"+month+"-"+day;
-//                    listDates.add(Data);
-//
-//                }
-//
-//                if (listDates.isEmpty() && listDates.size()<=0){
-//                    selsecTv.setText(null);
-//                }else {
-//                    selsecTv.setText(listDates.toString());
-//                }
             }
         });
 

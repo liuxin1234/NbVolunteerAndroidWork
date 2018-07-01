@@ -23,6 +23,7 @@ import com.example.renhao.wevolunteer.R;
 import com.example.renhao.wevolunteer.SearchActivity;
 import com.example.renhao.wevolunteer.adapter.MyRecruitJobAdapter;
 import com.example.renhao.wevolunteer.base.BaseActivity;
+import com.example.renhao.wevolunteer.utils.ActionBarUtils;
 import com.handmark.pulltorefresh.library.ILoadingLayout;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
@@ -38,14 +39,14 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MyRecuritJobActivity extends BaseActivity {
-    @Bind(R.id.imageView_myRecruitJob_btn_back)
-    ImageView mBack;
-    @Bind(R.id.imageview_myRecruitJob_magnifier)
-    ImageView mMagnifier;
-    @Bind(R.id.tv_myRecruitJob_title)
-    TextView mTvTitle;
-    @Bind(R.id.relativeLayout)
-    RelativeLayout mRelativeLayout;
+//    @Bind(R.id.imageView_myRecruitJob_btn_back)
+//    ImageView mBack;
+//    @Bind(R.id.imageview_myRecruitJob_magnifier)
+//    ImageView mMagnifier;
+//    @Bind(R.id.tv_myRecruitJob_title)
+//    TextView mTvTitle;
+//    @Bind(R.id.relativeLayout)
+//    RelativeLayout mRelativeLayout;
     @Bind(R.id.listview_myRecruitJob)
     PullToRefreshListView mMyproject;
 
@@ -69,6 +70,23 @@ public class MyRecuritJobActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_recurit_job);
         ButterKnife.bind(this);
+
+        View actionBar = setActionBar();
+        ActionBarUtils.setTvTitlet(actionBar,"我的报名纪录");
+        ActionBarUtils.setImgBack(actionBar, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        ActionBarUtils.setImgRightIcon(actionBar, R.drawable.magnifier, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MyRecuritJobActivity.this, SearchActivity.class);
+                startActivity(intent);
+            }
+        });
+
         volunteerId = LocalDate.getInstance(this).getLocalDate("volunteerId", "");
         initPtrListView();
         initDate(REFRESH);
@@ -109,6 +127,7 @@ public class MyRecuritJobActivity extends BaseActivity {
                             item.setPic(listDto.getAppLstUrl());
                             item.setActivityRecruitId(listDto.getId());
                             item.setAuditStatus(listDto.getAuditStatus());
+                            item.setType(3); //表示我的报名记录
                             lists.add(item);
                         }
                         Logger.v("------", dates.size() + "");
@@ -227,18 +246,18 @@ public class MyRecuritJobActivity extends BaseActivity {
         });
     }
 
-    @OnClick({R.id.imageView_myRecruitJob_btn_back, R.id.imageview_myRecruitJob_magnifier})
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.imageView_myRecruitJob_btn_back:
-                MyRecuritJobActivity.this.finish();
-                break;
-            case R.id.imageview_myRecruitJob_magnifier:
-                Intent intent = new Intent(MyRecuritJobActivity.this, SearchActivity.class);
-                startActivity(intent);
-                break;
-        }
-    }
+//    @OnClick({R.id.imageView_myRecruitJob_btn_back, R.id.imageview_myRecruitJob_magnifier})
+//    public void onClick(View view) {
+//        switch (view.getId()) {
+//            case R.id.imageView_myRecruitJob_btn_back:
+//                MyRecuritJobActivity.this.finish();
+//                break;
+//            case R.id.imageview_myRecruitJob_magnifier:
+//                Intent intent = new Intent(MyRecuritJobActivity.this, SearchActivity.class);
+//                startActivity(intent);
+//                break;
+//        }
+//    }
 
     //测试用方法
     private class FinishRefresh extends AsyncTask<Void, Void, Void> {

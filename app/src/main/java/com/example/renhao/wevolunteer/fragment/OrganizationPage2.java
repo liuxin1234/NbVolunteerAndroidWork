@@ -176,6 +176,8 @@ public class OrganizationPage2 extends BaseFragmentV4 {
                             item.setMaxNum(listDto.getRecruitNumber());
                             item.setTime(listDto.getLengthTime());
                             item.setImg(listDto.getAppLstUrl());
+                            item.setStartTime(listDto.getStartTime());
+                            item.setFinishTime(listDto.getFinishTime());
                             list.add(item);
                         }
                         PageIndex = data.getPageIndex();

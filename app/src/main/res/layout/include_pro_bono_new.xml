@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:divider="@drawable/underline"
+    android:orientation="vertical"
+    android:showDividers="middle">
+
+    <LinearLayout
+        android:id="@+id/LL_apply_area"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/linearlayout_select"
+        android:clickable="true"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:text="@string/tv_area"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_register_pro_bono_area"
+            android:layout_width="230dp"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:padding="15dp"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="0.2"
+            android:src="@drawable/icon_right_indicator" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_PoliticalAttribute"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/linearlayout_select"
+        android:clickable="true"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:text="@string/tv_politics_status"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:id="@+id/textView8"/>
+
+        <TextView
+            android:id="@+id/tv_register_pro_bono_polity"
+            android:layout_width="230dp"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:padding="15dp"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="0.2"
+            android:src="@drawable/icon_right_indicator" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_Nation"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/linearlayout_select"
+        android:clickable="true"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:text="民族类型:"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_register_pro_bono_Volk"
+            android:layout_width="230dp"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:padding="15dp"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="0.2"
+            android:src="@drawable/icon_right_indicator" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_Education"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/linearlayout_select"
+        android:clickable="true"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:text="最高学历:"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_register_pro_bono_Education"
+            android:layout_width="230dp"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:padding="15dp"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="0.2"
+            android:src="@drawable/icon_right_indicator" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_intention_type"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/linearlayout_select"
+        android:clickable="true"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:text="@string/tv_intention_type"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_register_pro_bono_serviceType"
+            android:layout_width="230dp"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:padding="15dp"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="0.2"
+            android:src="@drawable/icon_right_indicator" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/ll_professional_ability"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/linearlayout_select"
+        android:clickable="true"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:text="@string/tv_professional_ability"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_register_pro_bono_major"
+            android:layout_width="230dp"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:padding="15dp"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="0.2"
+            android:src="@drawable/icon_right_indicator" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_family_address"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/bg_single_input"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:text="@string/tv_family_address"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/edit_register_Addr"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_weight="1"
+            android:background="@color/colorWhite"
+            android:hint="在此输入您的家庭住址"
+            android:singleLine="true"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+
+</LinearLayout>

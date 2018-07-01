@@ -1,5 +1,6 @@
 package com.example.renhao.wevolunteer.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -54,9 +55,13 @@ public class MyProjectAdapter extends BaseAdapter {
         public TextView TIME;
         public TextView STATE;
         public ImageView PIC;
+        public TextView tvSignInTiem;
+        public TextView tvSignOutTime;
+        public TextView tvLengthTime;
     }
 
 
+    @SuppressLint("SetTextI18n")
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
@@ -67,6 +72,9 @@ public class MyProjectAdapter extends BaseAdapter {
             holder.STATE = (TextView) convertView.findViewById(R.id.tv_myProject_state);
             holder.PIC = (ImageView) convertView.findViewById(R.id.iv_myProject_item);
             holder.TIME = (TextView) convertView.findViewById(R.id.tv_myProject_projectTime);
+            holder.tvSignInTiem = (TextView) convertView.findViewById(R.id.tv_SignInTime);
+            holder.tvSignOutTime = (TextView) convertView.findViewById(R.id.tv_SignOutTime);
+            holder.tvLengthTime = (TextView) convertView.findViewById(R.id.tv_LengthTime);
             convertView.setTag(holder);//绑定ViewHolder对象
         } else {
             holder = (ViewHolder) convertView.getTag();//取出ViewHolder对象
@@ -74,6 +82,27 @@ public class MyProjectAdapter extends BaseAdapter {
         holder.name.setText(lists.get(position).getNeme());
         holder.STATE.setText(lists.get(position).getState());
         holder.TIME.setText(lists.get(position).getTime());
+        if (lists.get(position).getType() == 1){
+            if (lists.get(position).getSignInTime() == null){
+                holder.tvSignInTiem.setText("签到时间：");
+            }else {
+                holder.tvSignInTiem.setText("签到时间："+lists.get(position).getSignInTime());
+            }
+            if (lists.get(position).getSignInTime() == null){
+                holder.tvSignOutTime.setText("签退时间：");
+            }else {
+                holder.tvSignOutTime.setText("签退时间："+lists.get(position).getSignOutTime());
+            }
+            if (lists.get(position).getSignInTime() == null){
+                holder.tvLengthTime.setText("本次服务时长：");
+            }else {
+                holder.tvLengthTime.setText("本次服务时长："+lists.get(position).getComputerHour());
+            }
+        }else if (lists.get(position).getType() == 2){
+            holder.tvSignInTiem.setVisibility(View.GONE);
+            holder.tvSignOutTime.setVisibility(View.GONE);
+            holder.tvLengthTime.setVisibility(View.GONE);
+        }
 
         if (TextUtils.isEmpty(lists.get(position).getPic())) {
             holder.PIC.setImageResource(R.drawable.img_unload);

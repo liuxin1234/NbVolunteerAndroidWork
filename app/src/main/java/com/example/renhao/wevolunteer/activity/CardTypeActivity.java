@@ -16,16 +16,20 @@ import com.example.model.ActionCallbackListener;
 import com.example.model.dictionary.DictionaryListDto;
 import com.example.renhao.wevolunteer.R;
 import com.example.renhao.wevolunteer.base.BaseActivity;
+import com.example.renhao.wevolunteer.utils.ActionBarUtils;
 import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CardTypeActivity extends BaseActivity implements View.OnClickListener {
+/**
+ * 证件类型界面
+ */
+public class CardTypeActivity extends BaseActivity {
 
     ListView listView;
-    ImageView imageView;
-    TextView textView;
+//    ImageView imageView;
+//    TextView textView;
     private List<String> card_type;
     private List<String> cardCode;
     private String type_text;
@@ -35,21 +39,49 @@ public class CardTypeActivity extends BaseActivity implements View.OnClickListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card_type);
+        View actionBar = setActionBar();
+        ActionBarUtils.setImgBack(actionBar, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        ActionBarUtils.setTvTitlet(actionBar,getResources().getString(R.string.title_card_tpye));
+        ActionBarUtils.setTvSubmit(actionBar,"提交", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                submit();
+            }
+        });
         initView();
         initmListener();
         getCardType();
 
     }
 
+    private void submit() {
+        String text = type_text;
+        if (!TextUtils.isEmpty(text)) {
+            Intent intent = new Intent();
+            intent.setClass(CardTypeActivity.this, RegisterActivity.class);
+            intent.putExtra("type_text", text);
+            intent.putExtra("typeCode", typeCode);
+            setResult(RESULT_OK, intent);
+            finish();
+        } else {
+            Toast.makeText(CardTypeActivity.this, "请选择证件类型", Toast.LENGTH_SHORT).show();
+        }
+    }
+
     private void initView() {
         listView = (ListView) findViewById(R.id.listView_card_type);
-        imageView = (ImageView) findViewById(R.id.imageView);
-        textView = (TextView) findViewById(R.id.tv_submit);
+//        imageView = (ImageView) findViewById(R.id.imageView);
+//        textView = (TextView) findViewById(R.id.tv_submit);
     }
 
     private void initmListener() {
-        imageView.setOnClickListener(this);
-        textView.setOnClickListener(this);
+//        imageView.setOnClickListener(this);
+//        textView.setOnClickListener(this);
     }
 
     //证件类型
@@ -87,25 +119,15 @@ public class CardTypeActivity extends BaseActivity implements View.OnClickListen
     }
 
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.imageView:
-                finish();
-                break;
-            case R.id.tv_submit:
-                String text = type_text;
-                if (!TextUtils.isEmpty(text)) {
-                    Intent intent = new Intent();
-                    intent.setClass(CardTypeActivity.this, RegisterActivity.class);
-                    intent.putExtra("type_text", text);
-                    intent.putExtra("typeCode", typeCode);
-                    setResult(RESULT_OK, intent);
-                    finish();
-                } else {
-                    Toast.makeText(CardTypeActivity.this, "请选择证件类型", Toast.LENGTH_SHORT).show();
-                }
-                break;
-        }
-    }
+//    @Override
+//    public void onClick(View v) {
+//        switch (v.getId()) {
+//            case R.id.imageView:
+//                finish();
+//                break;
+//            case R.id.tv_submit:
+//
+//                break;
+//        }
+//    }
 }

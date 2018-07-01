@@ -14,6 +14,8 @@ import android.text.method.PasswordTransformationMethod;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -29,6 +31,7 @@ import com.example.model.user.UserListDto;
 import com.example.renhao.wevolunteer.IndexActivity;
 import com.example.renhao.wevolunteer.R;
 import com.example.renhao.wevolunteer.base.BaseActivity;
+import com.example.renhao.wevolunteer.utils.ActionBarUtils;
 
 /**
  * 登录界面
@@ -55,6 +58,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //隐藏标题栏
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        //隐藏状态栏
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_login);
 
         initView();

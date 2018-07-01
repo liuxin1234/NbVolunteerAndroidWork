@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.example.model.volunteer.VolunteerViewDto;
 import com.example.renhao.wevolunteer.R;
 import com.example.renhao.wevolunteer.base.BaseActivity;
+import com.example.renhao.wevolunteer.utils.ActionBarUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +32,7 @@ public class ApplyServiceTimeActivity extends BaseActivity {
     private String TIME;
     private List<String> time_list;
     private String time_submit;
-    private TextView submit;
+//    private TextView submit;
     private ServiceTimeAdapter serviceTimeActivity;
     private VolunteerViewDto personal_data;
 
@@ -39,6 +40,22 @@ public class ApplyServiceTimeActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_service_time);
+
+        View actionBar = setActionBar();
+        ActionBarUtils.setImgBack(actionBar, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        ActionBarUtils.setTvTitlet(actionBar,getResources().getString(R.string.title_service_time));
+        ActionBarUtils.setTvSubmit(actionBar,"提交", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                submit();
+            }
+        });
+
         listView = (ListView) findViewById(R.id.listView_service_time);
 
         //初始化二维数组
@@ -55,41 +72,44 @@ public class ApplyServiceTimeActivity extends BaseActivity {
         listView.setAdapter(serviceTimeActivity);
 
 
-        submit = (TextView) findViewById(R.id.tv_serviceTime_submit);
-        submit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+//        submit = (TextView) findViewById(R.id.tv_serviceTime_submit);
+//        submit.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//
+//            }
+//        });
 
-                for (int i = 0; i < 7; i++) {
-                    for (int j = 0; j < 3; j++) {
-                        if (time[i][j] != null)
-                            time_list.add(time[i][j]);
-                    }
-                }
-                for (int i = 0; i < time_list.size(); i++) {
-                    if (i == 0)
-                        time_submit = time_list.get(i);
-                    else
-                        time_submit = time_submit + "," + time_list.get(i);
-                }
-                personal_data.setServiceTimeIntention(time_submit);
-                Intent result = new Intent();
-                result.putExtra("personal_data", personal_data);
-                setResult(RESULT_OK, result);
-                ApplyServiceTimeActivity.this.finish();
 
+//        //回退按钮
+//        ImageView btn_back = (ImageView) findViewById(R.id.imageView_btn_back);
+//        btn_back.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                ApplyServiceTimeActivity.this.finish();
+//            }
+//        });
+    }
+
+    private void submit() {
+        for (int i = 0; i < 7; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (time[i][j] != null)
+                    time_list.add(time[i][j]);
             }
-        });
-
-
-        //回退按钮
-        ImageView btn_back = (ImageView) findViewById(R.id.imageView_btn_back);
-        btn_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ApplyServiceTimeActivity.this.finish();
-            }
-        });
+        }
+        for (int i = 0; i < time_list.size(); i++) {
+            if (i == 0)
+                time_submit = time_list.get(i);
+            else
+                time_submit = time_submit + "," + time_list.get(i);
+        }
+        personal_data.setServiceTimeIntention(time_submit);
+        Intent result = new Intent();
+        result.putExtra("personal_data", personal_data);
+        setResult(RESULT_OK, result);
+        ApplyServiceTimeActivity.this.finish();
     }
 
     private void SetTime() {

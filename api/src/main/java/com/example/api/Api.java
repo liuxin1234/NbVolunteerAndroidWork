@@ -18,6 +18,7 @@ import com.example.model.activityattention.ActivityAttentionDto;
 import com.example.model.activityattention.ActivityAttentionListDto;
 import com.example.model.activityattention.ActivityAttentionQueryOptionDto;
 import com.example.model.area.AreaListDto;
+import com.example.model.area.AreaQueryOptionDto;
 import com.example.model.area.AreaViewDto;
 import com.example.model.company.CompanyListDto;
 import com.example.model.company.CompanyQueryOptionDto;
@@ -38,6 +39,8 @@ import com.example.model.organization.OrganizationListDto;
 import com.example.model.organization.OrganizationQueryOptionDto;
 import com.example.model.signRecord.SignInOutDto;
 import com.example.model.signRecord.SignRecordSimple;
+import com.example.model.signResult.SignResultListDto;
+import com.example.model.signResult.SignResultQueryOptionDto;
 import com.example.model.user.UserDepartmentViewDto;
 import com.example.model.user.UserDto;
 import com.example.model.user.UserListDto;
@@ -112,6 +115,7 @@ public interface Api {
     //所在区域
     public static final String AREA_QUERY = "Nbcei.Framework.Api.Impl/v1/area/query/child";
     public static final String AREA_DETAILS = "Nbcei.Framework.Api.Impl/v1/area/details";
+    public static final String AREA_KEY_WORD_QUERY = "Nbcei.Framework.Api.Impl/v1/area/query";
 
     //新闻
     public static final String CONTENT_QUERY = "Nbcei.Plugin.CMS.Api.Impl/v1/Content/query";
@@ -174,6 +178,8 @@ public interface Api {
     //报名活动删除
     public static final String ACTIVITY_RECRUIT_REMOVE = "Nbcei.Plugin.NbVolunteer.Api.Impl/v1/activityrecruit/remove";
 
+    //我的岗位/活动报名的签离签到时间
+    public static final String SIGN_RESULT_QUERY = "Nbcei.Plugin.NbVolunteer.Api.Impl/v1/signresult/query";
     /**
      * 获取accessToken
      *
@@ -336,6 +342,7 @@ public interface Api {
 
     public ApiResponse<AreaViewDto> areaDetails(String code, String accessToken);
 
+    public ApiResponse<PagedListEntityDto<AreaListDto>> postAreaKeyWordQuery(AreaQueryOptionDto query,String accessToken);
 
     /**
      * 新闻查询 分页
@@ -401,4 +408,9 @@ public interface Api {
      * 个人报名活动删除
      */
     public ApiResponse<String> activityRecruitRemove(List<String> activityRecruitId,String accessToken);
+
+    /**
+     * 我的岗位/活动报名的签离签到时间
+     */
+    public ApiResponse<PagedListEntityDto<SignResultListDto>> postSignResultQuery(SignResultQueryOptionDto signResultQueryOptionDto, String accessToken);
 }

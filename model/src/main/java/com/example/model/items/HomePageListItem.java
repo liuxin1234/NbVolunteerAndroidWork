@@ -17,11 +17,14 @@ public class HomePageListItem {
     private int maxNum;
     private Number time;
     private String img;
+    private String startTime;
+    private String finishTime;
 
     public HomePageListItem() {
     }
 
-    public HomePageListItem(String img, int maxNum, int num, String state, Number time, String title, int type) {
+    public HomePageListItem(String img, int maxNum, int num, String state, Number time,
+                            String title, int type, String startTime, String finishTime) {
         this.img = img;
         this.maxNum = maxNum;
         this.num = num;
@@ -29,6 +32,8 @@ public class HomePageListItem {
         this.time = time;
         this.title = title;
         this.type = type;
+        this.startTime = startTime;
+        this.finishTime = finishTime;
     }
 
     public String getImg() {
@@ -89,5 +94,21 @@ public class HomePageListItem {
 
     public void setType(int type) {
         this.type = type;
+    }
+
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
+    public String getFinishTime() {
+        return finishTime;
+    }
+
+    public void setFinishTime(String finishTime) {
+        this.finishTime = finishTime;
     }
 }

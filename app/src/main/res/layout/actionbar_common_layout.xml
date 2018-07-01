@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/actionbar_homepage_height"
+        android:background="@color/colorCyan"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
+
+        <ImageView
+            android:id="@+id/imageView_btn_back"
+            android:layout_width="@dimen/imageview_homepage_magnifierSize"
+            android:layout_height="@dimen/imageview_homepage_magnifierSize"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:padding="@dimen/imageview_backBTN_padding"
+            android:src="@drawable/icon_indicator" />
+
+        <TextView
+            android:id="@+id/tv_title_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center_vertical"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/textview_homepage_titlesize" />
+
+        <TextView
+            android:id="@+id/tv_submit"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/textview_submit_titlesize" />
+
+        <ImageView
+            android:id="@+id/img_right_icon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/textview_submit_titlesize" />
+
+    </RelativeLayout>
+</RelativeLayout>

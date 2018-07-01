@@ -4,39 +4,40 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <!--页面头部-->
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/actionbar_homepage_height"
-        android:background="@color/colorCyan">
+    <!--&lt;!&ndash;页面头部&ndash;&gt;-->
+    <!--<RelativeLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="@dimen/actionbar_homepage_height"-->
+        <!--android:background="@color/colorCyan">-->
 
-        <ImageView
-            android:id="@+id/imageView_btn_back"
-            android:layout_width="@dimen/imageview_homepage_magnifierSize"
-            android:layout_height="@dimen/imageview_homepage_magnifierSize"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/actionbar_homepage_margin"
-            android:layout_marginStart="@dimen/actionbar_homepage_margin"
-            android:padding="@dimen/imageview_backBTN_padding"
-            android:src="@drawable/icon_indicator" />
+        <!--<ImageView-->
+            <!--android:id="@+id/imageView_btn_back"-->
+            <!--android:layout_width="@dimen/imageview_homepage_magnifierSize"-->
+            <!--android:layout_height="@dimen/imageview_homepage_magnifierSize"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_marginLeft="@dimen/actionbar_homepage_margin"-->
+            <!--android:layout_marginStart="@dimen/actionbar_homepage_margin"-->
+            <!--android:padding="@dimen/imageview_backBTN_padding"-->
+            <!--android:src="@drawable/icon_indicator" />-->
 
-        <TextView
-            android:id="@+id/tv_pd_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:gravity="center_vertical"
-            android:text="@string/title_personal_data"
-            android:textColor="@color/colorWhite"
-            android:textSize="@dimen/textview_homepage_titlesize" />
+        <!--<TextView-->
+            <!--android:id="@+id/tv_pd_title"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_centerInParent="true"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:text="@string/title_personal_data"-->
+            <!--android:textColor="@color/colorWhite"-->
+            <!--android:textSize="@dimen/textview_homepage_titlesize" />-->
 
-    </RelativeLayout>
+    <!--</RelativeLayout>-->
 
     <!--页面内容-->
     <ScrollView
         android:id="@+id/SV_PD"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -350,6 +351,47 @@
 
             </LinearLayout>
 
+            <!--性别-->
+            <LinearLayout
+                android:id="@+id/LL_PD_mySex"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/bottom_item_height"
+                android:background="@drawable/linearlayout_select"
+                android:clickable="true"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/text_left_padding">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/textview_bottom_left_marginleft"
+                    android:layout_weight="1"
+                    android:text="@string/mySex_item_text"
+                    android:textColor="#000"
+                    android:textSize="@dimen/textview_bottom_left_size" />
+
+
+                <TextView
+                    android:id="@+id/tv_PD_mySex"
+                    android:layout_width="230dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:paddingBottom="15dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="5dp"
+                    android:paddingTop="15dp"
+                    android:textSize="14sp" />
+
+
+                <ImageView
+                    android:layout_width="@dimen/imageview_bottom_mark_size"
+                    android:layout_height="@dimen/imageview_bottom_mark_size"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="@dimen/imageview_bottom_mark_marginright"
+                    android:src="@drawable/entry_mark"/>
+
+            </LinearLayout>
 
             <!--身份证号-->
             <LinearLayout
@@ -415,6 +457,45 @@
 
                 <TextView
                     android:id="@+id/tv_PD_myAttribute"
+                    android:layout_width="230dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:paddingBottom="15dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="5dp"
+                    android:paddingTop="15dp"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:layout_width="@dimen/imageview_bottom_mark_size"
+                    android:layout_height="@dimen/imageview_bottom_mark_size"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="@dimen/imageview_bottom_mark_marginright"
+                    android:src="@drawable/entry_mark" />
+            </LinearLayout>
+
+            <!--个人属性-->
+            <LinearLayout
+                android:id="@+id/LL_PD_myEducation"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/bottom_item_height"
+                android:background="@drawable/linearlayout_select"
+                android:clickable="true"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/textview_bottom_left_marginleft"
+                    android:layout_weight="1"
+                    android:paddingLeft="@dimen/text_left_padding"
+                    android:text="@string/myEducation_item_text"
+                    android:textColor="#000"
+                    android:textSize="@dimen/textview_bottom_left_size" />
+
+                <TextView
+                    android:id="@+id/tv_PD_myEducation"
                     android:layout_width="230dp"
                     android:layout_height="wrap_content"
                     android:gravity="right"

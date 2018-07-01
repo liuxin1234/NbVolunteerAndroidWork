@@ -19,6 +19,7 @@ import com.example.model.activityattention.ActivityAttentionDto;
 import com.example.model.activityattention.ActivityAttentionListDto;
 import com.example.model.activityattention.ActivityAttentionQueryOptionDto;
 import com.example.model.area.AreaListDto;
+import com.example.model.area.AreaQueryOptionDto;
 import com.example.model.area.AreaViewDto;
 import com.example.model.company.CompanyListDto;
 import com.example.model.company.CompanyQueryOptionDto;
@@ -39,6 +40,8 @@ import com.example.model.organization.OrganizationListDto;
 import com.example.model.organization.OrganizationQueryOptionDto;
 import com.example.model.signRecord.SignInOutDto;
 import com.example.model.signRecord.SignRecordSimple;
+import com.example.model.signResult.SignResultListDto;
+import com.example.model.signResult.SignResultQueryOptionDto;
 import com.example.model.user.UserDepartmentViewDto;
 import com.example.model.user.UserDto;
 import com.example.model.user.UserListDto;
@@ -190,6 +193,7 @@ public interface AppAction {
 
     public void areaDetails(String code, ActionCallbackListener<AreaViewDto> listener);
 
+    public void postAreaKeyWordQuery(AreaQueryOptionDto query,ActionCallbackListener<PagedListEntityDto<AreaListDto>> listener);
 
     /**
      * 新闻的分页查询
@@ -251,4 +255,7 @@ public interface AppAction {
 
     //个人报名活动删除
     public void activityRecruitRemove(List<String> activityRecruitId,ActionCallbackListener<String> listener);
+
+    //我的岗位/活动报名的签离签到时间
+    public void postSignResultQuery(SignResultQueryOptionDto query, ActionCallbackListener<PagedListEntityDto<SignResultListDto>> listener);
 }

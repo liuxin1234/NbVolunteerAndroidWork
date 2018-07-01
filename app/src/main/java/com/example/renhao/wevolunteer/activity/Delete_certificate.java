@@ -2,7 +2,7 @@ package com.example.renhao.wevolunteer.activity;
 /*
  *
  * Created by Ge on 2016/8/22  16:22.
- *
+ * 浏览证书界面 可以进行删除操作
  */
 
 import android.content.Intent;
@@ -12,6 +12,7 @@ import android.graphics.Matrix;
 import android.media.ExifInterface;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 

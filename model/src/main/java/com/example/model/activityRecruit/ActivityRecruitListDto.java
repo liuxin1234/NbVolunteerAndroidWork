@@ -33,6 +33,9 @@ public class ActivityRecruitListDto {
     private String ActivityState;// (string, optional): 当前项目运行状态
     private String AppLstUrl;// (string, optional): App图片
     private String ActivityType;// (integer, optional): 获取或设置 类型0 活动1 岗位
+    private Number ComputerHour; //(number, optional): 获取或设置 计算时数 ,
+    private String SignInTime; //(string, optional): 获取或设置 签到时间 ,
+    private String SignOutTime; //(string, optional): 获取或设置 签退时间
 
     public String getActivityState() {
         return ActivityState;
@@ -225,5 +228,29 @@ public class ActivityRecruitListDto {
 
     public void setVolunteerTrueName(String volunteerTrueName) {
         VolunteerTrueName = volunteerTrueName;
+    }
+
+    public Number getComputerHour() {
+        return ComputerHour;
+    }
+
+    public void setComputerHour(Number computerHour) {
+        ComputerHour = computerHour;
+    }
+
+    public String getSignInTime() {
+        return SignInTime;
+    }
+
+    public void setSignInTime(String signInTime) {
+        SignInTime = signInTime;
+    }
+
+    public String getSignOutTime() {
+        return SignOutTime;
+    }
+
+    public void setSignOutTime(String signOutTime) {
+        SignOutTime = signOutTime;
     }
 }

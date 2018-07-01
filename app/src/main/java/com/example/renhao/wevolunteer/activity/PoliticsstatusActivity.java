@@ -15,6 +15,7 @@ import com.example.model.dictionary.DictionaryListDto;
 import com.example.model.volunteer.VolunteerViewDto;
 import com.example.renhao.wevolunteer.R;
 import com.example.renhao.wevolunteer.base.BaseActivity;
+import com.example.renhao.wevolunteer.utils.ActionBarUtils;
 import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
@@ -29,12 +30,12 @@ import butterknife.OnClick;
  */
 public class PoliticsstatusActivity extends BaseActivity {
     private static final String TAG = "ResidenceActivity";
-    @Bind(R.id.imageView_btn_back)
-    ImageView mBack;
-    @Bind(R.id.textView)
-    TextView mTitle;
-    @Bind(R.id.tv_myPolity_submit)
-    TextView mSubmit;
+//    @Bind(R.id.imageView_btn_back)
+//    ImageView mBack;
+//    @Bind(R.id.textView)
+//    TextView mTitle;
+//    @Bind(R.id.tv_myPolity_submit)
+//    TextView mSubmit;
     @Bind(R.id.rg_politicsstatus_selsec)
     ListView mRgSelsec;
 
@@ -54,6 +55,21 @@ public class PoliticsstatusActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_politicsstatus);
         ButterKnife.bind(this);
+
+        View actionBar = setActionBar();
+        ActionBarUtils.setImgBack(actionBar, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        ActionBarUtils.setTvTitlet(actionBar,getResources().getString(R.string.title_politicsstatus));
+        ActionBarUtils.setTvSubmit(actionBar,"提交", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                submit();
+            }
+        });
 
         type = getIntent().getIntExtra("type", -1);
 
@@ -116,19 +132,19 @@ public class PoliticsstatusActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.imageView_btn_back, R.id.tv_myPolity_submit})
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.imageView_btn_back:
-                finish();
-                break;
-            case R.id.tv_myPolity_submit:
-                submit();
-                break;
-            default:
-                break;
-        }
-    }
+//    @OnClick({R.id.imageView_btn_back, R.id.tv_myPolity_submit})
+//    public void onClick(View view) {
+//        switch (view.getId()) {
+//            case R.id.imageView_btn_back:
+//                finish();
+//                break;
+//            case R.id.tv_myPolity_submit:
+//                submit();
+//                break;
+//            default:
+//                break;
+//        }
+//    }
 
     private void submit() {
         showNormalDialog("正在提交");

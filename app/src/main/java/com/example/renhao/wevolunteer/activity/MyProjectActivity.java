@@ -17,6 +17,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.core.AppAction;
 import com.example.core.AppActionImpl;
 import com.example.core.local.LocalDate;
 import com.example.model.ActionCallbackListener;
@@ -26,11 +27,15 @@ import com.example.model.activityRecruit.ActivityRecruitQueryOptionDto;
 import com.example.model.activityattention.ActivityAttentionListDto;
 import com.example.model.activityattention.ActivityAttentionQueryOptionDto;
 import com.example.model.items.MyProjectItem;
+import com.example.model.signResult.SignResultListDto;
+import com.example.model.signResult.SignResultQueryOptionDto;
 import com.example.renhao.wevolunteer.ProjectDetailActivity;
 import com.example.renhao.wevolunteer.R;
 import com.example.renhao.wevolunteer.SearchActivity;
 import com.example.renhao.wevolunteer.adapter.MyProjectAdapter;
 import com.example.renhao.wevolunteer.base.BaseActivity;
+import com.example.renhao.wevolunteer.utils.ActionBarUtils;
+import com.example.renhao.wevolunteer.utils.GsonUtils;
 import com.handmark.pulltorefresh.library.ILoadingLayout;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
@@ -51,14 +56,14 @@ public class MyProjectActivity extends BaseActivity {
     public static final int MY_ATTENTION = 1;
     private int activitySelect = MY_PROJECT;
 
-    @Bind(R.id.imageView_myproject_btn_back)
-    ImageView mBack;
-    @Bind(R.id.imageview_myproject_magnifier)
-    ImageView mMagnifier;
-    @Bind(R.id.tv_myProject_title)
-    TextView mTvTitle;
-    @Bind(R.id.relativeLayout)
-    RelativeLayout mRelativeLayout;
+//    @Bind(R.id.imageView_myproject_btn_back)
+//    ImageView mBack;
+//    @Bind(R.id.imageview_myproject_magnifier)
+//    ImageView mMagnifier;
+//    @Bind(R.id.tv_myProject_title)
+//    TextView mTvTitle;
+//    @Bind(R.id.relativeLayout)
+//    RelativeLayout mRelativeLayout;
     @Bind(R.id.listview_myproject)
     PullToRefreshListView mMyproject;
 
@@ -86,13 +91,29 @@ public class MyProjectActivity extends BaseActivity {
         setContentView(R.layout.activity_myproject);
         ButterKnife.bind(this);
 
+        View actionBar = setActionBar();
+        ActionBarUtils.setImgBack(actionBar, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        ActionBarUtils.setImgRightIcon(actionBar, R.drawable.magnifier, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MyProjectActivity.this, SearchActivity.class);
+                startActivity(intent);
+            }
+        });
+
         activitySelect = getIntent().getIntExtra("activityType", 0);
 
         volunteerId = LocalDate.getInstance(this).getLocalDate("volunteerId", "");
 
         Intent intent = getIntent();
         String title = intent.getStringExtra("title");
-        mTvTitle.setText(title);
+//        mTvTitle.setText(title);
+        ActionBarUtils.setTvTitlet(actionBar,title);
 
         initPtrListView();
 
@@ -136,6 +157,7 @@ public class MyProjectActivity extends BaseActivity {
                             item.setState(listDto.getActivityState());
                             item.setTime(listDto.getAttentionTime());
                             item.setPic(listDto.getAppLstUrl());
+                            item.setType(2); //表示我的关注
                             lists.add(item);
                         }
                         PageIndex = data.getPageIndex();
@@ -185,9 +207,13 @@ public class MyProjectActivity extends BaseActivity {
                             item.setState(listDto.getActivityState());
                             item.setTime(listDto.getActivityTimeSTime());
                             item.setPic(listDto.getAppLstUrl());
+                            item.setComputerHour(listDto.getComputerHour());
+                            item.setSignInTime(listDto.getSignInTime());
+                            item.setSignOutTime(listDto.getSignOutTime());
+                            item.setType(1); //表示我的项目
                             lists.add(item);
                         }
-                        Logger.v("------", dates.size() + "");
+//                        Logger.v("------", dates.size() + "");
                         PageIndex = data.getPageIndex();
                         PageSize = data.getPageSize();
                         TotalCount = data.getTotalCount();
@@ -284,18 +310,18 @@ public class MyProjectActivity extends BaseActivity {
         });
     }
 
-    @OnClick({R.id.imageView_myproject_btn_back, R.id.imageview_myproject_magnifier})
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.imageView_myproject_btn_back:
-                MyProjectActivity.this.finish();
-                break;
-            case R.id.imageview_myproject_magnifier:
-                Intent intent = new Intent(MyProjectActivity.this, SearchActivity.class);
-                startActivity(intent);
-                break;
-        }
-    }
+//    @OnClick({R.id.imageView_myproject_btn_back, R.id.imageview_myproject_magnifier})
+//    public void onClick(View view) {
+//        switch (view.getId()) {
+//            case R.id.imageView_myproject_btn_back:
+//                MyProjectActivity.this.finish();
+//                break;
+//            case R.id.imageview_myproject_magnifier:
+//                Intent intent = new Intent(MyProjectActivity.this, SearchActivity.class);
+//                startActivity(intent);
+//                break;
+//        }
+//    }
 
     //测试用方法
     private class FinishRefresh extends AsyncTask<Void, Void, Void> {

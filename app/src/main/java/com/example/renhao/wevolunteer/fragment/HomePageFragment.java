@@ -167,6 +167,8 @@ public class HomePageFragment extends BaseFragment implements BaseSliderView.OnS
                     item.setMaxNum(dto.getRecruitNumber());
                     item.setTime(dto.getLengthTime());
                     item.setImg(dto.getAppLstUrl());
+                    item.setStartTime(dto.getStartTime());
+                    item.setFinishTime(dto.getFinishTime());
                     list.add(item);
                 }
                 adapter.setDate(list);

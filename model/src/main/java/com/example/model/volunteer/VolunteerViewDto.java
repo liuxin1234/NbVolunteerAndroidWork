@@ -94,6 +94,10 @@ public class VolunteerViewDto implements Serializable {
     private String RankingName; //(string, optional)
     private Integer Tag; //(integer, optional):是否为平安志愿者 0:志愿者  1;平安志愿者
     private String TagName; // 0:志愿者  1;平安志愿者
+    private Integer AuthType; //(integer, optional): 登录方式 ,
+    private Integer Sex; //(integer, optional): 性别 ,
+    private String BirthDay; //(string, optional): 出生日期
+    private String AreaCodes; //(string, optional): 获取或设置 所属多区域 ,
     @Override
     public String toString() {
         return "VolunteerViewDto{" +
@@ -870,5 +874,37 @@ public class VolunteerViewDto implements Serializable {
 
     public void setTagName(String tagName) {
         TagName = tagName;
+    }
+
+    public Integer getAuthType() {
+        return AuthType;
+    }
+
+    public void setAuthType(Integer authType) {
+        AuthType = authType;
+    }
+
+    public Integer getSex() {
+        return Sex;
+    }
+
+    public void setSex(Integer sex) {
+        Sex = sex;
+    }
+
+    public String getBirthDay() {
+        return BirthDay;
+    }
+
+    public void setBirthDay(String birthDay) {
+        BirthDay = birthDay;
+    }
+
+    public String getAreaCodes() {
+        return AreaCodes;
+    }
+
+    public void setAreaCodes(String areaCodes) {
+        AreaCodes = areaCodes;
     }
 }

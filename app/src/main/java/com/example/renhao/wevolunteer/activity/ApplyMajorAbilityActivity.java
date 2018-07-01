@@ -1,6 +1,7 @@
 package com.example.renhao.wevolunteer.activity;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -27,6 +28,7 @@ import com.example.renhao.wevolunteer.R;
 import com.example.renhao.wevolunteer.adapter.List_major_pic_Adapter;
 import com.example.renhao.wevolunteer.base.BaseActivity;
 import com.example.renhao.wevolunteer.event.UpLoadFileEvent;
+import com.example.renhao.wevolunteer.utils.ActionBarUtils;
 import com.example.renhao.wevolunteer.utils.Util;
 
 import org.greenrobot.eventbus.EventBus;
@@ -44,7 +46,7 @@ import me.nereo.multi_image_selector.MultiImageSelectorActivity;
  */
 public class ApplyMajorAbilityActivity extends BaseActivity {
 
-    private TextView tv_submit;
+//    private TextView tv_submit;
     private EditText edit_major;
     private LinearLayout Choose_pic;
 
@@ -66,6 +68,21 @@ public class ApplyMajorAbilityActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_major_ability);
+
+        View actionBar = setActionBar();
+        ActionBarUtils.setImgBack(actionBar, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        ActionBarUtils.setTvTitlet(actionBar,getResources().getString(R.string.title_major_ability));
+        ActionBarUtils.setTvSubmit(actionBar,"提交", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                submit();
+            }
+        });
 
         final Intent intent = getIntent();
         personal_data = (VolunteerViewDto) intent.getSerializableExtra("personal_data");
@@ -136,71 +153,74 @@ public class ApplyMajorAbilityActivity extends BaseActivity {
         });
 
         show_pic = new ArrayList<>();
-        tv_submit = (TextView) findViewById(R.id.tv_major_submit);
-        tv_submit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showNormalDialog("请稍后……");
-                my_major = edit_major.getText().toString();
-                personal_data.setSkilled(my_major);
-
-                final Intent result = new Intent();
-                result.putExtra("personal_data", personal_data);
-
-                new AsyncTask<Void, Void, List<AttachmentParaDto>>() {
-                    @Override
-                    protected List<AttachmentParaDto> doInBackground(Void... params) {
-                        //附件上传
-                        AttachmentParaDto attachment = new AttachmentParaDto();
-                        List<AttachmentParaDto> files = new ArrayList<>();
-                        //获取当前事件作为文件名
-                        SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy-MM-dd-hh:mm:ss");
-                        String date = sDateFormat.format(new java.util.Date());
-                        for (int i = 0; i < show_pic.size(); i++) {
-                            //压缩图片
-                            bitmap = decodeSampledBitmapFromFile(show_pic.get(i), 560, 320);
-                            String tempstr = Base64.encodeToString(getBitmapByte(bitmap), Base64.DEFAULT);
-                            byte[] temp = getBitmapByte(Util.byteToBitmap(tempstr));
-
-                            attachment.setFileData(Base64.encodeToString(temp, Base64.DEFAULT));
-                            attachment.setFileName("Major" + date + ".jpg");
-                            attachment.setMaxSize("10");
-                            attachment.setIsPublic("1");
-                            attachment.setPcWH("560|320");
-                            attachment.setAppWH("280|160");
-                            files.add(attachment);
-                        }
-                        dissMissNormalDialog();
-                        return files;
-                    }
-
-                    @Override
-                    protected void onPostExecute(List<AttachmentParaDto> files) {
-                        if (files.size() > 0) {
-                            /*result.putExtra("files", (Serializable) files);*/
-                            setResult(RESULT_OK, result);
-                            EventBus.getDefault().post(new UpLoadFileEvent(files));
-                            ApplyMajorAbilityActivity.this.finish();
-                        } else {
-                            setResult(RESULT_OK, result);
-                            ApplyMajorAbilityActivity.this.finish();
-                        }
-                    }
-                }.execute();
-                dissMissNormalDialog();
-            }
-        });
-
-
+//        tv_submit = (TextView) findViewById(R.id.tv_major_submit);
+//        tv_submit.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
         //回退按钮
-        ImageView btn_back = (ImageView) findViewById(R.id.imageView_btn_back);
-        btn_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ApplyMajorAbilityActivity.this.finish();
-            }
-        });
+//        ImageView btn_back = (ImageView) findViewById(R.id.imageView_btn_back);
+//        btn_back.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                ApplyMajorAbilityActivity.this.finish();
+//            }
+//        });
 
+    }
+
+    @SuppressLint("StaticFieldLeak")
+    private void submit() {
+        showNormalDialog("请稍后……");
+        my_major = edit_major.getText().toString();
+        personal_data.setSkilled(my_major);
+
+        final Intent result = new Intent();
+        result.putExtra("personal_data", personal_data);
+
+        new AsyncTask<Void, Void, List<AttachmentParaDto>>() {
+            @Override
+            protected List<AttachmentParaDto> doInBackground(Void... params) {
+                //附件上传
+                AttachmentParaDto attachment = new AttachmentParaDto();
+                List<AttachmentParaDto> files = new ArrayList<>();
+                //获取当前事件作为文件名
+                SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy-MM-dd-hh:mm:ss");
+                String date = sDateFormat.format(new java.util.Date());
+                for (int i = 0; i < show_pic.size(); i++) {
+                    //压缩图片
+                    bitmap = decodeSampledBitmapFromFile(show_pic.get(i), 560, 320);
+                    String tempstr = Base64.encodeToString(getBitmapByte(bitmap), Base64.DEFAULT);
+                    byte[] temp = getBitmapByte(Util.byteToBitmap(tempstr));
+
+                    attachment.setFileData(Base64.encodeToString(temp, Base64.DEFAULT));
+                    attachment.setFileName("Major" + date + ".jpg");
+                    attachment.setMaxSize("10");
+                    attachment.setIsPublic("1");
+                    attachment.setPcWH("560|320");
+                    attachment.setAppWH("280|160");
+                    files.add(attachment);
+                }
+                dissMissNormalDialog();
+                return files;
+            }
+
+            @Override
+            protected void onPostExecute(List<AttachmentParaDto> files) {
+                if (files.size() > 0) {
+                            /*result.putExtra("files", (Serializable) files);*/
+                    setResult(RESULT_OK, result);
+                    EventBus.getDefault().post(new UpLoadFileEvent(files));
+                    ApplyMajorAbilityActivity.this.finish();
+                } else {
+                    setResult(RESULT_OK, result);
+                    ApplyMajorAbilityActivity.this.finish();
+                }
+            }
+        }.execute();
+        dissMissNormalDialog();
     }
 
     public void get_pic() {

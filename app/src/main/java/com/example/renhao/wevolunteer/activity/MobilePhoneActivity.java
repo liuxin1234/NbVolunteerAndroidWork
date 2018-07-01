@@ -15,6 +15,7 @@ import com.example.model.ActionCallbackListener;
 import com.example.model.volunteer.VolunteerViewDto;
 import com.example.renhao.wevolunteer.R;
 import com.example.renhao.wevolunteer.base.BaseActivity;
+import com.example.renhao.wevolunteer.utils.ActionBarUtils;
 import com.example.renhao.wevolunteer.utils.Util;
 import com.example.renhao.wevolunteer.view.Btn_TimeCountUtil;
 
@@ -41,6 +42,21 @@ public class MobilePhoneActivity extends BaseActivity implements View.OnFocusCha
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mobile_phone);
+
+        View actionBar = setActionBar();
+        ActionBarUtils.setImgBack(actionBar, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        ActionBarUtils.setTvTitlet(actionBar,getResources().getString(R.string.title_mobile_phone));
+        ActionBarUtils.setTvSubmit(actionBar,"提交", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                submit();
+            }
+        });
 
         Intent intent = getIntent();
         personal_data = (VolunteerViewDto) intent.getSerializableExtra("personal_data");
@@ -92,67 +108,71 @@ public class MobilePhoneActivity extends BaseActivity implements View.OnFocusCha
             }
         });
 
-        btn_back = (ImageView) findViewById(R.id.imageView_btn_back);
-        btn_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MobilePhoneActivity.this.finish();
-            }
-        });
+//        btn_back = (ImageView) findViewById(R.id.imageView_btn_back);
+//        btn_back.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                MobilePhoneActivity.this.finish();
+//            }
+//        });
+//
+//        btn_send_Verification = (TextView) findViewById(R.id.tv_submitVerification);
+//        btn_send_Verification.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
+    }
 
-        btn_send_Verification = (TextView) findViewById(R.id.tv_submitVerification);
-        btn_send_Verification.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showNormalDialog("正在提交");
-                final String Verification = edit_get_Verify.getText().toString();
-                final String phone = edit_get_phone.getText().toString();
-                if (Verification.equals("")) {
-                    dissMissNormalDialog();
-                    showToast("验证码不能为空");
-                } else if (phone.equals("")) {
-                    showToast("手机号码不能为空");
-                    dissMissNormalDialog();
-                } else {
-                    AppActionImpl.getInstance(getApplicationContext()).getverify(phone, Verification, new ActionCallbackListener<Boolean>() {
-                        @Override
-                        public void onSuccess(Boolean data) {
-                            if (data) {
-                                //修改项
-                                personal_data.setMobile(phone);
-                                List<VolunteerViewDto> vl_updates = new ArrayList<>();
-                                vl_updates.add(personal_data);
-                                AppActionImpl.getInstance(getApplicationContext()).volunteerUpdate(vl_updates, new ActionCallbackListener<String>() {
-                                    @Override
-                                    public void onSuccess(String data) {
-                                        Intent result = new Intent();
-                                        result.putExtra("personal_data", personal_data);
-                                        setResult(RESULT_OK, result);
-                                        dissMissNormalDialog();
-                                        MobilePhoneActivity.this.finish();
-                                    }
-
-                                    @Override
-                                    public void onFailure(String errorEvent, String message) {
-                                        showToast("提交失败，请检查网络后重试");
-                                        dissMissNormalDialog();
-                                    }
-                                });
-                            } else {
-                                showToast("验证码错误");
+    private void submit() {
+        showNormalDialog("正在提交");
+        final String Verification = edit_get_Verify.getText().toString();
+        final String phone = edit_get_phone.getText().toString();
+        if (Verification.equals("")) {
+            dissMissNormalDialog();
+            showToast("验证码不能为空");
+        } else if (phone.equals("")) {
+            showToast("手机号码不能为空");
+            dissMissNormalDialog();
+        } else {
+            AppActionImpl.getInstance(getApplicationContext()).getverify(phone, Verification, new ActionCallbackListener<Boolean>() {
+                @Override
+                public void onSuccess(Boolean data) {
+                    if (data) {
+                        //修改项
+                        personal_data.setMobile(phone);
+                        List<VolunteerViewDto> vl_updates = new ArrayList<>();
+                        vl_updates.add(personal_data);
+                        AppActionImpl.getInstance(getApplicationContext()).volunteerUpdate(vl_updates, new ActionCallbackListener<String>() {
+                            @Override
+                            public void onSuccess(String data) {
+                                Intent result = new Intent();
+                                result.putExtra("personal_data", personal_data);
+                                setResult(RESULT_OK, result);
+                                dissMissNormalDialog();
+                                MobilePhoneActivity.this.finish();
                             }
-                            dissMissNormalDialog();
-                        }
 
-                        @Override
-                        public void onFailure(String errorEvent, String message) {
-                            dissMissNormalDialog();
-                        }
-                    });
+                            @Override
+                            public void onFailure(String errorEvent, String message) {
+                                showToast("提交失败，请检查网络后重试");
+                                dissMissNormalDialog();
+                            }
+                        });
+                    } else {
+                        showToast("验证码错误");
+                    }
+                    dissMissNormalDialog();
                 }
-                dissMissNormalDialog();
-            }
-        });
+
+                @Override
+                public void onFailure(String errorEvent, String message) {
+                    dissMissNormalDialog();
+                }
+            });
+        }
+        dissMissNormalDialog();
     }
 
     private void initViewListener(){

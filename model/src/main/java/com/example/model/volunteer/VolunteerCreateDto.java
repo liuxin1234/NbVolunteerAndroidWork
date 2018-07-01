@@ -86,6 +86,10 @@ public class VolunteerCreateDto implements Serializable {
     private String Code;// (string, optional): 志愿者证编号 ,
     private String DeviceId;// (string, optional): 设备序列号
     private Integer Tag;//(integer, optional):是否为平安志愿者 0:志愿者  1;平安志愿者
+    private String TagName; // 0:志愿者  1;平安志愿者
+    private Integer AuthType; //(integer, optional): 登录方式 ,
+    private Integer Sex; //(integer, optional): 性别 ,
+    private String BirthDay; //(string, optional): 出生日期
 
     public String getOrgIds() {
         return OrgIds;
@@ -721,5 +725,37 @@ public class VolunteerCreateDto implements Serializable {
 
     public void setTag(Integer tag) {
         Tag = tag;
+    }
+
+    public String getTagName() {
+        return TagName;
+    }
+
+    public void setTagName(String tagName) {
+        TagName = tagName;
+    }
+
+    public Integer getAuthType() {
+        return AuthType;
+    }
+
+    public void setAuthType(Integer authType) {
+        AuthType = authType;
+    }
+
+    public Integer getSex() {
+        return Sex;
+    }
+
+    public void setSex(Integer sex) {
+        Sex = sex;
+    }
+
+    public String getBirthDay() {
+        return BirthDay;
+    }
+
+    public void setBirthDay(String birthDay) {
+        BirthDay = birthDay;
     }
 }
