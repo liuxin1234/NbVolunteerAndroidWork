@@ -67,7 +67,7 @@
     <string name="tv_notice">志愿者签到签退时间需在设定时间范围内，可在岗位/活动开始前1个小时内签到。志愿者若未在岗位/活动结束时间内签退的，志愿服务时长不予记录。</string>
     <string name="tv_warn">请在活动/岗位结束前进行签退，未能在服务项目设定时间范围内签退的，志愿服务时间不予以记录。</string>
     <!--personalData-->
-    <string name="myArea_item_text">所在区域</string>
+    <string name="myArea_item_text">居住区域</string>
     <string name="myORG_item_text">所属机构</string>
 
     <string name="title_card_tpye">证件类型</string>

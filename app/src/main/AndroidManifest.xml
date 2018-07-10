@@ -250,7 +250,7 @@
         <activity android:name=".activity.EducationActivity"
                   android:screenOrientation="portrait"/>
         <activity android:name=".activity.SexAtivity"/>
-        <activity android:name=".activity.AttributeNewActivity"/>
+
     </application>
 
 </manifest>

@@ -818,14 +818,14 @@ public class ProjectDetailActivity extends BaseActivity {
                                                 @Override
                                                 public void onSuccess(List<String> data) {
                                                     if (data != null) {
-                                                        showToast("报名成功");
+                                                        showToast("报名成功,请留意报名审核结果短信");
                                                         dialogPlus.dismiss();
                                                         try {
                                                             getSiginInVolunteer();
                                                         } catch (Exception e) {
                                                         }
                                                     } else {
-                                                        showToast("报名失败");
+                                                        showToast("报名失败,数据异常");
                                                     }
                                                     dissMissNormalDialog();
                                                 }
@@ -838,7 +838,7 @@ public class ProjectDetailActivity extends BaseActivity {
                                             });
                                 } else {
                                     dissMissNormalDialog();
-                                    showToast("您已报名");
+                                    showToast("您已报名,请不要重复报名");
                                 }
                             }
 

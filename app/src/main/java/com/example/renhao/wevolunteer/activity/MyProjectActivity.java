@@ -182,7 +182,8 @@ public class MyProjectActivity extends BaseActivity {
     private void getMyProject(final int type) {
         ActivityRecruitQueryOptionDto dto = new ActivityRecruitQueryOptionDto();
         HashMap<String,String> sorts_map = new HashMap<>();
-        sorts_map.put("BaoMingDate","desc");
+//        sorts_map.put("BaoMingDate","desc");
+        sorts_map.put("ExecuteTime","desc");
         dto.setVolunteerId(volunteerId);
         dto.setSorts(sorts_map);
         if (type == ADD) {
@@ -203,15 +204,18 @@ public class MyProjectActivity extends BaseActivity {
                             dates.add(data.getRows().get(i));
                             ActivityRecruitListDto listDto = data.getRows().get(i);
                             MyProjectItem item = new MyProjectItem();
-                            item.setNeme(listDto.getActivityActivityName());
-                            item.setState(listDto.getActivityState());
-                            item.setTime(listDto.getActivityTimeSTime());
-                            item.setPic(listDto.getAppLstUrl());
-                            item.setComputerHour(listDto.getComputerHour());
-                            item.setSignInTime(listDto.getSignInTime());
-                            item.setSignOutTime(listDto.getSignOutTime());
-                            item.setType(1); //表示我的项目
-                            lists.add(item);
+                            if (listDto.getComputerHour() != null || listDto.getSignInTime() != null
+                                    || listDto.getSignOutTime() != null){
+                                item.setNeme(listDto.getActivityActivityName());
+                                item.setState(listDto.getActivityState());
+                                item.setTime(listDto.getActivityTimeSTime());
+                                item.setPic(listDto.getAppLstUrl());
+                                item.setComputerHour(listDto.getComputerHour());
+                                item.setSignInTime(listDto.getSignInTime());
+                                item.setSignOutTime(listDto.getSignOutTime());
+                                item.setType(1); //表示我的项目
+                                lists.add(item);
+                            }
                         }
 //                        Logger.v("------", dates.size() + "");
                         PageIndex = data.getPageIndex();

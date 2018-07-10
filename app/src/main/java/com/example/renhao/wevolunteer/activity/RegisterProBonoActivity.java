@@ -177,7 +177,7 @@ public class RegisterProBonoActivity extends BaseActivity implements View.OnFocu
     private String password;    //密码
     private String Repassword;  //确认密码
     //    private String email; //邮箱
-    private String personalCode;    //个人属性code
+    private String personalCode = "1";    //个人属性code 默认为 1 表示内地居民身份证
     private String areaName;    //区域名字
     private String areaCode;    //区域code
     //    private String orgName;   //机构名字
@@ -248,6 +248,8 @@ public class RegisterProBonoActivity extends BaseActivity implements View.OnFocu
         userId = UUID.randomUUID().toString();
         //配置时间选择器
         setTimePick();
+        //这里证件类型默认显示内地居民身份证
+        tvCredentialsType.setText("内地居民身份证");
     }
 
     /**

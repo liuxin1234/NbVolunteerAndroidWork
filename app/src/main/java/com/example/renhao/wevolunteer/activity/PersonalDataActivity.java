@@ -457,8 +457,8 @@ public class PersonalDataActivity extends BaseActivity implements View.OnClickLi
         changePassword.setOnClickListener(this);
         myPhoneNumber.setOnClickListener(this);
         myUserName.setOnClickListener(this);
-        myTrueName.setOnClickListener(this);
-        myIDNumber.setOnClickListener(this);
+//        myTrueName.setOnClickListener(this);
+//        myIDNumber.setOnClickListener(this);
         myAttribute.setOnClickListener(this);
         myPoliticsStatus.setOnClickListener(this);
         myArea.setOnClickListener(this);

@@ -69,6 +69,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 //    TextView orgNameTv;   //所属机构名字text
     TextView clause;        //条款text
     LinearLayout ll;        //整个view的父组件
+    TextView attribute_show;    //个人属性 text
 //    TextView tv_polity_show;
 //    @Bind(R.id.tv_volunteer_type)
 //    TextView tvVolunteerType;  //平安志愿者类型
@@ -81,7 +82,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 //    private String nickname;  //昵称
     private String truename;    //真实姓名
 //    private String cardType;  //证件类型
-    private String cardCode;    //证件类型code
+    private String cardCode = "1";    //证件类型code 默认为 1 表示内地居民身份证
     private String id_number;   //身份证号
     private String phone;       //手机号
     private String password;    //密码
@@ -151,6 +152,9 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         ll = (LinearLayout) findViewById(R.id.ll_register);
 //        ll_Political_Attribute = (LinearLayout) findViewById(R.id.ll_PoliticalAttribute);
 //        tv_polity_show = (TextView) findViewById(R.id.tv_register_pro_bono_polity);
+        attribute_show = (TextView) findViewById(R.id.tv_register_attribute);
+        //这里证件类型默认显示内地居民身份证
+        tv_cardType.setText("内地居民身份证");
     }
 
     private void initViewListener() {
@@ -230,7 +234,6 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
             if (personal_data != null) {
                 try {
                     personalCode = String.valueOf(personal_data.getJobStatus());
-                    TextView attribute_show = (TextView) findViewById(R.id.tv_register_attribute);
                     attribute_show.setText(personal_data.getJobStatusStr());
                     System.out.println("personalCode------" + personalCode);
                 } catch (Exception e) {

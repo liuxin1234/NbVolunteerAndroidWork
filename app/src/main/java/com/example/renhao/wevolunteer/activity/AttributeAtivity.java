@@ -65,7 +65,7 @@ public class AttributeAtivity extends BaseActivity {
                 initBack();
             }
         });
-        ActionBarUtils.setTvTitlet(actionBar,"所在区域");
+        ActionBarUtils.setTvTitlet(actionBar,"个人属性");
         ActionBarUtils.setTvSubmit(actionBar,"提交", new View.OnClickListener() {
             @Override
             public void onClick(View v) {

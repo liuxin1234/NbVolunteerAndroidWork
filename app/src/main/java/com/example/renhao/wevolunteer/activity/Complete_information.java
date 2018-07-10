@@ -43,7 +43,7 @@ public class Complete_information extends BaseActivity implements View.OnClickLi
     private LinearLayout LL_trueName, LL_Id_type, LL_IDNumber, LL_Email, LL_Phone, LL_verification, LL_ORG;
     private EditText et_phone, et_verification, et_trueName, et_Email, et_idNumber;
     private TextView tv_cardType, tv_ORG_show;
-    private String cardCode;
+    private String cardCode = "1";  //证件类型code 默认为 1 表示内地居民身份证
     private String orgName;
     private String orgId;
 
@@ -65,8 +65,8 @@ public class Complete_information extends BaseActivity implements View.OnClickLi
             et_idNumber.setText(personal_data.getIdNumber());
         }
 
-        if (personal_data.getEmail() != null)
-            et_Email.setText(personal_data.getEmail());
+//        if (personal_data.getEmail() != null)
+//            et_Email.setText(personal_data.getEmail());
 
         if (personal_data.getMobile() != null) {
             et_phone.setText(personal_data.getMobile());
@@ -81,11 +81,13 @@ public class Complete_information extends BaseActivity implements View.OnClickLi
                 if (!Util.isPhoneNumber(et_phone.getText().toString())) {
                     showToast("请输入正确的电话号码");
                     dissMissNormalDialog();
-                } else if (!Util.isEmail(et_Email.getText().toString())) {
-                    showToast("请输入正确的邮箱地址");
-                } else {
-                    final String phone = et_phone.getText().toString();
-                    final String email = et_Email.getText().toString();
+                }
+//                else if (!Util.isEmail(et_Email.getText().toString())) {
+//                    showToast("请输入正确的邮箱地址");
+//                }
+                else {
+//                    final String phone = et_phone.getText().toString();
+//                    final String email = et_Email.getText().toString();
 
                     tv_submit.setClickable(true);
                     CompleteSubmit();
@@ -131,7 +133,7 @@ public class Complete_information extends BaseActivity implements View.OnClickLi
                         }
                     });*/
                 }
-                dissMissNormalDialog();
+//                dissMissNormalDialog();
             }
         });
         //回退按钮
@@ -150,10 +152,12 @@ public class Complete_information extends BaseActivity implements View.OnClickLi
         if (et_trueName.getText() == null) {
             showToast("真实姓名为空");
             dissMissNormalDialog();
-        } else if (!Util.isEmail(et_Email.getText().toString())) {
-            showToast("请填写正确邮箱地址");
-            dissMissNormalDialog();
-        } else if (et_idNumber.getText() == null) {
+        }
+//        else if (!Util.isEmail(et_Email.getText().toString())) {
+//            showToast("请填写正确邮箱地址");
+//            dissMissNormalDialog();
+//        }
+        else if (et_idNumber.getText() == null) {
             showToast("请填写证件号码");
             dissMissNormalDialog();
         } else if (TextUtils.isEmpty(cardCode)) {
@@ -167,7 +171,7 @@ public class Complete_information extends BaseActivity implements View.OnClickLi
             dissMissNormalDialog();
         } else {
             personal_data.setTrueName(et_trueName.getText().toString());
-            personal_data.setEmail(et_Email.getText().toString());
+//            personal_data.setEmail(et_Email.getText().toString());
             personal_data.setCardType(Integer.valueOf(cardCode));
             personal_data.setIdNumber(et_idNumber.getText().toString());
             personal_data.setMobile(et_phone.getText().toString());
@@ -198,7 +202,7 @@ public class Complete_information extends BaseActivity implements View.OnClickLi
         LL_trueName = (LinearLayout) findViewById(R.id.LL_complete_trueName);
         LL_Id_type = (LinearLayout) findViewById(R.id.ll_credentials_type);
         LL_IDNumber = (LinearLayout) findViewById(R.id.LL_complete_IdNumber);
-        LL_Email = (LinearLayout) findViewById(R.id.LL_complete_Email);
+//        LL_Email = (LinearLayout) findViewById(R.id.LL_complete_Email);
         LL_Phone = (LinearLayout) findViewById(R.id.LL_complete_phone);
         LL_ORG = (LinearLayout) findViewById(R.id.LL_complete_ORG);
 
@@ -210,20 +214,21 @@ public class Complete_information extends BaseActivity implements View.OnClickLi
         //EditText
         et_phone = (EditText) findViewById(R.id.et_complete_phone);
         et_trueName = (EditText) findViewById(R.id.et_complete_trueName);
-        et_Email = (EditText) findViewById(R.id.et_complete_email);
+//        et_Email = (EditText) findViewById(R.id.et_complete_email);
         et_idNumber = (EditText) findViewById(R.id.et_complete_id_number);
 
 
         LL_ORG.setOnClickListener(this);
         LL_Id_type.setOnClickListener(this);
 
+        tv_cardType.setText("内地居民身份证");
     }
 
 
     private void initViewListener(){
         et_trueName.setOnFocusChangeListener(this);
         et_idNumber.setOnFocusChangeListener(this);
-        et_Email.setOnFocusChangeListener(this);
+//        et_Email.setOnFocusChangeListener(this);
         et_phone.setOnFocusChangeListener(this);
     }
 
@@ -239,9 +244,9 @@ public class Complete_information extends BaseActivity implements View.OnClickLi
             case R.id.et_complete_phone:
                 setHintEt(et_phone,hasFocus);
                 break;
-            case R.id.et_complete_email:
-                setHintEt(et_Email,hasFocus);
-                break;
+//            case R.id.et_complete_email:
+//                setHintEt(et_Email,hasFocus);
+//                break;
             default:
                 break;
 

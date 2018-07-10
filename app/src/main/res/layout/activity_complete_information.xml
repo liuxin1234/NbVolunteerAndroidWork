@@ -68,8 +68,8 @@
             android:id="@+id/et_complete_trueName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="23dp"
-            android:layout_marginStart="23dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
             android:background="@color/colorWhite"
             android:hint="@string/hint_register_name"
             android:textSize="15sp" />
@@ -96,7 +96,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
-            android:layout_marginStart="7dp"
+            android:layout_marginStart="5dp"
             android:layout_weight="0.9"
             android:hint="==请选择=="
             android:textSize="15sp" />
@@ -155,10 +155,12 @@
 
         <TextView
             android:id="@+id/tv_complete_ORG"
-            android:layout_width="230dp"
-            android:layout_height="wrap_content"
-            android:gravity="right"
-            android:padding="15dp"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="center|left"
+            android:layout_weight="0.9"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
             android:textSize="16sp" />
 
         <ImageView
@@ -169,32 +171,32 @@
             android:src="@drawable/icon_right_indicator" />
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/LL_complete_Email"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@drawable/bg_single_input"
-        android:orientation="horizontal">
+    <!--<LinearLayout-->
+        <!--android:id="@+id/LL_complete_Email"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="50dp"-->
+        <!--android:background="@drawable/bg_single_input"-->
+        <!--android:orientation="horizontal">-->
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="15dp"
-            android:text="@string/tv_Email"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:padding="15dp"-->
+            <!--android:text="@string/tv_Email"-->
+            <!--android:textSize="16sp"-->
+            <!--android:textStyle="bold" />-->
 
-        <EditText
-            android:id="@+id/et_complete_email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginStart="8dp"
-            android:background="@color/colorWhite"
-            android:hint="@string/hint_Email"
-            android:inputType="textEmailAddress"
-            android:textSize="15sp" />
-    </LinearLayout>
+        <!--<EditText-->
+            <!--android:id="@+id/et_complete_email"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginLeft="8dp"-->
+            <!--android:layout_marginStart="8dp"-->
+            <!--android:background="@color/colorWhite"-->
+            <!--android:hint="@string/hint_Email"-->
+            <!--android:inputType="textEmailAddress"-->
+            <!--android:textSize="15sp" />-->
+    <!--</LinearLayout>-->
 
     <LinearLayout
         android:id="@+id/LL_complete_phone"

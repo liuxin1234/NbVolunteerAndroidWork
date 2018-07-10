@@ -31,7 +31,7 @@ import com.example.model.user.UserListDto;
 import com.example.renhao.wevolunteer.IndexActivity;
 import com.example.renhao.wevolunteer.R;
 import com.example.renhao.wevolunteer.base.BaseActivity;
-import com.example.renhao.wevolunteer.utils.ActionBarUtils;
+
 
 /**
  * 登录界面
@@ -124,15 +124,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
             case R.id.btn_register:
                 createAlertDialog();
                 break;
-/*            case R.id.imageView_btn_back:
-                Intent intent = new Intent();
-//                intent.putExtra("fragment_id", 0);
-                LocalDate.getInstance(getApplicationContext()).setLocalDate("BACKHOME", true);
-                intent.setClass(this, IndexActivity.class);
-                startActivity(intent);
-                getAccessToken();
-                this.finish();
-                break;*/
             case R.id.img_HiddenOrShow:
                 if (isHidden) {
                     //设置EditText文本为可见的

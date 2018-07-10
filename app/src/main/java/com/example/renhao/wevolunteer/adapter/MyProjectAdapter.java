@@ -79,9 +79,6 @@ public class MyProjectAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();//取出ViewHolder对象
         }
-        holder.name.setText(lists.get(position).getNeme());
-        holder.STATE.setText(lists.get(position).getState());
-        holder.TIME.setText(lists.get(position).getTime());
         if (lists.get(position).getType() == 1){
             if (lists.get(position).getSignInTime() == null){
                 holder.tvSignInTiem.setText("签到时间：");
@@ -103,6 +100,19 @@ public class MyProjectAdapter extends BaseAdapter {
             holder.tvSignOutTime.setVisibility(View.GONE);
             holder.tvLengthTime.setVisibility(View.GONE);
         }
+
+        if(lists.get(position).getState().equals("0")){
+            holder.STATE.setText("招募中");
+        }else if (lists.get(position).getState().equals("1")){
+            holder.STATE.setText("进行中");
+        }else if (lists.get(position).getState().equals("2")){
+            holder.STATE.setText("已结束");
+        }else {
+            holder.STATE.setText(lists.get(position).getState());
+        }
+
+        holder.name.setText(lists.get(position).getNeme());
+        holder.TIME.setText(lists.get(position).getTime());
 
         if (TextUtils.isEmpty(lists.get(position).getPic())) {
             holder.PIC.setImageResource(R.drawable.img_unload);

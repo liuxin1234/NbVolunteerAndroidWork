@@ -405,7 +405,6 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
             image_portrait.setImageResource(R.drawable.personal_no_portrait);
             tv_true_name.setText("");
         }
-        /*getVolunteerDate_connect_again = true;*/
         getVolunteerDate();
 
     }
@@ -434,8 +433,6 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
                     @Override
                     public void onSuccess(VolunteerViewDto data) {
                         if (data == null) {
-//                            System.out.println("data:"+data);
-//                            System.out.println("isInit"+isInit);
                             //如果用户登录失败则跳转到登录界面
                             if (isInit) {
                                 isInit = false;
@@ -448,17 +445,13 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
                         //将data传到另一个activity中备用
                         personal_data = data;
                         setClickTrue();
-//                        System.out.println("trueName:"+personal_data.getTrueName());
-//                        System.out.println("IdNumber:"+personal_data.getIdNumber());
-//                        System.out.println("Email:"+personal_data.getEmail());
-//                        System.out.println("Mobile:"+personal_data.getMobile());
+                        Logger.e(TAG,personal_data.getTrueName()+"\n"+personal_data.getIdNumber()
+                            +"\n"+personal_data.getMobile());
                         if (personal_data.getTrueName() == null
                                 || personal_data.getIdNumber() == null
-                                || personal_data.getEmail() == null
                                 || personal_data.getMobile() == null
                                 || personal_data.getTrueName().equals("")
                                 || personal_data.getIdNumber().equals("")
-                                || personal_data.getEmail().equals("")
                                 || personal_data.getMobile().equals("")) {
                             Intent must_write = new Intent();
                             must_write.putExtra("personal_data", personal_data);
@@ -518,10 +511,7 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
 
                     @Override
                     public void onFailure(String errorEvent, String message) {
-                       /* if (getVolunteerDate_connect_again) {
-                            getVolunteerDate_connect_again = false;
-                            getVolunteerDate();
-                        } else*/
+
                         showToast("网络异常，请检查后重试");
                     }
                 });
