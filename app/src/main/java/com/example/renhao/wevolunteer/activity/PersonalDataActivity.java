@@ -741,6 +741,9 @@ public class PersonalDataActivity extends BaseActivity implements View.OnClickLi
                 case MY_AREA:
                     result = data.getExtras();
                     Personal_Data = (VolunteerViewDto) result.getSerializable("personal_data");
+                    String areaCodes = result.getString("AreaCodes");
+//                    Logger.e(areaCodes);
+                    Personal_Data.setAreaCode(areaCodes);
                     tv_area_show.setText(Personal_Data.getAreaName());
                     break;
                 //修改我的所在机构的数据回调

@@ -60,7 +60,7 @@ public class SignResultQueryOptionDto {
     private String KeyWord;
     private Integer PageIndex;
     private Integer PageSize;
-    private SortsBean Sorts;
+    private Object Sorts;
 
 
     public String getVolunteerId() {
@@ -239,14 +239,13 @@ public class SignResultQueryOptionDto {
         PageSize = pageSize;
     }
 
-    public SortsBean getSorts() {
+    public Object getSorts() {
         return Sorts;
     }
 
-    public void setSorts(SortsBean sorts) {
+    public void setSorts(Object sorts) {
         Sorts = sorts;
     }
 
-    public static class SortsBean {
-    }
+
 }

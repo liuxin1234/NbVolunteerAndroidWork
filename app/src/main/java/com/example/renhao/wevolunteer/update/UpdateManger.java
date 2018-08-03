@@ -80,11 +80,11 @@ public class UpdateManger {
     }
 
     // 显示更新程序对话框，供主程序调用
-    public void checkUpdateInfo() {
-        showNoticeDialog();
+    public void checkUpdateInfo(String updateMsg) {
+        showNoticeDialog(updateMsg);
     }
 
-    private void showNoticeDialog() {
+    private void showNoticeDialog(String updateMsg) {
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(
                 mContext);// Builder，可以通过此builder设置改变AleartDialog的默认的主题样式及属性相关信息
         builder.setTitle("软件版本更新");

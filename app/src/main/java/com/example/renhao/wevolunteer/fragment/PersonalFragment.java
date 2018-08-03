@@ -44,13 +44,17 @@ import com.example.renhao.wevolunteer.activity.MajorAbilityActivity;
 import com.example.renhao.wevolunteer.activity.MyProjectActivity;
 import com.example.renhao.wevolunteer.activity.MyRecuritJobActivity;
 import com.example.renhao.wevolunteer.activity.PersonalDataActivity;
+import com.example.renhao.wevolunteer.activity.PresonalServiceActivity;
 import com.example.renhao.wevolunteer.activity.ReportProblemActivity;
 import com.example.renhao.wevolunteer.base.BaseActivity;
 import com.example.renhao.wevolunteer.base.BaseFragment;
+import com.example.renhao.wevolunteer.event.PresonalServiceEvent;
 import com.example.renhao.wevolunteer.update.UpdateManger;
 import com.example.renhao.wevolunteer.utils.DataCleanManager;
 import com.example.renhao.wevolunteer.utils.Util;
 import com.orhanobut.logger.Logger;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -79,6 +83,10 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
     private BaseActivity mBaseActivity;
     private LinearLayout job, attention, ORG, rank, Information, aboutUS, WIPE_CACHE,
                          REPORT_PROBLEM, FAQ,My_Recruit_Job,upAPK;
+    private LinearLayout mLayoutAll;
+    private LinearLayout mLayoutSchool;
+    private LinearLayout mLayoutJob;
+    private LinearLayout mLayoutRetire;
 
     //6.0申请存储权限
     private static final int LOCATION_REQUEST_CODE = 1;
@@ -108,6 +116,10 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
     private final int LOGIN = 11;
     private final int TO_MYRECRUIT = 12;
     private final int TO_UPAPK = 13;
+    private final int LAYOUT_SERVICE_ALL = 14;
+    private final int LAYOUT_SERVICE_SCHOOL = 15;
+    private final int LAYOUT_SERVICE_JOB = 16;
+    private final int LAYOUT_SERVICE_RETIRE = 17;
 
     private boolean isSpeciality;
     private int AuditStatus;
@@ -123,6 +135,8 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
     private String SchoolServiceTime;
     private String RetireServiceTime;
     private String my_portrait;
+
+    private String upDataText = "";
 
     private void repeat_update() {
         //判断是否为专业志愿志愿者，显示不同按钮
@@ -199,6 +213,10 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
         tv_SchoolTime = (TextView) middleView.findViewById(R.id.tv_personal_ServiceSchoolTime);
         tv_InJobTime = (TextView) middleView.findViewById(R.id.tv_personal_ServiceWorkTime);
         tv_RetireTime = (TextView) middleView.findViewById(R.id.tv_personal_ServiceRetireTime);
+        mLayoutAll = (LinearLayout) middleView.findViewById(R.id.layout_Service_All);
+        mLayoutSchool = (LinearLayout) middleView.findViewById(R.id.layout_Service_School);
+        mLayoutJob = (LinearLayout) middleView.findViewById(R.id.layout_Service_Job);
+        mLayoutRetire = (LinearLayout) middleView.findViewById(R.id.layout_Service_Retire);
         /*include的bottom_view*/
         bottomView = mainview.findViewById(R.id.bottom_part);
         tv_true_name = (TextView) mainview.findViewById(R.id.tv_LL_true_name);
@@ -256,7 +274,6 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
         My_Recruit_Job = (LinearLayout) bottomView.findViewById(R.id.LL_PF_remove);
         upAPK = (LinearLayout) bottomView.findViewById(R.id.LL_PF_UPAPK);
 
-
         //添加点击监听
         professional_true.setOnClickListener(this);
         Professional_false.setOnClickListener(this);
@@ -271,6 +288,10 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
         FAQ.setOnClickListener(this);
         My_Recruit_Job.setOnClickListener(this);
         upAPK.setOnClickListener(this);
+        mLayoutAll.setOnClickListener(this);
+        mLayoutSchool.setOnClickListener(this);
+        mLayoutJob.setOnClickListener(this);
+        mLayoutRetire.setOnClickListener(this);
 
         //添加点击标签
         professional_true.setTag(PROFESSIONAL_SELECTION);
@@ -286,6 +307,10 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
         FAQ.setTag(TO_FAQ);
         My_Recruit_Job.setTag(TO_MYRECRUIT);
         upAPK.setTag(TO_UPAPK);
+        mLayoutAll.setTag(LAYOUT_SERVICE_ALL);
+        mLayoutSchool.setTag(LAYOUT_SERVICE_SCHOOL);
+        mLayoutJob.setTag(LAYOUT_SERVICE_JOB);
+        mLayoutRetire.setTag(LAYOUT_SERVICE_RETIRE);
 
     }
 
@@ -313,7 +338,6 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
     public void onClick(View v) {
         int tag = (int) v.getTag();
         final Intent intent = new Intent();
-
         boolean isLigon = LocalDate.getInstance(getActivity()).getLocalDate("isLogin", false);
         if (!isLigon) {
             showToast("请先登录");
@@ -390,6 +414,30 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
             case TO_UPAPK:
                 isUpdate();
                 break;
+            case LAYOUT_SERVICE_ALL:
+                intent.setClass(getActivity(), PresonalServiceActivity.class);
+                intent.putExtra("title","总服务时长");
+                intent.putExtra("tag",-1);
+                startActivity(intent);
+                break;
+            case LAYOUT_SERVICE_SCHOOL:
+                intent.setClass(getActivity(), PresonalServiceActivity.class);
+                intent.putExtra("title","在校服务时长");
+                intent.putExtra("tag",0);
+                startActivity(intent);
+                break;
+            case LAYOUT_SERVICE_JOB:
+                intent.setClass(getActivity(), PresonalServiceActivity.class);
+                intent.putExtra("title","在职服务时长");
+                intent.putExtra("tag",1);
+                startActivity(intent);
+                break;
+            case LAYOUT_SERVICE_RETIRE:
+                intent.setClass(getActivity(), PresonalServiceActivity.class);
+                intent.putExtra("title","退休服务时长");
+                intent.putExtra("tag",2);
+                startActivity(intent);
+                break;
             default:
                 break;
         }
@@ -445,8 +493,8 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
                         //将data传到另一个activity中备用
                         personal_data = data;
                         setClickTrue();
-                        Logger.e(TAG,personal_data.getTrueName()+"\n"+personal_data.getIdNumber()
-                            +"\n"+personal_data.getMobile());
+//                        Logger.e(TAG,personal_data.getTrueName()+"\n"+personal_data.getIdNumber()
+//                            +"\n"+personal_data.getMobile());
                         if (personal_data.getTrueName() == null
                                 || personal_data.getIdNumber() == null
                                 || personal_data.getMobile() == null
@@ -484,10 +532,10 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
                                     ? 0 : data.getRetireservicetime() + data.getRetireservicetime1();
                             RetireServiceTime = retireTime + "小时";
 
-                            double historyTime = data.getHistorytime() == null && data.getHistorytime() == null
-                                    ? 0 : data.getHistorytime();
+//                            double historyTime = data.getHistorytime() == null && data.getHistorytime() == null
+//                                    ? 0 : data.getHistorytime();
 
-                            AllServiceTime = schoolTime + workTime + retireTime + historyTime + "小时";
+                            AllServiceTime = schoolTime + workTime + retireTime  + "小时";
                             Double timeLenth = schoolTime + workTime + retireTime;
 
 
@@ -511,8 +559,11 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
 
                     @Override
                     public void onFailure(String errorEvent, String message) {
-
-                        showToast("网络异常，请检查后重试");
+                        if (Util.isWifi(getActivity()) || Util.isInternet(getActivity())){
+                            showToast("登录账号异常，请退出后重新登录");
+                        }else {
+                            showToast("获取数据失败，请检查网络后重试");
+                        }
                     }
                 });
     }
@@ -605,6 +656,11 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
                                             return;
                                         }
                                         String attatchMentId = data.getAttachmentId();
+                                        String versionName = data.getVersionName();
+                                        String[] stringContent = versionName.split("；");
+                                        for (int i=0;i<stringContent.length;i++){
+                                            upDataText += stringContent[i] + "\n";
+                                        }
                                         AppActionImpl.getInstance(context).attatchmentDetails(attatchMentId,
                                                 new ActionCallbackListener<AttachmentsViewDto>() {
                                                     @Override
@@ -636,9 +692,9 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
                                                                         SDCARD_REQUEST_CODE);
                                                                 return;
                                                             }
-                                                            updateManger.checkUpdateInfo();
+                                                            updateManger.checkUpdateInfo(upDataText);
                                                         } else {
-                                                            updateManger.checkUpdateInfo();
+                                                            updateManger.checkUpdateInfo(upDataText);
                                                         }
                                                     }
 

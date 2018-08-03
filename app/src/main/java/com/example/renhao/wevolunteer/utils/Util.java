@@ -1,10 +1,12 @@
 package com.example.renhao.wevolunteer.utils;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.ConnectivityManager;
 import android.os.Environment;
 import android.util.Base64;
 
@@ -244,5 +246,33 @@ public class Util {
                     - (24 * 60 * 60 * 1000)));// 比上一天减一
         }
         return dateList;
+    }
+
+    /**
+     * 判断是否连接wifi
+     * @param context
+     * @return
+     */
+    public static boolean isWifi(Context context){
+        ConnectivityManager con = (ConnectivityManager) context.getSystemService(Activity.CONNECTIVITY_SERVICE);
+        boolean wifi = false;
+        if (con != null) {
+            wifi = con.getNetworkInfo(ConnectivityManager.TYPE_WIFI).isConnectedOrConnecting();
+        }
+        return wifi;
+    }
+
+    /**
+     * 判断是否连接流量
+     * @param context
+     * @return
+     */
+    public static boolean isInternet (Context context){
+        ConnectivityManager con = (ConnectivityManager) context.getSystemService(Activity.CONNECTIVITY_SERVICE);
+        boolean internet = false;
+        if (con != null) {
+            internet = con.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).isConnectedOrConnecting();
+        }
+        return internet;
     }
 }

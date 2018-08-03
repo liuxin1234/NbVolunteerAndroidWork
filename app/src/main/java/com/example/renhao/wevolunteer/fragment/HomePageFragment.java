@@ -69,18 +69,14 @@ public class HomePageFragment extends BaseFragment implements BaseSliderView.OnS
     private PullToRefreshListView mPtrListviewHomapageList;
     private Banner banner;
     private View imageBanner;
-    private View imageSliderView;
     private NoScrollGridView gridView;
     private HomePageAdapter adapter;
     public BaseActivity mBaseActivity;
-    private boolean SliderData_connect_again = true;
-    private boolean Data_connect_again = true;
 
     private List<HomePageListItem> list = null;
     private List<ActivityListDto> dates = new ArrayList<>();
 
 
-    private int loadFinish = 0;
 
     @Nullable
     @Override
@@ -176,10 +172,6 @@ public class HomePageFragment extends BaseFragment implements BaseSliderView.OnS
 
             @Override
             public void onFailure(String errorEvent, String message) {
-                /*if (Data_connect_again) {
-                    Data_connect_again = false;
-                    getDate();
-                }*/
             }
         });
     }
@@ -308,12 +300,12 @@ public class HomePageFragment extends BaseFragment implements BaseSliderView.OnS
 
                     @Override
                     public void onFailure(String errorEvent, String message) {
-                        /*if (SliderData_connect_again) {
-                            SliderData_connect_again = false;
-                            getSliderDate();
-                        } else*/
                         mBaseActivity.dissMissNormalDialog();
-                        showToast("获取数据失败，请检查网络后重试");
+                        if (Util.isWifi(getActivity()) || Util.isInternet(getActivity())){
+                            showToast("登录账号异常，请退出后重新登录");
+                        }else {
+                            showToast("获取数据失败，请检查网络后重试");
+                        }
                         mPtrListviewHomapageList.onRefreshComplete();
                     }
                 });
@@ -357,18 +349,5 @@ public class HomePageFragment extends BaseFragment implements BaseSliderView.OnS
     @Override
     public void onResume() {
         super.onResume();
-        //自动刷新获取首页的内容
-       /* Handler handler = new Handler(Looper.getMainLooper());
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                //自动刷新获取首页的内容
-                try {
-                    getDate();
-                    getSliderDate();
-                } catch (Exception e) {
-                }
-            }
-        }, 100);*/
     }
 }

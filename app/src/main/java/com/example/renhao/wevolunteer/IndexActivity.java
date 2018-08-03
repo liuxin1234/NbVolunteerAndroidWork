@@ -128,6 +128,7 @@ public class IndexActivity extends BaseActivity implements AMapLocationListener 
     private double lng;
 
     private PowerManager.WakeLock wakeLock = null;
+    private String upDataText = "";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -217,6 +218,12 @@ public class IndexActivity extends BaseActivity implements AMapLocationListener 
                                             return;
                                         }
                                         String attatchMentId = data.getAttachmentId();
+                                        String versionName = data.getVersionName();
+                                        //这里注意每次版本更新内容需要用中文的 ； 分割开来
+                                        String[] stringContent = versionName.split("；");
+                                        for (int i=0;i<stringContent.length;i++){
+                                            upDataText += stringContent[i] + "\n";
+                                        }
                                         AppActionImpl.getInstance(context).attatchmentDetails(attatchMentId,
                                                 new ActionCallbackListener<AttachmentsViewDto>() {
                                                     @Override
@@ -248,9 +255,9 @@ public class IndexActivity extends BaseActivity implements AMapLocationListener 
                                                                         SDCARD_REQUEST_CODE);
                                                                 return;
                                                             }
-                                                            updateManger.checkUpdateInfo();
+                                                            updateManger.checkUpdateInfo(upDataText);
                                                         } else {
-                                                            updateManger.checkUpdateInfo();
+                                                            updateManger.checkUpdateInfo(upDataText);
                                                         }
                                                     }
 
@@ -442,7 +449,7 @@ public class IndexActivity extends BaseActivity implements AMapLocationListener 
             if (ContextCompat.checkSelfPermission(IndexActivity.this,
                     Manifest.permission.WRITE_EXTERNAL_STORAGE)
                     == PackageManager.PERMISSION_GRANTED) {
-                updateManger.checkUpdateInfo();
+                updateManger.checkUpdateInfo(upDataText);
             }
         }
 

@@ -46,6 +46,11 @@ import com.example.renhao.wevolunteer.base.BaseActivity;
 import com.example.renhao.wevolunteer.handler.MxgsaTagHandler;
 import com.example.renhao.wevolunteer.utils.GsonUtils;
 import com.example.renhao.wevolunteer.utils.Util;
+import com.flyco.animation.BaseAnimatorSet;
+import com.flyco.animation.BounceEnter.BounceTopEnter;
+import com.flyco.animation.SlideExit.SlideBottomExit;
+import com.flyco.dialog.listener.OnBtnClickL;
+import com.flyco.dialog.widget.MaterialDialog;
 import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.Holder;
 import com.orhanobut.dialogplus.ViewHolder;
@@ -226,6 +231,17 @@ public class ProjectDetailActivity extends BaseActivity {
     String activityOrJob_Url = "";
     private String mOperationState; //当前活动状态
 
+    private BaseAnimatorSet mBasIn;
+    private BaseAnimatorSet mBasOut;
+
+    public void setBasIn(BaseAnimatorSet bas_in) {
+        this.mBasIn = bas_in;
+    }
+
+    public void setBasOut(BaseAnimatorSet bas_out) {
+        this.mBasOut = bas_out;
+    }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -245,6 +261,8 @@ public class ProjectDetailActivity extends BaseActivity {
 
         isAttention();
 
+        mBasIn = new BounceTopEnter();
+        mBasOut = new SlideBottomExit();
         try {
             getSiginInVolunteer();
         } catch (Exception e) {
@@ -818,7 +836,8 @@ public class ProjectDetailActivity extends BaseActivity {
                                                 @Override
                                                 public void onSuccess(List<String> data) {
                                                     if (data != null) {
-                                                        showToast("报名成功,请留意报名审核结果短信");
+//                                                        showToast("报名成功,请留意报名审核结果短信");
+                                                        MaterialDialogOneBtn();
                                                         dialogPlus.dismiss();
                                                         try {
                                                             getSiginInVolunteer();
@@ -1195,5 +1214,24 @@ public class ProjectDetailActivity extends BaseActivity {
                             dissMissNormalDialog();
                         }
                     });
+    }
+
+
+    private void MaterialDialogOneBtn() {
+        final MaterialDialog dialog = new MaterialDialog(this);
+        dialog.btnNum(1)
+                .contentTextColor(Color.parseColor("#fc9553"))
+                .content("报名成功,请留意报名审核结果短信")
+                .btnText("确定")
+                .showAnim(mBasIn)
+                .dismissAnim(mBasOut)
+                .show();
+
+        dialog.setOnBtnClickL(new OnBtnClickL() {
+            @Override
+            public void onBtnClick() {
+                dialog.dismiss();
+            }
+        });
     }
 }

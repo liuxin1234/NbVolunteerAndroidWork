@@ -106,15 +106,18 @@ public class OrgSelectActivity extends BaseActivity {
         try {
             //获取默认选中的
             if (choseModel == SimpleAdapter1.SINGLE) {
+                //单选
                 selects = new LinkedHashMap<>();
                 String id = mVolunteerViewDto.getOrganizationId();
                 if (TextUtils.isEmpty(id))
                     return;
                 selects.put(mVolunteerViewDto.getOrganizationId(), mVolunteerViewDto.getOrganizationName());
             } else {
+                //多选
                 List<UserDepartmentViewDto> temp;
                 String userID = mVolunteerViewDto.getId();
                 if (type <= -1) {
+                    //这里是个人修改界面进入
                     AppActionImpl.getInstance(this).volunteer_departmentQuery(userID,
                             new ActionCallbackListener<List<UserDepartmentViewDto>>() {
                                 @Override
@@ -133,6 +136,7 @@ public class OrgSelectActivity extends BaseActivity {
                                 }
                             });
                 } else {
+                    //这里是完善个人资料界面进入 其实这里感觉没必要写以下代码，进入肯定是空的 直接走了catch
                     try {
                         String orgids = mVolunteerViewDto.getOrgIds();
                         String orgnames = getIntent().getStringExtra("orgnames");
@@ -325,7 +329,6 @@ public class OrgSelectActivity extends BaseActivity {
     }
 
     private void submit() {
-        showNormalDialog("正在提交");
         if (selects.size() == 0) {
             showToast("请选择");
             dissMissNormalDialog();
@@ -336,6 +339,7 @@ public class OrgSelectActivity extends BaseActivity {
             dissMissNormalDialog();
             return;
         }
+        showNormalDialog("正在提交");
         String orgName = "";
         String orgId = "";
         for (String key : selects.keySet()) {

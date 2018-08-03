@@ -35,6 +35,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import butterknife.Bind;
@@ -186,9 +187,14 @@ public class SearchResultFragment extends BaseFragment {
 
 
     private void getProject(String keyWords, final int refreshType) {
+        LinkedHashMap<String, String> sorts_map = new LinkedHashMap<>();
+        sorts_map.put("RunStatus", "asc");
+        sorts_map.put("Stick", "desc");
+        sorts_map.put("StartTime", "desc");
         ActivityQueryOptionDto queryOptionDto = new ActivityQueryOptionDto();
         queryOptionDto.setDeleted(false);
         queryOptionDto.setStatus(1);
+        queryOptionDto.setSorts(sorts_map);
         if (refreshType == ADD) {
             queryOptionDto.setPageIndex(PageIndex + 1);
         }

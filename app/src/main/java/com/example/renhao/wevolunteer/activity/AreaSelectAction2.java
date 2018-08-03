@@ -30,6 +30,7 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -62,7 +63,7 @@ public class AreaSelectAction2 extends BaseActivity {
     private int hierarchy = -1;//层级
 
     private Map<String, List<AreaListDto>> maps = new HashMap<>();
-    private Map<String, AreaListDto> selects = new HashMap<>();
+    private LinkedHashMap<String, String> selects = new LinkedHashMap<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -95,20 +96,32 @@ public class AreaSelectAction2 extends BaseActivity {
     private void init() {
         //获取默认选中的
         if (choseModel == SimpleAdapter1.SINGLE) {
-            String id = null;
-            selects = new HashMap<>();
-            if (mVolunteerViewDto.getAreaCode() != null)
+            //单选模式
+            String id = "";
+            String name = "";
+            selects = new LinkedHashMap<>();
+            if (mVolunteerViewDto.getAreaCode() != null){
                 id = mVolunteerViewDto.getAreaCode();
-            if (!TextUtils.isEmpty(id))
-                selects.put(mVolunteerViewDto.getAreaCode(), new AreaListDto());
+                name = mVolunteerViewDto.getAreaName();
+            }
+            if (!TextUtils.isEmpty(id)){
+                selects.put(id, name);
+            }
         } else {
-            String temp = mVolunteerViewDto.getAreaCode();
-            if (!TextUtils.isEmpty(temp)) {
-                String[] ids = temp.split(",");
-                if (ids.length > 0)
-                    for (int i = 0; i < ids.length; i++) {
-                        selects.put(ids[i], new AreaListDto());
-                    }
+            //多选模式
+            String tempId = mVolunteerViewDto.getAreaCode();
+            String tempName = mVolunteerViewDto.getAreaName();
+            if (!TextUtils.isEmpty(tempId)) {
+                try {
+                    String[] ids = tempId.split(",");
+                    String[] names = tempName.split(",");
+                    if (ids.length > 0)
+                        for (int i = 0; i < ids.length; i++) {
+                            selects.put(ids[i], names[i]);
+                        }
+                }catch (Exception e){
+
+                }
             }
         }
 
@@ -121,14 +134,14 @@ public class AreaSelectAction2 extends BaseActivity {
                 AreaListDto dto = (AreaListDto) date.getValue();
                 if (choseModel == SimpleAdapter1.MULTIPLY) {
                     if (isChecked) {
-                        selects.put(dto.getCode(), dto);
+                        selects.put(dto.getCode(), dto.getName());
                     } else {
                         selects.remove(dto.getCode());
                     }
                 } else {
                     if (isChecked) {
-                        selects = new HashMap<String, AreaListDto>();
-                        selects.put(dto.getCode(), dto);
+                        selects = new LinkedHashMap<>();
+                        selects.put(dto.getCode(), dto.getName());
                     } else {
                         selects.remove(dto.getCode());
                     }
@@ -197,7 +210,7 @@ public class AreaSelectAction2 extends BaseActivity {
                 itemDate.setChecked(false);
             } else {
                 itemDate.setChecked(true);
-                selects.put(listDto.getCode(), listDto);
+                selects.put(listDto.getCode(), listDto.getName());
             }
             itemDate.setTitle(listDto.getName());
             itemDate.setValue(listDto);
@@ -228,27 +241,27 @@ public class AreaSelectAction2 extends BaseActivity {
             showToast("请选择");
             return;
         }
+        if (selects.size() > 5){
+            showToast("居住区域不能超过5个");
+            dissMissNormalDialog();
+            return;
+        }
         showNormalDialog("正在提交");
         String areaCode = "";
-        String areaId = "";
         String areaName = "";
+//        Logger.e(selects.toString());
         for (String key : selects.keySet()) {
-            AreaListDto dto = selects.get(key);
-            areaId += dto.getId() + ",";
-            areaName += dto.getName() + ",";
-            areaCode += dto.getCode() + ",";
+            areaCode += key + ",";
+            areaName += selects.get(key) + ",";
         }
-        areaId = areaId.substring(0, areaId.length() - 1);
-        areaName = areaName.substring(0, areaName.length() - 1);
         areaCode = areaCode.substring(0, areaCode.length() - 1);
+        areaName = areaName.substring(0, areaName.length() - 1);
 
         mVolunteerViewDto.setAreaCodes(areaCode);
-        mVolunteerViewDto.setAreaId(areaId);
         mVolunteerViewDto.setAreaName(areaName);
         if (type > -1) { //注册界面
             Intent intent = new Intent();
             intent.putExtra("areaName", areaName);
-            intent.putExtra("areaId", areaId);
             intent.putExtra("areaCode", areaCode);
             intent.putExtra("personal_data", mVolunteerViewDto);
             setResult(RESULT_OK, intent);
@@ -262,6 +275,7 @@ public class AreaSelectAction2 extends BaseActivity {
                     dissMissNormalDialog();
                     Intent intent = new Intent();
                     intent.putExtra("personal_data", mVolunteerViewDto);
+                    intent.putExtra("AreaCodes",mVolunteerViewDto.getAreaCodes());
                     setResult(RESULT_OK, intent);
                     finish();
                 }

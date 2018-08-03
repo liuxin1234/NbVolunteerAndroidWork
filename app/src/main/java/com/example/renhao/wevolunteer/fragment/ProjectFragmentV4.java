@@ -205,8 +205,7 @@ public class ProjectFragmentV4 extends BaseFragmentV4 {
         showNormalDialog("正在加载中....");
         ActivityQueryOptionDto dto = new ActivityQueryOptionDto();
         LinkedHashMap<String, String> sorts_map = new LinkedHashMap<>();
-
-        sorts_map.put("StickTime", "desc");
+        sorts_map.put("RunStatus", "asc");
         sorts_map.put("Stick", "desc");
         sorts_map.put("StartTime", "desc");
 
@@ -215,7 +214,7 @@ public class ProjectFragmentV4 extends BaseFragmentV4 {
         if (typeSelect > -1) {
             if (TypeSelect_flag){ // 判断是否有2级菜单
                 dto.setActivityType(typeCode.get(serviceTypeSelect));
-                System.out.println("执行到了。。。。");
+//                System.out.println("执行到了。。。。");
                 if (serviceTypeCode != null && serviceTypeCode.size() > 0){
                     dto.setServiceType(Integer.valueOf(serviceTypeCode.get(typeSelect)));
                 }

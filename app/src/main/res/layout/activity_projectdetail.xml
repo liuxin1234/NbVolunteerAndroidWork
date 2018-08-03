@@ -84,8 +84,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
-                    android:layout_alignParentTop="true"
-                    android:src="@mipmap/icon_processing_right"/>
+                    android:layout_alignParentTop="true"/>
 
                 <RelativeLayout
                     android:id="@+id/relative_projectdetail"

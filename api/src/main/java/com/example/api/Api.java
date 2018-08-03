@@ -178,7 +178,7 @@ public interface Api {
     //报名活动删除
     public static final String ACTIVITY_RECRUIT_REMOVE = "Nbcei.Plugin.NbVolunteer.Api.Impl/v1/activityrecruit/remove";
 
-    //我的岗位/活动报名的签离签到时间
+    //我的岗位/活动报名的签离签到时间  (志愿者服务时长的接口)
     public static final String SIGN_RESULT_QUERY = "Nbcei.Plugin.NbVolunteer.Api.Impl/v1/signresult/query";
     /**
      * 获取accessToken

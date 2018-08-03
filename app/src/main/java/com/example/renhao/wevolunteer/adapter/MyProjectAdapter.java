@@ -95,6 +95,7 @@ public class MyProjectAdapter extends BaseAdapter {
             }else {
                 holder.tvLengthTime.setText("本次服务时长："+lists.get(position).getComputerHour());
             }
+            holder.TIME.setVisibility(View.GONE);
         }else if (lists.get(position).getType() == 2){
             holder.tvSignInTiem.setVisibility(View.GONE);
             holder.tvSignOutTime.setVisibility(View.GONE);

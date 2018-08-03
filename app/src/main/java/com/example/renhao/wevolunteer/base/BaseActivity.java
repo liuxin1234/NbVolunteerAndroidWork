@@ -144,7 +144,7 @@ public abstract class BaseActivity extends AppCompatActivity implements EasyPerm
      */
     protected void getAccessToken() {
         showNormalDialog("正在连接服务器");
-        boolean isLogin = LocalDate.getInstance(this).getLocalDate("isLogin", false);
+        final boolean isLogin = LocalDate.getInstance(this).getLocalDate("isLogin", false);
         String username = isLogin ? LocalDate.getInstance(this).getLocalDate("username", "") : "";
         String password = isLogin ? LocalDate.getInstance(this).getLocalDate("password", "") : "";
 
@@ -157,6 +157,10 @@ public abstract class BaseActivity extends AppCompatActivity implements EasyPerm
 
             @Override
             public void fail() {
+                LocalDate.getInstance(getApplicationContext()).setLocalDate("access_token","");
+                if(isLogin){
+                    showToast("登录账号异常，请退出后重新登录");
+                }
                 Logger.v(TAG, "get token fail");
                 dissMissNormalDialog();
             }

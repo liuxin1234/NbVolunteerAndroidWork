@@ -45,12 +45,12 @@ public class SignResultListDto {
     private String VolunteerTrueName;
     private String SignInTime;
     private String SignOutTime;
-    private int JobStatus;
-    private int ScoreRatio;
-    private int ComputerHour;
-    private int ValidHour;
+    private Integer JobStatus;
+    private Number ScoreRatio;
+    private Number ComputerHour;
+    private Number ValidHour;
     private int HourType;
-    private int ValidScore;
+    private Number ValidScore;
     private String SignInUserId;
     private String SignInUserName;
     private int SignInUserType;
@@ -114,28 +114,41 @@ public class SignResultListDto {
         this.JobStatus = JobStatus;
     }
 
-    public int getScoreRatio() {
+
+    public void setJobStatus(Integer jobStatus) {
+        JobStatus = jobStatus;
+    }
+
+    public Number getScoreRatio() {
         return ScoreRatio;
     }
 
-    public void setScoreRatio(int ScoreRatio) {
-        this.ScoreRatio = ScoreRatio;
+    public void setScoreRatio(Number scoreRatio) {
+        ScoreRatio = scoreRatio;
     }
 
-    public int getComputerHour() {
+    public Number getComputerHour() {
         return ComputerHour;
     }
 
-    public void setComputerHour(int ComputerHour) {
-        this.ComputerHour = ComputerHour;
+    public void setComputerHour(Number computerHour) {
+        ComputerHour = computerHour;
     }
 
-    public int getValidHour() {
+    public Number getValidHour() {
         return ValidHour;
     }
 
-    public void setValidHour(int ValidHour) {
-        this.ValidHour = ValidHour;
+    public void setValidHour(Number validHour) {
+        ValidHour = validHour;
+    }
+
+    public Number getValidScore() {
+        return ValidScore;
+    }
+
+    public void setValidScore(Number validScore) {
+        ValidScore = validScore;
     }
 
     public int getHourType() {
@@ -146,13 +159,7 @@ public class SignResultListDto {
         this.HourType = HourType;
     }
 
-    public int getValidScore() {
-        return ValidScore;
-    }
 
-    public void setValidScore(int ValidScore) {
-        this.ValidScore = ValidScore;
-    }
 
     public String getSignInUserId() {
         return SignInUserId;

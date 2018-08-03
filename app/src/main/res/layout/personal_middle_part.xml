@@ -7,6 +7,7 @@
 
 
     <LinearLayout
+        android:id="@+id/layout_Service_All"
         android:layout_width="0dp"
         android:layout_height="@dimen/middle_circle_height"
         android:layout_marginBottom="@dimen/middle_circle_marginbottom"
@@ -39,6 +40,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/layout_Service_School"
         android:layout_width="0dp"
         android:layout_height="@dimen/middle_circle_height"
         android:layout_marginBottom="@dimen/middle_circle_marginbottom"
@@ -71,6 +73,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/layout_Service_Job"
         android:layout_width="0dp"
         android:layout_height="@dimen/middle_circle_height"
         android:layout_marginBottom="@dimen/middle_circle_marginbottom"
@@ -104,6 +107,7 @@
 
 
     <LinearLayout
+        android:id="@+id/layout_Service_Retire"
         android:layout_width="0dp"
         android:layout_height="@dimen/middle_circle_height"
         android:layout_marginBottom="@dimen/middle_circle_marginbottom"
