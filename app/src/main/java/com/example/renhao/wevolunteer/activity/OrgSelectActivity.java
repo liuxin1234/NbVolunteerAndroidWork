@@ -114,7 +114,7 @@ public class OrgSelectActivity extends BaseActivity {
                 selects.put(mVolunteerViewDto.getOrganizationId(), mVolunteerViewDto.getOrganizationName());
             } else {
                 //多选
-                List<UserDepartmentViewDto> temp;
+//                List<UserDepartmentViewDto> temp;
                 String userID = mVolunteerViewDto.getId();
                 if (type <= -1) {
                     //这里是个人修改界面进入

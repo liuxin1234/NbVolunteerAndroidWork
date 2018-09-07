@@ -63,7 +63,6 @@ public class PresonalServicePage1 extends BaseFragmentV4 {
 
     private PresonalServiceOneAdapter adapter;
     private List<SignResultListDto> list = new ArrayList<SignResultListDto>();
-    private List<ActivityListDto> dates = new ArrayList<>();
 
     private Integer tag;
 

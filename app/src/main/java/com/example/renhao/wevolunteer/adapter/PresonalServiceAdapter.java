@@ -39,6 +39,7 @@ public class PresonalServiceAdapter extends FragmentStatePagerAdapter {
             return page1;
         } else {
             PresonalServicePage2 page2 = new PresonalServicePage2();
+            page2.setArguments(bundle);
             return page2;
         }
     }

@@ -32,6 +32,8 @@ import com.example.model.dictionary.DictionaryQueryOptionDto;
 import com.example.model.dictionary.DictionaryTypeListDto;
 import com.example.model.dictionary.DictionaryTypeQueryOptionDto;
 import com.example.model.dictionary.DictionaryViewDto;
+import com.example.model.durationRecord.DurationRecordListDto;
+import com.example.model.durationRecord.DurationRecordQueryOptionDto;
 import com.example.model.jobActivity.JobActivityViewDto;
 import com.example.model.mobileVersion.MobileVersionListDto;
 import com.example.model.mobileVersion.MobileVersionQueryOptionDto;
@@ -257,5 +259,9 @@ public interface AppAction {
     public void activityRecruitRemove(List<String> activityRecruitId,ActionCallbackListener<String> listener);
 
     //我的岗位/活动报名的签离签到时间
+    // 志愿服务时长
     public void postSignResultQuery(SignResultQueryOptionDto query, ActionCallbackListener<PagedListEntityDto<SignResultListDto>> listener);
+
+    //历史时长补录
+    public void postDurationRecordQuery(DurationRecordQueryOptionDto query, ActionCallbackListener<PagedListEntityDto<DurationRecordListDto>> listener);
 }

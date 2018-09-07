@@ -1,7 +1,6 @@
 package com.example.core;
 
 import android.content.Context;
-import android.nfc.NfcEvent;
 import android.os.AsyncTask;
 import android.text.TextUtils;
 
@@ -42,6 +41,8 @@ import com.example.model.dictionary.DictionaryQueryOptionDto;
 import com.example.model.dictionary.DictionaryTypeListDto;
 import com.example.model.dictionary.DictionaryTypeQueryOptionDto;
 import com.example.model.dictionary.DictionaryViewDto;
+import com.example.model.durationRecord.DurationRecordListDto;
+import com.example.model.durationRecord.DurationRecordQueryOptionDto;
 import com.example.model.jobActivity.JobActivityViewDto;
 import com.example.model.mobileVersion.MobileVersionListDto;
 import com.example.model.mobileVersion.MobileVersionQueryOptionDto;
@@ -1572,6 +1573,31 @@ public class AppActionImpl implements AppAction {
 
             @Override
             protected void onPostExecute(ApiResponse<PagedListEntityDto<SignResultListDto>> result) {
+                if (result == null) {
+                    listener.onFailure("", "请检查网络后重试");
+                    return;
+                }
+                if (result.isSuccess()) {
+                    listener.onSuccess(result.getData());
+                } else {
+                    listener.onFailure("", result.getMessage());
+                }
+            }
+        }.execute();
+    }
+
+    @Override
+    public void postDurationRecordQuery(final DurationRecordQueryOptionDto query, final ActionCallbackListener<PagedListEntityDto<DurationRecordListDto>> listener) {
+        //判断票据是否过期
+        final String accessToken = LocalDate.getInstance(context).getLocalDate("access_token", "");
+        new AsyncTask<Void, Void, ApiResponse<PagedListEntityDto<DurationRecordListDto>>>() {
+            @Override
+            protected ApiResponse<PagedListEntityDto<DurationRecordListDto>> doInBackground(Void... params) {
+                return api.postDurationRecordQuery(query, accessToken);
+            }
+
+            @Override
+            protected void onPostExecute(ApiResponse<PagedListEntityDto<DurationRecordListDto>> result) {
                 if (result == null) {
                     listener.onFailure("", "请检查网络后重试");
                     return;

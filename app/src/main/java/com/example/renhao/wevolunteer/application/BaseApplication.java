@@ -1,6 +1,7 @@
 package com.example.renhao.wevolunteer.application;
 
 import android.app.Application;
+import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 
@@ -31,11 +32,16 @@ public class BaseApplication extends Application {
         setBaseApplication(baseApplication);
     }
 
+    private static Context context;
+
+    public static Context getContext() {
+        return context;
+    }
     @Override
     public void onCreate() {
         super.onCreate();
         setInstance(this);
-
+        context = getApplicationContext();
         initLogger();
         Utils.init(INSTANCE);
     }

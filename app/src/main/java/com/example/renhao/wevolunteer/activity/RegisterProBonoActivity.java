@@ -715,6 +715,7 @@ public class RegisterProBonoActivity extends BaseActivity implements View.OnFocu
         vl_create.setReUserPassword(Repassword);
         vl_create.setJobStatus(Integer.valueOf(personalCode));
         vl_create.setAreaCode(areaCode);
+        vl_create.setAreaCodes(areaCode);
         vl_create.setVolk(Volk);
         vl_create.setDegree(Degree);
 //        vl_create.setOrgIds(orgId);

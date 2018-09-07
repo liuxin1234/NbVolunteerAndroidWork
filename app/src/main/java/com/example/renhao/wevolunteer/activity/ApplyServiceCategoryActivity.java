@@ -66,7 +66,7 @@ public class ApplyServiceCategoryActivity extends BaseActivity {
                 finish();
             }
         });
-        ActionBarUtils.setTvTitlet(actionBar,"意向服务类别");
+        ActionBarUtils.setTvTitlet(actionBar,"服务类别");
         ActionBarUtils.setTvSubmit(actionBar,"提交", new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -31,6 +31,7 @@ public class VolunteerCreateDto implements Serializable {
     private String Blood;   //(string, optional): 获取或设置 血型
     private String Origin;  // (string, optional): 获取或设置 籍贯
     private String AreaCode;     // (string): 获取或设置 区域Code
+    private String AreaCodes;     // (string): 获取或设置 区域Code
     private String AreaId;  //(string, optional): 获取或设置 区域Id
     private String AreaName;     //(string, optional): 获取或设置 区域
     private String Addr;    //(string, optional): 获取或设置 地址
@@ -757,5 +758,13 @@ public class VolunteerCreateDto implements Serializable {
 
     public void setBirthDay(String birthDay) {
         BirthDay = birthDay;
+    }
+
+    public String getAreaCodes() {
+        return AreaCodes;
+    }
+
+    public void setAreaCodes(String areaCodes) {
+        AreaCodes = areaCodes;
     }
 }

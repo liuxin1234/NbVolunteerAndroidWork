@@ -7,7 +7,10 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.example.model.durationRecord.DurationRecordListDto;
 import com.example.renhao.wevolunteer.R;
+import com.example.renhao.wevolunteer.utils.GsonUtils;
+import com.orhanobut.logger.Logger;
 
 import java.util.List;
 
@@ -28,17 +31,18 @@ public class PresonalServiceTwoAdapter extends BaseAdapter {
 
 
     private Context mContext;
-    private List<String> mList;
+    private List<DurationRecordListDto> mList;
     private LayoutInflater mInflater;
 
-    public PresonalServiceTwoAdapter(Context context, List<String> mData) {
+    public PresonalServiceTwoAdapter(Context context, List<DurationRecordListDto> mData) {
         this.mContext = context;
         this.mList = mData;
         this.mInflater = LayoutInflater.from(context);
     }
 
-    public void setData(List<String> data) {
+    public void setData(List<DurationRecordListDto> data) {
         mList = data;
+        Logger.e(mList.toString());
         notifyDataSetChanged();
     }
 
@@ -67,23 +71,25 @@ public class PresonalServiceTwoAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        viewHolder.tvStartTime.setText(mList.get(position));
-        viewHolder.tvEndTime.setText(mList.get(position));
-        viewHolder.tvServiceTime.setText(mList.get(position));
-        viewHolder.tvDataSources.setText(mList.get(position));
+        DurationRecordListDto listDto = mList.get(position);
+        String serviceTime = listDto.getAddLenth() + "（" + listDto.getInTime() + "—" + listDto.getOutTime() + "）";
+        viewHolder.tvRecordTime.setText(listDto.getDatePart().split(" ")[0]);
+        viewHolder.tvProjectName.setText(listDto.getActivityName());
+        viewHolder.tvServiceTime.setText(serviceTime);
+        viewHolder.tvDataSources.setText(listDto.getSource());
         return convertView;
     }
 
 
-    class ViewHolder {
-        @Bind(R.id.tv_StartTime)
-        TextView tvStartTime;
-        @Bind(R.id.tv_EndTime)
-        TextView tvEndTime;
-        @Bind(R.id.tv_Data_Sources)
-        TextView tvDataSources;
+    static class ViewHolder {
+        @Bind(R.id.tv_RecordTime)
+        TextView tvRecordTime;
+        @Bind(R.id.tv_ProjectName)
+        TextView tvProjectName;
         @Bind(R.id.tv_Service_Time)
         TextView tvServiceTime;
+        @Bind(R.id.tv_Data_Sources)
+        TextView tvDataSources;
 
         ViewHolder(View view) {
             ButterKnife.bind(this, view);

@@ -559,7 +559,7 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
 
                     @Override
                     public void onFailure(String errorEvent, String message) {
-                        if (Util.isWifi(getActivity()) || Util.isInternet(getActivity())){
+                        if (Util.isWifi() || Util.isInternet()){
                             showToast("登录账号异常，请退出后重新登录");
                         }else {
                             showToast("获取数据失败，请检查网络后重试");

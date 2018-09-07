@@ -71,35 +71,20 @@ public class MobilePhoneActivity extends BaseActivity implements View.OnFocusCha
             public void onClick(View v) {
                 myPhone = edit_get_phone.getText().toString();
                 if (Util.isPhoneNumber(myPhone)) {
-                    AppActionImpl.getInstance(getApplicationContext()).existsMobile(myPhone, 1, new ActionCallbackListener<String>() {
+                    //获取验证码按钮倒计时
+                      btn_timeCountUtil = new Btn_TimeCountUtil(MobilePhoneActivity.this,
+                            60000, 1000, btn_getVerify);
+                    btn_timeCountUtil.start();
+                    String phone = myPhone;
+                    AppActionImpl.getInstance(getApplicationContext()).getVerification(phone, new ActionCallbackListener<String>() {
                         @Override
                         public void onSuccess(String data) {
-                            if (data.equals("true")) {
-                                dissMissNormalDialog();
-                                showToast("手机号码已存在");
-                            } else {
-                                //获取验证码按钮倒计时
-                                btn_timeCountUtil = new Btn_TimeCountUtil(MobilePhoneActivity.this,
-                                        60000, 1000, btn_getVerify);
-                                btn_timeCountUtil.start();
-                                String phone = myPhone;
-                                AppActionImpl.getInstance(getApplicationContext()).getVerification(phone, new ActionCallbackListener<String>() {
-                                    @Override
-                                    public void onSuccess(String data) {
-                                        showToast("验证码已发送");
-                                    }
-
-                                    @Override
-                                    public void onFailure(String errorEvent, String message) {
-                                        showToast("验证码发送失败,"+message);
-                                    }
-                                });
-                            }
+                            showToast("验证码已发送");
                         }
 
                         @Override
                         public void onFailure(String errorEvent, String message) {
-                            dissMissNormalDialog();
+                            showToast("验证码发送失败,"+message);
                         }
                     });
                 } else {
@@ -108,21 +93,6 @@ public class MobilePhoneActivity extends BaseActivity implements View.OnFocusCha
             }
         });
 
-//        btn_back = (ImageView) findViewById(R.id.imageView_btn_back);
-//        btn_back.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                MobilePhoneActivity.this.finish();
-//            }
-//        });
-//
-//        btn_send_Verification = (TextView) findViewById(R.id.tv_submitVerification);
-//        btn_send_Verification.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//            }
-//        });
     }
 
     private void submit() {

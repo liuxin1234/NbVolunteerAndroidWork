@@ -457,6 +457,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         vl_create.setIdNumber(id_number);
         vl_create.setMobile(phone);
         vl_create.setAreaCode(areaCode);
+        vl_create.setAreaCodes(areaCode);
 //        vl_create.setOrgIds(orgId);  //所在机构  这里默认注册到ae14862e-6383-4d23-9a5d-cc3caaad7e99
 //        vl_create.setPolity(polity);//政治面貌
 //        vl_create.setEmail(email);    //邮箱

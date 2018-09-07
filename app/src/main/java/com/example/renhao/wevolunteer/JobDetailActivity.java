@@ -23,7 +23,7 @@ import butterknife.ButterKnife;
  * 类描述：
  * 创建人：renhao
  * 创建时间：2016/8/20 19:18
- * 修改备注：
+ * 修改备注： 目前该类并未使用到
  */
 public class JobDetailActivity extends BaseActivity {
     private static final String TAG = "JobDetailActivity";

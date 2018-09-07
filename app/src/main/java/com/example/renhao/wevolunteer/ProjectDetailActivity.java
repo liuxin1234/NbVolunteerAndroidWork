@@ -395,8 +395,8 @@ public class ProjectDetailActivity extends BaseActivity {
         mOperationState = data.getOperationState();
         setOperationStateImg(mOperationState);
 
-        if (!TextUtils.isEmpty(data.getAppLstUrl())) {
-            imagUrl = data.getAppLstUrl();
+        if (!TextUtils.isEmpty(data.getPcLstUrl())) {
+            imagUrl = data.getPcLstUrl();
             Picasso.with(getApplicationContext()).load(Util.getRealUrl(imagUrl))
                     .placeholder(R.drawable.img_unload)
                     .error(R.drawable.img_unload)
@@ -487,8 +487,8 @@ public class ProjectDetailActivity extends BaseActivity {
         setOperationStateImg(mOperationState);
 
 
-        if (!TextUtils.isEmpty(data.getAppLstUrl())) {
-            imagUrl = data.getAppLstUrl();
+        if (!TextUtils.isEmpty(data.getPcLstUrl())) {
+            imagUrl = data.getPcLstUrl();
             Picasso.with(getApplicationContext()).load(Util.getRealUrl(imagUrl))
                     .placeholder(R.drawable.img_unload)
                     .error(R.drawable.img_unload)

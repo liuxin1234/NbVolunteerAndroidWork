@@ -20,8 +20,8 @@ android {
         applicationId "com.example.renhao.wevolunteer"
         minSdkVersion 16
         targetSdkVersion 23
-        versionCode 8
-        versionName "1.4.9"
+        versionCode 9
+        versionName "1.5.0"
     }
     buildTypes {
         release {

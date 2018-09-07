@@ -31,6 +31,8 @@ import com.example.model.dictionary.DictionaryQueryOptionDto;
 import com.example.model.dictionary.DictionaryTypeListDto;
 import com.example.model.dictionary.DictionaryTypeQueryOptionDto;
 import com.example.model.dictionary.DictionaryViewDto;
+import com.example.model.durationRecord.DurationRecordListDto;
+import com.example.model.durationRecord.DurationRecordQueryOptionDto;
 import com.example.model.jobActivity.JobActivityViewDto;
 import com.example.model.mobileVersion.MobileVersionListDto;
 import com.example.model.mobileVersion.MobileVersionQueryOptionDto;
@@ -178,8 +180,12 @@ public interface Api {
     //报名活动删除
     public static final String ACTIVITY_RECRUIT_REMOVE = "Nbcei.Plugin.NbVolunteer.Api.Impl/v1/activityrecruit/remove";
 
-    //我的岗位/活动报名的签离签到时间  (志愿者服务时长的接口)
+    //我的岗位/活动报名的签离签到时间
+    //志愿者服务时长的接口
     public static final String SIGN_RESULT_QUERY = "Nbcei.Plugin.NbVolunteer.Api.Impl/v1/signresult/query";
+    //历史时长补录 DurationRecord
+    public static final String DURATIONRECORD_QUERY = "Nbcei.Plugin.NbVolunteer.Api.Impl/v1/durationrecord/query";
+
     /**
      * 获取accessToken
      *
@@ -413,4 +419,6 @@ public interface Api {
      * 我的岗位/活动报名的签离签到时间
      */
     public ApiResponse<PagedListEntityDto<SignResultListDto>> postSignResultQuery(SignResultQueryOptionDto signResultQueryOptionDto, String accessToken);
+
+    public ApiResponse<PagedListEntityDto<DurationRecordListDto>> postDurationRecordQuery(DurationRecordQueryOptionDto durationRecordQueryOptionDto, String accessToken);
 }

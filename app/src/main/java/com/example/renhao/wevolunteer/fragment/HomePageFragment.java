@@ -162,7 +162,7 @@ public class HomePageFragment extends BaseFragment implements BaseSliderView.OnS
                     item.setNum(dto.getRecruited());
                     item.setMaxNum(dto.getRecruitNumber());
                     item.setTime(dto.getLengthTime());
-                    item.setImg(dto.getAppLstUrl());
+                    item.setImg(dto.getPcLstUrl());
                     item.setStartTime(dto.getStartTime());
                     item.setFinishTime(dto.getFinishTime());
                     list.add(item);
@@ -301,7 +301,7 @@ public class HomePageFragment extends BaseFragment implements BaseSliderView.OnS
                     @Override
                     public void onFailure(String errorEvent, String message) {
                         mBaseActivity.dissMissNormalDialog();
-                        if (Util.isWifi(getActivity()) || Util.isInternet(getActivity())){
+                        if (Util.isWifi() || Util.isInternet()){
                             showToast("登录账号异常，请退出后重新登录");
                         }else {
                             showToast("获取数据失败，请检查网络后重试");

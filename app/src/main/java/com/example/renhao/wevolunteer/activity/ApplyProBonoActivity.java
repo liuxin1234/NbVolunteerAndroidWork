@@ -132,6 +132,7 @@ public class ApplyProBonoActivity extends BaseActivity implements View.OnClickLi
 
         Intent intent = getIntent();
         personal_data = (VolunteerViewDto) intent.getSerializableExtra("personal_data");
+        Logger.e(personal_data.getAreaCode());
         if (personal_data.getAuditStatus() != null) {
             SendHandlerMsg(UPDATE_UI);
         }
@@ -225,6 +226,8 @@ public class ApplyProBonoActivity extends BaseActivity implements View.OnClickLi
                                                     personal_data.setAuditStatus(3);//审核状态改变
                                                     personal_data.setSpeciality(true);
                                                     personal_data.setSkilled(skill);
+                                                    personal_data.setAreaCodes(personal_data.getAreaCode());
+                                                    personal_data.setAreaCode(personal_data.getAreaCode());
                                                     List<VolunteerViewDto> vl_updates = new ArrayList<>();
                                                     vl_updates.add(personal_data);
                                                     //申请资料上传
@@ -260,6 +263,8 @@ public class ApplyProBonoActivity extends BaseActivity implements View.OnClickLi
                                     personal_data.setAuditStatus(3);//审核状态改变
                                     personal_data.setSpeciality(true);
                                     personal_data.setSkilled(skill);
+                                    personal_data.setAreaCodes(personal_data.getAreaCode());
+                                    personal_data.setAreaCode(personal_data.getAreaCode());
                                     List<VolunteerViewDto> vl_updates = new ArrayList<>();
                                     vl_updates.add(personal_data);
                                     //申请资料上传

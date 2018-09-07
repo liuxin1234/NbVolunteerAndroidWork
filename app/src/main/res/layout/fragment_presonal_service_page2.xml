@@ -6,16 +6,15 @@
     android:orientation="vertical"
     >
     <com.handmark.pulltorefresh.library.PullToRefreshListView
-        android:id="@+id/list_Presonal_Service_ProjectItem"
+        android:id="@+id/list_Presonal_Service_DurationRecordItem"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="none"
-        android:visibility="gone">
+        android:scrollbars="none">
 
     </com.handmark.pulltorefresh.library.PullToRefreshListView>
 
     <TextView
-        android:id="@+id/tv_Send"
+        android:id="@+id/tv_NoData"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"

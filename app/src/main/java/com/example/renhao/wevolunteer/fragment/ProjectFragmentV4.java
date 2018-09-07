@@ -281,7 +281,7 @@ public class ProjectFragmentV4 extends BaseFragmentV4 {
                             item.setNum(listDto.getRecruited());
                             item.setMaxNum(listDto.getRecruitNumber());
                             item.setTime(listDto.getLengthTime());
-                            item.setImg(listDto.getAppLstUrl());
+                            item.setImg(listDto.getPcLstUrl());
                             item.setStartTime(listDto.getStartTime());
                             item.setFinishTime(listDto.getFinishTime());
                             list.add(item);

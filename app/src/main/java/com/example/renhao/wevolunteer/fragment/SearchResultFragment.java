@@ -227,7 +227,7 @@ public class SearchResultFragment extends BaseFragment {
                             item.setNum(listDto.getRecruited());
                             item.setMaxNum(listDto.getRecruitNumber());
                             item.setTime(listDto.getLengthTime());
-                            item.setImg(listDto.getAppLstUrl());
+                            item.setImg(listDto.getPcLstUrl());
                             item.setStartTime(listDto.getStartTime());
                             item.setFinishTime(listDto.getFinishTime());
                             projectItem.add(item);

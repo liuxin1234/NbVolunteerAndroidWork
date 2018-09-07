@@ -10,6 +10,9 @@ import android.net.ConnectivityManager;
 import android.os.Environment;
 import android.util.Base64;
 
+import com.example.renhao.wevolunteer.application.BaseApplication;
+import com.orhanobut.logger.Logger;
+
 import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -250,11 +253,11 @@ public class Util {
 
     /**
      * 判断是否连接wifi
-     * @param context
+     * @param
      * @return
      */
-    public static boolean isWifi(Context context){
-        ConnectivityManager con = (ConnectivityManager) context.getSystemService(Activity.CONNECTIVITY_SERVICE);
+    public static boolean isWifi(){
+        ConnectivityManager con = (ConnectivityManager) BaseApplication.getContext().getSystemService(Activity.CONNECTIVITY_SERVICE);
         boolean wifi = false;
         if (con != null) {
             wifi = con.getNetworkInfo(ConnectivityManager.TYPE_WIFI).isConnectedOrConnecting();
@@ -264,11 +267,11 @@ public class Util {
 
     /**
      * 判断是否连接流量
-     * @param context
+     * @param
      * @return
      */
-    public static boolean isInternet (Context context){
-        ConnectivityManager con = (ConnectivityManager) context.getSystemService(Activity.CONNECTIVITY_SERVICE);
+    public static boolean isInternet (){
+        ConnectivityManager con = (ConnectivityManager) BaseApplication.getContext().getSystemService(Activity.CONNECTIVITY_SERVICE);
         boolean internet = false;
         if (con != null) {
             internet = con.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).isConnectedOrConnecting();

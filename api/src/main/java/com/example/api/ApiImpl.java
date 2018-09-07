@@ -34,6 +34,8 @@ import com.example.model.dictionary.DictionaryQueryOptionDto;
 import com.example.model.dictionary.DictionaryTypeListDto;
 import com.example.model.dictionary.DictionaryTypeQueryOptionDto;
 import com.example.model.dictionary.DictionaryViewDto;
+import com.example.model.durationRecord.DurationRecordListDto;
+import com.example.model.durationRecord.DurationRecordQueryOptionDto;
 import com.example.model.jobActivity.JobActivityViewDto;
 import com.example.model.mobileVersion.MobileVersionListDto;
 import com.example.model.mobileVersion.MobileVersionQueryOptionDto;
@@ -908,6 +910,20 @@ public class ApiImpl implements Api {
         }.getType();
         try {
             return HttpEngine.getInstance().postApiHandler(params, SIGN_RESULT_QUERY, typeOft, accessToken);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return new ApiResponse<>(false, "网络连接异常");
+    }
+
+    @Override
+    public ApiResponse<PagedListEntityDto<DurationRecordListDto>> postDurationRecordQuery(DurationRecordQueryOptionDto query, String accessToken) {
+        Gson gson = new Gson();
+        String params = gson.toJson(query);
+        Type typeOft = new TypeToken<ApiResponse<PagedListEntityDto<DurationRecordListDto>>>() {
+        }.getType();
+        try {
+            return HttpEngine.getInstance().postApiHandler(params, DURATIONRECORD_QUERY, typeOft, accessToken);
         } catch (IOException e) {
             e.printStackTrace();
         }
