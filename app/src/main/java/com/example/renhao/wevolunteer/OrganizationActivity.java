@@ -198,13 +198,14 @@ public class OrganizationActivity extends BaseActivity {
             }
         });
         magnifierImg = (ImageView) mCustomView.findViewById(R.id.imageview_normal_magnifier);
-        magnifierImg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(OrganizationActivity.this, SearchActivity.class);
-                startActivity(intent);
-            }
-        });
+        magnifierImg.setVisibility(View.GONE);
+//        magnifierImg.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(OrganizationActivity.this, SearchActivity.class);
+//                startActivity(intent);
+//            }
+//        });
     }
 
     private void initDate(final int type) {

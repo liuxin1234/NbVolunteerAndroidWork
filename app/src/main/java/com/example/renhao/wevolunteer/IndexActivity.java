@@ -130,6 +130,8 @@ public class IndexActivity extends BaseActivity implements AMapLocationListener 
     private PowerManager.WakeLock wakeLock = null;
     private String upDataText = "";
 
+    private SimpleDateFormat finishDateFormat = new SimpleDateFormat("yyyy-MM-dd",Locale.CHINA);
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -158,6 +160,8 @@ public class IndexActivity extends BaseActivity implements AMapLocationListener 
                 WifiManager.WIFI_MODE_FULL_HIGH_PERF, "WeVolunteer");
         mWifiLock.acquire();*/
 
+        //用来判断 强制签退后的标记
+        isSignOutFlag();
     }
 
     //获取电源锁，保持该服务在屏幕熄灭时仍然获取CPU时，保持运行
@@ -184,6 +188,29 @@ public class IndexActivity extends BaseActivity implements AMapLocationListener 
         }
     }
 
+    //强制签退后的标记
+    private void isSignOutFlag(){
+
+        String nowDate = LocalDate.getInstance(this).getLocalDate("nowDate","");
+        String finishDate = finishDateFormat.format(new Date());
+        boolean f  = LocalDate.getInstance(this).getLocalDate("flag", false);
+        System.out.println("当前签到时候纪录的年月日："+nowDate);
+        System.out.println("当前系统的年月日："+finishDate);
+        System.out.println(f);
+        //首先判断是否点击了签到按钮
+        if(f){
+            //判断当前日期和用户签到时候的日期是否同一天
+            if (!finishDate.equals(nowDate)){  //不同一天
+                //如果signOutFlag为true 则为强制签退过
+                LocalDate.getInstance(this).setLocalDate("signOutFlag",true);
+            } else {
+                //如果signOutFlag为false 则为没有强制签退过
+                LocalDate.getInstance(this).setLocalDate("signOutFlag",false);
+            }
+        }
+    }
+
+    //更新APP
     private void isUpdate() {
         if (!Util.hasSDcard()) {
             return;

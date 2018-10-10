@@ -65,6 +65,10 @@ public class Complete_information extends BaseActivity implements View.OnClickLi
             et_idNumber.setText(personal_data.getIdNumber());
         }
 
+        if (personal_data.getCardTypeStr() != null){
+            tv_cardType.setText(personal_data.getCardTypeStr());
+        }
+
 //        if (personal_data.getEmail() != null)
 //            et_Email.setText(personal_data.getEmail());
 
@@ -172,7 +176,7 @@ public class Complete_information extends BaseActivity implements View.OnClickLi
         } else {
             personal_data.setTrueName(et_trueName.getText().toString());
 //            personal_data.setEmail(et_Email.getText().toString());
-            personal_data.setCardType(Integer.valueOf(cardCode));
+            personal_data.setCardType(personal_data.getCardType());
             personal_data.setIdNumber(et_idNumber.getText().toString());
             personal_data.setMobile(et_phone.getText().toString());
             personal_data.setOrgIds(orgId);

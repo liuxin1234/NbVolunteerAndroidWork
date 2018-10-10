@@ -891,7 +891,7 @@ public class FindPageFragment extends BaseFragment implements LocationSource,
     public void compulsoryChronometer(){
         String nowDate = LocalDate.getInstance(getActivity()).getLocalDate("nowDate","");
         String finishDate = finishDateFormat.format(new Date());
-        boolean f = flag = LocalDate.getInstance(getActivity()).getLocalDate("flag", false);;
+        boolean f = flag = LocalDate.getInstance(getActivity()).getLocalDate("flag", false);
         System.out.println("当前签到时候纪录的年月日："+nowDate);
         System.out.println("当前系统的年月日："+finishDate);
         System.out.println(f);
@@ -904,6 +904,7 @@ public class FindPageFragment extends BaseFragment implements LocationSource,
                 LocalDate.getInstance(getActivity()).setLocalDate("SIGN_OUT","0");
                 LocalDate.getInstance(getActivity()).setLocalDate("nowDate","");
                 LocalDate.getInstance(getActivity()).setLocalDate("Mac","");
+                LocalDate.getInstance(getActivity()).setLocalDate("signOutFlag",true);
                 SIGN_OUT = 0;
                 flag = saveFlag(false);
                 sign_in.setVisibility(View.VISIBLE);
@@ -1093,6 +1094,7 @@ public class FindPageFragment extends BaseFragment implements LocationSource,
                         LocalDate.getInstance(getActivity()).setLocalDate("SIGN_OUT","0");
                         LocalDate.getInstance(getActivity()).setLocalDate("nowDate","");
                         LocalDate.getInstance(getActivity()).setLocalDate("Mac","");
+                        LocalDate.getInstance(getActivity()).setLocalDate("signOutFlag",true);
                         SIGN_OUT = 0;
                         flag = saveFlag(false);
                         sign_in.setVisibility(View.VISIBLE);

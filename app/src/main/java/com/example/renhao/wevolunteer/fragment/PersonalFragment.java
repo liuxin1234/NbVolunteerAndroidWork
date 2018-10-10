@@ -232,12 +232,12 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
         exit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean flag = LocalDate.getInstance(getActivity()).getLocalDate("flag", false);
-                Logger.v(TAG,""+flag);
-                if (flag){ //判断用户是否签退，如果没签退  先签退才能更（切）换账号。
-                    Toast.makeText(getActivity(), "您还未签退，请先签退！", Toast.LENGTH_SHORT).show();
-                }else {
+                boolean isSignOutFlag = LocalDate.getInstance(getActivity()).getLocalDate("signOutFlag", true);
+                Logger.v(TAG,""+isSignOutFlag);
+                if (isSignOutFlag){ //判断用户是否签退，如果没签退  先签退才能更（切）换账号。
                     exitLogin();
+                }else {
+                    Toast.makeText(getActivity(), "您还未签退，请先签退！", Toast.LENGTH_SHORT).show();
                 }
             }
         });

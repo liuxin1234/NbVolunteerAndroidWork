@@ -310,6 +310,7 @@ public class PersonalDataActivity extends BaseActivity implements View.OnClickLi
                             codes.add(code);
                             names.add(name);
                         }
+                        //个人属性
                         if (type.equals("PersonAttribute")) {
                             try {
                                 for (int i = 0; i < data.size(); i++) {
@@ -321,6 +322,7 @@ public class PersonalDataActivity extends BaseActivity implements View.OnClickLi
                                 e.printStackTrace();
                             }
                         }
+                        //政治面貌
                         if (type.equals("PoliticalAttribute")) {
                             try {
                                 for (int i = 0; i < data.size(); i++) {
@@ -332,6 +334,7 @@ public class PersonalDataActivity extends BaseActivity implements View.OnClickLi
                                 e.printStackTrace();
                             }
                         }
+                        //专业能力
                         if (type.equals("SPECIALITY")){
                             try{
                                 String specialtyTypeName = "";
@@ -348,7 +351,7 @@ public class PersonalDataActivity extends BaseActivity implements View.OnClickLi
                                 e.printStackTrace();
                             }
                         }
-
+                        //服务类型
                         if (type.equals("ActivityType")) {
                             try {
                                 String serviceTypeName = "";
@@ -364,7 +367,7 @@ public class PersonalDataActivity extends BaseActivity implements View.OnClickLi
                                 e.printStackTrace();
                             }
                         }
-
+                        //是否为平安志愿者
                         if (type.equals("VlteTag")){
                             try {
                                 for (int i=0;i<data.size();i++){
@@ -376,6 +379,7 @@ public class PersonalDataActivity extends BaseActivity implements View.OnClickLi
                                 e.printStackTrace();
                             }
                         }
+                        //性别
                         if (type.equals("Sex")){
                             try {
                                 for (int i=0;i<data.size();i++){
@@ -388,6 +392,7 @@ public class PersonalDataActivity extends BaseActivity implements View.OnClickLi
                             }
 
                         }
+                        //最高学历
                         if (type.equals("Education")){
                             try {
                                 for (int i = 0; i < data.size(); i++) {
@@ -745,6 +750,7 @@ public class PersonalDataActivity extends BaseActivity implements View.OnClickLi
 //                    Logger.e(areaCodes);
                     Personal_Data.setAreaCode(areaCodes);
                     tv_area_show.setText(Personal_Data.getAreaName());
+                    getVolunteerDetails();
                     break;
                 //修改我的所在机构的数据回调
                 case MY_ORG:
@@ -939,5 +945,23 @@ public class PersonalDataActivity extends BaseActivity implements View.OnClickLi
         } catch (Exception e) {
 
         }
+    }
+
+    //获取个人详情的接口
+    private void getVolunteerDetails(){
+        AppActionImpl.getInstance(this).get_volunteerDetail(volunteerId, new ActionCallbackListener<VolunteerViewDto>() {
+            @Override
+            public void onSuccess(VolunteerViewDto data) {
+                if (data == null){
+                    return;
+                }
+                Personal_Data = data;
+            }
+
+            @Override
+            public void onFailure(String errorEvent, String message) {
+
+            }
+        });
     }
 }

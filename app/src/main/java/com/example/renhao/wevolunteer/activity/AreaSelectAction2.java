@@ -109,19 +109,21 @@ public class AreaSelectAction2 extends BaseActivity {
             }
         } else {
             //多选模式
-            String tempId = mVolunteerViewDto.getAreaCode();
-            String tempName = mVolunteerViewDto.getAreaName();
-            if (!TextUtils.isEmpty(tempId)) {
-                try {
-                    String[] ids = tempId.split(",");
-                    String[] names = tempName.split(",");
-                    if (ids.length > 0)
-                        for (int i = 0; i < ids.length; i++) {
-                            selects.put(ids[i], names[i]);
-                        }
-                }catch (Exception e){
+            try {
+                String tempId = mVolunteerViewDto.getAreaCode().substring(1,mVolunteerViewDto.getAreaCode().length()-1);
+                Logger.e(tempId);
+                String tempName = mVolunteerViewDto.getAreaName();
+                if (!TextUtils.isEmpty(tempId)) {
 
-                }
+                        String[] ids = tempId.split(",");
+                        String[] names = tempName.split(",");
+                        if (ids.length > 0)
+                            for (int i = 0; i < ids.length; i++) {
+                                selects.put(ids[i], names[i]);
+                            }
+                    }
+                } catch (Exception e){
+
             }
         }
 
