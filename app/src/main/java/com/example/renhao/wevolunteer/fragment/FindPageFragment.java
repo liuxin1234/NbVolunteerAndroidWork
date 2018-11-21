@@ -58,6 +58,7 @@ import com.example.renhao.wevolunteer.R;
 import com.example.renhao.wevolunteer.base.BaseFragment;
 import com.example.renhao.wevolunteer.event.QRCodeResultEvent;
 import com.example.renhao.wevolunteer.utils.DeviceUtils;
+import com.example.renhao.wevolunteer.utils.GetDeviceId;
 import com.example.renhao.wevolunteer.utils.Util;
 import com.jungly.gridpasswordview.GridPasswordView;
 import com.orhanobut.logger.Logger;
@@ -899,25 +900,30 @@ public class FindPageFragment extends BaseFragment implements LocationSource,
         if(f){
             //判断当前日期和用户签到时候的日期是否同一天
             if (!finishDate.equals(nowDate)){  //不同一天
-                LocalDate.getInstance(getActivity()).setLocalDate("activityId", "");
-                LocalDate.getInstance(getActivity()).setLocalDate("activityNumCode", "");
-                LocalDate.getInstance(getActivity()).setLocalDate("SIGN_OUT","0");
-                LocalDate.getInstance(getActivity()).setLocalDate("nowDate","");
-                LocalDate.getInstance(getActivity()).setLocalDate("Mac","");
-                LocalDate.getInstance(getActivity()).setLocalDate("signOutFlag",true);
-                SIGN_OUT = 0;
-                flag = saveFlag(false);
-                sign_in.setVisibility(View.VISIBLE);
-                sign_in_num.setVisibility(View.VISIBLE);
-                sign_out.setVisibility(View.GONE);
-                linearLayout.setVisibility(View.GONE);
-                llWarm.setVisibility(View.GONE);
-                stopChronometer();
+                recoverySignBtnView();
             }
         }
-
     }
 
+    /**
+     * 强制签退后恢复签到默认布局状态
+     */
+    private void recoverySignBtnView(){
+        LocalDate.getInstance(getActivity()).setLocalDate("activityId", "");
+        LocalDate.getInstance(getActivity()).setLocalDate("activityNumCode", "");
+        LocalDate.getInstance(getActivity()).setLocalDate("SIGN_OUT","0");
+        LocalDate.getInstance(getActivity()).setLocalDate("nowDate","");
+        LocalDate.getInstance(getActivity()).setLocalDate("Mac","");
+        LocalDate.getInstance(getActivity()).setLocalDate("signOutFlag",true);
+        SIGN_OUT = 0;
+        flag = saveFlag(false);
+        sign_in.setVisibility(View.VISIBLE);
+        sign_in_num.setVisibility(View.VISIBLE);
+        sign_out.setVisibility(View.GONE);
+        linearLayout.setVisibility(View.GONE);
+        llWarm.setVisibility(View.GONE);
+        stopChronometer();
+    }
 
 
     /**
@@ -1011,6 +1017,7 @@ public class FindPageFragment extends BaseFragment implements LocationSource,
                 LocalDate.getInstance(getActivity()).setLocalDate("Mac",macAddress);
                 //保存当前用户签到后当天的日期
                 LocalDate.getInstance(getActivity()).setLocalDate("nowDate",finishDateFormat.format(new Date()));
+                LocalDate.getInstance(getActivity()).setLocalDate("signOutFlag",false);
                 flag = saveFlag(true);
                 sign_in.setVisibility(View.GONE);
                 sign_in_num.setVisibility(View.GONE);
@@ -1108,7 +1115,17 @@ public class FindPageFragment extends BaseFragment implements LocationSource,
 
                     @Override
                     public void onFailure(String errorEvent, String message) {
-                        showToast("签退失败" + message);
+                        if (message.equals("不在项目范围内")){
+                            showMessageOKCancel("签退失败：不在项目范围内！\n是否要强制退出，退出后本次服务时长不计算，需发布服务项目的组织负责人进行时长补录!",
+                                    new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            recoverySignBtnView();
+                                        }
+                                    });
+                        }else {
+                            showToast("签退失败" + message);
+                        }
                     }
                 });
     }

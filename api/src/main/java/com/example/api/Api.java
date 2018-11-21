@@ -142,10 +142,10 @@ public interface Api {
     //志愿者服务站点
     public static final String VOLUNTEER_BASE_QUERY = "Nbcei.Plugin.NbVolunteer.Api.Impl/v1/volunteerbase/query";
 
-    //签到签退明细
+    //签到签退明细（已弃用）
     public static final String SIGNRECORD_CREATE = "Nbcei.Plugin.NbVolunteer.Api.Impl/v1/signrecord/create";
 
-    //数字签到签退: 测试地址/api/Nbcei.Plugin.NbVolunteer.Api.Impl/v1/signrecord/createboth
+    //二维码,签到码 签到签退: 测试地址/api/Nbcei.Plugin.NbVolunteer.Api.Impl/v1/signrecord/createboth
     public static final String SIGNRECORD_CREATE_BOTH ="Nbcei.Plugin.NbVolunteer.Api.Impl/v1/signrecord/createboth";
 
     //查询签到签退的状态
