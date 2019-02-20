@@ -252,6 +252,8 @@
         <activity android:name=".activity.SexAtivity"/>
         <activity android:name=".activity.PresonalServiceActivity"
                   android:screenOrientation="portrait"/>
+        <activity android:name=".activity.webview.WebViewErrorActivity"
+                  android:screenOrientation="portrait"/>
 
     </application>
 

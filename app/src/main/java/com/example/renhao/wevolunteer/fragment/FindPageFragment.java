@@ -59,6 +59,7 @@ import com.example.renhao.wevolunteer.base.BaseFragment;
 import com.example.renhao.wevolunteer.event.QRCodeResultEvent;
 import com.example.renhao.wevolunteer.utils.DeviceUtils;
 import com.example.renhao.wevolunteer.utils.GetDeviceId;
+import com.example.renhao.wevolunteer.utils.RandomUntil;
 import com.example.renhao.wevolunteer.utils.Util;
 import com.jungly.gridpasswordview.GridPasswordView;
 import com.orhanobut.logger.Logger;
@@ -135,6 +136,7 @@ public class FindPageFragment extends BaseFragment implements LocationSource,
     private LinearLayout llWarm; //注意提示
     private String replace; //动态显示活动结束时间的提示框
 
+    private String macAddress;
 
     private SimpleDateFormat finishDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -967,8 +969,11 @@ public class FindPageFragment extends BaseFragment implements LocationSource,
         //直接发送二维码的内容
         SignInOutDto create = new SignInOutDto();
         //获取Mac地址
-        final String macAddress = DeviceUtils.getMacAddress();
-        Logger.e(macAddress);
+        macAddress = DeviceUtils.getMacAddress();
+//        Logger.e(macAddress);
+        if (macAddress.isEmpty() || macAddress.equals("") || macAddress == null){
+            macAddress = RandomUntil.getNumSmallLetter(16);
+        }
         if (LocalDate.getInstance(getActivity()).getLocalDate("lat", null) != null &&
                 LocalDate.getInstance(getActivity()).getLocalDate("lng", null) != null) {
             double myLat = Double.parseDouble(LocalDate.getInstance(getActivity()).getLocalDate("lat", ""));
@@ -1131,15 +1136,15 @@ public class FindPageFragment extends BaseFragment implements LocationSource,
     }
 
 
-    //提示对话框
-    private void showMessageOKCancel(String message, DialogInterface.OnClickListener okListener) {
-        new AlertDialog.Builder(getActivity())
-                .setMessage(message)
-                .setPositiveButton("确定", okListener)
-                .setNegativeButton("取消", null)
-                .create()
-                .show();
-    }
+//    //提示对话框
+//    public void showMessageOKCancel(String message, DialogInterface.OnClickListener okListener) {
+//        new AlertDialog.Builder(getActivity())
+//                .setMessage(message)
+//                .setPositiveButton("确定", okListener)
+//                .setNegativeButton("取消", null)
+//                .create()
+//                .show();
+//    }
 
     /**
      * 开始计时

@@ -1,7 +1,9 @@
 package com.example.renhao.wevolunteer.base;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -96,5 +98,15 @@ public class BaseFragment extends Fragment {
             str = oriStr.substring(beginIndex, beginIndex + len);
         }
         return str;
+    }
+
+    //文本提示对话框
+    public void showMessageOKCancel(String message, DialogInterface.OnClickListener okListener) {
+        new AlertDialog.Builder(getActivity())
+                .setMessage(message)
+                .setPositiveButton("确定", okListener)
+                .setNegativeButton("取消", null)
+                .create()
+                .show();
     }
 }

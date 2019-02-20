@@ -51,7 +51,7 @@ public class RandomUntil {
      */
     public static String getLargeLetter(){
         Random random = new Random();
-        return String.valueOf ((char) (random.nextInt(27) + 'A'));
+        return String.valueOf ((char) (random.nextInt(26) + 'A'));
     }
 
     /**
@@ -62,7 +62,7 @@ public class RandomUntil {
         StringBuffer buffer = new StringBuffer();
         Random random = new Random();
         for(int i=0; i<size;i++){
-            buffer.append((char) (random.nextInt(27) + 'A'));
+            buffer.append((char) (random.nextInt(26) + 'A'));
         }
         return buffer.toString();
     }
@@ -73,7 +73,7 @@ public class RandomUntil {
      */
     public static String getSmallLetter(){
         Random random = new Random();
-        return String.valueOf ((char) (random.nextInt(27) + 'a'));
+        return String.valueOf ((char) (random.nextInt(26) + 'a'));
     }
 
     /**
@@ -84,7 +84,7 @@ public class RandomUntil {
         StringBuffer buffer = new StringBuffer();
         Random random = new Random();
         for(int i=0; i<size;i++){
-            buffer.append((char) (random.nextInt(27) + 'a'));
+            buffer.append((char) (random.nextInt(26) + 'a'));
         }
         return buffer.toString();
     }
@@ -99,7 +99,7 @@ public class RandomUntil {
         Random random = new Random();
         for(int i=0; i<size;i++){
             if(random.nextInt(2) % 2 == 0){//字母
-                buffer.append((char) (random.nextInt(27) + 'a'));
+                buffer.append((char) (random.nextInt(26) + 'a'));
             }else{//数字
                 buffer.append(random.nextInt(10));
             }
@@ -117,7 +117,7 @@ public class RandomUntil {
         Random random = new Random();
         for(int i=0; i<size;i++){
             if(random.nextInt(2) % 2 == 0){//字母
-                buffer.append((char) (random.nextInt(27) + 'A'));
+                buffer.append((char) (random.nextInt(26) + 'A'));
             }else{//数字
                 buffer.append(random.nextInt(10));
             }
@@ -136,9 +136,9 @@ public class RandomUntil {
         for(int i=0; i<size;i++){
             if(random.nextInt(2) % 2 == 0){//字母
                 if(random.nextInt(2) % 2 == 0){
-                    buffer.append((char) (random.nextInt(27) + 'A'));
+                    buffer.append((char) (random.nextInt(26) + 'A'));
                 }else{
-                    buffer.append((char) (random.nextInt(27) + 'a'));
+                    buffer.append((char) (random.nextInt(26) + 'a'));
                 }
             }else{//数字
                 buffer.append(random.nextInt(10));

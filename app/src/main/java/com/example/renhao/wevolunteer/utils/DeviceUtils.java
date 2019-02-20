@@ -20,7 +20,9 @@ import android.os.PowerManager;
 import android.provider.Settings;
 
 import com.blankj.utilcode.util.ShellUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.blankj.utilcode.util.Utils;
+import com.orhanobut.logger.Logger;
 
 import java.io.File;
 import java.net.NetworkInterface;
@@ -98,15 +100,21 @@ public final class DeviceUtils {
      */
     public static String getMacAddress() {
         String macAddress = getMacAddressByWifiInfo();
-        if (!"02:00:00:00:00:00".equals(macAddress)) {
+        if (!"02:00:00:00:00:00".equals(macAddress) && !macAddress.isEmpty()) {
+//            Logger.e("wifi获取mac地址");
+//            ToastUtils.showShort("wifi获取mac地址:"+macAddress);
             return macAddress;
         }
         macAddress = getMacAddressByNetworkInterface();
-        if (!"02:00:00:00:00:00".equals(macAddress)) {
+        if (!"02:00:00:00:00:00".equals(macAddress)  && !macAddress.isEmpty()) {
+//            Logger.e("移动流量获取mac地址");
+//            ToastUtils.showShort("移动流量获取mac地址:"+macAddress);
             return macAddress;
         }
         macAddress = getMacAddressByFile();
-        if (!"02:00:00:00:00:00".equals(macAddress)) {
+        if (!"02:00:00:00:00:00".equals(macAddress) && !macAddress.isEmpty()) {
+//            Logger.e("手机地址获取mac地址");
+//            ToastUtils.showShort("手机地址获取mac地址:"+macAddress);
             return macAddress;
         }
         //如果都拿不到Mac地址就生成16位的随机数

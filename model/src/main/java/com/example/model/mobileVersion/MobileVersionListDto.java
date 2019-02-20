@@ -11,6 +11,11 @@ public class MobileVersionListDto {
     private String Id;//(string, optional): 获取或设置
     private String VersionName;//(string, optional): 获取或设置
     private String VersionNumber;//(string, optional): 获取或设置
+    private String AttchUrl;
+    private String AttachmentId;
+    private Integer Type;
+    private Integer OnOff;
+    private Integer TipsOnOff;
 
     public String getId() {
         return Id;
@@ -34,5 +39,45 @@ public class MobileVersionListDto {
 
     public void setVersionNumber(String versionNumber) {
         VersionNumber = versionNumber;
+    }
+
+    public String getAttchUrl() {
+        return AttchUrl;
+    }
+
+    public void setAttchUrl(String attchUrl) {
+        AttchUrl = attchUrl;
+    }
+
+    public String getAttachmentId() {
+        return AttachmentId;
+    }
+
+    public void setAttachmentId(String attachmentId) {
+        AttachmentId = attachmentId;
+    }
+
+    public Integer getType() {
+        return Type;
+    }
+
+    public void setType(Integer type) {
+        Type = type;
+    }
+
+    public Integer getOnOff() {
+        return OnOff;
+    }
+
+    public void setOnOff(Integer onOff) {
+        OnOff = onOff;
+    }
+
+    public Integer getTipsOnOff() {
+        return TipsOnOff;
+    }
+
+    public void setTipsOnOff(Integer tipsOnOff) {
+        TipsOnOff = tipsOnOff;
     }
 }

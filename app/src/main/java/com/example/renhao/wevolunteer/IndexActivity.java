@@ -43,6 +43,7 @@ import com.example.model.PagedListEntityDto;
 import com.example.model.mobileVersion.MobileVersionListDto;
 import com.example.model.mobileVersion.MobileVersionQueryOptionDto;
 import com.example.model.mobileVersion.MobileVersionViewDto;
+import com.example.renhao.wevolunteer.activity.webview.WebViewErrorActivity;
 import com.example.renhao.wevolunteer.base.BaseActivity;
 import com.example.renhao.wevolunteer.event.FragmentResultEvent;
 import com.example.renhao.wevolunteer.event.QRCodeResultEvent;
@@ -128,7 +129,7 @@ public class IndexActivity extends BaseActivity implements AMapLocationListener 
     private double lng;
 
     private PowerManager.WakeLock wakeLock = null;
-    private String upDataText = "";
+
 
     private SimpleDateFormat finishDateFormat = new SimpleDateFormat("yyyy-MM-dd",Locale.CHINA);
 
@@ -137,7 +138,7 @@ public class IndexActivity extends BaseActivity implements AMapLocationListener 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_index);
         isLoginOrAccesssToken();
-        isUpdate();
+//        isUpdate();
         //初始化shareSDK
         ShareSDK.initSDK(this);
         //在使用百度或高德地图时，防止切换Fragment出现闪屏黑屏情况。
@@ -210,110 +211,7 @@ public class IndexActivity extends BaseActivity implements AMapLocationListener 
         }
     }
 
-    //更新APP
-    private void isUpdate() {
-        if (!Util.hasSDcard()) {
-            return;
-        }
-        MobileVersionQueryOptionDto queryOptionDto = new MobileVersionQueryOptionDto();
-        LinkedHashMap<String, String> sorts_map = new LinkedHashMap<>();
-        sorts_map.put("CreateOperation.CreateTime", "desc");
-        queryOptionDto.setSorts(sorts_map);
-        final Context context = this;
-        AppActionImpl.getInstance(context).mobileVersionQuery(queryOptionDto,
-                new ActionCallbackListener<PagedListEntityDto<MobileVersionListDto>>() {
-                    @Override
-                    public void onSuccess(PagedListEntityDto<MobileVersionListDto> data) {
-                        if (data == null) {
-                            return;
-                        }
-                        List<MobileVersionListDto> listDto = data.getRows();
-                        if (listDto == null || listDto.size() < 1) {
-                            return;
-                        }
-                        String nowVersion = "V" + Util.getAppVersion(context);
-                        String newVersion = listDto.get(0).getVersionNumber();
-                        if (nowVersion.equals(newVersion)) {
-                            return;
-                        }
-                        String versionId = listDto.get(0).getId();
-                        AppActionImpl.getInstance(context).mobileVersionDetails(versionId,
-                                new ActionCallbackListener<MobileVersionViewDto>() {
-                                    @Override
-                                    public void onSuccess(MobileVersionViewDto data) {
-                                        if (data == null) {
-                                            return;
-                                        }
-                                        String attatchMentId = data.getAttachmentId();
-                                        String versionName = data.getVersionName();
-                                        //这里注意每次版本更新内容需要用中文的 ； 分割开来
-                                        String[] stringContent = versionName.split("；");
-                                        for (int i=0;i<stringContent.length;i++){
-                                            upDataText += stringContent[i] + "\n";
-                                        }
-                                        AppActionImpl.getInstance(context).attatchmentDetails(attatchMentId,
-                                                new ActionCallbackListener<AttachmentsViewDto>() {
-                                                    @Override
-                                                    public void onSuccess(AttachmentsViewDto data) {
-                                                        if (data == null) {
-                                                            return;
-                                                        }
-                                                        System.out.println(data.getFileUrl());
-                                                        System.out.println(Util.getRealUrl(data.getFileUrl()));
-                                                        updateManger = new UpdateManger(context, Util.getRealUrl(data.getFileUrl()), "检测到新版本，是否更新");
-                                                        // updateManger = new UpdateManger(context, "http://192.168.1.100:8080/lib_check/WeVolunteer.apk", "检测到新版本，是否更新");
 
-                                                        if (Build.VERSION.SDK_INT >= 23) {
-                                                            if (ContextCompat.checkSelfPermission(IndexActivity.this,
-                                                                    Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                                                                    != PackageManager.PERMISSION_GRANTED) {
-                                                                if (!ActivityCompat.shouldShowRequestPermissionRationale(IndexActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-                                                                    showMessageOKCancel("您需要在应用权限设置中对本应用读写SD卡进行授权才能正常使用该功能",
-                                                                            new DialogInterface.OnClickListener() {
-                                                                                @Override
-                                                                                public void onClick(DialogInterface dialog, int which) {
-                                                                                    ActivityCompat.requestPermissions(IndexActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                                                                                            SDCARD_REQUEST_CODE);
-                                                                                }
-                                                                            });
-                                                                    return;
-                                                                }
-                                                                ActivityCompat.requestPermissions(IndexActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                                                                        SDCARD_REQUEST_CODE);
-                                                                return;
-                                                            }
-                                                            updateManger.checkUpdateInfo(upDataText);
-                                                        } else {
-                                                            updateManger.checkUpdateInfo(upDataText);
-                                                        }
-                                                    }
-
-                                                    @Override
-                                                    public void onFailure(String errorEvent, String message) {
-
-                                                    }
-                                                }
-
-                                        );
-                                    }
-
-                                    @Override
-                                    public void onFailure(String errorEvent, String message) {
-
-                                    }
-                                }
-
-                        );
-                    }
-
-                    @Override
-                    public void onFailure(String errorEvent, String message) {
-
-                    }
-                }
-
-        );
-    }
 
 
     private void isLoginOrAccesssToken() {
@@ -472,13 +370,13 @@ public class IndexActivity extends BaseActivity implements AMapLocationListener 
                 locationClient.stopLocation();
             }
         }
-        if (requestCode == SDCARD_REQUEST_CODE) {
-            if (ContextCompat.checkSelfPermission(IndexActivity.this,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                    == PackageManager.PERMISSION_GRANTED) {
-                updateManger.checkUpdateInfo(upDataText);
-            }
-        }
+//        if (requestCode == SDCARD_REQUEST_CODE) {
+//            if (ContextCompat.checkSelfPermission(IndexActivity.this,
+//                    Manifest.permission.WRITE_EXTERNAL_STORAGE)
+//                    == PackageManager.PERMISSION_GRANTED) {
+//                updateManger.checkUpdateInfo(upDataText);
+//            }
+//        }
 
     }
 

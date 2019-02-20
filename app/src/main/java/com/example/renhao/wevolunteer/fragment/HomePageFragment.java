@@ -1,10 +1,16 @@
 package com.example.renhao.wevolunteer.fragment;
 
 
+import android.Manifest;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +25,7 @@ import com.daimajia.slider.library.Tricks.ViewPagerEx;
 import com.example.core.AppActionImpl;
 import com.example.core.local.LocalDate;
 import com.example.model.ActionCallbackListener;
+import com.example.model.Attachment.AttachmentsViewDto;
 import com.example.model.PagedListEntityDto;
 import com.example.model.activity.ActivityListDto;
 import com.example.model.activity.ActivityQueryOptionDto;
@@ -26,17 +33,23 @@ import com.example.model.content.ContentListDto;
 import com.example.model.content.ContentQueryOptionDto;
 import com.example.model.items.HomePageGridItem;
 import com.example.model.items.HomePageListItem;
+import com.example.model.mobileVersion.MobileVersionListDto;
+import com.example.model.mobileVersion.MobileVersionQueryOptionDto;
+import com.example.model.mobileVersion.MobileVersionViewDto;
+import com.example.renhao.wevolunteer.IndexActivity;
 import com.example.renhao.wevolunteer.OrganizationActivity;
 import com.example.renhao.wevolunteer.ProjectActivity;
 import com.example.renhao.wevolunteer.ProjectDetailActivity;
 import com.example.renhao.wevolunteer.R;
 import com.example.renhao.wevolunteer.activity.RegisterActivity;
 import com.example.renhao.wevolunteer.activity.RegisterProBonoActivity;
+import com.example.renhao.wevolunteer.activity.webview.WebViewErrorActivity;
 import com.example.renhao.wevolunteer.adapter.HomePageAdapter;
 import com.example.renhao.wevolunteer.adapter.HomePageNoScrollGridAdapter;
 import com.example.renhao.wevolunteer.base.BaseActivity;
 import com.example.renhao.wevolunteer.base.BaseFragment;
 import com.example.renhao.wevolunteer.event.FragmentResultEvent;
+import com.example.renhao.wevolunteer.update.UpdateManger;
 import com.example.renhao.wevolunteer.utils.Util;
 import com.example.renhao.wevolunteer.view.NoScrollGridView;
 import com.handmark.pulltorefresh.library.ILoadingLayout;
@@ -76,7 +89,12 @@ public class HomePageFragment extends BaseFragment implements BaseSliderView.OnS
     private List<HomePageListItem> list = null;
     private List<ActivityListDto> dates = new ArrayList<>();
 
-
+    private UpdateManger updateManger = null;
+    private String upDataText = "";
+    //6.0申请存储权限
+    private static final int LOCATION_REQUEST_CODE = 1;
+    private static final int TAKE_PHOTO_REQUEST_CODE = 2;
+    private static final int SDCARD_REQUEST_CODE = 3;
 
     @Nullable
     @Override
@@ -86,8 +104,10 @@ public class HomePageFragment extends BaseFragment implements BaseSliderView.OnS
 
         mBaseActivity = (BaseActivity) getActivity();
 
-        getDate();
+//        getDate();
         initImageSliderView();
+
+        isUpdate();
 
         initGridButton();
 
@@ -244,7 +264,6 @@ public class HomePageFragment extends BaseFragment implements BaseSliderView.OnS
     private void initImageSliderView() {
         this.imageBanner = LayoutInflater.from(getActivity()).inflate(R.layout.view_imagebanner, null);
         banner = (Banner) imageBanner.findViewById(R.id.homepage_banner);
-        getSliderDate();
     }
 
     /**
@@ -349,5 +368,126 @@ public class HomePageFragment extends BaseFragment implements BaseSliderView.OnS
     @Override
     public void onResume() {
         super.onResume();
+    }
+
+    //更新APP
+    private void isUpdate() {
+        if (!Util.hasSDcard()) {
+            return;
+        }
+        MobileVersionQueryOptionDto queryOptionDto = new MobileVersionQueryOptionDto();
+        LinkedHashMap<String, String> sorts_map = new LinkedHashMap<>();
+        sorts_map.put("CreateOperation.CreateTime", "desc");
+        queryOptionDto.setSorts(sorts_map);
+//        final Context context = getActivity().getApplicationContext();
+        AppActionImpl.getInstance(getActivity()).mobileVersionQuery(queryOptionDto,
+                new ActionCallbackListener<PagedListEntityDto<MobileVersionListDto>>() {
+                    @Override
+                    public void onSuccess(PagedListEntityDto<MobileVersionListDto> data) {
+                        if (data == null) {
+                            return;
+                        }
+                        List<MobileVersionListDto> listDto = data.getRows();
+                        if (listDto == null || listDto.size() < 1) {
+                            return;
+                        }
+                        String nowVersion = "V" + Util.getAppVersion(getActivity());
+                        String newVersion = listDto.get(0).getVersionNumber();
+
+                        Integer tipsOnOff = listDto.get(0).getTipsOnOff();
+                        if (tipsOnOff != null){
+                            if ( tipsOnOff == 1){
+                                Intent intent = new Intent();
+                                intent.setClass(getActivity(), WebViewErrorActivity.class);
+                                startActivity(intent);
+                                getActivity().finish();
+                                return;
+                            }
+                        }
+
+                        getDate();
+                        getSliderDate();
+
+                        if (nowVersion.equals(newVersion)) {
+                            return;
+                        }
+
+                        String versionId = listDto.get(0).getId();
+                        AppActionImpl.getInstance(getActivity()).mobileVersionDetails(versionId,
+                                new ActionCallbackListener<MobileVersionViewDto>() {
+                                    @Override
+                                    public void onSuccess(MobileVersionViewDto data) {
+                                        if (data == null) {
+                                            return;
+                                        }
+                                        String attatchMentId = data.getAttachmentId();
+                                        String versionName = data.getVersionName();
+                                        //这里注意每次版本更新内容需要用中文的 ； 分割开来
+                                        String[] stringContent = versionName.split("；");
+                                        for (int i=0;i<stringContent.length;i++){
+                                            upDataText += stringContent[i] + "\n";
+                                        }
+                                        AppActionImpl.getInstance(getActivity()).attatchmentDetails(attatchMentId,
+                                                new ActionCallbackListener<AttachmentsViewDto>() {
+                                                    @Override
+                                                    public void onSuccess(AttachmentsViewDto data) {
+                                                        if (data == null) {
+                                                            return;
+                                                        }
+                                                        System.out.println(data.getFileUrl());
+                                                        System.out.println(Util.getRealUrl(data.getFileUrl()));
+                                                        updateManger = new UpdateManger(getActivity(), Util.getRealUrl(data.getFileUrl()), "检测到新版本，是否更新");
+                                                        // updateManger = new UpdateManger(context, "http://192.168.1.100:8080/lib_check/WeVolunteer.apk", "检测到新版本，是否更新");
+
+                                                        if (Build.VERSION.SDK_INT >= 23) {
+                                                            if (ContextCompat.checkSelfPermission(getActivity(),
+                                                                    Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                                                                    != PackageManager.PERMISSION_GRANTED) {
+                                                                if (!ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                                                                    showMessageOKCancel("您需要在应用权限设置中对本应用读写SD卡进行授权才能正常使用该功能",
+                                                                            new DialogInterface.OnClickListener() {
+                                                                                @Override
+                                                                                public void onClick(DialogInterface dialog, int which) {
+                                                                                    ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                                                                                            SDCARD_REQUEST_CODE);
+                                                                                }
+                                                                            });
+                                                                    return;
+                                                                }
+                                                                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                                                                        SDCARD_REQUEST_CODE);
+                                                                return;
+                                                            }
+                                                            updateManger.checkUpdateInfo(upDataText);
+                                                        } else {
+                                                            updateManger.checkUpdateInfo(upDataText);
+                                                        }
+                                                    }
+
+                                                    @Override
+                                                    public void onFailure(String errorEvent, String message) {
+
+                                                    }
+                                                }
+
+                                        );
+                                    }
+
+                                    @Override
+                                    public void onFailure(String errorEvent, String message) {
+
+                                    }
+                                }
+
+                        );
+                    }
+
+                    @Override
+                    public void onFailure(String errorEvent, String message) {
+
+                    }
+                }
+
+        );
     }
 }
