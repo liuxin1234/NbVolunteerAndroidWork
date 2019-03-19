@@ -67,7 +67,9 @@ import java.util.List;
  */
 public interface Api {
 
-    public static final String USERID_LOGIN = "Nbcei.Framework.Api.Impl/v1/user/query";
+//    public static final String USERID_LOGIN = "Nbcei.Framework.Api.Impl/v1/user/query";
+    public static final String USERID_LOGIN = "Nbcei.Plugin.NbVolunteer.Api.Impl/v1/volunteer/query";
+
     public static final String USER_CREATE = "Nbcei.Framework.Api.Impl/v1/user/create";
     public static final String USER_LOGIN = "Nbcei.Framework.Api.Impl/v1/user/get";
 
@@ -131,8 +133,11 @@ public interface Api {
     public static final String GET_VERYFY = "Nbcei.Plugin.NbVolunteer.Api.Impl/v1/smsauth/valid/register";
 
     //密码修改
-    public static final String GET_OLD_PSWD = "Nbcei.Framework.Api.Impl/v1/user/query/password";
-    public static final String SET_NEW_PSWD = "Nbcei.Framework.Api.Impl/v1/user/update/setpassword";
+//    public static final String GET_OLD_PSWD = "Nbcei.Framework.Api.Impl/v1/user/query/password";
+//    public static final String SET_NEW_PSWD = "Nbcei.Framework.Api.Impl/v1/user/update/setpassword";
+    public static final String GET_OLD_PSWD = "Nbcei.Plugin.NbVolunteer.Api.Impl/v1/volunteer/query/password/";
+    public static final String SET_NEW_PSWD = "\tNbcei.Plugin.NbVolunteer.Api.Impl/v1/volunteer/update/setpassword/";
+
 
     //头像操作
     public static final String UPDATE_PORTRAIT = "Nbcei.Framework.Api.Impl/v1/user/update/photo";
@@ -159,8 +164,10 @@ public interface Api {
     public static final String ACTIVITY_TIME_QUERY = "Nbcei.Plugin.NbVolunteer.Api.Impl/v1/activitytime/query";
 
     //查询志愿者等级
-    public static final String VOLUNTEER_STAR_LEVEL = "Nbcei.Plugin.NbVolunteer.Api.Impl/v1/volunteer/GetScoreLevel";
-    public static final String VOLUNTEER_DEPARTMENT = "Nbcei.Framework.Api.Impl/v1/userdepartment/query/user";
+    public static final String VOLUNTEER_STAR_LEVEL = "Nbcei.Plugin.NbVolunteer.Api.Impl/v1/volunteer/GetScoreLevel/";
+//    public static final String VOLUNTEER_DEPARTMENT = "Nbcei.Framework.Api.Impl/v1/userdepartment/query/user";
+    public static final String VOLUNTEER_DEPARTMENT = "Nbcei.Plugin.NbVolunteer.Api.Impl/v1/volunteer/query/user";
+
 
 
     //app版本查询
@@ -168,7 +175,8 @@ public interface Api {
     public static final String MOBILE_VERSION_DETAILS = "Nbcei.Plugin.NbVolunteer.Api.Impl/v1/mobileversion/details";
 
     //获取文件地址
-    public static final String ATTACTHMENTS_DETAILS = "Nbcei.Plugin.Attachment.Api.Impl/v1/attachments/details";
+//    public static final String ATTACTHMENTS_DETAILS = "Nbcei.Plugin.Attachment.Api.Impl/v1/attachments/details";
+    public static final String ATTACTHMENTS_DETAILS = "Nbcei.Plugin.NbVolunteer.Api.Impl/v1/volunteer/GetAttachmentsdetails";
 
     //忘记密码
     public static final String EXISTS_MOBILE = "Nbcei.Plugin.NbVolunteer.Api.Impl/v1/company/existsmobile";

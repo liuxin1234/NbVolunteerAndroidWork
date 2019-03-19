@@ -626,7 +626,7 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
         }
         MobileVersionQueryOptionDto queryOptionDto = new MobileVersionQueryOptionDto();
         LinkedHashMap<String, String> sorts_map = new LinkedHashMap<>();
-        sorts_map.put("CreateOperation.CreateTime", "desc");
+        sorts_map.put("CreateTime", "desc");
         queryOptionDto.setSorts(sorts_map);
         final Context context = getActivity();
         AppActionImpl.getInstance(context).mobileVersionQuery(queryOptionDto,
@@ -668,9 +668,11 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
                                                         if (data == null) {
                                                             return;
                                                         }
-                                                        System.out.println(data.getFileUrl());
-                                                        System.out.println(Util.getRealUrl(data.getFileUrl()));
-                                                        updateManger = new UpdateManger(context, Util.getRealUrl(data.getFileUrl()), "检测到新版本，是否更新");
+                                                        //这里涉及到后台有个路径/App_Data不存在了 所以这里进行了替换
+                                                        String replaceUrl = data.getFileUrl().replace("/App_Data", "");
+                                                        Logger.e("apk请求地址："+replaceUrl);
+                                                        Logger.e("apk下载地址："+Util.getApkRealUrl(replaceUrl));
+                                                        updateManger = new UpdateManger(getActivity(), Util.getApkRealUrl(replaceUrl), "检测到新版本，是否更新");
                                                         // updateManger = new UpdateManger(context, "http://192.168.1.100:8080/lib_check/WeVolunteer.apk", "检测到新版本，是否更新");
 
                                                         if (Build.VERSION.SDK_INT >= 23) {

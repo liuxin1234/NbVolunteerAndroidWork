@@ -1193,6 +1193,7 @@ public class ProjectDetailActivity extends BaseActivity {
                 }
             }
         }
+        Logger.e(recruitDtos.toString());
 
             AppActionImpl.getInstance(getApplicationContext()).activityRecruitCreate(recruitDtos,
                     new ActionCallbackListener<List<String>>() {

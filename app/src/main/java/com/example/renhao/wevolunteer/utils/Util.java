@@ -40,6 +40,7 @@ public class Util {
     private static final String TAG = "Util";
 
     public static final String IMG_URL = "http://www.nbzyz.org";
+    public static final String APK_URL = "http://admin.nbzyz.org";
 
     //二进制流转换为图片
     public static Bitmap getBitmapFromByte(byte[] temp) {
@@ -194,6 +195,17 @@ public class Util {
         if (url != null) {
             if (url.length() > 1) {
                 temp = IMG_URL + url.substring(1, url.length());
+            }
+        }
+        return temp;
+    }
+
+
+    public static String getApkRealUrl(String url) {
+        String temp = "http://11";
+        if (url != null) {
+            if (url.length() > 1) {
+                temp = APK_URL + url.substring(1, url.length());
             }
         }
         return temp;

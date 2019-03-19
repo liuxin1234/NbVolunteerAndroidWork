@@ -235,7 +235,7 @@ public class ProjectFragmentV4 extends BaseFragmentV4 {
         }
         switch (smartSelect) {
             case 0:
-                sorts_map.put("CreateOperation.CreateTime", "Asc");
+                sorts_map.put("CreateTime", "Asc");
                 dto.setDeleted(false);
                 dto.setActivityState("1");
                 dto.setStatus(1);

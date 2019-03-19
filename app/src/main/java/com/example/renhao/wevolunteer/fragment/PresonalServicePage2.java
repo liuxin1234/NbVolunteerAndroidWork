@@ -124,7 +124,7 @@ public class PresonalServicePage2 extends BaseFragmentV4 {
         if (TextUtils.isEmpty(volunteerId))
             return;
         HashMap<String, String> map = new HashMap<>();
-        map.put("CreateOperation.CreateTime", "desc");
+        map.put("CreateTime", "desc");
         DurationRecordQueryOptionDto durationRecordQueryOptionDto = new DurationRecordQueryOptionDto();
         durationRecordQueryOptionDto.setPageIndex(pageIndex);
         Logger.e("" + tag);

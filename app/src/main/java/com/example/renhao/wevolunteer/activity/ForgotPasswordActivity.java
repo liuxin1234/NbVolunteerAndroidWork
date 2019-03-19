@@ -384,6 +384,7 @@ public class ForgotPasswordActivity extends BaseActivity implements View.OnClick
 
     //通过身份证和手机号获取用户ID
     private void getByIDNumber() {
+        showNormalDialog("正在验证中…");
         idnumber = et_IDNumber.getText().toString();
         phone = et_phone1.getText().toString();
         AppActionImpl.getInstance(getApplicationContext()).getByIDNumber(idnumber, phone, 1, new ActionCallbackListener<String>() {
@@ -391,13 +392,16 @@ public class ForgotPasswordActivity extends BaseActivity implements View.OnClick
             public void onSuccess(String data) {
                 userId = data;
                 byMobileDialogPassword();
+                dissMissNormalDialog();
             }
 
             @Override
             public void onFailure(String errorEvent, String message) {
+                dissMissNormalDialog();
                 showToast(message);
             }
         });
+
     }
 
 }
