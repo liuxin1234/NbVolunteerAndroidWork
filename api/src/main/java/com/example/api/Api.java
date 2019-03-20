@@ -136,7 +136,7 @@ public interface Api {
 //    public static final String GET_OLD_PSWD = "Nbcei.Framework.Api.Impl/v1/user/query/password";
 //    public static final String SET_NEW_PSWD = "Nbcei.Framework.Api.Impl/v1/user/update/setpassword";
     public static final String GET_OLD_PSWD = "Nbcei.Plugin.NbVolunteer.Api.Impl/v1/volunteer/query/password/";
-    public static final String SET_NEW_PSWD = "\tNbcei.Plugin.NbVolunteer.Api.Impl/v1/volunteer/update/setpassword/";
+    public static final String SET_NEW_PSWD = "Nbcei.Plugin.NbVolunteer.Api.Impl/v1/volunteer/update/setpassword/";
 
 
     //头像操作
@@ -175,8 +175,8 @@ public interface Api {
     public static final String MOBILE_VERSION_DETAILS = "Nbcei.Plugin.NbVolunteer.Api.Impl/v1/mobileversion/details";
 
     //获取文件地址
-//    public static final String ATTACTHMENTS_DETAILS = "Nbcei.Plugin.Attachment.Api.Impl/v1/attachments/details";
-    public static final String ATTACTHMENTS_DETAILS = "Nbcei.Plugin.NbVolunteer.Api.Impl/v1/volunteer/GetAttachmentsdetails";
+    public static final String ATTACTHMENTS_DETAILS = "Nbcei.Plugin.Attachment.Api.Impl/v1/attachments/details";
+//    public static final String ATTACTHMENTS_DETAILS = "Nbcei.Plugin.NbVolunteer.Api.Impl/v1/volunteer/GetAttachmentsdetails";
 
     //忘记密码
     public static final String EXISTS_MOBILE = "Nbcei.Plugin.NbVolunteer.Api.Impl/v1/company/existsmobile";

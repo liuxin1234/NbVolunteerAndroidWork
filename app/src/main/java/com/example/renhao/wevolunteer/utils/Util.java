@@ -200,7 +200,11 @@ public class Util {
         return temp;
     }
 
-
+    /**
+     * 目前无用
+     * @param url
+     * @return
+     */
     public static String getApkRealUrl(String url) {
         String temp = "http://11";
         if (url != null) {
