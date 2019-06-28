@@ -62,6 +62,7 @@ public class MajorAbilityActivity extends BaseActivity {
     private List<String> show_pic;
     private static int REQUEST_IMAGE = 1;
     private static int CODE_DELETE = 2;
+    String certificatePic = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -172,65 +173,31 @@ public class MajorAbilityActivity extends BaseActivity {
     }
 
     private void submit() {
+        if (show_pic.size() > 0){
+            updateMajorAttachment();
+        }else {
+            volunteerUpdate(certificatePic);
+        }
+    }
+
+
+    private void volunteerUpdate(String certificatePic){
         showNormalDialog("正在上传证书，请稍后");
         my_major = edit_major.getText().toString();
         List<VolunteerViewDto> vl_updates = new ArrayList<>();
         personal_data.setSkilled(my_major);
+        if (!certificatePic.isEmpty()){
+            personal_data.setCertificatePic(certificatePic);
+        }
         vl_updates.add(personal_data);
         AppActionImpl.getInstance(getApplicationContext()).volunteerUpdate(vl_updates, new ActionCallbackListener<String>() {
             @Override
             public void onSuccess(String data) {
+                showToast("提交成功");
                 Intent result = new Intent();
                 result.putExtra("personal_data", personal_data);
                 setResult(RESULT_OK, result);
-                //附件上传
-                AttachmentParaDto attachment = new AttachmentParaDto();
-                List<AttachmentParaDto> files = new ArrayList<>();
-                //获取当前事件作为文件名
-                SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy-MM-dd-hh:mm:ss");
-                String date = sDateFormat.format(new java.util.Date());
-                for (int i = 0; i < show_pic.size(); i++) {
-                    //压缩图片
-                    bitmap = decodeSampledBitmapFromFile(show_pic.get(i), 560, 320);
-                    String tempstr = Base64.encodeToString(getBitmapByte(bitmap), Base64.DEFAULT);
-                    byte[] temp = getBitmapByte(Util.byteToBitmap(tempstr)); //客户端给服务器传递参数时，通过Base64传递二进制内容
-
-                    attachment.setFileData(Base64.encodeToString(temp, Base64.DEFAULT));
-                    attachment.setFileName("Major" + date + ".jpg");
-                    attachment.setMaxSize("10");
-                    attachment.setIsPublic("1");
-                    attachment.setPcWH("560|320");
-                    attachment.setAppWH("280|160");
-                    files.add(attachment);
-                }
-//                tv_submit.setClickable(false);
-
-                if (show_pic.size() != 0)
-                    AppActionImpl.getInstance(getApplicationContext()).update_major_attachment(files,
-                            new ActionCallbackListener<List<AttachmentsReturnDto>>() {
-                                @Override
-                                public void onSuccess(List<AttachmentsReturnDto> data) {
-                                    dissMissNormalDialog();
-                                    showToast("全部上传成功");
-                                    finish();
-//                                    tv_submit.setClickable(true);
-                                }
-
-                                @Override
-                                public void onFailure(String errorEvent, String message) {
-                                    dissMissNormalDialog();
-                                    showToast("证书上传失败");
-//                                    tv_submit.setClickable(true);
-
-                                }
-                            });
-                else {
-                    dissMissNormalDialog();
-                    showToast("上传成功");
-//                    tv_submit.setClickable(true);
-                    finish();
-                }
-
+                finish();
             }
 
             @Override
@@ -241,6 +208,56 @@ public class MajorAbilityActivity extends BaseActivity {
         });
         dissMissNormalDialog();
     }
+
+    private void updateMajorAttachment(){
+        //附件上传
+        AttachmentParaDto attachment = new AttachmentParaDto();
+        List<AttachmentParaDto> files = new ArrayList<>();
+        //获取当前事件作为文件名
+        SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy-MM-dd-hh:mm:ss");
+        String date = sDateFormat.format(new java.util.Date());
+        for (int i = 0; i < show_pic.size(); i++) {
+            //压缩图片
+            bitmap = decodeSampledBitmapFromFile(show_pic.get(i), 560, 320);
+            String tempstr = Base64.encodeToString(getBitmapByte(bitmap), Base64.DEFAULT);
+            byte[] temp = getBitmapByte(Util.byteToBitmap(tempstr)); //客户端给服务器传递参数时，通过Base64传递二进制内容
+
+            attachment.setFileData(Base64.encodeToString(temp, Base64.DEFAULT));
+            attachment.setFileName("Major" + date + ".jpg");
+            attachment.setMaxSize("10");
+            attachment.setIsPublic("1");
+            attachment.setPcWH("560|320");
+            attachment.setAppWH("280|160");
+            files.add(attachment);
+        }
+//                tv_submit.setClickable(false);
+            AppActionImpl.getInstance(getApplicationContext()).update_major_attachment(files,
+                    new ActionCallbackListener<List<AttachmentsReturnDto>>() {
+                        @Override
+                        public void onSuccess(List<AttachmentsReturnDto> data) {
+
+                            if (data != null && data.size() > 0){
+                                String pic = "";
+                                for (AttachmentsReturnDto dto : data) {
+                                    pic += dto.getId() + ",";
+                                }
+                                certificatePic = pic.substring(0,pic.length() - 1);
+                            }
+                            volunteerUpdate(certificatePic);
+//                            showToast("全部上传成功");
+
+//                                    tv_submit.setClickable(true);
+                        }
+
+                        @Override
+                        public void onFailure(String errorEvent, String message) {
+                            showToast("证书上传失败");
+//                                    tv_submit.setClickable(true);
+
+                        }
+                    });
+    }
+
 
     public void get_pic() {
         Intent intent = new Intent(MajorAbilityActivity.this, MultiImageSelectorActivity.class);

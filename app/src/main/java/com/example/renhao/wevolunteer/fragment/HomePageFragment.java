@@ -65,6 +65,7 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * 项目名称：WeVolunteer
@@ -375,6 +376,7 @@ public class HomePageFragment extends BaseFragment implements BaseSliderView.OnS
         if (!Util.hasSDcard()) {
             return;
         }
+        mBaseActivity.showNormalDialog("数据加载中…");
         MobileVersionQueryOptionDto queryOptionDto = new MobileVersionQueryOptionDto();
         LinkedHashMap<String, String> sorts_map = new LinkedHashMap<>();
         sorts_map.put("CreateOperation.CreateTime", "desc");

@@ -35,25 +35,19 @@ import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
 import com.blankj.utilcode.util.ToastUtils;
-import com.example.core.AppActionImpl;
 import com.example.core.local.LocalDate;
-import com.example.model.ActionCallbackListener;
-import com.example.model.Attachment.AttachmentsViewDto;
-import com.example.model.PagedListEntityDto;
-import com.example.model.mobileVersion.MobileVersionListDto;
-import com.example.model.mobileVersion.MobileVersionQueryOptionDto;
-import com.example.model.mobileVersion.MobileVersionViewDto;
-import com.example.renhao.wevolunteer.activity.webview.WebViewErrorActivity;
 import com.example.renhao.wevolunteer.base.BaseActivity;
+import com.example.renhao.wevolunteer.common.Constants;
 import com.example.renhao.wevolunteer.event.FragmentResultEvent;
 import com.example.renhao.wevolunteer.event.QRCodeResultEvent;
 import com.example.renhao.wevolunteer.fragment.FindPageFragment;
 import com.example.renhao.wevolunteer.fragment.HomePageFragment;
+import com.example.renhao.wevolunteer.fragment.NewFindPageFragment;
 import com.example.renhao.wevolunteer.fragment.PersonalFragment;
 import com.example.renhao.wevolunteer.fragment.SigninPageFragment;
 import com.example.renhao.wevolunteer.update.UpdateManger;
+import com.example.renhao.wevolunteer.utils.DeviceUtils;
 import com.example.renhao.wevolunteer.utils.RandomUntil;
-import com.example.renhao.wevolunteer.utils.Util;
 import com.example.renhao.wevolunteer.view.ChangeColorIconWithTextView;
 import com.example.renhao.wevolunteer.view.PopupMenu;
 import com.orhanobut.logger.Logger;
@@ -64,8 +58,6 @@ import org.greenrobot.eventbus.Subscribe;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -112,6 +104,7 @@ public class IndexActivity extends BaseActivity implements AMapLocationListener 
     private HomePageFragment mHomePageFragment;
     private FindPageFragment mFindPageFragment;
     private SigninPageFragment mSigninPageFragment;
+    private NewFindPageFragment mNewFindPageFragment;
     private PersonalFragment mPersonalFragment;
 
     private PopupMenu mPopupMenu;
@@ -155,14 +148,27 @@ public class IndexActivity extends BaseActivity implements AMapLocationListener 
         // 设置定位监听
         locationClient.setLocationListener(this);
 
-       /* //给wifi加锁，锁屛也不断开
-        WifiManager manager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
-        mWifiLock = manager.createWifiLock(
-                WifiManager.WIFI_MODE_FULL_HIGH_PERF, "WeVolunteer");
-        mWifiLock.acquire();*/
-
         //用来判断 强制签退后的标记
         isSignOutFlag();
+
+        savePhoneMac();
+    }
+
+    /**
+     * 保存手机唯一标识MAC
+     */
+    private void savePhoneMac() {
+        String isSaveMac = LocalDate.getInstance(this).getLocalDate(Constants.MAC,"");
+        if (isSaveMac == null || isSaveMac.equals("")){ //如果本地的mac地址存储数据为空，则进行获取存储
+            String mobileunique = DeviceUtils.getMacAddress();
+            Logger.e(mobileunique);
+            //如果获取不到手机mac标识，则随机生成一个16位的标识
+            if (mobileunique == null || mobileunique.equals("") || mobileunique.isEmpty()){
+                mobileunique = RandomUntil.getNumSmallLetter(16);
+            }
+            LocalDate.getInstance(this).setLocalDate(Constants.MAC,mobileunique);
+        }
+
     }
 
     //获取电源锁，保持该服务在屏幕熄灭时仍然获取CPU时，保持运行
@@ -426,7 +432,12 @@ public class IndexActivity extends BaseActivity implements AMapLocationListener 
                     //发送消息，隐藏签到按钮控件
                     mFindPageFragment.setType(false);
                 }
-
+                //这里是二期项目新增的代码
+//                if (mNewFindPageFragment == null){
+//                    mNewFindPageFragment = new NewFindPageFragment();
+//                }
+//                setFractionTranslate(transaction,FIND);
+//                transaction.replace(R.id.framelayout_index_content,mNewFindPageFragment);
                 fragmentPosition = FIND;
                 break;
             case SIGNIN:
@@ -446,6 +457,12 @@ public class IndexActivity extends BaseActivity implements AMapLocationListener 
                     //发送消息，显示签到按钮控件
                     mFindPageFragment.setType(true);
                 }
+                //这里是二期项目新增的代码
+//                if (mSigninPageFragment == null){
+//                    mSigninPageFragment = new SigninPageFragment();
+//                }
+//                setFractionTranslate(transaction,SIGNIN);
+//                transaction.replace(R.id.framelayout_index_content,mSigninPageFragment);
                 fragmentPosition = SIGNIN;
                 break;
             case MYSELF:

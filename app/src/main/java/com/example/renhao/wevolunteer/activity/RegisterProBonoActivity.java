@@ -195,6 +195,8 @@ public class RegisterProBonoActivity extends BaseActivity implements View.OnFocu
     private String CertificatePic;  //专业类型的 证书照片
 //    private String volunteerTagName;  //是否为平安志愿者名字
 //    private Integer volunteerTagCode; //是否为平安志愿者code
+    private String certificatePic = "";
+
 
     private VolunteerViewDto personal_data;
     private List<AttachmentParaDto> files;
@@ -703,6 +705,9 @@ public class RegisterProBonoActivity extends BaseActivity implements View.OnFocu
     public void RegisterSubmit() {
         showNormalDialog("正在提交数据，请稍后....");
         VolunteerCreateDto vl_create = new VolunteerCreateDto();
+        if (!certificatePic.isEmpty()){
+            vl_create.setCertificatePic(certificatePic);
+        }
         vl_create.setId(userId); //随机生成一个UUID传个后台
         vl_create.setLoginUserName(id_number);
         vl_create.setTrueName(truename);
@@ -853,6 +858,13 @@ public class RegisterProBonoActivity extends BaseActivity implements View.OnFocu
                                                 @Override
                                                 public void onSuccess(List<AttachmentsReturnDto> data) {
                                                     //申请资料上传
+                                                    if (data != null && data.size() > 0){
+                                                        String pic = "";
+                                                        for (AttachmentsReturnDto dto : data) {
+                                                            pic += dto.getId() + ",";
+                                                        }
+                                                        certificatePic = pic.substring(0,pic.length() - 1);
+                                                    }
                                                     RegisterSubmit();
                                                 }
 

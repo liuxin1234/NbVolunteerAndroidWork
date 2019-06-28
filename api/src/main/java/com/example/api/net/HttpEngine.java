@@ -2,12 +2,14 @@ package com.example.api.net;
 
 import android.text.TextUtils;
 
+import com.example.api.utils.BitmapUtil;
 import com.example.api.utils.EncryptUtil;
 import com.example.model.AccessTokenBO;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.orhanobut.logger.Logger;
 
+import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.List;
@@ -15,6 +17,7 @@ import java.util.Map;
 
 import okhttp3.FormBody;
 import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -415,5 +418,73 @@ public class HttpEngine {
         return null;
     }
 
+
+    /**
+     * 上传多张图片  多种格式
+     */
+    private static final MediaType MEDIA_TYPE = MediaType.parse("image/*");
+    /**
+     * Post方法
+     *
+     * @param mImgUrls     图片路径地址:list
+     * @param serverAction 接口
+     * @param typeOfT      返回的类型
+     * @param accessToken  票据
+     * @param <T>          返回参数的泛型
+     * @return
+     */
+    public <T> T postImageApiHandler(Map<String, String> params,List<String> mImgUrls, String serverAction,
+                                Type typeOfT, String accessToken) throws IOException {
+        Logger.v(TAG, "serverAction  \n" + serverAction + "\n");
+
+
+
+        // mImgUrls为存放图片的url集合
+        MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM);
+        for (int i = 0; i <mImgUrls.size() ; i++) {
+            File f = new File(mImgUrls.get(i));
+            if (f.exists()) {
+                File bitFile = BitmapUtil.compressImage(mImgUrls.get(i), f.getName());
+                if (bitFile.exists()){
+                    builder.addFormDataPart("image"+i, f.getName(), RequestBody.create(MEDIA_TYPE, bitFile));
+                }
+            }
+        }
+
+        //遍历map中所有参数到builder
+        if (params != null){
+            for (String key : params.keySet()) {
+                builder.addFormDataPart(key, params.get(key));
+            }
+        }
+
+
+        MultipartBody body = builder.build();
+        Request request = new Request.Builder()
+                .addHeader("Content-Type", "application/json; charset=UTF-8")
+                .addHeader("Connection", "keep-alive")
+                .header("Authorization", "Bearer " + accessToken)
+                .url(SERVER_URL + serverAction)
+                .post(body)
+                .build();
+        Response response = HttpEngine.getInstance().getClient().newCall(request).execute();
+        if (response.isSuccessful()) {
+            String result = response.body().string();
+            Logger.json(TAG, result);
+            Gson gson = new Gson();
+            //验证失败了怎么办?
+            try {
+                return gson.fromJson(result, typeOfT);
+            } catch (JsonSyntaxException e) {
+                e.printStackTrace();
+            }
+        } else {
+            Logger.e(TAG, "connent error  \n" +
+                    response.code() + "\n" +
+                    response.message() + "\n" +
+                    response.body().string());
+        }
+        return null;
+    }
 
 }

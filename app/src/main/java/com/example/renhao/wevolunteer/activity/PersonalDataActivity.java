@@ -30,6 +30,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.core.AppActionImpl;
 import com.example.core.local.LocalDate;
 import com.example.model.ActionCallbackListener;
@@ -38,6 +40,7 @@ import com.example.model.user.UserPhotoDto;
 import com.example.model.volunteer.VolunteerViewDto;
 import com.example.renhao.wevolunteer.R;
 import com.example.renhao.wevolunteer.base.BaseActivity;
+import com.example.renhao.wevolunteer.common.Constants;
 import com.example.renhao.wevolunteer.utils.ActionBarUtils;
 import com.example.renhao.wevolunteer.utils.FileProviderUtils;
 import com.example.renhao.wevolunteer.utils.Util;
@@ -50,8 +53,10 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 个人中心  信息展示界面
@@ -819,8 +824,11 @@ public class PersonalDataActivity extends BaseActivity implements View.OnClickLi
                             File tempFile = new File(Environment.getExternalStorageDirectory(),
                                     IMAGE_FILE_NAME);
                             Uri uri = Uri.fromFile(tempFile);
-                            Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(uri));
-                            UpdatePortrait(bitmap);
+//                            Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(uri));
+//                            UpdatePortrait(bitmap);
+                            Logger.e(uri.getPath());
+                            upDateHeadImagePhoto(uri);
+
                         }catch (Exception ex){
                             ex.printStackTrace();
                         }
@@ -891,6 +899,29 @@ public class PersonalDataActivity extends BaseActivity implements View.OnClickLi
         }
     }
 
+    private void upDateHeadImagePhoto(final Uri url){
+        Map<String,String> map = new HashMap<>();
+        map.put("Id",Personal_Data.getId());
+        Logger.e(Personal_Data.getId());
+        List<String> imageUrl = new ArrayList<>();
+        imageUrl.add(url.getPath());
+        AppActionImpl.getInstance(this).postShareUploadPhoto(map, imageUrl, new ActionCallbackListener<String>() {
+            @Override
+            public void onSuccess(String data) {
+                if (data != null){
+                    showToast(data);
+                }
+                portrait.setImageURI(url);
+            }
+
+            @Override
+            public void onFailure(String errorEvent, String message) {
+
+            }
+        });
+    }
+
+
     private void UpdatePortrait(final Bitmap bitmap) {
 
         byte[] send_portrait = getBitmapByte(bitmap);
@@ -940,8 +971,21 @@ public class PersonalDataActivity extends BaseActivity implements View.OnClickLi
     protected void onResume() {
         super.onResume();
         try {
-            String portrait_str = LocalDate.getInstance(this).getLocalDate("portrait", null);
-            portrait.setImageBitmap(Util.byteToBitmap(portrait_str));
+            /**
+             * 我们服务端是每次上传的个人头像只是替换原图，路径并不变。
+             * 这就导致glide加载时会使用缓存的图片，导致页面图片显示不同步。
+             * 所以这里需要进行缓存的清除
+             * .skipMemoryCache(true)
+             * .diskCacheStrategy(DiskCacheStrategy.NONE)
+             *
+             */
+            String headImageUrl = LocalDate.getInstance(this).getLocalDate(Constants.HEADIMAGE, "");
+            Glide.with(this)
+                    .load(headImageUrl)
+                    .asBitmap()
+                    .error(R.drawable.personal_no_portrait)
+                    .placeholder(R.drawable.personal_no_portrait)
+                    .into(portrait);
         } catch (Exception e) {
 
         }

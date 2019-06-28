@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
@@ -25,6 +26,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
 import com.example.core.AppActionImpl;
 import com.example.core.local.LocalDate;
 import com.example.model.ActionCallbackListener;
@@ -46,18 +51,22 @@ import com.example.renhao.wevolunteer.activity.MyRecuritJobActivity;
 import com.example.renhao.wevolunteer.activity.PersonalDataActivity;
 import com.example.renhao.wevolunteer.activity.PresonalServiceActivity;
 import com.example.renhao.wevolunteer.activity.ReportProblemActivity;
+import com.example.renhao.wevolunteer.activity.show.ShowActivity;
 import com.example.renhao.wevolunteer.base.BaseActivity;
 import com.example.renhao.wevolunteer.base.BaseFragment;
+import com.example.renhao.wevolunteer.common.Constants;
 import com.example.renhao.wevolunteer.event.PresonalServiceEvent;
 import com.example.renhao.wevolunteer.update.UpdateManger;
 import com.example.renhao.wevolunteer.utils.DataCleanManager;
 import com.example.renhao.wevolunteer.utils.Util;
 import com.orhanobut.logger.Logger;
+import com.squareup.picasso.Picasso;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 
 import static android.app.Activity.RESULT_OK;
 import static com.example.renhao.wevolunteer.R.drawable.star;
@@ -391,6 +400,7 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
 
             case TO_ABOUTUS:
                 intent.setClass(getActivity(), AboutUsActivity.class);
+//                intent.setClass(getActivity(), ShowActivity.class);
                 startActivity(intent);
                 break;
 
@@ -474,6 +484,9 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
         {
             return;
         }
+
+        getVolunteerPhoto(volunteerId);
+
         //获取志愿者的信息
         AppActionImpl.getInstance(getActivity()).get_volunteerDetail(volunteerId,
                 new ActionCallbackListener<VolunteerViewDto>() {
@@ -489,7 +502,6 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
                             }
                             return;
                         }
-                        getVolunteerPhoto(volunteerId);
                         //将data传到另一个activity中备用
                         personal_data = data;
                         setClickTrue();
@@ -510,7 +522,8 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
                             AuditStatus = data.getAuditStatus();
 
                             isShowTrueName = data.getShowTrueName() == null ? false : data.getShowTrueName();
-
+                            //默认存储用户真实姓名
+                            LocalDate.getInstance(getActivity()).setLocalDate(Constants.TRUE_NAME,data.getTrueName());
                             //头部
                             try {
                                 true_name = data.getTrueName();
@@ -524,18 +537,21 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
                             //服务时长
                             double schoolTime = data.getSchoolservicetime() == null && data.getSchoolservicetime1() == null
                                     ? 0 : data.getSchoolservicetime() + data.getSchoolservicetime1();
-                            SchoolServiceTime = schoolTime + "小时";
+                            String formatSchoolTime = String.format(Locale.getDefault(), "%.1f", schoolTime);
+                            SchoolServiceTime = formatSchoolTime  + "小时";
                             double workTime = data.getWorkservicetime() == null && data.getWorkunit() == null
                                     ? 0 : data.getWorkservicetime() + data.getWorkservicetime1();
-                            WorkServiceTime = workTime + "小时";
+                            String formatWorkTime = String.format(Locale.getDefault(), "%.1f", workTime);
+                            WorkServiceTime = formatWorkTime + "小时";
                             double retireTime = data.getRetireservicetime() == null && data.getRetireservicetime1() == null
                                     ? 0 : data.getRetireservicetime() + data.getRetireservicetime1();
-                            RetireServiceTime = retireTime + "小时";
+                            String formatRetireTime = String.format(Locale.getDefault(), "%.1f", retireTime);
+                            RetireServiceTime = formatRetireTime + "小时";
 
 //                            double historyTime = data.getHistorytime() == null && data.getHistorytime() == null
 //                                    ? 0 : data.getHistorytime();
-
-                            AllServiceTime = schoolTime + workTime + retireTime  + "小时";
+                            String formatAllTime = String.format(Locale.getDefault(), "%.1f", (schoolTime + workTime + retireTime));
+                            AllServiceTime =  formatAllTime + "小时";
                             Double timeLenth = schoolTime + workTime + retireTime;
 
 
@@ -570,25 +586,38 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
 
     private void getVolunteerPhoto(String volunteerId) {
         //获取头像
-        AppActionImpl.getInstance(getActivity()).get_portrait(volunteerId,
-                new ActionCallbackListener<String>() {
-                    @Override
-                    public void onSuccess(String data) {
-                        if (data == null){
-                            image_portrait.setImageResource(R.drawable.personal_no_portrait);
-                        }
-                        if (!TextUtils.isEmpty(data)) {
-                            my_portrait = data;
-                            LocalDate.getInstance(getActivity()).setLocalDate("portrait", my_portrait);
-                            image_portrait.setImageBitmap(Util.byteToBitmap(data));
-                        }
-                    }
+        AppActionImpl.getInstance(getActivity()).attatchmentDetails(volunteerId, new ActionCallbackListener<AttachmentsViewDto>() {
+            @Override
+            public void onSuccess(AttachmentsViewDto data) {
+                String realUrl = Util.getRealUrl(data.getFileUrl());
+                Logger.e(realUrl);
+                LocalDate.getInstance(getActivity()).setLocalDate(Constants.HEADIMAGE,realUrl);
+                /**
+                 * 我们服务端是每次上传的个人头像只是替换原图，路径并不变。
+                 * 这就导致glide加载时会使用缓存的图片，导致页面图片显示不同步。
+                 * 所以这里需要进行缓存的清除
+                 * .asBitmap()
+                 * .skipMemoryCache(true)
+                 * .diskCacheStrategy(DiskCacheStrategy.NONE)
+                 */
+                Glide.with(getActivity())
+                        .load(realUrl)
+                        .asBitmap()
+                        .error(R.drawable.personal_no_portrait)
+                        .placeholder(R.drawable.personal_no_portrait)
+                        .into(new SimpleTarget<Bitmap>() {
+                            @Override
+                            public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                                image_portrait.setImageBitmap(resource);
+                            }
+                        });
+            }
 
-                    @Override
-                    public void onFailure(String errorEvent, String message) {
+            @Override
+            public void onFailure(String errorEvent, String message) {
 
-                    }
-                });
+            }
+        });
     }
 
     @Override

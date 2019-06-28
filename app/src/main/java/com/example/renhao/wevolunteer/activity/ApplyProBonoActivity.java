@@ -219,6 +219,15 @@ public class ApplyProBonoActivity extends BaseActivity implements View.OnClickLi
                                             new ActionCallbackListener<List<AttachmentsReturnDto>>() {
                                                 @Override
                                                 public void onSuccess(List<AttachmentsReturnDto> data) {
+                                                    String certificatePic = "";
+                                                    if (data != null && data.size() > 0){
+                                                        String pic = "";
+                                                        for (AttachmentsReturnDto dto : data) {
+                                                            pic += dto.getId() + ",";
+                                                        }
+                                                        certificatePic = pic.substring(0,pic.length() - 1);
+                                                    }
+
                                                     //修改项
                                                     personal_data.setWorkunit(my_work);
                                                     personal_data.setDomicile(my_home);
@@ -228,6 +237,7 @@ public class ApplyProBonoActivity extends BaseActivity implements View.OnClickLi
                                                     personal_data.setSkilled(skill);
                                                     personal_data.setAreaCodes(personal_data.getAreaCode());
                                                     personal_data.setAreaCode(personal_data.getAreaCode());
+                                                    personal_data.setCertificatePic(certificatePic);
                                                     List<VolunteerViewDto> vl_updates = new ArrayList<>();
                                                     vl_updates.add(personal_data);
                                                     //申请资料上传

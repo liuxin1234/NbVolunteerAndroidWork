@@ -17,6 +17,7 @@ import com.example.model.activityTime.ActivityTimeQueryOptionDto;
 import com.example.model.activityattention.ActivityAttentionDto;
 import com.example.model.activityattention.ActivityAttentionListDto;
 import com.example.model.activityattention.ActivityAttentionQueryOptionDto;
+import com.example.model.appraiseCompany.VolunteerAppraiseCompanyDto;
 import com.example.model.area.AreaListDto;
 import com.example.model.area.AreaQueryOptionDto;
 import com.example.model.area.AreaViewDto;
@@ -39,6 +40,15 @@ import com.example.model.mobileVersion.MobileVersionQueryOptionDto;
 import com.example.model.mobileVersion.MobileVersionViewDto;
 import com.example.model.organization.OrganizationListDto;
 import com.example.model.organization.OrganizationQueryOptionDto;
+import com.example.model.share.ShareDto;
+import com.example.model.share.ShareListDto;
+import com.example.model.share.ShareQueryOptionDto;
+import com.example.model.shareMessage.SharemessageDto;
+import com.example.model.shareMessage.SharemessageListDto;
+import com.example.model.shareMessage.SharemessageQueryOptionDto;
+import com.example.model.sharePraise.SharepraiseDto;
+import com.example.model.sharePraise.SharepraiseListDto;
+import com.example.model.sharePraise.SharepraiseQueryOptionDto;
 import com.example.model.signRecord.SignInOutDto;
 import com.example.model.signRecord.SignRecordSimple;
 import com.example.model.signResult.SignResultListDto;
@@ -57,6 +67,7 @@ import com.example.model.volunteer.VolunteerTopViewDto;
 import com.example.model.volunteer.VolunteerViewDto;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 项目名称：WeVolunteer
@@ -144,6 +155,10 @@ public interface Api {
     public static final String GET_PORTRAIT = "Nbcei.Framework.Api.Impl/v1/user/query/photo";
     public static final String CREATE_PORTRAIT = "Nbcei.Framework.Api.Impl/v1/user/create/photo";
 
+    //上传头像 新的接口
+    public static final String UPDATE_PORTRAIT_IMAGE_NEW = "Nbcei.Plugin.NbVolunteer.Api.Impl/v1/share/UploadPhoto";
+
+
     //志愿者服务站点
     public static final String VOLUNTEER_BASE_QUERY = "Nbcei.Plugin.NbVolunteer.Api.Impl/v1/volunteerbase/query";
 
@@ -158,7 +173,9 @@ public interface Api {
 
 
     //专业证书批量上传
-    public static final String UPDATE_MAJOR_ATTACHMENT = "Nbcei.Plugin.Attachment.Api.Impl/v1/attachments/savefile";
+//    public static final String UPDATE_MAJOR_ATTACHMENT = "Nbcei.Plugin.Attachment.Api.Impl/v1/attachments/savefile";
+    //新的专业证书批量上传 接口地址
+    public static final String UPDATE_MAJOR_ATTACHMENT = "Nbcei.Plugin.NbVolunteer.Api.Impl/v1/share/SaveFile";
 
     //查询活动时间
     public static final String ACTIVITY_TIME_QUERY = "Nbcei.Plugin.NbVolunteer.Api.Impl/v1/activitytime/query";
@@ -193,6 +210,24 @@ public interface Api {
     public static final String SIGN_RESULT_QUERY = "Nbcei.Plugin.NbVolunteer.Api.Impl/v1/signresult/query";
     //历史时长补录 DurationRecord
     public static final String DURATIONRECORD_QUERY = "Nbcei.Plugin.NbVolunteer.Api.Impl/v1/durationrecord/query";
+
+    //待评价 Volunteerappraisecompany
+    public static final String VOLUNTEER_APPRAISE_COMPANY_CREATE = "Nbcei.Plugin.NbVolunteer.Api.Impl/v1/volunteerappraisecompany/create";
+
+    //秀一秀 朋友圈分享
+    public static final String SHARE_CREATE = "Nbcei.Plugin.NbVolunteer.Api.Impl/v1/share/create";
+    public static final String SHARE_SAVE = "Nbcei.Plugin.NbVolunteer.Api.Impl/v1/share/SaveShare";
+    public static final String SHARE_QUERY = "Nbcei.Plugin.NbVolunteer.Api.Impl/v1/share/query2";
+    //秀一秀 评论
+    public static final String SHARE_MESSAGE_CREATE = "Nbcei.Plugin.NbVolunteer.Api.Impl/v1/sharemessage/create";
+    public static final String SHARE_MESSAGE_QUERY = "Nbcei.Plugin.NbVolunteer.Api.Impl/v1/sharemessage/query";
+    //秀一秀 点赞
+    public static final String SHARE_PRAISE_CREATE = "Nbcei.Plugin.NbVolunteer.Api.Impl/v1/sharepraise/create";
+    public static final String SHARE_PRAISE_UPDATE = "Nbcei.Plugin.NbVolunteer.Api.Impl/v1/sharepraise/update";
+    public static final String SHARE_PRAISE_QUERY = "Nbcei.Plugin.NbVolunteer.Api.Impl/v1/sharepraise/query";
+    //点赞新增or更新
+    public static final String SHARE_PRAISE_OPERATION = "Nbcei.Plugin.NbVolunteer.Api.Impl/v1/sharepraise/operation";
+
 
     /**
      * 获取accessToken
@@ -429,4 +464,32 @@ public interface Api {
     public ApiResponse<PagedListEntityDto<SignResultListDto>> postSignResultQuery(SignResultQueryOptionDto signResultQueryOptionDto, String accessToken);
 
     public ApiResponse<PagedListEntityDto<DurationRecordListDto>> postDurationRecordQuery(DurationRecordQueryOptionDto durationRecordQueryOptionDto, String accessToken);
+
+    /**
+     * 待评价
+     */
+    public ApiResponse<List<String>> postAppraiseCompanyCreate(List<VolunteerAppraiseCompanyDto> appraiseCompanyDtos,String accessToken);
+
+    /**
+     * 秀一秀 朋友圈分享
+     */
+    public ApiResponse<List<String>> postShareCreate(List<ShareDto> shareDtoList,String accessToken);
+    public ApiResponse<String> postShareSave(Map<String,String> params, List<String> imageUrls, String accessToken);
+    public ApiResponse<PagedListEntityDto<ShareListDto>> postShareQuery(ShareQueryOptionDto shareQueryOptionDto,String accessToken);
+    /**
+     * 秀一秀 评论
+     */
+    public ApiResponse<List<String>> postShareMessageCreate(List<SharemessageDto> sharemessageDtoList,String accessToken);
+    public ApiResponse<PagedListEntityDto<SharemessageListDto>> postShareMessageQuery(SharemessageQueryOptionDto sharemessageQueryOptionDto,String accessToken);
+    /**
+     * 秀一秀 点赞
+     */
+    public ApiResponse<List<String>> postSharePraiseCreate(List<SharepraiseDto> sharepraiseDtoList,String accessToken);
+    public ApiResponse<String> postSharePraiseUpdate(List<SharepraiseDto> sharepraiseDtoList,String accessToken);
+    public ApiResponse<PagedListEntityDto<SharepraiseListDto>> postSharePraiseQuery(SharepraiseQueryOptionDto sharepraiseQueryOptionDto, String accessToken);
+    public ApiResponse<String> postSharePraiseOperation(List<SharepraiseDto> sharepraiseDtoList,String accessToken);
+    /**
+     * 获取，上传头像  新的接口方法
+     */
+    public ApiResponse<String> postShareUploadPhoto(Map<String,String> params,List<String> imageUrls,String accessToken);
 }

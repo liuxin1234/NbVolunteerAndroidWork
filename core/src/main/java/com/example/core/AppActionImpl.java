@@ -27,6 +27,7 @@ import com.example.model.activityTime.ActivityTimeQueryOptionDto;
 import com.example.model.activityattention.ActivityAttentionDto;
 import com.example.model.activityattention.ActivityAttentionListDto;
 import com.example.model.activityattention.ActivityAttentionQueryOptionDto;
+import com.example.model.appraiseCompany.VolunteerAppraiseCompanyDto;
 import com.example.model.area.AreaListDto;
 import com.example.model.area.AreaQueryOptionDto;
 import com.example.model.area.AreaViewDto;
@@ -49,6 +50,15 @@ import com.example.model.mobileVersion.MobileVersionQueryOptionDto;
 import com.example.model.mobileVersion.MobileVersionViewDto;
 import com.example.model.organization.OrganizationListDto;
 import com.example.model.organization.OrganizationQueryOptionDto;
+import com.example.model.share.ShareDto;
+import com.example.model.share.ShareListDto;
+import com.example.model.share.ShareQueryOptionDto;
+import com.example.model.shareMessage.SharemessageDto;
+import com.example.model.shareMessage.SharemessageListDto;
+import com.example.model.shareMessage.SharemessageQueryOptionDto;
+import com.example.model.sharePraise.SharepraiseDto;
+import com.example.model.sharePraise.SharepraiseListDto;
+import com.example.model.sharePraise.SharepraiseQueryOptionDto;
 import com.example.model.signRecord.SignInOutDto;
 import com.example.model.signRecord.SignRecordSimple;
 import com.example.model.signResult.SignResultListDto;
@@ -67,6 +77,7 @@ import com.example.model.volunteer.VolunteerTopViewDto;
 import com.example.model.volunteer.VolunteerViewDto;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 项目名称：WeVolunteer
@@ -1598,6 +1609,281 @@ public class AppActionImpl implements AppAction {
 
             @Override
             protected void onPostExecute(ApiResponse<PagedListEntityDto<DurationRecordListDto>> result) {
+                if (result == null) {
+                    listener.onFailure("", "请检查网络后重试");
+                    return;
+                }
+                if (result.isSuccess()) {
+                    listener.onSuccess(result.getData());
+                } else {
+                    listener.onFailure("", result.getMessage());
+                }
+            }
+        }.execute();
+    }
+
+    @Override
+    public void postAppraiseCompanyCreate(final List<VolunteerAppraiseCompanyDto> appraiseCompanyDtos, final ActionCallbackListener<List<String>> listener) {
+        //判断票据是否过期
+        final String accessToken = LocalDate.getInstance(context).getLocalDate("access_token", "");
+        new AsyncTask<Void, Void, ApiResponse<List<String>>>() {
+            @Override
+            protected ApiResponse<List<String>> doInBackground(Void... params) {
+                return api.postAppraiseCompanyCreate(appraiseCompanyDtos, accessToken);
+            }
+
+            @Override
+            protected void onPostExecute(ApiResponse<List<String>> result) {
+                if (result == null) {
+                    listener.onFailure("", "请检查网络后重试");
+                    return;
+                }
+                if (result.isSuccess()) {
+                    listener.onSuccess(result.getData());
+                } else {
+                    listener.onFailure("", result.getMessage());
+                }
+            }
+        }.execute();
+    }
+
+    @Override
+    public void postShareCreate(final List<ShareDto> shareDtoList, final ActionCallbackListener<List<String>> listener) {
+        //判断票据是否过期
+        final String accessToken = LocalDate.getInstance(context).getLocalDate("access_token", "");
+        new AsyncTask<Void, Void, ApiResponse<List<String>>>() {
+            @Override
+            protected ApiResponse<List<String>> doInBackground(Void... params) {
+                return api.postShareCreate(shareDtoList, accessToken);
+            }
+
+            @Override
+            protected void onPostExecute(ApiResponse<List<String>> result) {
+                if (result == null) {
+                    listener.onFailure("", "请检查网络后重试");
+                    return;
+                }
+                if (result.isSuccess()) {
+                    listener.onSuccess(result.getData());
+                } else {
+                    listener.onFailure("", result.getMessage());
+                }
+            }
+        }.execute();
+    }
+
+    @Override
+    public void postShareSave(final Map<String,String> map, final List<String> imageUrls, final ActionCallbackListener<String> listener) {
+        //判断票据是否过期
+        final String accessToken = LocalDate.getInstance(context).getLocalDate("access_token", "");
+        new AsyncTask<Void, Void, ApiResponse<String>>() {
+            @Override
+            protected ApiResponse<String> doInBackground(Void... params) {
+                return api.postShareSave(map,imageUrls, accessToken);
+            }
+
+            @Override
+            protected void onPostExecute(ApiResponse<String> result) {
+                if (result == null) {
+                    listener.onFailure("", "请检查网络后重试");
+                    return;
+                }
+                if (result.isSuccess()) {
+                    listener.onSuccess(result.getData());
+                } else {
+                    listener.onFailure("", result.getMessage());
+                }
+            }
+        }.execute();
+    }
+
+    @Override
+    public void postShareQuery(final ShareQueryOptionDto query, final ActionCallbackListener<PagedListEntityDto<ShareListDto>> listener) {
+        //判断票据是否过期
+        final String accessToken = LocalDate.getInstance(context).getLocalDate("access_token", "");
+        new AsyncTask<Void, Void, ApiResponse<PagedListEntityDto<ShareListDto>>>() {
+            @Override
+            protected ApiResponse<PagedListEntityDto<ShareListDto>> doInBackground(Void... params) {
+                return api.postShareQuery(query, accessToken);
+            }
+
+            @Override
+            protected void onPostExecute(ApiResponse<PagedListEntityDto<ShareListDto>> result) {
+                if (result == null) {
+                    listener.onFailure("", "请检查网络后重试");
+                    return;
+                }
+                if (result.isSuccess()) {
+                    listener.onSuccess(result.getData());
+                } else {
+                    listener.onFailure("", result.getMessage());
+                }
+            }
+        }.execute();
+    }
+
+    @Override
+    public void postShareUploadPhoto(final Map<String, String> map, final List<String> imageUrls, final ActionCallbackListener<String> listener) {
+        //判断票据是否过期
+        final String accessToken = LocalDate.getInstance(context).getLocalDate("access_token", "");
+        new AsyncTask<Void, Void, ApiResponse<String>>() {
+            @Override
+            protected ApiResponse<String> doInBackground(Void... params) {
+                return api.postShareUploadPhoto(map,imageUrls, accessToken);
+            }
+
+            @Override
+            protected void onPostExecute(ApiResponse<String> result) {
+                if (result == null) {
+                    listener.onFailure("", "请检查网络后重试");
+                    return;
+                }
+                if (result.isSuccess()) {
+                    listener.onSuccess(result.getData());
+                } else {
+                    listener.onFailure("", result.getMessage());
+                }
+            }
+        }.execute();
+    }
+
+    @Override
+    public void postShareMessageCreate(final List<SharemessageDto> sharemessageDtoList, final ActionCallbackListener<List<String>> listener) {
+        //判断票据是否过期
+        final String accessToken = LocalDate.getInstance(context).getLocalDate("access_token", "");
+        new AsyncTask<Void, Void, ApiResponse<List<String>>>() {
+            @Override
+            protected ApiResponse<List<String>> doInBackground(Void... params) {
+                return api.postShareMessageCreate(sharemessageDtoList, accessToken);
+            }
+
+            @Override
+            protected void onPostExecute(ApiResponse<List<String>> result) {
+                if (result == null) {
+                    listener.onFailure("", "请检查网络后重试");
+                    return;
+                }
+                if (result.isSuccess()) {
+                    listener.onSuccess(result.getData());
+                } else {
+                    listener.onFailure("", result.getMessage());
+                }
+            }
+        }.execute();
+    }
+
+    @Override
+    public void postShareMessageQuery(final SharemessageQueryOptionDto query, final ActionCallbackListener<PagedListEntityDto<SharemessageListDto>> listener) {
+        //判断票据是否过期
+        final String accessToken = LocalDate.getInstance(context).getLocalDate("access_token", "");
+        new AsyncTask<Void, Void, ApiResponse<PagedListEntityDto<SharemessageListDto>>>() {
+            @Override
+            protected ApiResponse<PagedListEntityDto<SharemessageListDto>> doInBackground(Void... params) {
+                return api.postShareMessageQuery(query, accessToken);
+            }
+
+            @Override
+            protected void onPostExecute(ApiResponse<PagedListEntityDto<SharemessageListDto>> result) {
+                if (result == null) {
+                    listener.onFailure("", "请检查网络后重试");
+                    return;
+                }
+                if (result.isSuccess()) {
+                    listener.onSuccess(result.getData());
+                } else {
+                    listener.onFailure("", result.getMessage());
+                }
+            }
+        }.execute();
+    }
+
+    @Override
+    public void postSharePraiseCreate(final List<SharepraiseDto> sharepraiseDtoList, final ActionCallbackListener<List<String>> listener) {
+        //判断票据是否过期
+        final String accessToken = LocalDate.getInstance(context).getLocalDate("access_token", "");
+        new AsyncTask<Void, Void, ApiResponse<List<String>>>() {
+            @Override
+            protected ApiResponse<List<String>> doInBackground(Void... params) {
+                return api.postSharePraiseCreate(sharepraiseDtoList, accessToken);
+            }
+
+            @Override
+            protected void onPostExecute(ApiResponse<List<String>> result) {
+                if (result == null) {
+                    listener.onFailure("", "请检查网络后重试");
+                    return;
+                }
+                if (result.isSuccess()) {
+                    listener.onSuccess(result.getData());
+                } else {
+                    listener.onFailure("", result.getMessage());
+                }
+            }
+        }.execute();
+    }
+
+    @Override
+    public void postSharePraiseUpdate(final List<SharepraiseDto> sharepraiseDtoList, final ActionCallbackListener<String> listener) {
+        //判断票据是否过期
+        final String accessToken = LocalDate.getInstance(context).getLocalDate("access_token", "");
+        new AsyncTask<Void, Void, ApiResponse<String>>() {
+            @Override
+            protected ApiResponse<String> doInBackground(Void... params) {
+                return api.postSharePraiseUpdate(sharepraiseDtoList, accessToken);
+            }
+
+            @Override
+            protected void onPostExecute(ApiResponse<String> result) {
+                if (result == null) {
+                    listener.onFailure("", "请检查网络后重试");
+                    return;
+                }
+                if (result.isSuccess()) {
+                    listener.onSuccess(result.getData());
+                } else {
+                    listener.onFailure("", result.getMessage());
+                }
+            }
+        }.execute();
+    }
+
+    @Override
+    public void postSharePraiseQuery(final SharepraiseQueryOptionDto sharepraiseQueryOptionDto, final ActionCallbackListener<PagedListEntityDto<SharepraiseListDto>> listener) {
+        //判断票据是否过期
+        final String accessToken = LocalDate.getInstance(context).getLocalDate("access_token", "");
+        new AsyncTask<Void, Void, ApiResponse<PagedListEntityDto<SharepraiseListDto>>>() {
+            @Override
+            protected ApiResponse<PagedListEntityDto<SharepraiseListDto>> doInBackground(Void... params) {
+                return api.postSharePraiseQuery(sharepraiseQueryOptionDto, accessToken);
+            }
+
+            @Override
+            protected void onPostExecute(ApiResponse<PagedListEntityDto<SharepraiseListDto>> result) {
+                if (result == null) {
+                    listener.onFailure("", "请检查网络后重试");
+                    return;
+                }
+                if (result.isSuccess()) {
+                    listener.onSuccess(result.getData());
+                } else {
+                    listener.onFailure("", result.getMessage());
+                }
+            }
+        }.execute();
+    }
+
+    @Override
+    public void postSharePraiseOperation(final List<SharepraiseDto> sharepraiseDtoList, final ActionCallbackListener<String> listener) {
+        //判断票据是否过期
+        final String accessToken = LocalDate.getInstance(context).getLocalDate("access_token", "");
+        new AsyncTask<Void, Void, ApiResponse<String>>() {
+            @Override
+            protected ApiResponse<String> doInBackground(Void... params) {
+                return api.postSharePraiseOperation(sharepraiseDtoList, accessToken);
+            }
+
+            @Override
+            protected void onPostExecute(ApiResponse<String> result) {
                 if (result == null) {
                     listener.onFailure("", "请检查网络后重试");
                     return;

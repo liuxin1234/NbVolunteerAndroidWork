@@ -79,4 +79,11 @@
 
     <string name="rationale_location_contacts">此功能需要定位和读写,相机等权限，否则无法正常使用，是否打开设置</string>
     <string name="activity_hint_search">请输入需要查询内容</string>
+
+
+    <!--签退成功后，评价界面-->
+    <string name="tv_sign_off_thank">签退成功 感谢参与</string>
+    <string name="tv_sign_off_hour">小时</string>
+    <string name="tv_sign_off_activity_name">活动名称</string>
+    <string name="tv_sign_off_evaluate">评价本次志愿服务活动</string>
 </resources>

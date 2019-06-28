@@ -3,11 +3,11 @@
           package="com.example.renhao.wevolunteer">
 
     <!-- 分享所需权限 -->
-    <!--<uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>-->
-    <!--<uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>-->
-    <!--<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>-->
-    <!--<uses-permission android:name="android.permission.READ_PHONE_STATE"/>-->
-    <!--<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>-->
+    <!-- <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/> -->
+    <!-- <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/> -->
+    <!-- <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/> -->
+    <!-- <uses-permission android:name="android.permission.READ_PHONE_STATE"/> -->
+    <!-- <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/> -->
 
     <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
     <uses-permission android:name="android.permission.MANAGE_ACCOUNTS"/>
@@ -15,7 +15,6 @@
 
     <!-- 网络权限 -->
     <uses-permission android:name="android.permission.INTERNET"/>
-
 
     <!-- 用于进行网络定位 -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
@@ -37,6 +36,8 @@
     <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
+    <uses-permission android:name="android.permission.READ_LOGS" />
+
     <application
         android:name=".application.BaseApplication"
         android:allowBackup="true"
@@ -48,22 +49,21 @@
             android:name="com.amap.api.v2.apikey"
             android:value="8798103f868ea3e68c555428e863372e"/>
 
-        <!--全面屏的沉浸式布局适配 这里的value值最好是2.1或者更高-->
+        <!-- 全面屏的沉浸式布局适配 这里的value值最好是2.1或者更高 -->
         <meta-data
             android:name="android.max_aspect"
             android:value="2.1"/>
 
-        <!--7.0文件访问适配-->
+        <!-- 7.0文件访问适配 -->
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.FileProvider"
-            android:grantUriPermissions="true"
-            android:exported="false">
+            android:exported="false"
+            android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths"/>
         </provider>
-
 
         <activity
             android:name=".WelcomeActivity"
@@ -215,7 +215,7 @@
             android:name=".activity.Complete_information"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
-        <!--//分享所需activity-->
+        <!-- //分享所需activity -->
         <activity
             android:name="com.mob.tools.MobUIShell"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -231,7 +231,7 @@
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
-        <!--//微信必须回调-->
+        <!-- //微信必须回调 -->
         <activity
             android:name="cn.sharesdk.demo.wxapi.WXEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -241,20 +241,45 @@
         <activity
             android:name=".activity.MyRecuritJobActivity"
             android:screenOrientation="portrait"/>
-
-        <activity android:name=".activity.VolunteerTagActivity"
-                  android:screenOrientation="portrait">
+        <activity
+            android:name=".activity.VolunteerTagActivity"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".activity.VolkActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name=".activity.EducationActivity"
-                  android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.VolkActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.EducationActivity"
+            android:screenOrientation="portrait"/>
         <activity android:name=".activity.SexAtivity"/>
-        <activity android:name=".activity.PresonalServiceActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name=".activity.webview.WebViewErrorActivity"
-                  android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.PresonalServiceActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.webview.WebViewErrorActivity"
+            android:screenOrientation="portrait"/>
 
+        <!-- 签到成功后，评价界面 -->
+        <activity
+            android:name=".activity.evaluate.SignOffActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
+        <activity
+            android:name=".activity.evaluate.EvaluateActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
+        <activity
+            android:name=".activity.show.ShowActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
+        <activity android:name=".activity.show.CommentActivity">
+        </activity>
+        <activity android:name=".activity.show.SendShowActivity">
+
+        </activity>
     </application>
 
 </manifest>

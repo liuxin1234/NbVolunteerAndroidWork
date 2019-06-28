@@ -1223,6 +1223,9 @@ public class FindPageFragment extends BaseFragment implements LocationSource,
         AppActionImpl.getInstance(getActivity()).activityQuery(query, new ActionCallbackListener<PagedListEntityDto<ActivityListDto>>() {
             @Override
             public void onSuccess(PagedListEntityDto<ActivityListDto> data) {
+                if (data == null){
+                    return;
+                }
                 if (data.getRows() == null || data.getRows().size() == 0) {
                     return;
                 }

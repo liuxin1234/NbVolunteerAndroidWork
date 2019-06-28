@@ -27,9 +27,12 @@ import android.widget.TextView;
 
 import com.bigkoo.pickerview.TimePickerView;
 import com.blankj.utilcode.util.DeviceUtils;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.core.AppActionImpl;
 import com.example.core.local.LocalDate;
 import com.example.model.ActionCallbackListener;
+import com.example.model.Attachment.AttachmentsViewDto;
 import com.example.model.PagedListEntityDto;
 import com.example.model.activity.ActivityViewDto;
 import com.example.model.activityRecruit.ActivityRecruitDto;
@@ -43,6 +46,7 @@ import com.example.model.activityattention.ActivityAttentionQueryOptionDto;
 import com.example.model.jobActivity.JobActivityViewDto;
 import com.example.model.volunteer.VolunteerTopViewDto;
 import com.example.renhao.wevolunteer.base.BaseActivity;
+import com.example.renhao.wevolunteer.common.Constants;
 import com.example.renhao.wevolunteer.handler.MxgsaTagHandler;
 import com.example.renhao.wevolunteer.utils.GsonUtils;
 import com.example.renhao.wevolunteer.utils.Util;
@@ -300,44 +304,57 @@ public class ProjectDetailActivity extends BaseActivity {
         if (list == null || list.size() < (position + 1)) {
             return;
         }
-        //取得头像
-        AppActionImpl.getInstance(this).get_portrait(list.get(position).getUserId(),
-                new ActionCallbackListener<String>() {
-                    @Override
-                    public void onSuccess(String data) {
-                        if (data == null) {
-                            try {
-                                ImageView view = (ImageView) mRelativeSignedPeople.getChildAt(position);
-                                view.setVisibility(View.VISIBLE);
-                            } catch (Exception ignored) {
+        //获取头像
+        AppActionImpl.getInstance(this).attatchmentDetails(list.get(position).getUserId(), new ActionCallbackListener<AttachmentsViewDto>() {
+            @Override
+            public void onSuccess(AttachmentsViewDto data) {
 
-                            }
-                        } else {
-                            try {
-                                Bitmap bitmap = Util.byteToBitmap(data);
-                                ImageView view = (ImageView) mRelativeSignedPeople.getChildAt(position);
-                                view.setVisibility(View.VISIBLE);
-                                //设置图片
-                                view.setImageBitmap(bitmap);
-
-                            } catch (Exception ignored) {
-                                System.out.println(ignored);
-                            }
-                        }
-                        setVolunteerPhoto(list, position + 1);
-
+                if (data == null) {
+                    try {
+                        ImageView view = (ImageView) mRelativeSignedPeople.getChildAt(position);
+                        view.setVisibility(View.VISIBLE);
+                    } catch (Exception ignored) {
 
                     }
-
-                    @Override
-                    public void onFailure(String errorEvent, String message) {
+                } else {
+                    try {
                         ImageView view = (ImageView) mRelativeSignedPeople.getChildAt(position);
                         view.setVisibility(View.VISIBLE);
                         //设置图片
-                        view.setImageResource(R.drawable.personal_no_portrait);
-                        setVolunteerPhoto(list, position + 1);
+                        String realUrl = Util.getRealUrl(data.getFileUrl());
+                        Logger.e(realUrl);
+                        /**
+                         * 我们服务端是每次上传的个人头像只是替换原图，路径并不变。
+                         * 这就导致glide加载时会使用缓存的图片，导致页面图片显示不同步。
+                         * 所以这里需要进行缓存的清除
+                         * .skipMemoryCache(true)
+                         * .diskCacheStrategy(DiskCacheStrategy.NONE)
+                         */
+                        Glide.with(ProjectDetailActivity.this)
+                                .load(realUrl)
+                                .asBitmap()
+                                .error(R.drawable.personal_no_portrait)
+                                .placeholder(R.drawable.personal_no_portrait)
+                                .into(view);
+
+                    } catch (Exception ignored) {
+                        System.out.println(ignored);
                     }
-                });
+                }
+                setVolunteerPhoto(list, position + 1);
+
+
+            }
+
+            @Override
+            public void onFailure(String errorEvent, String message) {
+                ImageView view = (ImageView) mRelativeSignedPeople.getChildAt(position);
+                view.setVisibility(View.VISIBLE);
+                //设置图片
+                view.setImageResource(R.drawable.personal_no_portrait);
+                setVolunteerPhoto(list, position + 1);
+            }
+        });
     }
 
     /**
@@ -673,7 +690,7 @@ public class ProjectDetailActivity extends BaseActivity {
         avTimeDto.setActivityId(id);
         avTimeDto.setActivityName(activityName);
         avTimeDto.setPageIndex(1);
-        avTimeDto.setPageSize(90);  //活动/岗位规定时间为一个季度：90天
+        avTimeDto.setPageSize(93);  //活动/岗位规定时间为一个季度：93天
         LinkedHashMap<String, String> sorts_map = new LinkedHashMap<>();
         sorts_map.put("STime", "asc");  //desc:降序  asc:升序
         avTimeDto.setSorts(sorts_map);

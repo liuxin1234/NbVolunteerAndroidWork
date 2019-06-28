@@ -18,6 +18,7 @@ import com.example.model.activityTime.ActivityTimeQueryOptionDto;
 import com.example.model.activityattention.ActivityAttentionDto;
 import com.example.model.activityattention.ActivityAttentionListDto;
 import com.example.model.activityattention.ActivityAttentionQueryOptionDto;
+import com.example.model.appraiseCompany.VolunteerAppraiseCompanyDto;
 import com.example.model.area.AreaListDto;
 import com.example.model.area.AreaQueryOptionDto;
 import com.example.model.area.AreaViewDto;
@@ -40,6 +41,15 @@ import com.example.model.mobileVersion.MobileVersionQueryOptionDto;
 import com.example.model.mobileVersion.MobileVersionViewDto;
 import com.example.model.organization.OrganizationListDto;
 import com.example.model.organization.OrganizationQueryOptionDto;
+import com.example.model.share.ShareDto;
+import com.example.model.share.ShareListDto;
+import com.example.model.share.ShareQueryOptionDto;
+import com.example.model.shareMessage.SharemessageDto;
+import com.example.model.shareMessage.SharemessageListDto;
+import com.example.model.shareMessage.SharemessageQueryOptionDto;
+import com.example.model.sharePraise.SharepraiseDto;
+import com.example.model.sharePraise.SharepraiseListDto;
+import com.example.model.sharePraise.SharepraiseQueryOptionDto;
 import com.example.model.signRecord.SignInOutDto;
 import com.example.model.signRecord.SignRecordSimple;
 import com.example.model.signResult.SignResultListDto;
@@ -58,6 +68,7 @@ import com.example.model.volunteer.VolunteerTopViewDto;
 import com.example.model.volunteer.VolunteerViewDto;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 项目名称：WeVolunteer
@@ -264,4 +275,24 @@ public interface AppAction {
 
     //历史时长补录
     public void postDurationRecordQuery(DurationRecordQueryOptionDto query, ActionCallbackListener<PagedListEntityDto<DurationRecordListDto>> listener);
+
+    //待评价
+    public void postAppraiseCompanyCreate(List<VolunteerAppraiseCompanyDto> appraiseCompanyDtos,ActionCallbackListener<List<String>> listener);
+
+    //秀一秀 朋友圈展示
+    public void postShareCreate(List<ShareDto> shareDtoList,ActionCallbackListener<List<String>> listener);
+    public void postShareSave(Map<String,String> map, List<String> imageUrls, ActionCallbackListener<String> listener);
+    public void postShareQuery(ShareQueryOptionDto query, ActionCallbackListener<PagedListEntityDto<ShareListDto>> listener);
+    public void postShareUploadPhoto(Map<String,String> map, List<String> imageUrls, ActionCallbackListener<String> listener);
+
+    //秀一秀 评论
+    public void postShareMessageCreate(List<SharemessageDto> sharemessageDtoList,ActionCallbackListener<List<String>> listener);
+    public void postShareMessageQuery(SharemessageQueryOptionDto query, ActionCallbackListener<PagedListEntityDto<SharemessageListDto>> listener);
+
+    //秀一秀 点赞
+    public void postSharePraiseCreate(List<SharepraiseDto> sharepraiseDtoList,ActionCallbackListener<List<String>> listener);
+    public void postSharePraiseUpdate(List<SharepraiseDto> sharepraiseDtoList,ActionCallbackListener<String> listener);
+    public void postSharePraiseQuery(SharepraiseQueryOptionDto sharepraiseQueryOptionDto, ActionCallbackListener<PagedListEntityDto<SharepraiseListDto>> listener);
+    public void postSharePraiseOperation(List<SharepraiseDto> sharepraiseDtoList,ActionCallbackListener<String> listener);
+
 }

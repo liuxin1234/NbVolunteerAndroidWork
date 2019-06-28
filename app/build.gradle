@@ -14,14 +14,25 @@ android {
             storePassword '15728006904'
         }
     }
-    compileSdkVersion 23
-    buildToolsVersion '25.0.0'
+    /**
+     * 注意这里的构建版本不能太高 targetSdkVersion 23 超过这个 H5的签离签到界面定位会出现问题
+     */
+    compileSdkVersion 25
+    buildToolsVersion '25.0.3'
     defaultConfig {
         applicationId "com.example.renhao.wevolunteer"
-        minSdkVersion 16
+        minSdkVersion 19
         targetSdkVersion 23
-        versionCode 15
-        versionName "1.5.5"
+        versionCode 16
+        versionName "1.5.6"
+        //使用矢量图配置
+        vectorDrawables.useSupportLibrary = true
+        // 分包配置
+        multiDexEnabled true
+        ndk {
+            //设置支持的SO库架构（开发者可以根据需要，选择一个或多个平台的so）
+            abiFilters "armeabi"
+        }
     }
     buildTypes {
         release {
@@ -58,7 +69,7 @@ dependencies {
     compile files('libs/ShareSDK-Wechat-2.7.6.jar')
     compile files('libs/ShareSDK-Wechat-Core-2.7.6.jar')
     compile files('libs/ShareSDK-Wechat-Moments-2.7.6.jar')
-    compile 'com.android.support:appcompat-v7:23.4.0'
+    compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.jakewharton:butterknife:7.0.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.nineoldandroids:library:2.4.0'
@@ -83,4 +94,29 @@ dependencies {
     compile 'pub.devrel:easypermissions:1.0.1'
     //常用的dialog第三方库
     compile 'com.flyco.dialog:FlycoDialog_Lib:1.3.2@aar'
+
+    //recyclerview
+    compile 'com.android.support:recyclerview-v7:25.3.1'
+
+    //cardview
+    compile 'com.android.support:cardview-v7:25.3.1'
+
+    //BaseRecyclerViewAdapterHelper
+    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.27'
+
+    compile 'com.github.iielse:ImageWatcher:1.1.5'
+
+    //仿微信朋友圈图片选择器
+    compile 'com.lzy.widget:imagepicker:0.6.1'
+
+    //目前最火的下拉刷新库
+    compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.4-7'
+    compile 'com.scwang.smartrefresh:SmartRefreshHeader:1.0.4-7'
+
+    //为了适配5.0以下 因为矢量图的问题
+    compile 'com.android.support:support-vector-drawable:25.3.1'
+
+    //分包
+    compile 'com.android.support:multidex:1.0.1'
+
 }

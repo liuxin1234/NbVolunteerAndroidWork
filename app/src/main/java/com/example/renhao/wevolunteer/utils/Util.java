@@ -40,6 +40,7 @@ public class Util {
     private static final String TAG = "Util";
 
     public static final String IMG_URL = "http://www.nbzyz.org";
+//    public static final String IMG_URL = "http://115.238.150.174:5018";
     public static final String APK_URL = "http://admin.nbzyz.org";
 
     //二进制流转换为图片

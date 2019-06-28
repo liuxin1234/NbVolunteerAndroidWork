@@ -20,6 +20,7 @@ import com.example.model.activityTime.ActivityTimeQueryOptionDto;
 import com.example.model.activityattention.ActivityAttentionDto;
 import com.example.model.activityattention.ActivityAttentionListDto;
 import com.example.model.activityattention.ActivityAttentionQueryOptionDto;
+import com.example.model.appraiseCompany.VolunteerAppraiseCompanyDto;
 import com.example.model.area.AreaListDto;
 import com.example.model.area.AreaQueryOptionDto;
 import com.example.model.area.AreaViewDto;
@@ -42,6 +43,15 @@ import com.example.model.mobileVersion.MobileVersionQueryOptionDto;
 import com.example.model.mobileVersion.MobileVersionViewDto;
 import com.example.model.organization.OrganizationListDto;
 import com.example.model.organization.OrganizationQueryOptionDto;
+import com.example.model.share.ShareDto;
+import com.example.model.share.ShareListDto;
+import com.example.model.share.ShareQueryOptionDto;
+import com.example.model.shareMessage.SharemessageDto;
+import com.example.model.shareMessage.SharemessageListDto;
+import com.example.model.shareMessage.SharemessageQueryOptionDto;
+import com.example.model.sharePraise.SharepraiseDto;
+import com.example.model.sharePraise.SharepraiseListDto;
+import com.example.model.sharePraise.SharepraiseQueryOptionDto;
 import com.example.model.signRecord.SignInOutDto;
 import com.example.model.signRecord.SignRecordSimple;
 import com.example.model.signResult.SignResultListDto;
@@ -65,6 +75,7 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 项目名称：WeVolunteer
@@ -924,6 +935,156 @@ public class ApiImpl implements Api {
         }.getType();
         try {
             return HttpEngine.getInstance().postApiHandler(params, DURATIONRECORD_QUERY, typeOft, accessToken);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return new ApiResponse<>(false, "网络连接异常");
+    }
+
+    @Override
+    public ApiResponse<List<String>> postAppraiseCompanyCreate(List<VolunteerAppraiseCompanyDto> appraiseCompanyDtos, String accessToken) {
+        Gson gson = new Gson();
+        String params = gson.toJson(appraiseCompanyDtos);
+        Type typeOft = new TypeToken<ApiResponse<List<String>>>() {
+        }.getType();
+        try {
+            return HttpEngine.getInstance().postApiHandler(params, VOLUNTEER_APPRAISE_COMPANY_CREATE, typeOft, accessToken);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return new ApiResponse<>(false, "网络连接异常");
+    }
+
+    @Override
+    public ApiResponse<List<String>> postShareCreate(List<ShareDto> shareDtoList, String accessToken) {
+        Gson gson = new Gson();
+        String params = gson.toJson(shareDtoList);
+        Type typeOft = new TypeToken<ApiResponse<List<String>>>() {
+        }.getType();
+        try {
+            return HttpEngine.getInstance().postApiHandler(params, SHARE_CREATE, typeOft, accessToken);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return new ApiResponse<>(false, "网络连接异常");
+    }
+
+    @Override
+    public ApiResponse<String> postShareSave(Map<String,String> params, List<String> imageUrls, String accessToken) {
+        Type typeOft = new TypeToken<ApiResponse<String>>() {
+        }.getType();
+        try {
+            return HttpEngine.getInstance().postImageApiHandler(params,imageUrls, SHARE_SAVE, typeOft, accessToken);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return new ApiResponse<>(false, "网络连接异常");
+    }
+
+    @Override
+    public ApiResponse<PagedListEntityDto<ShareListDto>> postShareQuery(ShareQueryOptionDto shareQueryOptionDto, String accessToken) {
+        Gson gson = new Gson();
+        String params = gson.toJson(shareQueryOptionDto);
+        Type typeOft = new TypeToken<ApiResponse<PagedListEntityDto<ShareListDto>>>() {
+        }.getType();
+        try {
+            return HttpEngine.getInstance().postApiHandler(params, SHARE_QUERY, typeOft, accessToken);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return new ApiResponse<>(false, "网络连接异常");
+    }
+
+    @Override
+    public ApiResponse<List<String>> postShareMessageCreate(List<SharemessageDto> sharemessageDtoList, String accessToken) {
+        Gson gson = new Gson();
+        String params = gson.toJson(sharemessageDtoList);
+        Type typeOft = new TypeToken<ApiResponse<List<String>>>() {
+        }.getType();
+        try {
+            return HttpEngine.getInstance().postApiHandler(params, SHARE_MESSAGE_CREATE, typeOft, accessToken);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return new ApiResponse<>(false, "网络连接异常");
+    }
+
+    @Override
+    public ApiResponse<PagedListEntityDto<SharemessageListDto>> postShareMessageQuery(SharemessageQueryOptionDto sharemessageQueryOptionDto, String accessToken) {
+        Gson gson = new Gson();
+        String params = gson.toJson(sharemessageQueryOptionDto);
+        Type typeOft = new TypeToken<ApiResponse<PagedListEntityDto<SharemessageListDto>>>() {
+        }.getType();
+        try {
+            return HttpEngine.getInstance().postApiHandler(params, SHARE_MESSAGE_QUERY, typeOft, accessToken);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return new ApiResponse<>(false, "网络连接异常");
+    }
+
+    @Override
+    public ApiResponse<List<String>> postSharePraiseCreate(List<SharepraiseDto> sharepraiseDtoList, String accessToken) {
+        Gson gson = new Gson();
+        String params = gson.toJson(sharepraiseDtoList);
+        Type typeOft = new TypeToken<ApiResponse<List<String>>>() {
+        }.getType();
+        try {
+            return HttpEngine.getInstance().postApiHandler(params, SHARE_PRAISE_CREATE, typeOft, accessToken);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return new ApiResponse<>(false, "网络连接异常");
+    }
+
+    @Override
+    public ApiResponse<String> postSharePraiseUpdate(List<SharepraiseDto> sharepraiseDtoList, String accessToken) {
+        Gson gson = new Gson();
+        String params = gson.toJson(sharepraiseDtoList);
+        Type typeOft = new TypeToken<ApiResponse<List<String>>>() {
+        }.getType();
+        try {
+            return HttpEngine.getInstance().postApiHandler(params, SHARE_PRAISE_UPDATE, typeOft, accessToken);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return new ApiResponse<>(false, "网络连接异常");
+    }
+
+    @Override
+    public ApiResponse<PagedListEntityDto<SharepraiseListDto>> postSharePraiseQuery(SharepraiseQueryOptionDto sharepraiseQueryOptionDto, String accessToken) {
+        Gson gson = new Gson();
+        String params = gson.toJson(sharepraiseQueryOptionDto);
+        Type typeOft = new TypeToken<ApiResponse<PagedListEntityDto<SharepraiseListDto>>>() {
+        }.getType();
+        try {
+            return HttpEngine.getInstance().postApiHandler(params, SHARE_PRAISE_QUERY, typeOft, accessToken);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return new ApiResponse<>(false, "网络连接异常");
+    }
+
+    @Override
+    public ApiResponse<String> postSharePraiseOperation(List<SharepraiseDto> sharepraiseDtoList, String accessToken) {
+        Gson gson = new Gson();
+        String params = gson.toJson(sharepraiseDtoList);
+        Type typeOft = new TypeToken<ApiResponse<List<String>>>() {
+        }.getType();
+        try {
+            return HttpEngine.getInstance().postApiHandler(params, SHARE_PRAISE_OPERATION, typeOft, accessToken);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return new ApiResponse<>(false, "网络连接异常");
+    }
+
+    @Override
+    public ApiResponse<String> postShareUploadPhoto(Map<String, String> params, List<String> imageUrls, String accessToken) {
+        Type typeOft = new TypeToken<ApiResponse<String>>() {
+        }.getType();
+        try {
+            return HttpEngine.getInstance().postImageApiHandler(params,imageUrls, UPDATE_PORTRAIT_IMAGE_NEW, typeOft, accessToken);
         } catch (IOException e) {
             e.printStackTrace();
         }
