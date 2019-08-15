@@ -56,7 +56,7 @@ public class CompanyViewDto {
     private String ServiceTypeName;// (string, optional): 获取或设置 服务类型
     private String ServiceTypeOther;// (string, optional): 获取或设置 服务类型(其他)
     private String LanguageType;// (string, optional): 获取或设置 语种类型
-    private Boolean IsDeleted;//  (boolean, optional): 获取或设置 删除状态
+    private Integer IsDeleted;//  (boolean, optional): 获取或设置 删除状态
     private String AppLstUrl ;//(string, optional): App图片
     private String Honors ;//(string, optional): 组织荣誉
 
@@ -189,11 +189,11 @@ public class CompanyViewDto {
         IsAuth = isAuth;
     }
 
-    public Boolean getDeleted() {
+    public Integer getDeleted() {
         return IsDeleted;
     }
 
-    public void setDeleted(Boolean deleted) {
+    public void setDeleted(Integer deleted) {
         IsDeleted = deleted;
     }
 

@@ -63,7 +63,7 @@ public class ShareQueryOptionDto {
     private String ImageUrl9;
     private Integer Statu;
     private Integer IsPublish;
-    private boolean IsDeleted;
+    private Integer IsDeleted;
     private Integer Version;
     private String CreateUserName;
     private String CreateTime;
@@ -220,12 +220,12 @@ public class ShareQueryOptionDto {
         this.IsPublish = IsPublish;
     }
 
-    public boolean isIsDeleted() {
+    public Integer getIsDeleted() {
         return IsDeleted;
     }
 
-    public void setIsDeleted(boolean IsDeleted) {
-        this.IsDeleted = IsDeleted;
+    public void setIsDeleted(Integer isDeleted) {
+        IsDeleted = isDeleted;
     }
 
     public int getVersion() {

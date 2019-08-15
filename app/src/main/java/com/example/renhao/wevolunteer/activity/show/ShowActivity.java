@@ -271,7 +271,7 @@ public class ShowActivity extends BaseActivity implements MessagePicturesLayout.
         ShareQueryOptionDto queryOptionDto = new ShareQueryOptionDto();
         queryOptionDto.setPageIndex(pageIndex);
         queryOptionDto.setPageSize(pageSize);
-        queryOptionDto.setIsDeleted(false);
+        queryOptionDto.setIsDeleted(0);
         queryOptionDto.setStatu(1);
         queryOptionDto.setVolunteerId(volunteerId);
         AppActionImpl.getInstance(this).postShareQuery(queryOptionDto, new ActionCallbackListener<PagedListEntityDto<ShareListDto>>() {

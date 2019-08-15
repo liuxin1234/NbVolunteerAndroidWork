@@ -192,7 +192,7 @@ public class SearchResultFragment extends BaseFragment {
         sorts_map.put("Stick", "desc");
         sorts_map.put("StartTime", "desc");
         ActivityQueryOptionDto queryOptionDto = new ActivityQueryOptionDto();
-        queryOptionDto.setDeleted(false);
+        queryOptionDto.setDeleted(0);
         queryOptionDto.setStatus(1);
         queryOptionDto.setSorts(sorts_map);
         if (refreshType == ADD) {

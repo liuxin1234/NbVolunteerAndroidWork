@@ -1,5 +1,6 @@
 package com.example.renhao.wevolunteer.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -77,13 +78,14 @@ public class ApplyProBonoActivity extends BaseActivity implements View.OnClickLi
     private boolean Flag_polity = false;
 
     /*Handler更新UI*/
+    @SuppressLint("HandlerLeak")
     Handler myHandler = new Handler() {
         public void handleMessage(Message msg) {
             my_AuditStatus = personal_data.getAuditStatus();
             ScrollView ALL = (ScrollView) findViewById(R.id.Scroll_pro_bono_ALL);
             TextView tip = (TextView) findViewById(R.id.tv_pro_bono_apply_tip);
             Button again = (Button) findViewById(R.id.btn_pro_bono_apply_again);
-            if (personal_data.getSpeciality())
+            if (personal_data.getSpeciality() == 1)
                 switch (msg.what) {
                     case UPDATE_UI:
                         switch (my_AuditStatus) {
@@ -233,7 +235,7 @@ public class ApplyProBonoActivity extends BaseActivity implements View.OnClickLi
                                                     personal_data.setDomicile(my_home);
                                                     personal_data.setMobile(my_phone);
                                                     personal_data.setAuditStatus(3);//审核状态改变
-                                                    personal_data.setSpeciality(true);
+                                                    personal_data.setSpeciality(1);
                                                     personal_data.setSkilled(skill);
                                                     personal_data.setAreaCodes(personal_data.getAreaCode());
                                                     personal_data.setAreaCode(personal_data.getAreaCode());
@@ -271,7 +273,7 @@ public class ApplyProBonoActivity extends BaseActivity implements View.OnClickLi
                                     personal_data.setAddr(my_home);
                                     personal_data.setMobile(my_phone);
                                     personal_data.setAuditStatus(3);//审核状态改变
-                                    personal_data.setSpeciality(true);
+                                    personal_data.setSpeciality(1);
                                     personal_data.setSkilled(skill);
                                     personal_data.setAreaCodes(personal_data.getAreaCode());
                                     personal_data.setAreaCode(personal_data.getAreaCode());

@@ -236,20 +236,20 @@ public class ProjectFragmentV4 extends BaseFragmentV4 {
         switch (smartSelect) {
             case 0:
                 sorts_map.put("CreateTime", "Asc");
-                dto.setDeleted(false);
+                dto.setDeleted(0);
                 dto.setActivityState("1");
                 dto.setStatus(1);
                 System.out.println("0");
                 break;
             case 1:
                 sorts_map.put("JoinNum", "Desc");
-                dto.setDeleted(false);
+                dto.setDeleted(0);
                 dto.setActivityState("1");
                 dto.setStatus(1);
                 System.out.println("1");
                 break;
             case 2:
-                dto.setDeleted(false);
+                dto.setDeleted(0);
                 dto.setActivityState("1");
                 dto.setStatus(1);
                 dto.setLat(lat);
@@ -258,7 +258,7 @@ public class ProjectFragmentV4 extends BaseFragmentV4 {
                 System.out.println("2");
                 break;
         }
-        dto.setDeleted(false);//false 为正常在用的
+        dto.setDeleted(0);//false 为正常在用的
         dto.setStatus(1);
         dto.setSorts(sorts_map);
         AppActionImpl.getInstance(getActivity()).activityQuery(dto,
@@ -266,36 +266,41 @@ public class ProjectFragmentV4 extends BaseFragmentV4 {
                     @Override
                     public void onSuccess(PagedListEntityDto<ActivityListDto> data) {
                         dissMissNormalDialog();
-                        contentView.onRefreshComplete();
-                        if (type == REFRESH) {
-                            list = new ArrayList<HomePageListItem>();
-                            dates = new ArrayList<ActivityListDto>();
-                        }
-                        for (int i = 0; i < data.getRows().size(); i++) {
-                            dates.add(data.getRows().get(i));
-                            ActivityListDto listDto = data.getRows().get(i);
-                            HomePageListItem item = new HomePageListItem();
-                            item.setType(listDto.getType());
-                            item.setState(listDto.getOperationState());
-                            item.setTitle(listDto.getActivityName());
-                            item.setNum(listDto.getRecruited());
-                            item.setMaxNum(listDto.getRecruitNumber());
-                            item.setTime(listDto.getLengthTime());
-                            item.setImg(listDto.getPcLstUrl());
-                            item.setStartTime(listDto.getStartTime());
-                            item.setFinishTime(listDto.getFinishTime());
-                            list.add(item);
-                        }
-                        PageIndex = data.getPageIndex();
-                        PageSize = data.getPageSize();
-                        TotalCount = data.getTotalCount();
-                        TotalPages = data.getTotalPages();
-                        StartPosition = data.getStartPosition();
-                        EndPosition = data.getEndPosition();
-                        HasPreviousPage = data.getHasPreviousPage();
-                        HasNextPage = data.getHasNextPage();
 
-                        adapter.setDate(list);
+                        if (data != null && data.getRows() != null && data.getRows().size()>0){
+                            contentView.onRefreshComplete();
+                            if (type == REFRESH) {
+                                list = new ArrayList<HomePageListItem>();
+                                dates = new ArrayList<ActivityListDto>();
+                            }
+
+                            for (int i = 0; i < data.getRows().size(); i++) {
+                                dates.add(data.getRows().get(i));
+                                ActivityListDto listDto = data.getRows().get(i);
+                                HomePageListItem item = new HomePageListItem();
+                                item.setType(listDto.getType());
+                                item.setState(listDto.getOperationState());
+                                item.setTitle(listDto.getActivityName());
+                                item.setNum(listDto.getRecruited());
+                                item.setMaxNum(listDto.getRecruitNumber());
+                                item.setTime(listDto.getLengthTime());
+                                item.setImg(listDto.getPcLstUrl());
+                                item.setStartTime(listDto.getStartTime());
+                                item.setFinishTime(listDto.getFinishTime());
+                                list.add(item);
+                            }
+                            PageIndex = data.getPageIndex();
+                            PageSize = data.getPageSize();
+                            TotalCount = data.getTotalCount();
+                            TotalPages = data.getTotalPages();
+                            StartPosition = data.getStartPosition();
+                            EndPosition = data.getEndPosition();
+                            HasPreviousPage = data.getHasPreviousPage();
+                            HasNextPage = data.getHasNextPage();
+
+                            adapter.setDate(list);
+                        }
+
                     }
 
                     @Override

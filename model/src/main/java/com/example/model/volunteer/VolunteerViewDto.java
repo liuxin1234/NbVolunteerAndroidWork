@@ -1,5 +1,7 @@
 package com.example.model.volunteer;
 
+import android.content.Intent;
+
 import java.io.Serializable;
 
 /**
@@ -61,7 +63,7 @@ public class VolunteerViewDto implements Serializable {
     private String CertificationTime;// (string, optional): 获取或设置 认证时间
     private String LanguageType;// (string, optional): 获取或设置 语种
     private String WeiXinOPENID;// (string, optional): 获取或设置 微信ID
-    private Boolean IsDeleted;// (boolean, optional): 获取或设置 删除状态
+    private Integer IsDeleted;// (boolean, optional): 获取或设置 删除状态
     private String AuditTime;// (string, optional): 获取或设置 审核时间
     private String AuditUserId;// (string, optional): 获取或设置 审核人ID
     private String AuditUserName;// (string, optional): 获取或设置 审核人用户名
@@ -75,7 +77,7 @@ public class VolunteerViewDto implements Serializable {
     private String Id;// (string, optional): 获取或设置 志愿者标识
     private String TrueName;// (string, optional): 获取或设置 姓名
     private String NickName;// (string, optional): 获取或设置 昵称
-    private Boolean IsShowTrueName;// (boolean, optional): 获取或设置 是否显示真实姓名
+    private Integer IsShowTrueName;// (boolean, optional): 获取或设置 是否显示真实姓名
     private String OrganizationName;// (string, optional): 获取或设置 所属机构
     private Integer CardType;// (integer, optional): 获取或设置 证件类型
     private String AreaName;// (string, optional): 获取或设置 区域
@@ -86,8 +88,8 @@ public class VolunteerViewDto implements Serializable {
     private Double Score;// (number, optional): 获取或设置 积分
     private String Domicile;// (string, optional): 获取或设置 现居地
     private Integer IsCompleteInfo;// (integer, optional): 获取或设置 是否完成信息
-    private Boolean IsSpeciality;// (boolean, optional): 获取或设置 是否专业志愿者
-    private Boolean IsCertification;// (boolean, optional): 获取或设置 是否认证
+    private Integer IsSpeciality;// (boolean, optional): 获取或设置 是否专业志愿者
+    private Integer IsCertification;// (boolean, optional): 获取或设置 是否认证
     private Integer AuditStatus;// (integer, optional): 获取或设置 审核状态0未审核 1审核通过 2审核不通过
     private String DeviceId; //(string, optional): 设备序列号
     private Integer Ranking; //(integer, optional): 排名
@@ -612,11 +614,11 @@ public class VolunteerViewDto implements Serializable {
         WeiXinOPENID = weiXinOPENID;
     }
 
-    public Boolean getDeleted() {
+    public Integer getDeleted() {
         return IsDeleted;
     }
 
-    public void setDeleted(Boolean deleted) {
+    public void setDeleted(Integer deleted) {
         IsDeleted = deleted;
     }
 
@@ -724,11 +726,11 @@ public class VolunteerViewDto implements Serializable {
         NickName = nickName;
     }
 
-    public Boolean getShowTrueName() {
+    public Integer getShowTrueName() {
         return IsShowTrueName;
     }
 
-    public void setShowTrueName(Boolean showTrueName) {
+    public void setShowTrueName(Integer showTrueName) {
         IsShowTrueName = showTrueName;
     }
 
@@ -812,19 +814,19 @@ public class VolunteerViewDto implements Serializable {
         IsCompleteInfo = isCompleteInfo;
     }
 
-    public Boolean getSpeciality() {
+    public Integer getSpeciality() {
         return IsSpeciality;
     }
 
-    public void setSpeciality(Boolean speciality) {
+    public void setSpeciality(Integer speciality) {
         IsSpeciality = speciality;
     }
 
-    public Boolean getCertification() {
+    public Integer getCertification() {
         return IsCertification;
     }
 
-    public void setCertification(Boolean certification) {
+    public void setCertification(Integer certification) {
         IsCertification = certification;
     }
 

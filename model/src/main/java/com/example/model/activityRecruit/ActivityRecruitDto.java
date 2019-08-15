@@ -31,7 +31,7 @@ public class ActivityRecruitDto {
     private String Remark;//(string, optional): 获取或设置 拒绝原因
     private String Explain;// (string, optional): 获取或设置 个人说明
     private String IP;//(string, optional): 获取或设置 报名ID
-    private Boolean IsDeleted;//(boolean, optional): 获取或设置 删除状态
+    private Integer IsDeleted;//(boolean, optional): 获取或设置 删除状态
 
     public String getActivityActivityName() {
         return ActivityActivityName;
@@ -145,11 +145,11 @@ public class ActivityRecruitDto {
         this.IP = IP;
     }
 
-    public Boolean getDeleted() {
+    public Integer getDeleted() {
         return IsDeleted;
     }
 
-    public void setDeleted(Boolean deleted) {
+    public void setDeleted(Integer deleted) {
         IsDeleted = deleted;
     }
 

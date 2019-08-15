@@ -1,5 +1,6 @@
 package com.example.renhao.wevolunteer.activity.evaluate;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
@@ -10,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
 
+import com.blankj.utilcode.util.IntentUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.core.AppActionImpl;
 import com.example.core.local.LocalDate;
@@ -19,6 +21,7 @@ import com.example.model.dictionary.DictionaryListDto;
 import com.example.model.evaluate.EvaluateBean;
 import com.example.model.evaluate.StarTypeBean;
 import com.example.renhao.wevolunteer.R;
+import com.example.renhao.wevolunteer.activity.show.SendShowActivity;
 import com.example.renhao.wevolunteer.adapter.EvaluateAdapter;
 import com.example.renhao.wevolunteer.adapter.StarTypeAdapter;
 import com.example.renhao.wevolunteer.base.BaseActivity;
@@ -133,7 +136,7 @@ public class EvaluateActivity extends BaseActivity {
         mStarTypeAdapter.setOnStarClickListener(new StarTypeAdapter.OnStarClickListener() {
             @Override
             public void onItemClick(View view, DictionaryListDto listDto, float rating, int position) {
-                showToast("选中了第" + position + "个，值为：" + rating);
+//                showToast("选中了第" + position + "个，值为：" + rating);
                 StarTypeBean starTypeBean = new StarTypeBean();
                 starTypeBean.setCode(mStarTypeList.get(position).getCode());
                 starTypeBean.setName(mStarTypeList.get(position).getName());
@@ -214,6 +217,9 @@ public class EvaluateActivity extends BaseActivity {
             @Override
             public void onSuccess(List<String> data) {
                 showToast("提交成功");
+                Intent intent = new Intent(EvaluateActivity.this, SendShowActivity.class);
+                startActivity(intent);
+                finish();
             }
 
             @Override

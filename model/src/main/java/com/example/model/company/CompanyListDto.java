@@ -48,7 +48,7 @@ public class CompanyListDto {
     private String ServiceType;//服务类型
     private String ServiceTypeOther;//服务类型(其他)
     private String LanguageType;//语种类型
-    private boolean IsDeleted;//删除状态
+    private Integer IsDeleted;//删除状态
 
     @Override
     public String toString() {
@@ -426,11 +426,11 @@ public class CompanyListDto {
         LanguageType = languageType;
     }
 
-    public boolean isDeleted() {
+    public Integer isDeleted() {
         return IsDeleted;
     }
 
-    public void setDeleted(boolean deleted) {
+    public void setDeleted(Integer deleted) {
         IsDeleted = deleted;
     }
 

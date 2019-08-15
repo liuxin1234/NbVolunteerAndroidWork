@@ -69,12 +69,12 @@ public class VolunteerCreateDto implements Serializable {
     private Number Workservicetime;     // (number, optional): 获取或设置 在职服务时长
     private Number Schoolservicetime;   // (number, optional): 获取或设置 在校服务时长
     private Number Retireservicetime;   // (number, optional): 获取或设置 退休服务时长
-    private Boolean IsSpeciality;       // (boolean, optional): 获取或设置 是否专业志愿者
-    private Boolean IsCertification;    // (boolean, optional): 获取或设置 是否认证
+    private Integer IsSpeciality;       // (boolean, optional): 获取或设置 是否专业志愿者
+    private Integer IsCertification;    // (boolean, optional): 获取或设置 是否认证
     private String CertificationTime;   // (string, optional): 获取或设置 认证时间
     private String LanguageType;    // (string, optional): 获取或设置 语种
     private String WeiXinOPENID;    // (string, optional): 获取或设置 微信ID
-    private Boolean IsDeleted;  // (boolean, optional): 获取或设置 删除状态
+    private Integer IsDeleted;  // (boolean, optional): 获取或设置 删除状态
     private Integer AuditStatus;    // (integer, optional): 获取或设置 审核状态0未审核 1审核通过 2审核不通过
     private String AuditTime;   // (string, optional): 获取或设置 审核时间
     private String AuditUserId; // (string, optional): 获取或设置 审核人ID
@@ -316,11 +316,11 @@ public class VolunteerCreateDto implements Serializable {
         this.IP = IP;
     }
 
-    public Boolean getCertification() {
+    public Integer getCertification() {
         return IsCertification;
     }
 
-    public void setCertification(Boolean certification) {
+    public void setCertification(Integer certification) {
         IsCertification = certification;
     }
 
@@ -332,19 +332,19 @@ public class VolunteerCreateDto implements Serializable {
         IsCompleteInfo = isCompleteInfo;
     }
 
-    public Boolean getDeleted() {
+    public Integer getDeleted() {
         return IsDeleted;
     }
 
-    public void setDeleted(Boolean deleted) {
+    public void setDeleted(Integer deleted) {
         IsDeleted = deleted;
     }
 
-    public Boolean getSpeciality() {
+    public Integer getSpeciality() {
         return IsSpeciality;
     }
 
-    public void setSpeciality(Boolean speciality) {
+    public void setSpeciality(Integer speciality) {
         IsSpeciality = speciality;
     }
 
@@ -664,27 +664,27 @@ public class VolunteerCreateDto implements Serializable {
         DeviceId = deviceId;
     }
 
-    public Boolean getIsCertification() {
+    public Integer getIsCertification() {
         return IsCertification;
     }
 
-    public void setIsCertification(Boolean isCertification) {
+    public void setIsCertification(Integer isCertification) {
         IsCertification = isCertification;
     }
 
-    public Boolean getIsDeleted() {
+    public Integer getIsDeleted() {
         return IsDeleted;
     }
 
-    public void setIsDeleted(Boolean isDeleted) {
+    public void setIsDeleted(Integer isDeleted) {
         IsDeleted = isDeleted;
     }
 
-    public Boolean getIsSpeciality() {
+    public Integer getIsSpeciality() {
         return IsSpeciality;
     }
 
-    public void setIsSpeciality(Boolean isSpeciality) {
+    public void setIsSpeciality(Integer isSpeciality) {
         IsSpeciality = isSpeciality;
     }
 

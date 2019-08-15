@@ -11,6 +11,7 @@ import com.example.model.signResult.SignResultListDto;
 import com.example.renhao.wevolunteer.R;
 
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -71,7 +72,8 @@ public class PresonalServiceOneAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         SignResultListDto listDto = mList.get(position);
-        String serviceTime = listDto.getValidHour() + "（"+ listDto.getSignInTime() + "—" + listDto.getSignOutTime() + "）";
+        String format = String.format(Locale.getDefault(), "%.1f", listDto.getValidHour().floatValue());
+        String serviceTime = format + "（"+ listDto.getSignInTime() + "—" + listDto.getSignOutTime() + "）";
         viewHolder.tvServiceDate.setText(listDto.getSignInTime().split(" ")[0]);
         viewHolder.tvProjectName.setText(listDto.getActivityTimeActivityActivityName());
         viewHolder.tvServiceTime.setText(serviceTime);

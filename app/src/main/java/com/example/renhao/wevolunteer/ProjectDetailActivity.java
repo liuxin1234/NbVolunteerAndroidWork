@@ -845,7 +845,7 @@ public class ProjectDetailActivity extends BaseActivity {
                                     recruitDto.setSource(0);
                                     //获取Mac地址
                                     recruitDto.setIP(DeviceUtils.getMacAddress());
-                                    recruitDto.setDeleted(false);
+                                    recruitDto.setDeleted(0);
                                     recruitDtos.add(recruitDto);
 
                                     AppActionImpl.getInstance(getApplicationContext()).activityRecruitCreate(recruitDtos,
@@ -1204,7 +1204,7 @@ public class ProjectDetailActivity extends BaseActivity {
                     recruitDto.setSource(0);
                     //获取Mac地址
                     recruitDto.setIP(DeviceUtils.getMacAddress());
-                    recruitDto.setDeleted(false);
+                    recruitDto.setDeleted(0);
                     recruitDtos.add(recruitDto);
 
                 }

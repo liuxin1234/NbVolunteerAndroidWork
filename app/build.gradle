@@ -23,8 +23,8 @@ android {
         applicationId "com.example.renhao.wevolunteer"
         minSdkVersion 19
         targetSdkVersion 23
-        versionCode 16
-        versionName "1.5.6"
+        versionCode 17
+        versionName "1.5.7"
         //使用矢量图配置
         vectorDrawables.useSupportLibrary = true
         // 分包配置

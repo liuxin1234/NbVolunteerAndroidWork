@@ -348,9 +348,9 @@ public class OrgSelectActivity extends BaseActivity {
         }
         orgId = orgId.substring(0, orgId.length() - 1);
         orgName = orgName.substring(0, orgName.length() - 1);
-        System.out.println(orgName);
+//        System.out.println(orgName);
         String[] main_orgName = orgName.split(",");
-        System.out.println(main_orgName[0]);
+//        System.out.println(main_orgName[0]);
         if (type > -1) {
             Intent intent = new Intent();
             mVolunteerViewDto.setOrgIds(orgId);

@@ -41,7 +41,7 @@ public class SharemessageQueryOptionDto {
     private Integer Statu;
     private String Description;
     private Integer IsPublish;
-    private boolean IsDeleted;
+    private Integer IsDeleted;
     private Integer Version;
     private String CreateUserName;
     private String CreateTime;
@@ -110,11 +110,11 @@ public class SharemessageQueryOptionDto {
         this.IsPublish = IsPublish;
     }
 
-    public boolean isIsDeleted() {
+    public Integer isIsDeleted() {
         return IsDeleted;
     }
 
-    public void setIsDeleted(boolean IsDeleted) {
+    public void setIsDeleted(Integer IsDeleted) {
         this.IsDeleted = IsDeleted;
     }
 

@@ -14,7 +14,7 @@ public class VolunteerEditDto extends VolunteerViewDto {
     private Integer CardType;    // (integer, optional): 获取或设置 证件类型
     private String IdNumber;    // (string): 获取或设置 证件号码
     private String NickName; //(string, optional): 获取或设置 昵称
-    private Boolean IsShowTrueName; //(boolean, optional): 获取或设置 是否显示真实姓名
+    private Integer IsShowTrueName; //(boolean, optional): 获取或设置 是否显示真实姓名
     private String Nation;      // (string, optional): 获取或设置 国藉
     private String Volk;        // (string, optional): 获取或设置 民族
     private String Polity;      // (string, optional): 获取或设置 政治面貌
@@ -62,12 +62,12 @@ public class VolunteerEditDto extends VolunteerViewDto {
     private Double Workservicetime; // (number, optional): 获取或设置 在职服务时长
     private Double Schoolservicetime;   // (number, optional): 获取或设置 在校服务时长
     private Double Retireservicetime;   // (number, optional): 获取或设置 退休服务时长
-    private Boolean IsSpeciality;       // (boolean, optional): 获取或设置 是否专业志愿者
-    private Boolean IsCertification;     // (boolean, optional): 获取或设置 是否认证
+    private Integer IsSpeciality;       // (boolean, optional): 获取或设置 是否专业志愿者
+    private Integer IsCertification;     // (boolean, optional): 获取或设置 是否认证
     private String CertificationTime;   // (string, optional): 获取或设置 认证时间
     private String LanguageType;        // (string, optional): 获取或设置 语种
     private String WeiXinOPENID;        // (string, optional): 获取或设置 微信ID
-    private Boolean IsDeleted;       // (boolean, optional): 获取或设置 删除状态
+    private Integer IsDeleted;       // (boolean, optional): 获取或设置 删除状态
     private Integer AuditStatus;     // (integer, optional): 获取或设置 审核状态0未审核 1审核通过 2审核不通过
     private String AuditTime;    // (string, optional): 获取或设置 审核时间
     private String AuditUserId;     // (string, optional): 获取或设置 审核人ID
@@ -159,12 +159,12 @@ public class VolunteerEditDto extends VolunteerViewDto {
     }
 
     @Override
-    public Boolean getShowTrueName() {
+    public Integer getShowTrueName() {
         return IsShowTrueName;
     }
 
     @Override
-    public void setShowTrueName(Boolean showTrueName) {
+    public void setShowTrueName(Integer showTrueName) {
         IsShowTrueName = showTrueName;
     }
 
@@ -638,21 +638,21 @@ public class VolunteerEditDto extends VolunteerViewDto {
         Retireservicetime = retireservicetime;
     }
 
-    public Boolean getSpeciality() {
+    public Integer getSpeciality() {
         return IsSpeciality;
     }
 
-    public void setSpeciality(Boolean speciality) {
+    public void setSpeciality(Integer speciality) {
         IsSpeciality = speciality;
     }
 
     @Override
-    public Boolean getCertification() {
+    public Integer getCertification() {
         return IsCertification;
     }
 
     @Override
-    public void setCertification(Boolean certification) {
+    public void setCertification(Integer certification) {
         IsCertification = certification;
     }
 
@@ -686,14 +686,12 @@ public class VolunteerEditDto extends VolunteerViewDto {
         WeiXinOPENID = weiXinOPENID;
     }
 
-    @Override
-    public Boolean getDeleted() {
+    public Integer getIsDeleted() {
         return IsDeleted;
     }
 
-    @Override
-    public void setDeleted(Boolean deleted) {
-        IsDeleted = deleted;
+    public void setIsDeleted(Integer isDeleted) {
+        IsDeleted = isDeleted;
     }
 
     @Override

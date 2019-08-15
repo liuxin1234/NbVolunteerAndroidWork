@@ -416,14 +416,14 @@ public class RegisterProBonoActivity extends BaseActivity implements View.OnFocu
 //        nickname = etRegisterNickname.getText().toString();
         truename = etRegisterTrueName.getText().toString();
 //        cardType = tvCredentialsType.getText().toString();
-        id_number = etRegisterIdNumber.getText().toString();
-        phone = etRegisterPhone.getText().toString();
-        password = etRegisterPassword.getText().toString();
-        Repassword = etRegisterRepassword.getText().toString();
+        id_number = etRegisterIdNumber.getText().toString().trim();
+        phone = etRegisterPhone.getText().toString().trim();
+        password = etRegisterPassword.getText().toString().trim();
+        Repassword = etRegisterRepassword.getText().toString().trim();
 //        email = etRegisterEmail.getText().toString();
 //        workUnlt = editRegisterWorkUnit.getText().toString();
         address = editRegisterAddr.getText().toString();
-        verification_code = etRegisterVerificationCode.getText().toString();
+        verification_code = etRegisterVerificationCode.getText().toString().trim();
         if (rbMan.isChecked()){
             sex = rbMan.getText().toString();
             sexCode = 1;
@@ -734,7 +734,7 @@ public class RegisterProBonoActivity extends BaseActivity implements View.OnFocu
 //        vl_create.setTag(volunteerTagCode); //(integer, optional):是否为平安志愿者 0:志愿者  1;平安志愿者
         vl_create.setMobile(phone);
         vl_create.setAuditStatus(3);//审核状态  0未审核 1审核通过 2审核不通过 ,3待审核
-        vl_create.setIsSpeciality(true);
+        vl_create.setIsSpeciality(1);
 
         List<VolunteerCreateDto> vl_creates = new ArrayList<>();
         vl_creates.add(vl_create);

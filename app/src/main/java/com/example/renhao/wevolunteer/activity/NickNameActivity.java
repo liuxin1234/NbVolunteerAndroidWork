@@ -27,7 +27,7 @@ public class NickNameActivity extends BaseActivity implements View.OnFocusChange
 
     private VolunteerViewDto personal_data;
     private String MyNickName;
-    private boolean IsShowTrueName;
+    private Integer IsShowTrueName;
 
     private EditText et_nickname;
     private CheckBox isShow;
@@ -57,7 +57,7 @@ public class NickNameActivity extends BaseActivity implements View.OnFocusChange
         Intent intent = getIntent();
         personal_data = (VolunteerViewDto) intent.getSerializableExtra("personal_data");
         MyNickName = personal_data.getNickName();
-        IsShowTrueName = personal_data.getShowTrueName() == null ? false : personal_data.getShowTrueName();
+        IsShowTrueName = personal_data.getShowTrueName() == null ? 0 : personal_data.getShowTrueName();
 
         et_nickname = (EditText) findViewById(R.id.edit_NickName_name);
         isShow = (CheckBox) findViewById(R.id.checkBox_NickName_isShow);
@@ -65,7 +65,11 @@ public class NickNameActivity extends BaseActivity implements View.OnFocusChange
             et_nickname.setText(MyNickName);
 
         if (isShow != null) {
-            isShow.setChecked(IsShowTrueName);
+            if (IsShowTrueName == 0){
+                isShow.setChecked(false);
+            }else {
+                isShow.setChecked(true);
+            }
         }
 
 
@@ -91,7 +95,7 @@ public class NickNameActivity extends BaseActivity implements View.OnFocusChange
     private void submit() {
         showNormalDialog("正在提交数据");
         MyNickName = et_nickname.getText().toString();
-        IsShowTrueName = isShow.isChecked();
+        IsShowTrueName = isShow.isChecked() ? 1 : 0;
         //修改项
         personal_data.setNickName(MyNickName);
         personal_data.setShowTrueName(IsShowTrueName);

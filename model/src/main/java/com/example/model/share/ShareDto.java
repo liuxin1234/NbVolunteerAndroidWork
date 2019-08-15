@@ -53,7 +53,7 @@ public class ShareDto {
     private String ImageUrl9;
     private Integer Statu;
     private Integer IsPublish;
-    private boolean IsDeleted;
+    private Integer IsDeleted;
     private Integer Version;
 
     public String getId() {
@@ -200,11 +200,11 @@ public class ShareDto {
         this.IsPublish = IsPublish;
     }
 
-    public boolean isIsDeleted() {
+    public Integer isIsDeleted() {
         return IsDeleted;
     }
 
-    public void setIsDeleted(boolean IsDeleted) {
+    public void setIsDeleted(Integer IsDeleted) {
         this.IsDeleted = IsDeleted;
     }
 

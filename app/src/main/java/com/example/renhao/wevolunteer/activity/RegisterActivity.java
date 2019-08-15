@@ -185,12 +185,12 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 //        nickname = et_nickname.getText().toString();
         truename = et_truename.getText().toString();
 //        cardType = tv_cardType.getText().toString();
-        id_number = et_id_number.getText().toString();
-        phone = et_phone.getText().toString();
-        password = et_password.getText().toString();
-        Repassword = et_Repassword.getText().toString();
+        id_number = et_id_number.getText().toString().trim();
+        phone = et_phone.getText().toString().trim();
+        password = et_password.getText().toString().trim();
+        Repassword = et_Repassword.getText().toString().trim();
 //        email = et_email.getText().toString();
-        verification_code = et_verification_code.getText().toString();
+        verification_code = et_verification_code.getText().toString().trim();
     }
 
     @Override
@@ -464,7 +464,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 //        vl_create.setTag(volunteerTagCode);   //是否为平安志愿者
         vl_create.setJobStatus(Integer.valueOf(personalCode));  //个人属性
         vl_create.setCardType(Integer.parseInt(cardCode));
-        vl_create.setIsSpeciality(false);
+        vl_create.setIsSpeciality(0);
         vl_create.setAuditStatus(0);
         List<VolunteerCreateDto> vl_creates = new ArrayList<>();
         vl_creates.add(vl_create);

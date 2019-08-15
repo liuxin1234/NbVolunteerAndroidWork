@@ -78,7 +78,7 @@ public class PersonalDataActivity extends BaseActivity implements View.OnClickLi
 
 
     //需要更改的值 头像暂无
-    private boolean IsShowTrueName;
+    private Integer IsShowTrueName;
     private String MyNickNmae;
     private String MyPassWord;
     private String MYMobile;
@@ -283,7 +283,7 @@ public class PersonalDataActivity extends BaseActivity implements View.OnClickLi
         //更改显示的内容
         repeat_update();
 
-        if (Personal_Data.getAuditStatus() != 1 || !Personal_Data.getSpeciality()) {
+        if (Personal_Data.getAuditStatus() != 1 || Personal_Data.getSpeciality() == 0) {
             myPoliticsStatus.setVisibility(View.GONE);
             myMajor.setVisibility(View.GONE);
             myNowCompany.setVisibility(View.GONE);

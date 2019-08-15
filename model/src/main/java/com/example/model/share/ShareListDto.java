@@ -55,9 +55,9 @@ public class ShareListDto {
     private String ImageUrl9;
     private Integer Statu;
     private Integer IsPublish;
-    private boolean IsDeleted;
+    private Integer IsDeleted;
     private Integer Version;
-    private boolean isLike; //自己本地创建的是否点赞判断
+    private Integer isLike; //自己本地创建的是否点赞判断
     private Integer IsPraise; //是否点赞
     private String CreateTime;
 
@@ -205,12 +205,12 @@ public class ShareListDto {
         this.IsPublish = IsPublish;
     }
 
-    public boolean isIsDeleted() {
+    public Integer getIsDeleted() {
         return IsDeleted;
     }
 
-    public void setIsDeleted(boolean IsDeleted) {
-        this.IsDeleted = IsDeleted;
+    public void setIsDeleted(Integer isDeleted) {
+        IsDeleted = isDeleted;
     }
 
     public int getVersion() {
@@ -221,12 +221,12 @@ public class ShareListDto {
         this.Version = Version;
     }
 
-    public boolean isLike() {
+    public Integer getIsLike() {
         return isLike;
     }
 
-    public void setLike(boolean like) {
-        isLike = like;
+    public void setIsLike(Integer isLike) {
+        this.isLike = isLike;
     }
 
     public Integer getIsPraise() {

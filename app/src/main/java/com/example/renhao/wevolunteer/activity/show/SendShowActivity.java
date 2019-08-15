@@ -213,13 +213,18 @@ public class SendShowActivity extends BaseActivity implements ImagePickerAdapter
             @Override
             public void onSuccess(String data) {
                 dissMissNormalDialog();
-                if (TextUtils.isEmpty(data)){
-                    showToast("提交失败");
-                }else {
-                    showToast(data);
-                    Intent intent = new Intent(SendShowActivity.this,ShowActivity.class);
-                    startActivity(intent);
-                }
+
+                showToast(data);
+                Intent intent = new Intent(SendShowActivity.this,ShowActivity.class);
+                startActivity(intent);
+//
+//                if (TextUtils.isEmpty(data)){
+//                    showToast("提交失败");
+//                }else {
+//                    showToast(data);
+//                    Intent intent = new Intent(SendShowActivity.this,ShowActivity.class);
+//                    startActivity(intent);
+//                }
 
             }
 

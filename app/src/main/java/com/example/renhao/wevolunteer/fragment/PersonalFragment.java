@@ -51,6 +51,7 @@ import com.example.renhao.wevolunteer.activity.MyRecuritJobActivity;
 import com.example.renhao.wevolunteer.activity.PersonalDataActivity;
 import com.example.renhao.wevolunteer.activity.PresonalServiceActivity;
 import com.example.renhao.wevolunteer.activity.ReportProblemActivity;
+import com.example.renhao.wevolunteer.activity.evaluate.EvaluateActivity;
 import com.example.renhao.wevolunteer.activity.show.ShowActivity;
 import com.example.renhao.wevolunteer.base.BaseActivity;
 import com.example.renhao.wevolunteer.base.BaseFragment;
@@ -130,9 +131,9 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
     private final int LAYOUT_SERVICE_JOB = 16;
     private final int LAYOUT_SERVICE_RETIRE = 17;
 
-    private boolean isSpeciality;
+    private Integer isSpeciality;
     private int AuditStatus;
-    private boolean isShowTrueName;
+    private Integer isShowTrueName;
     private boolean isInit = false;//为了让第一次显示时用户未登录进入登录界面
     private String true_name;
     private String nick_name;
@@ -149,7 +150,7 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
 
     private void repeat_update() {
         //判断是否为专业志愿志愿者，显示不同按钮
-        if (isSpeciality && AuditStatus == 1) {
+        if (isSpeciality == 1 && AuditStatus == 1) {
             //专业志愿者
             tv_specialty.setVisibility(View.VISIBLE);
             tv_specialty.setText(specialty);
@@ -162,7 +163,7 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
             Professional_false.setVisibility(View.VISIBLE);
         }
         //头部
-        if (isShowTrueName) {
+        if (isShowTrueName == 1) {
             tv_true_name.setText(true_name);
         } else {
             tv_true_name.setText(nick_name);
@@ -521,7 +522,7 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
                             isSpeciality = data.getSpeciality();
                             AuditStatus = data.getAuditStatus();
 
-                            isShowTrueName = data.getShowTrueName() == null ? false : data.getShowTrueName();
+                            isShowTrueName = data.getShowTrueName() == null ? 0 : data.getShowTrueName();
                             //默认存储用户真实姓名
                             LocalDate.getInstance(getActivity()).setLocalDate(Constants.TRUE_NAME,data.getTrueName());
                             //头部

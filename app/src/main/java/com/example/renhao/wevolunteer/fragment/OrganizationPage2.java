@@ -154,7 +154,7 @@ public class OrganizationPage2 extends BaseFragmentV4 {
         if (type == ADD) {
             dto.setPageIndex(PageIndex + 1);
         }
-        dto.setDeleted(false);//false 为正常在用的
+        dto.setDeleted(0);//false 为正常在用的
         dto.setStatus(1);
         AppActionImpl.getInstance(getActivity()).activityQuery(dto,
                 new ActionCallbackListener<PagedListEntityDto<ActivityListDto>>() {

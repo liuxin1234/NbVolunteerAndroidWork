@@ -22,7 +22,7 @@ public class ActivityQueryOptionDto {
     private Integer PageIndex;//(integer, optional): 当前页索引，默认1
     private Integer PageSize;//(integer, optional): 每页记录条数，默认20
     private Object Sorts;//(object, optional)
-    private Boolean IsDeleted;  //判断数据是不是删除的，删除标记 false 为正常在用的
+    private Integer IsDeleted;  //判断数据是不是删除的，删除标记 false 为正常在用的
     private String lng;//(string, optional),
     private String lat;//(string, optional),
     private Integer scope;//(integer, optional),
@@ -69,11 +69,11 @@ public class ActivityQueryOptionDto {
         this.scope = scope;
     }
 
-    public Boolean getDeleted() {
+    public Integer getDeleted() {
         return IsDeleted;
     }
 
-    public void setDeleted(Boolean deleted) {
+    public void setDeleted(Integer deleted) {
         IsDeleted = deleted;
     }
 

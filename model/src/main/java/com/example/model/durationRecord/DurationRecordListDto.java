@@ -52,7 +52,7 @@ public class DurationRecordListDto {
     private String VolunteerName;
     private int Status;
     private String StatusName;
-    private boolean IsDeleted;
+    private Integer IsDeleted;
 
     public String getId() {
         return Id;
@@ -198,11 +198,11 @@ public class DurationRecordListDto {
         this.StatusName = StatusName;
     }
 
-    public boolean isIsDeleted() {
+    public Integer isIsDeleted() {
         return IsDeleted;
     }
 
-    public void setIsDeleted(boolean IsDeleted) {
+    public void setIsDeleted(Integer IsDeleted) {
         this.IsDeleted = IsDeleted;
     }
 }

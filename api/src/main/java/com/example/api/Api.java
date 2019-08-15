@@ -183,6 +183,7 @@ public interface Api {
     //查询志愿者等级
     public static final String VOLUNTEER_STAR_LEVEL = "Nbcei.Plugin.NbVolunteer.Api.Impl/v1/volunteer/GetScoreLevel/";
 //    public static final String VOLUNTEER_DEPARTMENT = "Nbcei.Framework.Api.Impl/v1/userdepartment/query/user";
+    //志愿者所属部门查询
     public static final String VOLUNTEER_DEPARTMENT = "Nbcei.Plugin.NbVolunteer.Api.Impl/v1/volunteer/query/user";
 
 

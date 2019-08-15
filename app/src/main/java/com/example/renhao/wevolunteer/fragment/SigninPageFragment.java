@@ -39,15 +39,16 @@ import static android.app.Activity.RESULT_OK;
  * 创建人：renhao
  * 创建时间：2016/8/7 21:20
  * 修改备注：
- * 正式地址：https://m.zyh365.com/zyz-signin/index?source=ningbo&idcard=&mobileunique=
- * 测试地址：http://apitest.zyh365.com/api/web/quick-sign/index.html?zyzid=14773022409559b07c75ef6d24f0489386990a4a486a4&mobile_unique=1
+ * 正式地址：https://appapi.zyh365.com/zyz-sign/index?source=ningbo&mobileunique=手机唯一码&idcard=身份证号
+ * 测试地址：http://apitest.zyh365.com/api/web/zyz-sign/index?source=ningbo&mobileunique=手机唯一码&idcard=身份证号
+ *
  */
 public class SigninPageFragment extends BaseFragment {
     private static final String TAG = "SigninPageFragment";
-
-//        private String url = "http://apitest.zyh365.com/mobile/web/zyz-signin?source=ningbo";
+    //正式地址
+    private String url = "https://appapi.zyh365.com/zyz-sign/index?source=ningbo";
+    //测试地址
 //    private String url = "http://apitest.zyh365.com/api/web/quick-sign/index.html?";
-    private String url = "https://m.zyh365.com/zyz-signin/index?source=ningbo";
 
     private WebView mWebView;
     private ProgressBar progressBar;
@@ -90,12 +91,10 @@ public class SigninPageFragment extends BaseFragment {
             showToast("请先登录");
             return;
         }
-        String urlResult = url + "&idcard=" + idcard + "&mobileunique=" + mobileunique;
-//        String urlResult = url + "zyzid=" + idcard + "&mobile_unique=" + mobileunique;
+        String urlResult = url + "&mobileunique=" + mobileunique + "&idcard=" + idcard ;
         Logger.e(urlResult);
         //WebView加载web资源
         mWebView.loadUrl(urlResult);
-//        mWebView.loadUrl("http://apitest.zyh365.com/api/web/quick-sign/?zyzid=1541400936706ccb449d221f44c6e8db41c15b3ce6f2d&mobile_unique=1&redirectUri=");
 
         //去除滚动条
         mWebView.setHorizontalScrollBarEnabled(false);//水平不显示
