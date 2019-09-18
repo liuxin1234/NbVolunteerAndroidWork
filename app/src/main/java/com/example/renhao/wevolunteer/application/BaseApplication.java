@@ -49,6 +49,8 @@ public class BaseApplication extends Application {
 
     private void initLogger() {
         Logger.init("We志愿");
+        //logger2.1.1版本必需添加的适配器，否则打印不出日志信息，设置在这里供整个APP调用
+//        Logger.addLogAdapter(new AndroidLogAdapter());
     }
 
     /**

@@ -2,6 +2,7 @@ package com.example.renhao.wevolunteer;
 
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
@@ -9,7 +10,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.PixelFormat;
-import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.PowerManager;
@@ -44,8 +44,8 @@ import com.example.renhao.wevolunteer.fragment.FindPageFragment;
 import com.example.renhao.wevolunteer.fragment.HomePageFragment;
 import com.example.renhao.wevolunteer.fragment.NewFindPageFragment;
 import com.example.renhao.wevolunteer.fragment.PersonalFragment;
+import com.example.renhao.wevolunteer.fragment.ShowPageFragment;
 import com.example.renhao.wevolunteer.fragment.SigninPageFragment;
-import com.example.renhao.wevolunteer.update.UpdateManger;
 import com.example.renhao.wevolunteer.utils.DeviceUtils;
 import com.example.renhao.wevolunteer.utils.RandomUntil;
 import com.example.renhao.wevolunteer.view.ChangeColorIconWithTextView;
@@ -105,6 +105,7 @@ public class IndexActivity extends BaseActivity implements AMapLocationListener 
     private FindPageFragment mFindPageFragment;
     private SigninPageFragment mSigninPageFragment;
     private NewFindPageFragment mNewFindPageFragment;
+    private ShowPageFragment mShowPageFragment;
     private PersonalFragment mPersonalFragment;
 
     private PopupMenu mPopupMenu;
@@ -115,8 +116,6 @@ public class IndexActivity extends BaseActivity implements AMapLocationListener 
     private AMapLocationClient locationClient = null;
     private AMapLocationClientOption locationOption = null;
     private static boolean mBackKeyPressed = false;//记录是否有首次按键
-    private UpdateManger updateManger = null;
-    private WifiManager.WifiLock mWifiLock;
 
     private double lat;
     private double lng;
@@ -172,6 +171,7 @@ public class IndexActivity extends BaseActivity implements AMapLocationListener 
     }
 
     //获取电源锁，保持该服务在屏幕熄灭时仍然获取CPU时，保持运行
+    @SuppressLint("InvalidWakeLockTag")
     private void acquireWakeLock()
     {
         if (null == wakeLock)
@@ -310,7 +310,11 @@ public class IndexActivity extends BaseActivity implements AMapLocationListener 
         magnifier.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // 二期的代码
+//                Intent intent = new Intent(IndexActivity.this, SearchActivity.class);
+//                startActivity(intent);
 
+                //一期的代码
                 if (fragmentPosition == FIND) {
                     mPopupMenu.showLocation(R.id.imageview_homepage_magnifier);
                     mPopupMenu.setOnItemClickListener(new PopupMenu.OnItemClickListener() {
@@ -416,6 +420,7 @@ public class IndexActivity extends BaseActivity implements AMapLocationListener 
                 break;
             case FIND:
                 magnifier.setImageResource(R.drawable.icon_menu);
+//                magnifier.setImageResource(R.drawable.icon_photo);
                 mChangrTvIndexFind.setIconColor(getResources().getColor(R.color.colorCyan));
                 if (fragmentPosition != SIGNIN) {
 
@@ -433,11 +438,12 @@ public class IndexActivity extends BaseActivity implements AMapLocationListener 
                     mFindPageFragment.setType(false);
                 }
                 //这里是二期项目新增的代码
-//                if (mNewFindPageFragment == null){
-//                    mNewFindPageFragment = new NewFindPageFragment();
+//                if (mShowPageFragment == null){
+//                    mShowPageFragment = new ShowPageFragment();
 //                }
 //                setFractionTranslate(transaction,FIND);
-//                transaction.replace(R.id.framelayout_index_content,mNewFindPageFragment);
+//                transaction.replace(R.id.framelayout_index_content,mShowPageFragment);
+
                 fragmentPosition = FIND;
                 break;
             case SIGNIN:

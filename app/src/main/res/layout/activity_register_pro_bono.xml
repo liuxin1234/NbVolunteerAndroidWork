@@ -346,6 +346,43 @@
                 android:layout_height="1dp"
                 android:background="#d9d9d9" />
 
+            <LinearLayout
+                android:id="@+id/LL_apply_ORG"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/linearlayout_select"
+                android:clickable="true"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="15dp"
+                    android:text="@string/tv_organization"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_register_orgName"
+                    android:layout_width="230dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:padding="15dp"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.2"
+                    android:src="@drawable/icon_right_indicator" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#d9d9d9" />
+
             <include layout="@layout/include_pro_bono_new" />
 
             <!--我的头像-->

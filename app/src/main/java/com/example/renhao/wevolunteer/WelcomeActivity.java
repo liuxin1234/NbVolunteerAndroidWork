@@ -10,6 +10,7 @@ import com.example.core.AppActionImpl;
 import com.example.core.listener.AccessTokenListener;
 import com.example.core.local.LocalDate;
 import com.example.model.AccessTokenBO;
+import com.example.renhao.wevolunteer.activity.webview.WebViewAdvertActivity;
 import com.example.renhao.wevolunteer.utils.Util;
 import com.orhanobut.logger.Logger;
 
@@ -38,16 +39,21 @@ public class WelcomeActivity extends Activity {
                     Thread.sleep(3000);
                     String nowVersion = "V" + Util.getAppVersion(WelcomeActivity.this);
                     String LastVersion = LocalDate.getInstance(WelcomeActivity.this).getLocalDate("LastVersion", null);
-
-                    if (nowVersion.equals(LastVersion)) {
-                        Intent intent = new Intent(WelcomeActivity.this, IndexActivity.class);
-                        startActivity(intent);
-                        finish();
-                    } else {
-                        startActivity(new Intent(WelcomeActivity.this, GuideActivity.class));
-                        WelcomeActivity.this.finish();
-                    }
                     LocalDate.getInstance(WelcomeActivity.this).setLocalDate("LastVersion", nowVersion);
+
+                    Intent intent = new Intent(WelcomeActivity.this, WebViewAdvertActivity.class);
+                    startActivity(intent);
+                    finish();
+
+                    //以后广告活动页面消失后 在将这段恢复
+//                    if (nowVersion.equals(LastVersion)) {
+//                        Intent intent = new Intent(WelcomeActivity.this, IndexActivity.class);
+//                        startActivity(intent);
+//                        finish();
+//                    } else {
+//                        startActivity(new Intent(WelcomeActivity.this, GuideActivity.class));
+//                        WelcomeActivity.this.finish();
+//                    }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

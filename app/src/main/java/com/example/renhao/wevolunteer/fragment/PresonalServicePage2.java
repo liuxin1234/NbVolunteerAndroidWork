@@ -21,7 +21,6 @@ import com.example.model.durationRecord.DurationRecordQueryOptionDto;
 import com.example.renhao.wevolunteer.R;
 import com.example.renhao.wevolunteer.adapter.PresonalServiceTwoAdapter;
 import com.example.renhao.wevolunteer.base.BaseFragmentV4;
-import com.google.gson.Gson;
 import com.handmark.pulltorefresh.library.ILoadingLayout;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;

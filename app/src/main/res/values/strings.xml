@@ -6,6 +6,7 @@
     <string name="tv_appName">宁波We志愿服务平台</string>
     <string name="changeTv_homepage">主页</string>
     <string name="changeTv_find">发现</string>
+    <!--<string name="changeTv_find">秀一秀</string>-->
     <string name="changeTv_signin">签到</string>
     <string name="changeTv_myself">我的</string>
 

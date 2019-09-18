@@ -61,6 +61,10 @@ public class ApplyProBonoActivity extends BaseActivity implements View.OnClickLi
     private Polity_Pop polityPop;
     private TextView tv_clause_click;
     private CheckBox box_isAgree;
+    private LinearLayout ll_org;  //机构选择
+    private TextView orgNameTv;   //所属机构名字text
+    private String orgName;   //所属机构名字
+    private String orgId;     //所属机构ID
 
     final private int UPDATE_UI = 0;
     final private int APPLY_AGAIN = 1;
@@ -70,12 +74,14 @@ public class ApplyProBonoActivity extends BaseActivity implements View.OnClickLi
     final private int MY_SERVICETYPE = 2;
     final private int MY_MAJOR = 3;
     final private int MY_POLIT = 4;
+    public static final int MY_ORG_REGISTER = 5;
 
     private boolean Flag_major = false;
     private boolean Flag_time = false;
     private boolean Flag_type = false;
     private boolean Flag_speciality = false;
     private boolean Flag_polity = false;
+    private boolean Flag_org = false;
 
     /*Handler更新UI*/
     @SuppressLint("HandlerLeak")
@@ -139,14 +145,6 @@ public class ApplyProBonoActivity extends BaseActivity implements View.OnClickLi
             SendHandlerMsg(UPDATE_UI);
         }
 
-//        ImageView btn_back = (ImageView) findViewById(R.id.imageView_btn_back);
-//        btn_back.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                ApplyProBonoActivity.this.finish();
-//            }
-//        });
-
 
         //手机验证码
         edit_verification = (EditText) findViewById(R.id.edit_Verification);
@@ -205,6 +203,8 @@ public class ApplyProBonoActivity extends BaseActivity implements View.OnClickLi
                     showToast("请选择意向专业类型");
                 } else if (!Flag_polity) {
                     showToast("请选择政治面貌");
+                } else if (!Flag_org){
+                    showToast("请选择所属机构");
                 } else {
                     showNormalDialog("正在提交申请");
                     my_verification = edit_verification.getText().toString();
@@ -269,6 +269,7 @@ public class ApplyProBonoActivity extends BaseActivity implements View.OnClickLi
                                             });
                                 } else {
                                     //修改项
+                                    personal_data.setOrgIds(orgId);
                                     personal_data.setWorkunit(my_work);
                                     personal_data.setAddr(my_home);
                                     personal_data.setMobile(my_phone);
@@ -321,6 +322,8 @@ public class ApplyProBonoActivity extends BaseActivity implements View.OnClickLi
         LinearLayout intentionTime = (LinearLayout) findViewById(R.id.LL_apply_intentionTime);
         LinearLayout intentionType = (LinearLayout) findViewById(R.id.LL_apply_intentionType);
         LinearLayout specialty = (LinearLayout) findViewById(R.id.LL_apply_specialty);
+        orgNameTv = (TextView) findViewById(R.id.tv_register_orgName);
+        ll_org = (LinearLayout) findViewById(R.id.LL_apply_ORG);
         tv_clause_click = (TextView) findViewById(R.id.tv_clause);
         box_isAgree = (CheckBox) findViewById(R.id.box_pro_bono_isAgree);
 
@@ -334,7 +337,7 @@ public class ApplyProBonoActivity extends BaseActivity implements View.OnClickLi
         edit_home.setOnFocusChangeListener(this);
         edit_phone.setOnFocusChangeListener(this);
         edit_verification.setOnFocusChangeListener(this);
-
+        ll_org.setOnClickListener(this);
     }
 
     @Override
@@ -374,6 +377,13 @@ public class ApplyProBonoActivity extends BaseActivity implements View.OnClickLi
         Intent intent = new Intent();
         intent.putExtra("personal_data", personal_data);
         switch (v.getId()) {
+            case R.id.LL_apply_ORG:
+                Intent orgIntent = new Intent(ApplyProBonoActivity.this, OrgSelectActivity.class);
+                orgIntent.putExtra("orgnames", orgName);
+                orgIntent.putExtra("personal_data", personal_data);
+                orgIntent.putExtra("type", MY_ORG_REGISTER);
+                startActivityForResult(orgIntent, MY_ORG_REGISTER);
+                break;
             case R.id.LL_apply_Polity:
                /* polityPop = new Polity_Pop(this, itemsOnClick);
                 polityPop.showAtLocation(this.findViewById(R.id.Scroll_pro_bono_ALL),
@@ -477,6 +487,14 @@ public class ApplyProBonoActivity extends BaseActivity implements View.OnClickLi
                 TextView tv_polity_show = (TextView) findViewById(R.id.tv_apply_pro_bono_polity);
                 tv_polity_show.setText(result.getString("polity_name"));
                 Flag_polity = true;
+                break;
+            case MY_ORG_REGISTER:
+                personal_data = (VolunteerViewDto) data.getSerializableExtra("personal_data");
+                orgName = data.getStringExtra("orgName");
+                orgId = data.getStringExtra("orgId");
+                orgNameTv.setText(orgName);
+                System.out.println("orgId----------" + orgId);
+                Flag_org = true;
                 break;
             default:
                 break;

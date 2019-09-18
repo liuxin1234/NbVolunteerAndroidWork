@@ -263,6 +263,10 @@ public interface AppAction {
 
     public void getByIDNumber(String idnumber, String mobile, Integer userType, ActionCallbackListener<String> listener);
 
+    public void getByIdNumberAndMobile(String idNumber, String mobile, Integer userType, ActionCallbackListener<String> listener);
+
+    public void postResetPasswordAndMobile(Integer userType, String userId, String mobile, String password, ActionCallbackListener<String> listener);
+
     //已报名人员获取
     public void getMembership(String id, String maxSize, ActionCallbackListener<List<VolunteerTopViewDto>> listener);
 

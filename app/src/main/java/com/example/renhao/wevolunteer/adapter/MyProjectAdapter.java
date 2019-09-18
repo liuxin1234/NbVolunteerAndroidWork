@@ -58,6 +58,8 @@ public class MyProjectAdapter extends BaseAdapter {
         public TextView tvSignInTiem;
         public TextView tvSignOutTime;
         public TextView tvLengthTime;
+        public TextView tvEvaluate;
+        public TextView tvSendShow;
     }
 
 
@@ -75,6 +77,8 @@ public class MyProjectAdapter extends BaseAdapter {
             holder.tvSignInTiem = (TextView) convertView.findViewById(R.id.tv_SignInTime);
             holder.tvSignOutTime = (TextView) convertView.findViewById(R.id.tv_SignOutTime);
             holder.tvLengthTime = (TextView) convertView.findViewById(R.id.tv_LengthTime);
+            holder.tvEvaluate = (TextView) convertView.findViewById(R.id.tv_myProject_evaluate);
+            holder.tvSendShow = (TextView) convertView.findViewById(R.id.tv_myProject_send_show);
             convertView.setTag(holder);//绑定ViewHolder对象
         } else {
             holder = (ViewHolder) convertView.getTag();//取出ViewHolder对象
@@ -114,6 +118,25 @@ public class MyProjectAdapter extends BaseAdapter {
 
         holder.name.setText(lists.get(position).getNeme());
         holder.TIME.setText(lists.get(position).getTime());
+        holder.tvEvaluate.setText("待评价");
+        holder.tvEvaluate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mOnItemButtonClickListener != null){
+                    mOnItemButtonClickListener.onItemBtnEvaluateClickListener(lists,position);
+                }
+            }
+        });
+
+        holder.tvSendShow.setText("秀一秀");
+        holder.tvSendShow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mOnItemButtonClickListener != null){
+                    mOnItemButtonClickListener.onItemBtnSendShowClickListener(lists,position);
+                }
+            }
+        });
 
         if (TextUtils.isEmpty(lists.get(position).getPic())) {
             holder.PIC.setImageResource(R.drawable.img_unload);
@@ -126,6 +149,18 @@ public class MyProjectAdapter extends BaseAdapter {
         }
 
         return convertView;
+    }
+
+
+    public interface OnItemButtonClickListener {
+        void onItemBtnEvaluateClickListener(List<MyProjectItem>  data,int position);
+        void onItemBtnSendShowClickListener(List<MyProjectItem>  data,int position);
+    }
+
+    private OnItemButtonClickListener mOnItemButtonClickListener;
+
+    public void setOnItemButtonClickListener(OnItemButtonClickListener onItemButtonClickListener){
+        this.mOnItemButtonClickListener = onItemButtonClickListener;
     }
 
 }

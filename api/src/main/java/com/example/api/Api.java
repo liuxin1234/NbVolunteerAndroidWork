@@ -203,6 +203,11 @@ public interface Api {
     public static final String GET_BY_IDNUMBER = "Nbcei.Plugin.NbVolunteer.Api.Impl/v1/company/getbyidnumberandmobile";
     public static final String EXISTS_EMAIL = "Nbcei.Plugin.NbVolunteer.Api.Impl/v1/company/existsemail";
 
+    //忘记密码 新接口
+    public static final String GET_BY_IDNUMBER_AND_MOBILE = "Nbcei.Plugin.NbVolunteer.Api.Impl/v1/company/getbyidnumberandmobile";
+    public static final String POST_RESET_PASSWORD_AND_MOBILE = "Nbcei.Plugin.NbVolunteer.Api.Impl/v1/volunteer/update/ResetPasswordAndMobile";
+
+
     //报名活动删除
     public static final String ACTIVITY_RECRUIT_REMOVE = "Nbcei.Plugin.NbVolunteer.Api.Impl/v1/activityrecruit/remove";
 
@@ -453,6 +458,10 @@ public interface Api {
     public ApiResponse<String> getByIDNumber(String idnumber, String mobile, Integer userType, String accessToken);
 
     public ApiResponse<String> existsEmail(String email, Integer userType, String accessToken);
+
+    public ApiResponse<String> getByIdNumberAndMobile(String idNumber,String mobile, Integer userType, String accessToken);
+
+    public ApiResponse<String> postResetPasswordAndMobile(Integer userType,String userId,String mobile,String password, String accessToken);
 
     /**
      * 个人报名活动删除

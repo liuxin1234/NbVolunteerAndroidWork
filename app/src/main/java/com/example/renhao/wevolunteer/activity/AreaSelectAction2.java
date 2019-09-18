@@ -51,7 +51,7 @@ public class AreaSelectAction2 extends BaseActivity {
     @Bind(R.id.lv_chose_1)
     ListView mListView;
 
-    private int choseModel = SimpleAdapter1.MULTIPLY;//单选多选改这里 SINGLE：单选  MULTIPLY：多选
+    private int choseModel = SimpleAdapter1.SINGLE;//单选多选改这里 SINGLE：单选  MULTIPLY：多选
 
     private SimpleAdapter1 mAdapter;
     private List<SimpleAdapter1.ItemDate> items = new ArrayList<>();

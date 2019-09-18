@@ -39,6 +39,8 @@ public class WebSettingUtils {
         settings.setSavePassword(false);    //是否保存密码
         settings.setSaveFormData(false);    //设置WebView是否保存表单数据，默认true，保存数据。
         settings.setUseWideViewPort(true);  //设置WebView是否使用viewport，当该属性被设置为false时，加载页面的宽度总是适应WebView控件宽度；当被设置为true，当前页面包含viewport属性标签，在标签中指定宽度值生效，如果页面不包含viewport标签，无法提供一个宽度值，这个时候该方法将被使用。
+        settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NARROW_COLUMNS);
+        settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
 
         //设置定位的数据库路径
         String dir = context.getApplicationContext().getDir("database", Context.MODE_PRIVATE).getPath();
@@ -49,7 +51,7 @@ public class WebSettingUtils {
 
         //设置自适应屏幕，两者合用
         //在三星等部分手机上会出现网页突然变大的情况，因此注释掉
-//        settings.setUseWideViewPort(true);  //将图片调整到适合webview的大小
+        settings.setUseWideViewPort(true);  //将图片调整到适合webview的大小
         settings.setLoadWithOverviewMode(true); // 缩放至屏幕的大小
         settings.setSupportZoom(true);  //支持缩放，默认为true。是下面那个的前提。
         settings.setBuiltInZoomControls(true); //设置可以缩放

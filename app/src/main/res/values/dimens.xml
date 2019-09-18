@@ -56,7 +56,7 @@
 
     <!--myProject-->
     <dimen name="myProject_item_height">120dp</dimen>
-    <dimen name="imageview_myproject_margin">8dp</dimen>
+    <dimen name="imageview_myproject_margin">5dp</dimen>
     <dimen name="imageview_myproject_item_width">100dp</dimen>
     <dimen name="imageview_myproject_item_height">70dp</dimen>
     <dimen name="myproject_item_marginTop">10dp</dimen>

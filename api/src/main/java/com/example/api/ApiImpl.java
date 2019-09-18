@@ -900,6 +900,40 @@ public class ApiImpl implements Api {
     }
 
     @Override
+    public ApiResponse<String> getByIdNumberAndMobile(String idNumber, String mobile, Integer userType, String accessToken) {
+        List<String> params = new ArrayList<>();
+        params.add(idNumber);
+        params.add(mobile);
+        params.add(String.valueOf(userType));
+        Type typeOft = new TypeToken<ApiResponse<String>>() {
+        }.getType();
+        try {
+            return HttpEngine.getInstance().getApiHandler(params, GET_BY_IDNUMBER_AND_MOBILE, typeOft, accessToken);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return new ApiResponse<>(false, "网络连接异常");
+    }
+
+    @Override
+    public ApiResponse<String> postResetPasswordAndMobile(Integer userType, String userId, String mobile, String password, String accessToken) {
+        List<String> params = new ArrayList<>();
+        params.add(String.valueOf(userType));
+        params.add(userId);
+        params.add(mobile);
+        params.add(password);
+        Type typeOft = new TypeToken<ApiResponse<String>>() {
+        }.getType();
+        try {
+            return HttpEngine.getInstance().PSWDpostApiHandler(params, POST_RESET_PASSWORD_AND_MOBILE, typeOft, accessToken);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return new ApiResponse<>(false, "网络连接异常");
+    }
+
+
+    @Override
     public ApiResponse<String> activityRecruitRemove(List<String> activityRecruitId, String accessToken) {
         Gson gson = new Gson();
         String params = gson.toJson(activityRecruitId);

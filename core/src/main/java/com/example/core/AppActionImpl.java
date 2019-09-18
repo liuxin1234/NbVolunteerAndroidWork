@@ -1,5 +1,6 @@
 package com.example.core;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.text.TextUtils;
@@ -1519,6 +1520,57 @@ public class AppActionImpl implements AppAction {
             }
         }.execute();
 
+    }
+
+    @Override
+    public void getByIdNumberAndMobile(final String idNumber, final String mobile, final Integer userType, final ActionCallbackListener<String> listener) {
+        //判断票据是否过期
+        final String accessToken = LocalDate.getInstance(context).getLocalDate("access_token", "");
+        new AsyncTask<Void, Void, ApiResponse<String>>() {
+            @Override
+            protected ApiResponse<String> doInBackground(Void... params) {
+                return api.getByIdNumberAndMobile(idNumber, mobile, userType, accessToken);
+            }
+
+            @Override
+            protected void onPostExecute(ApiResponse<String> result) {
+                if (result == null) {
+                    listener.onFailure("", "请检查网络后重试");
+                    return;
+                }
+                if (result.isSuccess()) {
+                    listener.onSuccess(result.getData());
+                } else {
+                    listener.onFailure("", result.getMessage());
+                }
+            }
+        }.execute();
+
+    }
+
+    @Override
+    public void postResetPasswordAndMobile(final Integer userType, final String userId, final String mobile, final String password, final ActionCallbackListener<String> listener) {
+        //判断票据是否过期
+        final String accessToken = LocalDate.getInstance(context).getLocalDate("access_token", "");
+        new AsyncTask<Void, Void, ApiResponse<String>>() {
+            @Override
+            protected ApiResponse<String> doInBackground(Void... params) {
+                return api.postResetPasswordAndMobile(userType,userId, mobile, password, accessToken);
+            }
+
+            @Override
+            protected void onPostExecute(ApiResponse<String> result) {
+                if (result == null) {
+                    listener.onFailure("", "请检查网络后重试");
+                    return;
+                }
+                if (result.isSuccess()) {
+                    listener.onSuccess(result.getData());
+                } else {
+                    listener.onFailure("", result.getMessage());
+                }
+            }
+        }.execute();
     }
 
     @Override

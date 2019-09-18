@@ -17,8 +17,8 @@
     <item name="gridview" type="id"/>
     <item name="webview" type="id"/>
 
-    <item name="about_version_code" type="id">false</item>
-    <item name="split" type="id">false</item>
+    <item type="id" name="about_version_code"/>
+    <item type="id" name="split"/>
 
     <item name="CONTENT_VIEW_ID" type="id"/>
     <item name="MENU_VIEW_ID" type="id"/>

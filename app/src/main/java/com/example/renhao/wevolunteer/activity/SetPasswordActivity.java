@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+
 import com.example.api.utils.EncryptUtil;
 import com.example.core.AppActionImpl;
 import com.example.core.local.LocalDate;
@@ -15,7 +16,6 @@ import com.example.model.ActionCallbackListener;
 import com.example.renhao.wevolunteer.R;
 import com.example.renhao.wevolunteer.base.BaseActivity;
 import com.example.renhao.wevolunteer.utils.ActionBarUtils;
-import com.orhanobut.logger.Logger;
 
 /**
  * 设置密码界面

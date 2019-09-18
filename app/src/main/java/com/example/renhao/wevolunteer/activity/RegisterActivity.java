@@ -9,7 +9,6 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -29,9 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 /**
  * 注册界面
@@ -60,13 +57,13 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     Button btn_back_login;  //返回登录界面按钮
 //    ImageView img_back;     //头部导航栏返回图标按钮
     LinearLayout ll_area;   // 区域选择
-//    LinearLayout ll_org;  //机构选择
+    LinearLayout ll_org;  //机构选择
     LinearLayout ll_credentials_type;   //证件类型
     LinearLayout ll_personal_attribute; //个人属性
 //    LinearLayout ll_Political_Attribute; //政治面貌
     TextView tv_cardType;   //证件类型选择后显示的内容
     TextView areaNameTv;    //所属区域名字text
-//    TextView orgNameTv;   //所属机构名字text
+    TextView orgNameTv;   //所属机构名字text
     TextView clause;        //条款text
     LinearLayout ll;        //整个view的父组件
     TextView attribute_show;    //个人属性 text
@@ -92,8 +89,8 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     private String areaName;    //所在区域名字
     private String areaId;      //所在区域ID
     private String areaCode;    //所在区域code
-//    private String orgName;   //所属机构名字
-//    private String orgId;     //所属机构ID
+    private String orgName;   //所属机构名字
+    private String orgId;     //所属机构ID
     private String personalCode;    //个人属性code
 
 //    private String polity;    //政治面貌
@@ -142,12 +139,12 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         btn_back_login = (Button) findViewById(R.id.btn_back_login);
 //        img_back = (ImageView) findViewById(R.id.imageView_btn_back);
         ll_area = (LinearLayout) findViewById(R.id.LL_apply_area);
-//        ll_org = (LinearLayout) findViewById(R.id.LL_apply_ORG);
+        ll_org = (LinearLayout) findViewById(R.id.LL_apply_ORG);
         ll_credentials_type = (LinearLayout) findViewById(R.id.ll_credentials_type);
         ll_personal_attribute = (LinearLayout) findViewById(R.id.ll_personal_attribute);
         tv_cardType = (TextView) findViewById(R.id.tv_credentials_type);
         areaNameTv = (TextView) findViewById(R.id.tv_register_areaName);
-//        orgNameTv = (TextView) findViewById(R.id.tv_register_orgName);
+        orgNameTv = (TextView) findViewById(R.id.tv_register_orgName);
         clause = (TextView) findViewById(R.id.tv_clause);
         ll = (LinearLayout) findViewById(R.id.ll_register);
 //        ll_Political_Attribute = (LinearLayout) findViewById(R.id.ll_PoliticalAttribute);
@@ -164,7 +161,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         btn_back_login.setOnClickListener(this);
 //        img_back.setOnClickListener(this);
         ll_area.setOnClickListener(this);
-//        ll_org.setOnClickListener(this);
+        ll_org.setOnClickListener(this);
         ll_credentials_type.setOnClickListener(this);
         ll_personal_attribute.setOnClickListener(this);
         clause.setOnClickListener(this);
@@ -219,13 +216,13 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
             System.out.println("areaCode--------" + areaCode);
         }
         //所属机构的数据回调
-//        if (requestCode == ORG_REGISTER && resultCode == RESULT_OK) {
-//            personal_data = (VolunteerViewDto) data.getSerializableExtra("personal_data");
-//            orgName = data.getStringExtra("orgName");
-//            orgId = data.getStringExtra("orgId");
-//            orgNameTv.setText(orgName);
-//            System.out.println("orgId----------" + orgId);
-//        }
+        if (requestCode == ORG_REGISTER && resultCode == RESULT_OK) {
+            personal_data = (VolunteerViewDto) data.getSerializableExtra("personal_data");
+            orgName = data.getStringExtra("orgName");
+            orgId = data.getStringExtra("orgId");
+            orgNameTv.setText(orgName);
+            System.out.println("orgId----------" + orgId);
+        }
         //个人属性的数据回调
         if (requestCode == PERSONAL_ATTRIBUTE && resultCode == RESULT_OK) {
             Bundle result = new Bundle();
@@ -347,13 +344,13 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                 startActivityForResult(areaIntent, AREA_REGISTER);
                 break;
             //所在机构
-//            case R.id.LL_apply_ORG:
-//                Intent orgIntent = new Intent(RegisterActivity.this, OrgSelectActivity.class);
-//                orgIntent.putExtra("orgnames", orgName);
-//                orgIntent.putExtra("personal_data", personal_data);
-//                orgIntent.putExtra("type", ORG_REGISTER);
-//                startActivityForResult(orgIntent, ORG_REGISTER);
-//                break;
+            case R.id.LL_apply_ORG:
+                Intent orgIntent = new Intent(RegisterActivity.this, OrgSelectActivity.class);
+                orgIntent.putExtra("orgnames", orgName);
+                orgIntent.putExtra("personal_data", personal_data);
+                orgIntent.putExtra("type", ORG_REGISTER);
+                startActivityForResult(orgIntent, ORG_REGISTER);
+                break;
             //政治面貌
 //            case R.id.ll_PoliticalAttribute:
 //                Intent PoliticalAttributeintent = new Intent();
@@ -458,7 +455,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         vl_create.setMobile(phone);
         vl_create.setAreaCode(areaCode);
         vl_create.setAreaCodes(areaCode);
-//        vl_create.setOrgIds(orgId);  //所在机构  这里默认注册到ae14862e-6383-4d23-9a5d-cc3caaad7e99
+        vl_create.setOrgIds(orgId);  //所在机构  这里默认注册到ae14862e-6383-4d23-9a5d-cc3caaad7e99
 //        vl_create.setPolity(polity);//政治面貌
 //        vl_create.setEmail(email);    //邮箱
 //        vl_create.setTag(volunteerTagCode);   //是否为平安志愿者

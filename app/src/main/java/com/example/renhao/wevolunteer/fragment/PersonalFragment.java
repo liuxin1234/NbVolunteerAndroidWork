@@ -703,9 +703,13 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
 //                                                        Logger.e("apk请求地址："+replaceUrl);
 //                                                        Logger.e("apk下载地址："+Util.getApkRealUrl(replaceUrl));
                                                         Logger.e("apk请求地址："+data.getFileUrl());
-                                                        updateManger = new UpdateManger(getActivity(), Util.getRealUrl(data.getFileUrl()), "检测到新版本，是否更新");
-                                                        // updateManger = new UpdateManger(context, "http://192.168.1.100:8080/lib_check/WeVolunteer.apk", "检测到新版本，是否更新");
+                                                        boolean isHttp = data.getFileUrl().startsWith("http");
+                                                        if (isHttp){
+                                                            updateManger = new UpdateManger(getActivity(), data.getFileUrl(), "检测到新版本，是否更新");
 
+                                                        }else {
+                                                            updateManger = new UpdateManger(getActivity(), Util.getRealUrl(data.getFileUrl()), "检测到新版本，是否更新");
+                                                        }
                                                         if (Build.VERSION.SDK_INT >= 23) {
                                                             if (ContextCompat.checkSelfPermission(context,
                                                                     Manifest.permission.WRITE_EXTERNAL_STORAGE)

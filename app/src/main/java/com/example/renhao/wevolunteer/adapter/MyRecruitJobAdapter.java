@@ -68,7 +68,7 @@ public class MyRecruitJobAdapter extends BaseAdapter {
     public View getView(final int position, View convertView, ViewGroup parent) {
         MyRecruitJobAdapter.ViewHolder holder;
         if (convertView == null) {
-            convertView = mInflater.inflate(R.layout.item_myproject, null);//根据布局产生一个view
+            convertView = mInflater.inflate(R.layout.item_my_recurit_job, null);//根据布局产生一个view
             holder = new MyRecruitJobAdapter.ViewHolder();
             holder.name = (TextView) convertView.findViewById(R.id.tv_myProject_projectName);
             holder.STATE = (TextView) convertView.findViewById(R.id.tv_myProject_state);

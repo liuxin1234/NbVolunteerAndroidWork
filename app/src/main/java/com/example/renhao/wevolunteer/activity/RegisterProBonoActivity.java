@@ -89,8 +89,8 @@ public class RegisterProBonoActivity extends BaseActivity implements View.OnFocu
     EditText etRegisterRepassword;  //重复密码
     @Bind(R.id.LL_apply_area)
     LinearLayout LLApplyArea;       //所属区域layout
-    //    @Bind(R.id.LL_apply_ORG)
-//    LinearLayout LLApplyORG;        //所属机构layout
+    @Bind(R.id.LL_apply_ORG)
+    LinearLayout LLApplyORG;        //所属机构layout
     @Bind(R.id.ll_PoliticalAttribute)
     LinearLayout llPoliticalAttribute;  //政治面貌layout
 
@@ -122,8 +122,8 @@ public class RegisterProBonoActivity extends BaseActivity implements View.OnFocu
     TextView tv_attribute_show; //个人属性text
     @Bind(R.id.tv_register_pro_bono_area)
     TextView tv_area_show;  //所属区域text
-    //    @Bind(R.id.tv_register_pro_bono_ORG)
-//    TextView tv_ORG_show;   //所在机构text
+    @Bind(R.id.tv_register_orgName)
+    TextView tv_ORG_show;   //所在机构text
     @Bind(R.id.tv_register_pro_bono_polity)
     TextView tv_polity_show;    //政治面貌text
 
@@ -180,8 +180,8 @@ public class RegisterProBonoActivity extends BaseActivity implements View.OnFocu
     private String personalCode = "1";    //个人属性code 默认为 1 表示内地居民身份证
     private String areaName;    //区域名字
     private String areaCode;    //区域code
-    //    private String orgName;   //机构名字
-//    private String orgId;     //机构id
+    private String orgName;   //机构名字
+    private String orgId;     //机构id
     private String polity;      //政治面貌
 
     //    private String serviceTimeIntention;  //意向时间
@@ -338,12 +338,12 @@ public class RegisterProBonoActivity extends BaseActivity implements View.OnFocu
                     tv_area_show.setText(areaName);
                     break;
                 //所属机构
-//                case ORG_REGISTER:
-//                    personal_data = (VolunteerViewDto) data.getSerializableExtra("personal_data");
-//                    orgName = data.getStringExtra("orgName");
-//                    orgId = data.getStringExtra("orgId");
-//                    tv_ORG_show.setText(orgName);
-//                    break;
+                case ORG_REGISTER:
+                    personal_data = (VolunteerViewDto) data.getSerializableExtra("personal_data");
+                    orgName = data.getStringExtra("orgName");
+                    orgId = data.getStringExtra("orgId");
+                    tv_ORG_show.setText(orgName);
+                    break;
                 //证件类型
                 case MY_CARDTYPE:
                     String cardType_text = data.getStringExtra("type_text");
@@ -501,7 +501,7 @@ public class RegisterProBonoActivity extends BaseActivity implements View.OnFocu
 
     //R.id.ll_volunteer_type  R.id.ll_intention_time R.id.LL_apply_ORG R.id.LL_PD_myPortrait R.id.ll_back
     @OnClick({R.id.tv_register_datebirth,R.id.ll_credentials_type, R.id.ll_personal_attribute, R.id.LL_apply_area,
-            R.id.ll_PoliticalAttribute, R.id.ll_intention_type, R.id.ll_professional_ability,
+            R.id.ll_PoliticalAttribute, R.id.ll_intention_type, R.id.ll_professional_ability,R.id.LL_apply_ORG,
             R.id.btn_register_verification_code, R.id.cb_register_agree, R.id.btn_register_volunteer,
             R.id.btn_back_login, R.id.tv_clause, R.id.ll_Nation, R.id.ll_Education})
     public void onClick(View view) {
@@ -558,13 +558,13 @@ public class RegisterProBonoActivity extends BaseActivity implements View.OnFocu
                 startActivityForResult(areaintent, AREA_REGISTER);
                 break;
             //所属机构
-//            case R.id.LL_apply_ORG:
-//                Intent orgIntent = new Intent(RegisterProBonoActivity.this, OrgSelectActivity.class);
-//                orgIntent.putExtra("personal_data", personal_data);
-//                orgIntent.putExtra("orgnames", orgName);
-//                orgIntent.putExtra("type", ORG_REGISTER);
-//                startActivityForResult(orgIntent, ORG_REGISTER);
-//                break;
+            case R.id.LL_apply_ORG:
+                Intent orgIntent = new Intent(RegisterProBonoActivity.this, OrgSelectActivity.class);
+                orgIntent.putExtra("personal_data", personal_data);
+                orgIntent.putExtra("orgnames", orgName);
+                orgIntent.putExtra("type", ORG_REGISTER);
+                startActivityForResult(orgIntent, ORG_REGISTER);
+                break;
             //政治面貌
             case R.id.ll_PoliticalAttribute:
                 Intent PoliticalAttributeintent = new Intent();
@@ -723,7 +723,7 @@ public class RegisterProBonoActivity extends BaseActivity implements View.OnFocu
         vl_create.setAreaCodes(areaCode);
         vl_create.setVolk(Volk);
         vl_create.setDegree(Degree);
-//        vl_create.setOrgIds(orgId);
+        vl_create.setOrgIds(orgId);
         vl_create.setPolity(polity);//政治面貌
 //        vl_create.setWorkunit(workUnlt);//工作单位
         vl_create.setDomicile(address);//地址
@@ -807,9 +807,9 @@ public class RegisterProBonoActivity extends BaseActivity implements View.OnFocu
         } else if (TextUtils.isEmpty(areaCode)) {
             showToast("请选择所在区域");
         }
-//        else if (TextUtils.isEmpty(orgId)) {
-//            showToast("请选择所属机构");
-//        }
+        else if (TextUtils.isEmpty(orgId)) {
+            showToast("请选择所属机构");
+        }
         else if (!Flag_polity) {
             showToast("请选择政治面貌");
         } /*else if (!Flag_major) {

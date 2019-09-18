@@ -10,7 +10,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="@dimen/actionbar_homepage_margin"
         android:layout_marginStart="@dimen/actionbar_homepage_margin"
         android:gravity="center_vertical"
         android:orientation="vertical">
@@ -45,12 +44,12 @@
 
     <ImageView
         android:id="@+id/imageview_homepage_magnifier"
-        android:layout_width="@dimen/imageview_homepage_magnifierSize"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_alignEnd="@id/tv_homepage_title"
-        android:layout_alignRight="@id/tv_homepage_title"
+        android:paddingStart="10dp"
+        android:paddingEnd="2dp"
         android:layout_centerVertical="true"
-        android:padding="@dimen/imageview_backBTN_padding"
         android:src="@drawable/magnifier" />
 
 </RelativeLayout>

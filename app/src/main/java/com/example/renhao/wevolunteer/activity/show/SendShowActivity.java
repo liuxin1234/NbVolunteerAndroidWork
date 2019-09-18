@@ -12,13 +12,10 @@ import android.widget.EditText;
 import com.example.core.AppActionImpl;
 import com.example.core.local.LocalDate;
 import com.example.model.ActionCallbackListener;
-import com.example.model.share.ShareDto;
-import com.example.model.share.ShareListDto;
 import com.example.renhao.wevolunteer.R;
 import com.example.renhao.wevolunteer.base.BaseActivity;
 import com.example.renhao.wevolunteer.common.Constants;
 import com.example.renhao.wevolunteer.utils.ActionBarUtils;
-import com.example.renhao.wevolunteer.utils.BitmapUtil;
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.bean.ImageItem;
 import com.lzy.imagepicker.ui.ImageGridActivity;
@@ -34,6 +31,16 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
+/**
+ * Created by on
+ * 项目名称：com.example.renhao.wevolunteer.activity.show
+ * 项目日期：2019/8/28
+ * 作者：liux
+ * 邮箱：750954283@qq.com
+ * 公司：nbzhongjing
+ * 功能：发布 秀一秀 照片 图文
+ */
+
 public class SendShowActivity extends BaseActivity implements ImagePickerAdapter.OnRecyclerViewItemClickListener{
 
     @Bind(R.id.recyclerView)
@@ -42,6 +49,7 @@ public class SendShowActivity extends BaseActivity implements ImagePickerAdapter
     EditText etContent;
 
     private String volunteerId;
+    private String activityId;
 
     public static final int IMAGE_ITEM_ADD = -1;
     public static final int REQUEST_CODE_SELECT = 100;
@@ -71,6 +79,13 @@ public class SendShowActivity extends BaseActivity implements ImagePickerAdapter
 
             }
         });
+
+        Intent intent = getIntent();
+        if (intent == null){
+            return;
+        }
+        activityId = intent.getStringExtra("activityId");
+
         //最好放到 Application oncreate执行
         initImagePicker();
         initWidget();
@@ -205,7 +220,7 @@ public class SendShowActivity extends BaseActivity implements ImagePickerAdapter
         }
 
         HashMap<String,String> map = new HashMap<>();
-        map.put("ActivityId","ccce225f-6daa-448c-b820-20bc63ea94c7");
+        map.put("ActivityId",activityId);
         map.put("VolunteerId",volunteerId);
         map.put("Description",etContent.getText().toString());
 
@@ -214,17 +229,18 @@ public class SendShowActivity extends BaseActivity implements ImagePickerAdapter
             public void onSuccess(String data) {
                 dissMissNormalDialog();
 
-                showToast(data);
-                Intent intent = new Intent(SendShowActivity.this,ShowActivity.class);
-                startActivity(intent);
-//
-//                if (TextUtils.isEmpty(data)){
-//                    showToast("提交失败");
-//                }else {
-//                    showToast(data);
+//                showToast(data);
+//                Intent intent = new Intent(SendShowActivity.this,ShowActivity.class);
+//                startActivity(intent);
+
+                if (TextUtils.isEmpty(data)){
+                    showToast("提交失败");
+                }else {
+                    showToast(data);
+                    finish();
 //                    Intent intent = new Intent(SendShowActivity.this,ShowActivity.class);
 //                    startActivity(intent);
-//                }
+                }
 
             }
 

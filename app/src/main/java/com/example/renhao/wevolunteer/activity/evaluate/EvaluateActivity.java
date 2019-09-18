@@ -65,6 +65,7 @@ public class EvaluateActivity extends BaseActivity {
 
 
     private String volunteerId;
+    private String activityId;
     private Integer Rating = 0;
 
     private EvaluateAdapter mEvaluateAdapter;
@@ -92,6 +93,13 @@ public class EvaluateActivity extends BaseActivity {
         });
         ActionBarUtils.setTvTitlet(actionBar, getResources().getString(R.string.tv_evaluate));
 
+        Intent intent = getIntent();
+        if (intent == null){
+            return;
+        }
+        activityId = intent.getStringExtra("activityId");
+        Logger.e(activityId);
+
 //        initView();
         initAdapter();
         getDate();
@@ -101,6 +109,8 @@ public class EvaluateActivity extends BaseActivity {
                 Rating = (int) rating;
             }
         });
+
+
 
         volunteerId = LocalDate.getInstance(this).getLocalDate(Constants.VOLUNTEER_ID,"");
     }
@@ -151,9 +161,7 @@ public class EvaluateActivity extends BaseActivity {
     @OnClick(R.id.btn_submit)
     public void onViewClicked() {
         submitData();
-//        showToast("提交成功");
-//        Intent intent = new Intent(this, ShowActivity.class);
-//        startActivity(intent);
+
 
     }
 
@@ -200,7 +208,7 @@ public class EvaluateActivity extends BaseActivity {
     public void submitData() {
         List<VolunteerAppraiseCompanyDto> mAppraiseCompanyDtoList = new ArrayList<>();
         VolunteerAppraiseCompanyDto appraiseCompanyDto = new VolunteerAppraiseCompanyDto();
-        appraiseCompanyDto.setActivityId("ccce225f-6daa-448c-b820-20bc63ea94c7");
+        appraiseCompanyDto.setActivityId(activityId);
         appraiseCompanyDto.setVolunteerId(volunteerId);
         appraiseCompanyDto.setTotalScore(Rating);
         setCodeAndScore(appraiseCompanyDto);
@@ -216,9 +224,10 @@ public class EvaluateActivity extends BaseActivity {
         AppActionImpl.getInstance(this).postAppraiseCompanyCreate(mAppraiseCompanyDtoList, new ActionCallbackListener<List<String>>() {
             @Override
             public void onSuccess(List<String> data) {
-                showToast("提交成功");
-                Intent intent = new Intent(EvaluateActivity.this, SendShowActivity.class);
-                startActivity(intent);
+                showToast("评价成功");
+//                Intent intent = new Intent(EvaluateActivity.this, SendShowActivity.class);
+//                intent.putExtra("activityId",activityId);
+//                startActivity(intent);
                 finish();
             }
 
@@ -237,7 +246,7 @@ public class EvaluateActivity extends BaseActivity {
         String code = "";
         String rating = "";
         for (String key : selectStarTypes.keySet()) {
-            code +=         selectStarTypes.get(key).getCode() + ",";
+            code +=  selectStarTypes.get(key).getCode() + ",";
             rating += selectStarTypes.get(key).getRating() + ",";
         }
         code = code.substring(0, code.length() - 1);

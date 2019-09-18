@@ -43,6 +43,7 @@ import com.example.renhao.wevolunteer.ProjectDetailActivity;
 import com.example.renhao.wevolunteer.R;
 import com.example.renhao.wevolunteer.activity.RegisterActivity;
 import com.example.renhao.wevolunteer.activity.RegisterProBonoActivity;
+import com.example.renhao.wevolunteer.activity.webview.WebViewAdvertActivity;
 import com.example.renhao.wevolunteer.activity.webview.WebViewErrorActivity;
 import com.example.renhao.wevolunteer.adapter.HomePageAdapter;
 import com.example.renhao.wevolunteer.adapter.HomePageNoScrollGridAdapter;
@@ -58,6 +59,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.orhanobut.logger.Logger;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
+import com.youth.banner.listener.OnBannerClickListener;
 import com.youth.banner.listener.OnLoadImageListener;
 
 import org.greenrobot.eventbus.EventBus;
@@ -315,6 +317,13 @@ public class HomePageFragment extends BaseFragment implements BaseSliderView.OnS
 
                             }
                         });
+//                        banner.setOnBannerClickListener(new OnBannerClickListener() {
+//                            @Override
+//                            public void OnBannerClick(int position) {
+//                                Intent intent = new Intent(getActivity(), WebViewAdvertActivity.class);
+//                                startActivity(intent);
+//                            }
+//                        });
                         mPtrListviewHomapageList.onRefreshComplete();
                     }
 
@@ -440,8 +449,13 @@ public class HomePageFragment extends BaseFragment implements BaseSliderView.OnS
 //                                                        String replaceUrl = data.getFileUrl().replace("/App_Data", "");
                                                         Logger.e("apk请求地址："+data.getFileUrl());
 //                                                        Logger.e("apk下载地址："+Util.getApkRealUrl(replaceUrl));
-                                                        updateManger = new UpdateManger(getActivity(), Util.getRealUrl(data.getFileUrl()), "检测到新版本，是否更新");
-                                                        // updateManger = new UpdateManger(context, "http://192.168.1.100:8080/lib_check/WeVolunteer.apk", "检测到新版本，是否更新");
+                                                        boolean isHttp = data.getFileUrl().startsWith("http");
+                                                        if (isHttp){
+                                                            updateManger = new UpdateManger(getActivity(), data.getFileUrl(), "检测到新版本，是否更新");
+
+                                                        }else {
+                                                            updateManger = new UpdateManger(getActivity(), Util.getRealUrl(data.getFileUrl()), "检测到新版本，是否更新");
+                                                        }
 
                                                         if (Build.VERSION.SDK_INT >= 23) {
                                                             if (ContextCompat.checkSelfPermission(getActivity(),

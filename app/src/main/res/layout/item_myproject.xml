@@ -64,15 +64,56 @@
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/tv_myProject_state"
-            android:layout_width="@dimen/textview_myproject_state_heigth"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="@dimen/imageview_myproject_margin"
-            android:background="@color/colorCyan"
-            android:gravity="center"
-            android:textColor="#fff"
-            android:textSize="@dimen/textview_myproject_textsize"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/tv_myProject_state"
+                android:layout_width="@dimen/textview_myproject_state_heigth"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/imageview_myproject_margin"
+                android:background="@color/colorCyan"
+                android:gravity="center"
+                android:paddingTop="3dp"
+                android:paddingBottom="3dp"
+                android:layout_gravity="center_vertical"
+                android:textColor="#fff"
+                android:textSize="@dimen/textview_myproject_textsize"/>
+
+            <TextView
+                android:id="@+id/tv_myProject_evaluate"
+                android:layout_width="@dimen/textview_myproject_state_heigth"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/imageview_myproject_margin"
+                android:background="@color/colorBlue"
+                android:layout_gravity="center_vertical"
+                android:gravity="center"
+                android:layout_marginTop="10dp"
+                android:paddingTop="3dp"
+                android:paddingBottom="3dp"
+                android:textColor="#fff"
+                android:visibility="gone"
+                android:textSize="@dimen/textview_myproject_textsize"/>
+
+            <TextView
+                android:id="@+id/tv_myProject_send_show"
+                android:layout_width="@dimen/textview_myproject_state_heigth"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/imageview_myproject_margin"
+                android:background="@color/colorRed"
+                android:layout_gravity="center_vertical"
+                android:gravity="center"
+                android:layout_marginTop="10dp"
+                android:paddingTop="3dp"
+                android:paddingBottom="3dp"
+                android:textColor="#fff"
+                android:visibility="gone"
+                android:textSize="@dimen/textview_myproject_textsize"/>
+
+        </LinearLayout>
+
     </LinearLayout>
 </LinearLayout>

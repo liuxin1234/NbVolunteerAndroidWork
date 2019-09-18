@@ -12,12 +12,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
-import com.example.core.AppAction;
 import com.example.core.AppActionImpl;
 import com.example.core.local.LocalDate;
 import com.example.model.ActionCallbackListener;
@@ -27,15 +23,14 @@ import com.example.model.activityRecruit.ActivityRecruitQueryOptionDto;
 import com.example.model.activityattention.ActivityAttentionListDto;
 import com.example.model.activityattention.ActivityAttentionQueryOptionDto;
 import com.example.model.items.MyProjectItem;
-import com.example.model.signResult.SignResultListDto;
-import com.example.model.signResult.SignResultQueryOptionDto;
 import com.example.renhao.wevolunteer.ProjectDetailActivity;
 import com.example.renhao.wevolunteer.R;
 import com.example.renhao.wevolunteer.SearchActivity;
+import com.example.renhao.wevolunteer.activity.evaluate.EvaluateActivity;
+import com.example.renhao.wevolunteer.activity.show.SendShowActivity;
 import com.example.renhao.wevolunteer.adapter.MyProjectAdapter;
 import com.example.renhao.wevolunteer.base.BaseActivity;
 import com.example.renhao.wevolunteer.utils.ActionBarUtils;
-import com.example.renhao.wevolunteer.utils.GsonUtils;
 import com.handmark.pulltorefresh.library.ILoadingLayout;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
@@ -48,7 +43,6 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class MyProjectActivity extends BaseActivity {
 
@@ -153,6 +147,7 @@ public class MyProjectActivity extends BaseActivity {
                             attentions.add(data.getRows().get(i));
                             ActivityAttentionListDto listDto = data.getRows().get(i);
                             MyProjectItem item = new MyProjectItem();
+                            item.setActivityRecruitId(listDto.getActivityId());
                             item.setNeme(listDto.getActivityActivityName());
                             item.setState(listDto.getActivityState());
                             item.setTime(listDto.getAttentionTime());
@@ -206,6 +201,7 @@ public class MyProjectActivity extends BaseActivity {
                             MyProjectItem item = new MyProjectItem();
                             if (listDto.getComputerHour() != null || listDto.getSignInTime() != null
                                     || listDto.getSignOutTime() != null){
+                                item.setActivityRecruitId(listDto.getActivityId());
                                 item.setNeme(listDto.getActivityActivityName());
                                 item.setState(listDto.getActivityState());
                                 item.setTime(listDto.getActivityTimeSTime());
@@ -289,6 +285,25 @@ public class MyProjectActivity extends BaseActivity {
         endLayout.setReleaseLabel("放开刷新");
 
         myProjectAdapter = new MyProjectAdapter(this, lists);
+//        //评价
+//        myProjectAdapter.setOnItemButtonClickListener(new MyProjectAdapter.OnItemButtonClickListener() {
+//            @Override
+//            public void onItemBtnEvaluateClickListener(List<MyProjectItem> data, int position) {
+//                Logger.e(data.get(position).getActivityRecruitId());
+//                Intent intent = new Intent(MyProjectActivity.this, EvaluateActivity.class);
+//                intent.putExtra("activityId",data.get(position).getActivityRecruitId());
+//                startActivity(intent);
+//            }
+//
+//            @Override
+//            public void onItemBtnSendShowClickListener(List<MyProjectItem> data, int position) {
+//                Logger.e(data.get(position).getActivityRecruitId());
+//                Intent intent = new Intent(MyProjectActivity.this, SendShowActivity.class);
+//                intent.putExtra("activityId",data.get(position).getActivityRecruitId());
+//                startActivity(intent);
+//            }
+//
+//        });
         mMyproject.setAdapter(myProjectAdapter);
 
         mMyproject.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -312,6 +327,7 @@ public class MyProjectActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
+
     }
 
 //    @OnClick({R.id.imageView_myproject_btn_back, R.id.imageview_myproject_magnifier})

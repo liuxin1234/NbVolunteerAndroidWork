@@ -1,42 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
           package="com.example.renhao.wevolunteer">
-
     <!-- 分享所需权限 -->
     <!-- <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/> -->
     <!-- <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/> -->
     <!-- <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/> -->
     <!-- <uses-permission android:name="android.permission.READ_PHONE_STATE"/> -->
     <!-- <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/> -->
-
     <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
     <uses-permission android:name="android.permission.MANAGE_ACCOUNTS"/>
-    <uses-permission android:name="android.permission.GET_TASKS"/>
-
-    <!-- 网络权限 -->
-    <uses-permission android:name="android.permission.INTERNET"/>
-
-    <!-- 用于进行网络定位 -->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <!-- 用于访问GPS定位 -->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <!-- 获取运营商信息，用于支持提供运营商信息相关的接口 -->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <!-- 用于访问wifi网络信息，wifi信息会用于进行网络定位 -->
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    <!-- 这个权限用于获取wifi的获取权限，wifi信息会用来进行网络定位 -->
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
-
-    <!-- 用于读取手机当前的状态 -->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-    <!-- 写入扩展存储，向扩展卡写入数据，用于写入缓存定位数据 -->
+    <uses-permission android:name="android.permission.GET_TASKS"/> <!-- 网络权限 -->
+    <uses-permission android:name="android.permission.INTERNET"/> <!-- 用于进行网络定位 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/> <!-- 用于访问GPS定位 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/> <!-- 获取运营商信息，用于支持提供运营商信息相关的接口 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/> <!-- 用于访问wifi网络信息，wifi信息会用于进行网络定位 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/> <!-- 这个权限用于获取wifi的获取权限，wifi信息会用来进行网络定位 -->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/> <!-- 用于读取手机当前的状态 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/> <!-- 写入扩展存储，向扩展卡写入数据，用于写入缓存定位数据 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION"/>
+    <uses-permission
+        android:name="android.permission.CHANGE_CONFIGURATION"
+        tools:ignore="ProtectedPermissions"/>
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
-    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+    <uses-permission
+        android:name="android.permission.WRITE_SETTINGS"
+        tools:ignore="ProtectedPermissions"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-
-    <uses-permission android:name="android.permission.READ_LOGS" />
+    <uses-permission
+        android:name="android.permission.READ_LOGS"
+        tools:ignore="ProtectedPermissions"/>
 
     <application
         android:name=".application.BaseApplication"
@@ -45,16 +38,14 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="8798103f868ea3e68c555428e863372e"/>
-
-        <!-- 全面屏的沉浸式布局适配 这里的value值最好是2.1或者更高 -->
+            android:value="8798103f868ea3e68c555428e863372e"/> <!-- 全面屏的沉浸式布局适配 这里的value值最好是2.1或者更高 -->
         <meta-data
             android:name="android.max_aspect"
-            android:value="2.1"/>
-
-        <!-- 7.0文件访问适配 -->
+            android:value="2.1"/> <!-- 7.0文件访问适配 -->
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.FileProvider"
@@ -75,15 +66,18 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
+        <activity android:name=".AdvertsActivity"
+                  android:screenOrientation="portrait">
+        </activity>
+
         <activity
             android:name=".GuideActivity"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".IndexActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"/>
-
-        <!-- 定位需要的服务 使用2.0的定位需要加上这个 -->
+            android:screenOrientation="portrait"/> <!-- 定位需要的服务 使用2.0的定位需要加上这个 -->
         <service android:name="com.amap.api.location.APSService"/>
 
         <activity
@@ -214,8 +208,7 @@
         <activity
             android:name=".activity.Complete_information"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
-        <!-- //分享所需activity -->
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/> <!-- //分享所需activity -->
         <activity
             android:name="com.mob.tools.MobUIShell"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -230,8 +223,7 @@
                 <category android:name="android.intent.category.BROWSABLE"/>
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
-        </activity>
-        <!-- //微信必须回调 -->
+        </activity> <!-- //微信必须回调 -->
         <activity
             android:name="cn.sharesdk.demo.wxapi.WXEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -257,29 +249,30 @@
             android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.webview.WebViewErrorActivity"
-            android:screenOrientation="portrait"/>
-
-        <!-- 签到成功后，评价界面 -->
+            android:screenOrientation="portrait"/> <!-- 签到成功后，评价界面 -->
         <activity
             android:name=".activity.evaluate.SignOffActivity"
             android:screenOrientation="portrait">
-
         </activity>
         <activity
             android:name=".activity.evaluate.EvaluateActivity"
             android:screenOrientation="portrait">
-
         </activity>
         <activity
             android:name=".activity.show.ShowActivity"
             android:screenOrientation="portrait">
-
         </activity>
-        <activity android:name=".activity.show.CommentActivity">
+        <activity
+            android:name=".activity.show.CommentActivity"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".activity.show.SendShowActivity">
-
+        <activity
+            android:name=".activity.show.SendShowActivity"
+            android:screenOrientation="portrait">
         </activity>
+        <activity
+            android:name=".activity.webview.WebViewAdvertActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
