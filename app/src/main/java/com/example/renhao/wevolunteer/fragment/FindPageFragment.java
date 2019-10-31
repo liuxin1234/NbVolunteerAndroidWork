@@ -1093,14 +1093,14 @@ public class FindPageFragment extends BaseFragment implements LocationSource,
                 new ActionCallbackListener<List<String>>() {
                     @Override
                     public void onSuccess(List<String> data) {
-                        if (data == null) {
-                            showToast("签退失败");
-                            return;
-                        }
-                        if (data.size() < 1) {
-                            showToast("签退失败");
-                            return;
-                        }
+//                        if (data == null) {
+//                            showToast("签退失败");
+//                            return;
+//                        }
+//                        if (data.size() < 1) {
+//                            showToast("签退失败");
+//                            return;
+//                        }
                         LocalDate.getInstance(getActivity()).setLocalDate("activityId", "");
                         LocalDate.getInstance(getActivity()).setLocalDate("activityNumCode", "");
                         LocalDate.getInstance(getActivity()).setLocalDate("SIGN_OUT","0");

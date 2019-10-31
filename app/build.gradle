@@ -18,13 +18,12 @@ android {
      * 注意这里的构建版本不能太高 targetSdkVersion 23 超过这个 H5的签离签到界面定位会出现问题
      */
     compileSdkVersion 26
-    buildToolsVersion '26.0.3'
     defaultConfig {
         applicationId "com.example.renhao.wevolunteer"
         minSdkVersion 19
         targetSdkVersion 26
-        versionCode 17
-        versionName "1.5.7"
+        versionCode 18
+        versionName "1.5.8"
         //使用矢量图配置
         vectorDrawables.useSupportLibrary = true
         // 分包配置
@@ -33,6 +32,8 @@ android {
             //设置支持的SO库架构（开发者可以根据需要，选择一个或多个平台的so）
             abiFilters "armeabi"
         }
+        //添加如下配置就OK了
+        javaCompileOptions { annotationProcessorOptions { includeCompileClasspath = true } }
     }
     buildTypes {
         release {
